@@ -23,7 +23,7 @@
       <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <PackageReference Include="STS2.RitsuLib"/>
+    <PackageReference Include="STS2.RitsuLib" Version="*" />
   </ItemGroup>
 
   <!-- 自动复制dll和json -->
