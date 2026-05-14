@@ -3,14 +3,15 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
-
+using Starborn.Card.Common;
+using Starborn.Relics;
 namespace Starborn.Scripts;
 
 // 必须要加的属性，用于注册Mod。字符串和初始化函数命名一致。
 [ModInitializer(nameof(Init))]
 public class Entry
 {
-    public const string ModId = "Starborn";
+    public const string ModId = "starborn";
     public static readonly Logger Logger = RitsuLibFramework.CreateLogger(ModId);    
     // 初始化函数
     public static void Init()
@@ -22,5 +23,10 @@ public class Entry
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         // 自动注册内容
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+        // 古老牙齿
+        RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<TestCard, TestAncientCard>();
+        // 奥伯拉斯之触
+        RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<TestRelic, TestRelic>();
     }
+    
 }
