@@ -1,0 +1,3 @@
+[submodule "STS-RitsuLib"]
+	path = STS-RitsuLib
+	url = https://github.com/BAKAOLC/STS2-RitsuLib.git
