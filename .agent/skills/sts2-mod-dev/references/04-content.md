@@ -170,7 +170,7 @@ public class MyPotion : ModPotionTemplate
     public override PotionTargetType TargetType => PotionTargetType.NoTarget;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new MagicVar(3)
+        new CardsVar(3)
     ];
 
     public override PotionAssetProfile AssetProfile => new(
@@ -179,7 +179,7 @@ public class MyPotion : ModPotionTemplate
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Player player, object? target)
     {
-        await CardPileCmd.Draw(ctx, DynamicVars.Magic.IntValue, player);
+        await CardPileCmd.Draw(ctx, DynamicVars.Cards.IntValue, player);
     }
 }
 ```
@@ -191,7 +191,7 @@ File: `MyMod/localization/{lang}/potions.json`
 ```json
 {
     "MYMOD_POTION_MY_POTION.title": "My Potion",
-    "MYMOD_POTION_MY_POTION.description": "Draw [blue]{Magic}[/blue] cards."
+    "MYMOD_POTION_MY_POTION.description": "Draw [blue]{Cards}[/blue] cards."
 }
 ```
 

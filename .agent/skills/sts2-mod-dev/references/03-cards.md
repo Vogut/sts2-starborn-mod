@@ -152,14 +152,14 @@ Ancient cards use a taller portrait (250×351 px).
 ```csharp
 protected override IEnumerable<DynamicVar> CanonicalVars => [
     new DamageVar(4, ValueProp.Move),
-    new MagicVar(3)   // hit count
+    new RepeatVar(4)   // hit count
 ];
 
 protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
 {
-    for (int i = 0; i < DynamicVars.Magic.IntValue; i++)
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this).Targeting(play.Target!).Execute(ctx);
+    await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+        .WithHitCount(DynamicVars.Repeat.IntValue)
+        .FromCard(this).Targeting(play.Target!).Execute(ctx);
 }
 ```
 
@@ -183,7 +183,7 @@ protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
 {
     await BlockCmd.Block(DynamicVars.Block.BaseValue)
         .Source(this).Target(Owner).Execute(ctx);
-    await PowerCmd.Apply<StrengthPower>(Owner, DynamicVars.Magic.IntValue, Owner, null);
+    await PowerCmd.Apply<StrengthPower>(Owner, DynamicVars.Block.IntValue, Owner, null);
 }
 ```
 
