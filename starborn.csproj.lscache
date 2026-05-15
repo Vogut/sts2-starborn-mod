@@ -59,6 +59,7 @@ TemporaryDependencyNodeTargetIdentifier=net10.0
  starborn.AssemblyInfo.cs
  starborn.GlobalUsings.g.cs
 Cards/Common/
+ SwitchPrimaryMarkCard.cs
  TestAncientCard.cs
  TestCard.cs
 Character/
@@ -67,7 +68,14 @@ Character/
  StarbornPotionPool.cs
  StarbornRelicPool.cs
 Entry.cs
-Relics/TestRelic.cs
+Powers/
+ PrimaryMarkPower.cs
+ SealAttribute.cs
+ SealMarkPower.cs
+ SecondaryMarkPower.cs
+Relics/
+ StarbornMarkRelic.cs
+ TestRelic.cs
 sts2/sts2/
  --y__InlineArray2.cs
  --y__InlineArray3.cs
