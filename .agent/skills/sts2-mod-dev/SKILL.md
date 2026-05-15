@@ -33,6 +33,19 @@ STS2-RitsuLib is under continuous development, and the documented API may lag be
 
 > `STS2-RitsuLib/docs/` contains officially maintained documentation (Markdown), which takes precedence over this skill's reference files, but may still lag behind the latest commits. The source code (`.cs`) is always the most authoritative reference.
 
+## 🎮 Referencing Vanilla Implementation — Using sts2/sts2 Game Source
+
+The root directory of the workspace contains `sts2/sts2/`, which is the decompiled/original source code of the game. **When users mention "referencing vanilla content",
+"how the vanilla implementation works", "keeping consistent with vanilla", or when the `RitsuLib` API cannot solve the issue, prioritize looking in this directory** rather than relying on assumptions:
+
+- **Finding vanilla content types** (cards, relics, powers, enemies, etc.): Search for the corresponding class name directly in `sts2/sts2/`.
+- **Understanding vanilla mechanics** (damage calculation, pile types, state machines, etc.): Read the vanilla implementation before designing mod logic to avoid inconsistent behavior.
+- **Designing mods compatible with the original game**: Refer to the original interfaces and enum definitions (`PileType`, `CardType`, `TargetType`, etc.) to ensure your mod behaves as expected.
+- **Debugging strange runtime behavior**: The original code can sometimes explain why a certain API behavior does not match the RitsuLib documentation.
+
+> `sts2/sts2/` is read-only reference material; do not modify any files within it. When searching, prioritize exact matches for class or method names.
+
+
 ---
 
 ## How to use this skill
