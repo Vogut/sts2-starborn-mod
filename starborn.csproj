@@ -26,6 +26,24 @@
     <PackageReference Include="STS2.RitsuLib" Version="*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- 文件夹在目录树中可见，但不会被编译 -->
+    <Compile Remove="sts\**" />
+    
+    <!-- 如果是内嵌资源或内容文件，也需要一并移除 -->
+    <EmbeddedResource Remove="sts\**" />
+    <Content Remove="sts\**" />
+    <None Include="sts\**" />
+
+        <!-- 文件夹在目录树中可见，但不会被编译 -->
+    <Compile Remove="STS2-RitsuLib\**" />
+    
+    <!-- 如果是内嵌资源或内容文件，也需要一并移除 -->
+    <EmbeddedResource Remove="STS2-RitsuLib\**" />
+    <Content Remove="STS2-RitsuLib\**" />
+    <None Include="STS2-RitsuLib\**" />
+  </ItemGroup>
+
   <!-- 自动复制dll和json -->
   <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
     <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high" />
