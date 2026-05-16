@@ -12,8 +12,7 @@ namespace STS2_Starborn;
 [ModInitializer(nameof(Init))]
 public class Entry
 {
-    public const string ModId = "sts2_starborn";
-    public static readonly Logger Logger = RitsuLibFramework.CreateLogger(ModId);    
+    public static readonly Logger Logger = RitsuLibFramework.CreateLogger(Const.ModId);    
     // 初始化函数
     public static void Init()
     {
@@ -23,7 +22,7 @@ public class Entry
         var assembly = Assembly.GetExecutingAssembly();
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         // 自动注册内容
-        ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+        ModTypeDiscoveryHub.RegisterModAssembly(Const.ModId, assembly);
         // 古老牙齿
         RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<TestCard, TestAncientCard>();
         // 奥伯拉斯之触

@@ -29,14 +29,20 @@ public abstract class ElementPower : StarbornPower
     public abstract Task OnEnhanced(PlayerChoiceContext ctx, SealMarkPower source);
 
     /// <summary>
-    /// 根据 <see cref="SealAttribute"/> 返回对应的 <see cref="ElementPower"/> 单例实例；
-    /// <see cref="SealAttribute.None"/> 或未知属性返回 <c>null</c>。
+    /// 触发后消耗的印记层数。默认基础触发消耗 1 层，强化触发消耗 2 层。
+    /// 返回 0 表示不消耗层数。各属性可按需重写。
     /// </summary>
-    public static ElementPower? For(SealAttribute attribute) => attribute switch
+    public virtual int GetStacksToReduce(bool enhanced) => enhanced ? 2 : 1;
+
+    /// <summary>
+    /// 根据 <see cref="SealAttribute"/> 返回对应的 <see cref="ElementPower"/> 规范实例（由框架 ModelDb 管理）。
+    /// 始终返回非 null；<see cref="SealAttribute.None"/> 返回 <see cref="NonElementPower"/>。
+    /// </summary>
+    public static ElementPower For(SealAttribute attribute) => attribute switch
     {
         SealAttribute.Fire  => ModelDb.Power<FireElementPower>(),
         SealAttribute.Water => ModelDb.Power<WaterElementPower>(),
         SealAttribute.Wood  => ModelDb.Power<WoodElementPower>(),
-        _                   => null,
+        _                   => ModelDb.Power<NonElementPower>(),
     };
 }

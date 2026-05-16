@@ -1,11 +1,15 @@
 {
     "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.title": "主属性印记",
-    "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.description": "印记最高[blue]{MaxSealStacks}[/blue]层。回合结束时，若层数达到[blue]{ThresholdStacks}[/blue]层触发当前属性效果并减少[blue]1[/blue]层；达到[blue]{MaxSealStacks}[/blue]层触发强化效果并减少[blue]2[/blue]层。当前无属性，请使用属性切换卡。",
-    "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.smartDescription": "主属性印记：[blue]{Amount}[/blue]层。",
     "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.title": "副属性印记",
-    "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.description": "印记最高[blue]{MaxSealStacks}[/blue]层。回合结束时，若层数达到[blue]{ThresholdStacks}[/blue]层触发当前属性效果并减少[blue]1[/blue]层；达到[blue]{MaxSealStacks}[/blue]层触发强化效果并减少[blue]2[/blue]层。当前无属性，请使用属性切换卡。",
-    "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.smartDescription": "副属性印记：[blue]{Amount}[/blue]层。",
-    "STS2_STARBORN_ELEMENT_FIRE.description": "【火属性】回合结束触发时对全体敌人造成[blue]3[/blue]点伤害；强化触发造成[blue]10[/blue]点伤害。",
+    "STS2_STARBORN_ELEMENT_NONE.title": "无属性",
+    "STS2_STARBORN_ELEMENT_FIRE.title": "火属性",
+    "STS2_STARBORN_ELEMENT_WATER.title": "水属性",
+    "STS2_STARBORN_ELEMENT_WOOD.title": "木属性",
+    "STS2_STARBORN_ELEMENT_NONE.description": "【无属性】回合结束时不触发效果，也不消耗印记层数。请使用属性切换卡激活属性。",
+    "STS2_STARBORN_ELEMENT_NONE.smartDescription": "回合结束不触发，不消耗层数。请使用属性切换卡激活属性。",
+    "STS2_STARBORN_ELEMENT_FIRE.smartDescription": "调谐：对全体敌人造成[blue]3[/blue]点伤害，失去[blue]1[/blue]层印记。\n超限：造成[blue]10[/blue]点伤害，失去[blue]2[/blue]层印记。",
     "STS2_STARBORN_ELEMENT_WATER.description": "【水属性】（效果施工中）",
-    "STS2_STARBORN_ELEMENT_WOOD.description": "【木属性】（效果施工中）"
+    "STS2_STARBORN_ELEMENT_WATER.smartDescription": "【水属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WOOD.description": "【木属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "【木属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）"
 }

@@ -15,7 +15,7 @@ public sealed class FireElementPower : ElementPower
     public override SealAttribute Attribute => SealAttribute.Fire;
 
     public override LocString ElementDescription =>
-        new LocString("powers", "STARBORN_ELEMENT_FIRE.description");
+        new LocString("powers", "STS2_STARBORN_ELEMENT_FIRE.description");
 
     public override async Task OnThreshold(PlayerChoiceContext ctx, SealMarkPower source) =>
         await CreatureCmd.Damage(ctx, source.CombatState.HittableEnemies, 3m, ValueProp.Unpowered, source.Owner, null);
