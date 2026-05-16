@@ -3,15 +3,16 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
-using Starborn.Card.Common;
-using Starborn.Relics;
-namespace Starborn.Scripts;
+using STS2_Starborn.Cards.Common;
+using STS2_Starborn.Relics;
+
+namespace STS2_Starborn;
 
 // 必须要加的属性，用于注册Mod。字符串和初始化函数命名一致。
 [ModInitializer(nameof(Init))]
 public class Entry
 {
-    public const string ModId = "starborn";
+    public const string ModId = "sts2_starborn";
     public static readonly Logger Logger = RitsuLibFramework.CreateLogger(ModId);    
     // 初始化函数
     public static void Init()

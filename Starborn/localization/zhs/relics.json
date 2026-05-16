@@ -1,8 +1,0 @@
-{
-    "STARBORN_RELIC_TEST_RELIC.title": "测试遗物",
-    "STARBORN_RELIC_TEST_RELIC.description": "每回合开始时，抽[blue]{Cards}[/blue]张牌。",
-    "STARBORN_RELIC_TEST_RELIC.flavor": "觉得很眼熟？",
-    "STARBORN_RELIC_STARBORN_MARK_RELIC.title": "星诞者之印",
-    "STARBORN_RELIC_STARBORN_MARK_RELIC.description": "战斗开始时获得[blue]主属性印记[/blue]和[blue]副属性印记[/blue]各1层。",
-    "STARBORN_RELIC_STARBORN_MARK_RELIC.flavor": "星光烙印于灵魂之上。"
-}

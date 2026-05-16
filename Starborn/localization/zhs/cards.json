@@ -1,7 +1,0 @@
-{
-    "STARBORN_CARD_TEST_CARD.title": "测试卡牌",
-    "STARBORN_CARD_TEST_CARD.description": "造成{Damage:diff()}点伤害。",
-    "STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.title": "炎印",
-    "STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加[blue]{Magic}[/blue]层。",
-    "STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加[blue]{Magic}[/blue]层。"
-}

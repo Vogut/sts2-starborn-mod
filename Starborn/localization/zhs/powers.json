@@ -1,8 +1,0 @@
-{
-    "STARBORN_POWER_PRIMARY_MARK_POWER.title": "主属性印记",
-    "STARBORN_POWER_PRIMARY_MARK_POWER.description": "印记最高[blue]{MaxSealStacks}[/blue]层。回合结束时，若层数达到[blue]{ThresholdStacks}[/blue]层触发当前属性效果并减少[blue]1[/blue]层；达到[blue]{MaxSealStacks}[/blue]层触发强化效果并减少[blue]2[/blue]层。",
-    "STARBORN_POWER_PRIMARY_MARK_POWER.smartDescription": "主属性印记：[blue]{Amount}[/blue]层。",
-    "STARBORN_POWER_SECONDARY_MARK_POWER.title": "副属性印记",
-    "STARBORN_POWER_SECONDARY_MARK_POWER.description": "印记最高[blue]{MaxSealStacks}[/blue]层。回合结束时，若层数达到[blue]{ThresholdStacks}[/blue]层触发当前属性效果并减少[blue]1[/blue]层；达到[blue]{MaxSealStacks}[/blue]层触发强化效果并减少[blue]2[/blue]层。",
-    "STARBORN_POWER_SECONDARY_MARK_POWER.smartDescription": "副属性印记：[blue]{Amount}[/blue]层。"
-}

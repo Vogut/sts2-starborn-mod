@@ -7,7 +7,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Godot;
 
-namespace Starborn.Character;
+namespace STS2_Starborn.Character;
 
 [RegisterCharacter]
 public class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornRelicPool, StarbornPotionPool>
@@ -31,13 +31,13 @@ public class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornRelicPool
         new(
             Scenes: new(
                 // 人物模型tscn路径。
-                VisualsPath: "res://Starborn/scenes/starborn_character.tscn",
+                VisualsPath: "res://STS2_Starborn/scenes/starborn_character.tscn",
                 // 能量表盘tscn路径。
-                EnergyCounterPath: "res://Starborn/scenes/starborn_energy_counter.tscn",
+                EnergyCounterPath: "res://STS2_Starborn/scenes/starborn_energy_counter.tscn",
                 // 商店人物场景。
-                MerchantAnimPath: "res://Starborn/scenes/starborn_character_merchant.tscn"
+                MerchantAnimPath: "res://STS2_Starborn/scenes/starborn_character_merchant.tscn"
                 // 篝火休息场景。
-                // RestSiteAnimPath: "res://Starborn/scenes/starborn_character_rest_site.tscn"
+                // RestSiteAnimPath: "res://STS2_Starborn/scenes/starborn_character_rest_site.tscn"
             ),
             Ui: new(
                 // 人物头像路径。
@@ -45,11 +45,11 @@ public class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornRelicPool
                 // 人物头像2号。
                 // IconPath: "res://scenes/ui/character_icons/ironclad_icon.tscn",
                 // 人物选择背景。
-                CharacterSelectBgPath: "res://Starborn/scenes/starborn_bg.tscn",
+                CharacterSelectBgPath: "res://STS2_Starborn/scenes/starborn_bg.tscn",
                 // 人物选择图标。
-                CharacterSelectIconPath: "res://Starborn/starborn/character/char_select_starborn.png",
+                CharacterSelectIconPath: "res://STS2_Starborn/starborn/character/char_select_starborn.png",
                 // 人物选择图标-锁定状态。
-                CharacterSelectLockedIconPath: "res://Starborn/starborn/character/char_select_starborn_locked.png"
+                CharacterSelectLockedIconPath: "res://STS2_Starborn/starborn/character/char_select_starborn_locked.png"
                 // 人物选择过渡动画。
                 // CharacterSelectTransitionPath: "res://materials/transitions/ironclad_transition_mat.tres",
                 // 地图上的角色标记图标、表情轮盘上的角色头像

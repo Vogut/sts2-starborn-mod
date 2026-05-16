@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="starborn"
+config/name="sts2_starborn"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="starborn"
+project/assembly_name="sts2_starborn"
 
 [rendering]
 
