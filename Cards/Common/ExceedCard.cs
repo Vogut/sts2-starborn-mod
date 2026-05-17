@@ -18,6 +18,9 @@ public class OverloadCard() : StarbornCard(
     2, CardType.Skill, CardRarity.Uncommon, TargetType.None
 )
 {
+    protected override bool IsPlayable =>
+        StarbornCmd.CanOverload(PrimaryMark, 1);
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.Overload(10),
@@ -25,17 +28,14 @@ public class OverloadCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
-        {
-            await SealElementMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
-            var need = SealElementMarkPower.ThresholdStacks - mark.DisplayAmount;
-            if (need > 0)
-                await SealElementMarkCmd.GainElementMarks(choiceContext, mark, need, Owner.Creature, this);
-            await StarbornCmd.Overload(choiceContext, mark, 1, Owner.Creature, this);
-            var remain = SealElementMarkPower.MaxSealStacks - mark.DisplayAmount;
-            if (remain > 0)
-                await SealElementMarkCmd.GainElementMarks(choiceContext, mark, remain, Owner.Creature, this);
-        }
+        await SealElementMarkCmd.SetElementType(choiceContext, PrimaryMark!, SealElementType.Fire);
+        var need = SealElementMarkPower.ThresholdStacks - PrimaryMark!.DisplayAmount;
+        if (need > 0)
+            await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark, need, Owner.Creature, this);
+        await StarbornCmd.Overload(choiceContext, PrimaryMark, 1, Owner.Creature, this);
+        var remain = SealElementMarkPower.MaxSealStacks - PrimaryMark.DisplayAmount;
+        if (remain > 0)
+            await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark, remain, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

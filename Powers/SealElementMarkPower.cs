@@ -132,6 +132,15 @@ public abstract class SealElementMarkPower : StarbornPower
         await CurrentElementPower.OnEnhanced(ctx, this);
     }
 
+    /// <summary>是否满足调谐条件：属性已激活且层数足够消耗</summary>
+    public bool CanTuning(int consume)
+        => CurrentElementType != SealElementType.None && DisplayAmount >= consume && consume > 0;
+
+    /// <summary>是否满足超限条件：属性已激活、层数 >= 阈值且足够消耗</summary>
+    public bool CanOverload(int consume)
+        => CurrentElementType != SealElementType.None
+        && DisplayAmount >= ThresholdStacks && DisplayAmount >= consume && consume > 0;
+
     /// <summary>玩家回合结束时检查并触发印记效果</summary>
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {

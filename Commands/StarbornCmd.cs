@@ -13,6 +13,14 @@ namespace STS2_Starborn.Commands;
 /// </summary>
 public static class StarbornCmd
 {
+    /// <summary>是否可触发调谐，委托给 <see cref="SealElementMarkPower.CanTuning"/></summary>
+    public static bool CanTuning(SealElementMarkPower? mark, int consume)
+        => mark?.CanTuning(consume) ?? false;
+
+    /// <summary>是否可触发超限，委托给 <see cref="SealElementMarkPower.CanOverload"/></summary>
+    public static bool CanOverload(SealElementMarkPower? mark, int consume)
+        => mark?.CanOverload(consume) ?? false;
+
     /// <summary>
     /// 调谐：消耗 <paramref name="consume"/> 枚印记，触发当前属性的阈值效果。
     /// 卡牌上的"调谐N"即调用 StarbornCmd.Tuning(ctx, mark, N, owner, this)。
@@ -25,10 +33,13 @@ public static class StarbornCmd
         CardModel? source)
     {
         if (consume <= 0) return;
+        if (mark.DisplayAmount < consume) return;
 
         await SealElementMarkHooks.BeforeTuning(mark.CombatState, ctx, mark, consume, owner, source);
+
         await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, owner, source);
         await mark.TriggerTuning(ctx);
+        
         await SealElementMarkHooks.AfterTuning(mark.CombatState, ctx, mark, consume, owner, source);
     }
 
@@ -46,11 +57,14 @@ public static class StarbornCmd
     {
         if (consume <= 0) return;
         if (mark.DisplayAmount < SealElementMarkPower.ThresholdStacks) return;
-        /// 超限效果触发前后都广播调谐事件，确保所有监听者能正确响应属性变化和层数消耗。
-        await SealElementMarkHooks.AfterTuning(mark.CombatState, ctx, mark, consume, owner, source);
+        if (mark.DisplayAmount < consume) return;
+
+        await SealElementMarkHooks.BeforeTuning(mark.CombatState, ctx, mark, consume, owner, source);
         await SealElementMarkHooks.BeforeOverload(mark.CombatState, ctx, mark, consume, owner, source);
+        
         await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, owner, source);
         await mark.TriggerOverload(ctx);
+        
         await SealElementMarkHooks.AfterTuning(mark.CombatState, ctx, mark, consume, owner, source);
         await SealElementMarkHooks.AfterOverload(mark.CombatState, ctx, mark, consume, owner, source);
     }

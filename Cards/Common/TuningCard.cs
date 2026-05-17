@@ -18,6 +18,9 @@ public class TuningCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Common, TargetType.None
 )
 {
+    protected override bool IsPlayable =>
+        StarbornCmd.CanTuning(PrimaryMark, DynamicVars["Tuning"].IntValue);
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.ElementMark(2),
@@ -26,12 +29,9 @@ public class TuningCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
-        {
-            await SealElementMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
-            await StarbornCmd.Tuning(choiceContext, mark, DynamicVars["Tuning"].IntValue, Owner.Creature, this);
-            await SealElementMarkCmd.GainElementMarks(choiceContext, mark, DynamicVars["ElementMark"].IntValue, Owner.Creature, this);
-        }
+        await SealElementMarkCmd.SetElementType(choiceContext, PrimaryMark!, SealElementType.Fire);
+        await StarbornCmd.Tuning(choiceContext, PrimaryMark!, DynamicVars["Tuning"].IntValue, Owner.Creature, this);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark!, DynamicVars["ElementMark"].IntValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

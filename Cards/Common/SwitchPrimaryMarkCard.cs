@@ -25,7 +25,7 @@ public class SwitchPrimaryMarkCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
+        if (PrimaryMark is { } mark)
         {
             await SealElementMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
             await SealElementMarkCmd.GainElementMarks(choiceContext, mark, DynamicVars["Magic"].IntValue, Owner.Creature, this);
