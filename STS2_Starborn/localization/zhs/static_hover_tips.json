@@ -4,6 +4,6 @@
     "STS2_STARBORN_OVERLOAD.title": "超限",
     "STS2_STARBORN_OVERLOAD.description": "回合结束时，若印记层数达到满层（5层），触发属性的超限效果并消耗更多层数。",
     "STS2_STARBORN_ELEMENT_MARK.title": "属性印记",
-    "STS2_STARBORN_ELEMENT_MARK.description": "回合结束时，若印记层数达到阈值（≥3层），触发属性的调谐效果并消耗部分层数。"
+    "STS2_STARBORN_ELEMENT_MARK.description": "给予 {ElementMark:elementMarkIcons()} 层属性印记。NL回合结束时若层数 >= 3 触发调谐，满层触发超限。"
 
 }
