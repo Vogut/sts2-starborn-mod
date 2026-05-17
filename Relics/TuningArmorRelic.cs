@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -16,7 +15,7 @@ public class TuningArmorRelic : StarbornRelic, ITuningOverloadListener
 {
     public override RelicRarity Rarity => RelicRarity.Common;
 
-    public async Task AfterTuning(PlayerChoiceContext ctx, SealElementMarkPower mark, int consume, Creature owner, CardModel? source)
+    public async Task AfterTuning(PlayerChoiceContext ctx, SealElementMarkPower mark, int consume, CardModel? source)
     {
         await CreatureCmd.GainBlock(Owner.Creature, 1m, ValueProp.Unpowered, null);
     }

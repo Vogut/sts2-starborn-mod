@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Hooks;
@@ -28,7 +27,6 @@ public static class SealElementMarkCmd
             return;
 
         element_mark.CurrentElementType = dst_element;
-
         await SealElementMarkHooks.AfterElementChanged(element_mark.CombatState, ctx, element_mark, oldElement, dst_element);
     }
 
@@ -40,12 +38,10 @@ public static class SealElementMarkCmd
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int stacks,
-        Creature owner,
-        CardModel? cardSource)
+        CardModel? cardSource = null)
     {
-        if (stacks <= 0)
-            return;
-
+        if (stacks <= 0) return;
+        var owner = mark.Owner;
         await PowerCmd.Apply(ctx, mark, owner, stacks, owner, cardSource);
     }
 
@@ -56,12 +52,10 @@ public static class SealElementMarkCmd
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int stacks,
-        Creature owner,
-        CardModel? cardSource)
+        CardModel? cardSource = null)
     {
-        if (stacks <= 0)
-            return;
-
+        if (stacks <= 0) return;
+        var owner = mark.Owner;
         await PowerCmd.Apply(ctx, mark, owner, -stacks, owner, cardSource);
     }
 }

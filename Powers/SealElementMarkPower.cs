@@ -151,12 +151,12 @@ public abstract class SealElementMarkPower : StarbornPower
         if (stacks >= MaxSealStacks)
         {
             Flash();
-            await StarbornCmd.Overload(choiceContext, this, 1, Owner, null);
+            await StarbornCmd.Overload(choiceContext, this, 1);
         }
         else if (stacks >= ThresholdStacks)
         {
             Flash();
-            await StarbornCmd.Tuning(choiceContext, this, 1, Owner, null);
+            await StarbornCmd.Tuning(choiceContext, this, 1);
         }
     }
 }

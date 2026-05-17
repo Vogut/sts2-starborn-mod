@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Powers;
@@ -26,7 +25,6 @@ public static class SealElementMarkHooks
         {
             if (model is ISealElementMarkListener listener)
                 await listener.BeforeElementChanged(ctx, mark, from, to);
-
             model.InvokeExecutionFinished();
         }
     }
@@ -42,75 +40,66 @@ public static class SealElementMarkHooks
         {
             if (model is ISealElementMarkListener listener)
                 await listener.AfterElementChanged(ctx, mark, from, to);
-
             model.InvokeExecutionFinished();
         }
     }
 
-    /// <summary>调谐消耗印记前广播。</summary>
     public static async Task BeforeTuning(
         ICombatState combatState,
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int consume,
-        Creature owner,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is ITuningOverloadListener listener)
-                await listener.BeforeTuning(ctx, mark, consume, owner, source);
+                await listener.BeforeTuning(ctx, mark, consume, source);
             model.InvokeExecutionFinished();
         }
     }
 
-    /// <summary>调谐效果完成后广播。</summary>
     public static async Task AfterTuning(
         ICombatState combatState,
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int consume,
-        Creature owner,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is ITuningOverloadListener listener)
-                await listener.AfterTuning(ctx, mark, consume, owner, source);
+                await listener.AfterTuning(ctx, mark, consume, source);
             model.InvokeExecutionFinished();
         }
     }
 
-    /// <summary>超限消耗印记前广播。</summary>
     public static async Task BeforeOverload(
         ICombatState combatState,
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int consume,
-        Creature owner,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is ITuningOverloadListener listener)
-                await listener.BeforeOverload(ctx, mark, consume, owner, source);
+                await listener.BeforeOverload(ctx, mark, consume, source);
             model.InvokeExecutionFinished();
         }
     }
 
-    /// <summary>超限效果完成后广播。</summary>
     public static async Task AfterOverload(
         ICombatState combatState,
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
         int consume,
-        Creature owner,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is ITuningOverloadListener listener)
-                await listener.AfterOverload(ctx, mark, consume, owner, source);
+                await listener.AfterOverload(ctx, mark, consume, source);
             model.InvokeExecutionFinished();
         }
     }

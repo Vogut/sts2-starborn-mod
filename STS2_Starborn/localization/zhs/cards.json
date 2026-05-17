@@ -4,12 +4,12 @@
     "STS2_STARBORN_CARD_TEST_ANCIENT_CARD.title": "测试远古卡牌",
     "STS2_STARBORN_CARD_TEST_ANCIENT_CARD.description": "造成{Damage:diff()}点伤害。",
     "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.title": "炎印",
-    "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加[blue]{Magic}[/blue]层。",
-    "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加[blue]{Magic}[/blue]层。",
+    "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加{ElementMark:sealElementIcons()}层。",
+    "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加{ElementMark:sealElementIcons()}层。",
     "STS2_STARBORN_CARD_TUNING_CARD.title": "炎印·调谐",
-    "STS2_STARBORN_CARD_TUNING_CARD.description": "将[b]主属性印记[/b]切换为[red]火[/red]属性并叠加{ElementMark:elementMarkIcons()}层。[gold]调谐[/gold]：对全体敌人造成[blue]{Tuning}[/blue]点伤害。",
-    "STS2_STARBORN_CARD_TUNING_CARD.upgradeDescription": "将[b]主属性印记[/b]切换为[red]火[/red]属性并叠加{ElementMark:elementMarkIcons()}层。[gold]调谐[/gold]：对全体敌人造成[blue]{Tuning}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_TUNING_CARD.description": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:sealElementIcons()}层。[gold]调谐{Tuning:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Tuning}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_TUNING_CARD.upgradeDescription": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:sealElementIcons()}层。[gold]调谐{Tuning:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Tuning}[/blue]点伤害。",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.title": "炎印·超限",
-    "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
-    "STS2_STARBORN_CARD_OVERLOAD_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。"
+    "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_OVERLOAD_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。"
 }

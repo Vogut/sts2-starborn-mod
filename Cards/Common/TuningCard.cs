@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Characters;
 using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
@@ -23,15 +22,14 @@ public class TuningCard() : StarbornCard(
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        StarbornCardVars.ElementMark(2),
-        StarbornCardVars.Tuning(1),
+        StarbornCardVars.ElementMark(2, SealElementType.Fire),
+        StarbornCardVars.Tuning(1, SealElementType.Fire),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await SealElementMarkCmd.SetElementType(choiceContext, PrimaryMark!, SealElementType.Fire);
-        await StarbornCmd.Tuning(choiceContext, PrimaryMark!, DynamicVars["Tuning"].IntValue, Owner.Creature, this);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark!, DynamicVars["ElementMark"].IntValue, Owner.Creature, this);
+        await StarbornCmd.Tuning(choiceContext, PrimaryMark!, DynamicVars["Tuning"].IntValue, SealElementType.Fire, this);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark!, DynamicVars["ElementMark"].IntValue, this);
     }
 
     protected override void OnUpgrade()
