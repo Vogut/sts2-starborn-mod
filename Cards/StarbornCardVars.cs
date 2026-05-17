@@ -23,7 +23,7 @@ public static class StarbornCardVars
         ModCardVars.Int("Tuning", stacks).WithSharedTooltip(TuningKey);
 
     /// <summary>
-    /// "超限"变量。消耗至多3枚印记触发超限效果。
+    /// "超限"变量。印记达到3层以上时才可使用，消耗至多3枚印记触发超限效果。
     /// </summary>
     public static DynamicVar Overload(int stacks) =>
         ModCardVars.Int("Overload", stacks).WithSharedTooltip(OverloadKey);

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Powers;
 
@@ -33,7 +34,7 @@ public abstract class SealElementMarkPower : StarbornPower
     public SealElementType CurrentElementType { get; set; } = SealElementType.None;
 
     /// <summary>当前激活的属性效果提供者；无属性时返回 <see cref="NonElementPower"/></summary>
-    private ElementPower CurrentElementPower => ElementPower.For(CurrentElementType);
+    internal ElementPower CurrentElementPower => ElementPower.For(CurrentElementType);
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -109,29 +110,44 @@ public abstract class SealElementMarkPower : StarbornPower
         return Task.CompletedTask;
     }
 
-    /// <summary>玩家回合结束时检查并触发印记效果，委托给当前 <see cref="ElementPower"/></summary>
+    /// <summary>
+    /// 触发当前属性的调谐（阈值）效果。
+    /// 由 <see cref="Commands.StarbornCmd.Tuning"/> 在消耗印记后调用。
+    /// </summary>
+    internal async Task TriggerTuning(PlayerChoiceContext ctx)
+    {
+        if (CurrentElementType == SealElementType.None) return;
+        if (CurrentElementPower is NonElementPower) return;
+        await CurrentElementPower.OnThreshold(ctx, this);
+    }
+
+    /// <summary>
+    /// 触发当前属性的超限（强化）效果。
+    /// 由 <see cref="Commands.StarbornCmd.Overload"/> 在消耗印记后调用。
+    /// </summary>
+    internal async Task TriggerOverload(PlayerChoiceContext ctx)
+    {
+        if (CurrentElementType == SealElementType.None) return;
+        if (CurrentElementPower is NonElementPower) return;
+        await CurrentElementPower.OnEnhanced(ctx, this);
+    }
+
+    /// <summary>玩家回合结束时检查并触发印记效果</summary>
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != Owner.Side) return;
 
-        var element = CurrentElementPower;
         var stacks = GetInternalData<Data>().stacks;
 
         if (stacks >= MaxSealStacks)
         {
             Flash();
-            await element.OnEnhanced(choiceContext, this);
-            var reduce = element.GetStacksToReduce(enhanced: true);
-            if (reduce > 0)
-                SetStacks(Math.Max(0, stacks - reduce));
+            await StarbornCmd.Overload(choiceContext, this, 1, Owner, null);
         }
         else if (stacks >= ThresholdStacks)
         {
             Flash();
-            await element.OnThreshold(choiceContext, this);
-            var reduce = element.GetStacksToReduce(enhanced: false);
-            if (reduce > 0)
-                SetStacks(Math.Max(0, stacks - reduce));
+            await StarbornCmd.Tuning(choiceContext, this, 1, Owner, null);
         }
     }
 }

@@ -29,12 +29,6 @@ public abstract class ElementPower : StarbornPower
     public abstract Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source);
 
     /// <summary>
-    /// 触发后消耗的印记层数。默认基础触发消耗 1 层，强化触发消耗 2 层。
-    /// 返回 0 表示不消耗层数。各属性可按需重写。
-    /// </summary>
-    public virtual int GetStacksToReduce(bool enhanced) => enhanced ? 2 : 1;
-
-    /// <summary>
     /// 根据 <see cref="SealElementType"/> 返回对应的 <see cref="ElementPower"/> 规范实例（由框架 ModelDb 管理）。
     /// 始终返回非 null；<see cref="SealElementType.None"/> 返回 <see cref="NonElementPower"/>。
     /// </summary>

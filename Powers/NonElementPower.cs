@@ -14,9 +14,6 @@ public sealed class NonElementPower : ElementPower
 
     public override SealElementType Attribute => SealElementType.None;
 
-    /// <summary>无属性不消耗层数</summary>
-    public override int GetStacksToReduce(bool enhanced) => 0;
-
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_NONE.description");
     public override Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>

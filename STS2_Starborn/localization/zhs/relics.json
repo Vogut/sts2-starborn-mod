@@ -4,5 +4,8 @@
     "STS2_STARBORN_RELIC_TEST_RELIC.flavor": "觉得很眼熟？",
     "STS2_STARBORN_RELIC_STARBORN_MARK_RELIC.title": "星诞者之印",
     "STS2_STARBORN_RELIC_STARBORN_MARK_RELIC.description": "战斗开始时获得[blue]主属性印记[/blue]和[blue]副属性印记[/blue]各1层。",
-    "STS2_STARBORN_RELIC_STARBORN_MARK_RELIC.flavor": "星光烙印于灵魂之上。"
+    "STS2_STARBORN_RELIC_STARBORN_MARK_RELIC.flavor": "星光烙印于灵魂之上。",
+    "STS2_STARBORN_RELIC_TUNING_ARMOR_RELIC.title": "调谐护甲",
+    "STS2_STARBORN_RELIC_TUNING_ARMOR_RELIC.description": "每次调谐后，获得1点格挡。超限也会触发此效果。",
+    "STS2_STARBORN_RELIC_TUNING_ARMOR_RELIC.flavor": "星光回应你的呼唤。"
 }
