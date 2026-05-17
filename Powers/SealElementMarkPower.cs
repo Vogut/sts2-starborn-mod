@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using STS2_Starborn.Cards;
 using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Powers;
@@ -60,10 +61,9 @@ public abstract class SealElementMarkPower : StarbornPower
     // --- 本地化变量：{MaxSealStacks}/{ThresholdStacks} 为常量，{Stacks} 跟踪当前层数（非 Amount）---
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("MaxSealStacks", MaxSealStacks),
-        new DynamicVar("ThresholdStacks", ThresholdStacks),
         new DynamicVar("Stacks", 0),
-        
+        StarbornCardVars.Tuning(CurrentElementPower.TuningConsume),
+        StarbornCardVars.Overload(CurrentElementPower.OverloadConsume),
     ];
 
     /// <inheritdoc/>
@@ -151,12 +151,12 @@ public abstract class SealElementMarkPower : StarbornPower
         if (stacks >= MaxSealStacks)
         {
             Flash();
-            await StarbornCmd.Overload(choiceContext, this, 1);
+            await StarbornCmd.Overload(choiceContext, this, DynamicVars["Overload"].IntValue);
         }
         else if (stacks >= ThresholdStacks)
         {
             Flash();
-            await StarbornCmd.Tuning(choiceContext, this, 1);
+            await StarbornCmd.Tuning(choiceContext, this, DynamicVars["Tuning"].IntValue);
         }
     }
 }

@@ -1,6 +1,6 @@
 {
     "STS2_STARBORN_TUNING.title": "调谐",
-    "STS2_STARBORN_TUNING.description": "回合结束时，若印记层数达到阈值（≥3层），触发属性的调谐效果并消耗部分层数。",
+    "STS2_STARBORN_TUNING.description": "{Tuning:sealElementIcons()}回合结束时，若印记层数达到阈值（≥3层），触发属性的调谐效果并消耗部分层数。",
     "STS2_STARBORN_OVERLOAD.title": "超限",
     "STS2_STARBORN_OVERLOAD.description": "回合结束时，若印记层数达到满层（5层），触发属性的超限效果并消耗更多层数。",
     "STS2_STARBORN_ELEMENT_MARK.title": "属性印记",

@@ -7,7 +7,7 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class OverloadCard() : StarbornCard(

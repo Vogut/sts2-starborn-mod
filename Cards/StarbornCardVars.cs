@@ -10,12 +10,15 @@ public static class StarbornCardVars
     private const string OverloadKey = "STS2_STARBORN_OVERLOAD";
     private const string ElementMarkKey = "STS2_STARBORN_ELEMENT_MARK";
 
+    private static string Icon(SealElementType et) =>
+        $"res://STS2_Starborn/powers/Elements/{et}Icon.png";
+
     public static DynamicVar ElementMark(int stacks, SealElementType elementType = SealElementType.None) =>
-        new SealElementVar("ElementMark", stacks, elementType).WithSharedTooltip(ElementMarkKey);
+        new SealElementVar("ElementMark", stacks, elementType).WithSharedTooltip(ElementMarkKey, Icon(elementType));
 
     public static DynamicVar Tuning(int stacks, SealElementType elementType = SealElementType.None) =>
-        new SealElementVar("Tuning", stacks, elementType).WithSharedTooltip(TuningKey);
+        new SealElementVar("Tuning", stacks, elementType).WithSharedTooltip(TuningKey, Icon(elementType));
 
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None) =>
-        new SealElementVar("Overload", stacks, elementType).WithSharedTooltip(OverloadKey);
+        new SealElementVar("Overload", stacks, elementType).WithSharedTooltip(OverloadKey, Icon(elementType));
 }

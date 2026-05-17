@@ -22,6 +22,9 @@ public abstract class ElementPower : StarbornPower
     /// </summary>
     public abstract LocString ElementDescription { get; }
 
+    public virtual int TuningConsume => 1;
+    public virtual int OverloadConsume => 2;
+
     /// <summary>基础效果：印记达到 <see cref="SealElementMarkPower.ThresholdStacks"/> 层时触发</summary>
     public abstract Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source);
 

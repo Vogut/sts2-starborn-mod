@@ -14,6 +14,9 @@ public sealed class NonElementPower : ElementPower
 
     public override SealElementType Attribute => SealElementType.None;
 
+    public override int TuningConsume => 0;
+    public override int OverloadConsume => 0;
+
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_NONE.description");
     public override Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>
