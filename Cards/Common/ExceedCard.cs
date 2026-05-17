@@ -27,11 +27,11 @@ public class OverloadCard() : StarbornCard(
     {
         if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
         {
-            await SealMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
+            await SealElementMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
             // 直接设为满层（MaxSealStacks = 5）
             var stacksToAdd = SealElementMarkPower.MaxSealStacks - mark.DisplayAmount;
             if (stacksToAdd > 0)
-                await SealMarkCmd.GainElementMarks<PrimaryMarkPower>(choiceContext, mark, stacksToAdd, Owner.Creature, this);
+                await SealElementMarkCmd.GainElementMarks<PrimaryMarkPower>(choiceContext, mark, stacksToAdd, Owner.Creature, this);
         }
     }
 

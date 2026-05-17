@@ -10,7 +10,7 @@ namespace STS2_Starborn.Commands;
 /// <summary>
 /// 印记系统的统一命令入口，仿 ForgeCmd/OstyCmd 模式集中管理印记属性切换与层数叠加。
 /// </summary>
-public static class SealMarkCmd
+public static class SealElementMarkCmd
 {
     /// <summary>
     /// 将印记的 <see cref="SealElementMarkPower.CurrentElementType"/> 切换为 <paramref name="element"/>，

@@ -28,8 +28,8 @@ public class TuningCard() : StarbornCard(
     {
         if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
         {
-            await SealMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
-            await SealMarkCmd.GainElementMarks<PrimaryMarkPower>(choiceContext, mark, DynamicVars["ElementMark"].IntValue, Owner.Creature, this);
+            await SealElementMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
+            await SealElementMarkCmd.GainElementMarks<PrimaryMarkPower>(choiceContext, mark, DynamicVars["ElementMark"].IntValue, Owner.Creature, this);
         }
     }
 
