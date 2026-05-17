@@ -12,17 +12,38 @@ public static class SealMarkHooks
 {
     /// <summary>
     /// 当印记属性从 <paramref name="from"/> 切换为 <paramref name="to"/> 时触发。
-    /// 通知战场上所有实现了 <see cref="ISealAttributeChangedHook"/> 的监听者
+    /// 通知战场上所有实现了 <see cref="ISealElementMarkListener"/> 的监听者
     /// （能力、遗物、卡牌、徽章等，与原版 Hook 分发范围一致）。
     /// </summary>
-    public static async Task OnAttributeChanged(
+    public static async Task BeforeElementChanged(
         ICombatState combatState,
         PlayerChoiceContext ctx,
-        SealMarkPower mark,
-        SealAttribute from,
-        SealAttribute to)
+        SealElementMarkPower mark,
+        SealElementType from,
+        SealElementType to)
     {
-        foreach (var listener in combatState.IterateHookListeners().OfType<ISealAttributeChangedHook>())
-            await listener.OnSealAttributeChanged(ctx, mark, from, to);
+        foreach (var model in combatState.IterateHookListeners())
+            {
+                if (model is ISealElementMarkListener listener)
+                    await listener.BeforeElementChanged(ctx, mark, from, to);
+
+                model.InvokeExecutionFinished();
+            }
+    }
+
+    public static async Task AfterElementChanged(
+        ICombatState combatState,
+        PlayerChoiceContext ctx,
+        SealElementMarkPower mark,
+        SealElementType from,
+        SealElementType to)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is ISealElementMarkListener listener)
+                await listener.AfterElementChanged(ctx, mark, from, to);
+
+            model.InvokeExecutionFinished();
+        }
     }
 }

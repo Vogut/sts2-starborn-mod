@@ -14,19 +14,19 @@ public abstract class ElementPower : StarbornPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
-    /// <summary>此属性对应的 <see cref="SealAttribute"/> 枚举值</summary>
-    public abstract SealAttribute Attribute { get; }
+    /// <summary>此属性对应的 <see cref="SealElementType"/> 枚举值</summary>
+    public abstract SealElementType Attribute { get; }
 
     /// <summary>
     /// 属性激活时在印记 Power 上展示的描述文本（本地化字符串）。
     /// </summary>
     public abstract LocString ElementDescription { get; }
 
-    /// <summary>基础效果：印记达到 <see cref="SealMarkPower.ThresholdStacks"/> 层时触发</summary>
-    public abstract Task OnThreshold(PlayerChoiceContext ctx, SealMarkPower source);
+    /// <summary>基础效果：印记达到 <see cref="SealElementMarkPower.ThresholdStacks"/> 层时触发</summary>
+    public abstract Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source);
 
-    /// <summary>强化效果：印记达到 <see cref="SealMarkPower.MaxSealStacks"/> 层时触发</summary>
-    public abstract Task OnEnhanced(PlayerChoiceContext ctx, SealMarkPower source);
+    /// <summary>强化效果：印记达到 <see cref="SealElementMarkPower.MaxSealStacks"/> 层时触发</summary>
+    public abstract Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source);
 
     /// <summary>
     /// 触发后消耗的印记层数。默认基础触发消耗 1 层，强化触发消耗 2 层。
@@ -35,14 +35,14 @@ public abstract class ElementPower : StarbornPower
     public virtual int GetStacksToReduce(bool enhanced) => enhanced ? 2 : 1;
 
     /// <summary>
-    /// 根据 <see cref="SealAttribute"/> 返回对应的 <see cref="ElementPower"/> 规范实例（由框架 ModelDb 管理）。
-    /// 始终返回非 null；<see cref="SealAttribute.None"/> 返回 <see cref="NonElementPower"/>。
+    /// 根据 <see cref="SealElementType"/> 返回对应的 <see cref="ElementPower"/> 规范实例（由框架 ModelDb 管理）。
+    /// 始终返回非 null；<see cref="SealElementType.None"/> 返回 <see cref="NonElementPower"/>。
     /// </summary>
-    public static ElementPower For(SealAttribute attribute) => attribute switch
+    public static ElementPower For(SealElementType attribute) => attribute switch
     {
-        SealAttribute.Fire  => ModelDb.Power<FireElementPower>(),
-        SealAttribute.Water => ModelDb.Power<WaterElementPower>(),
-        SealAttribute.Wood  => ModelDb.Power<WoodElementPower>(),
+        SealElementType.Fire  => ModelDb.Power<FireElementPower>(),
+        SealElementType.Water => ModelDb.Power<WaterElementPower>(),
+        SealElementType.Wood  => ModelDb.Power<WoodElementPower>(),
         _                   => ModelDb.Power<NonElementPower>(),
     };
 }

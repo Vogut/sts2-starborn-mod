@@ -54,8 +54,12 @@
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(Sts2Dir)\mods\$(MSBuildProjectName)\" />
     <Copy SourceFiles="$(MSBuildProjectName).json" DestinationFolder="$(Sts2Dir)/mods/$(MSBuildProjectName)/" />
   </Target>
-    <Target Name="ExportPck" DependsOnTargets="Build">
-    <Message Text="Copying PCK to Slay the Spire 2 mods folder..." Importance="high" />
+  <Target Name="ExportPck" DependsOnTargets="Build">
+    <Message Text="Pre-importing Godot project..." Importance="high" />
+    <Exec Command="&quot;$(GodotExe)&quot; --headless --editor --quit"
+      EnvironmentVariables="MSBUILDDISABLENODEREUSE=1"
+      ContinueOnError="WarnAndContinue" />
+    <Message Text="Exporting PCK to Slay the Spire 2 mods folder..." Importance="high" />
     <MakeDir Directories="$(Sts2Dir)/mods/$(MSBuildProjectName)/" />
     <Exec Command="&quot;$(GodotExe)&quot; --headless --export-pack &quot;Windows Desktop&quot; &quot;$(Sts2Dir)/mods/$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
       EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1"

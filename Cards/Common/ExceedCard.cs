@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -6,6 +5,7 @@ using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2_Starborn.Character;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Common;
@@ -25,14 +25,13 @@ public class OverloadCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var mark = Owner.Creature.FindPower<PrimaryMarkPower>();
-        if (mark != null)
+        if (Owner.Creature.FindPower<PrimaryMarkPower>() is { } mark)
         {
-            await mark.SetAttribute(choiceContext, SealAttribute.Fire);
+            await SealMarkCmd.SetElementType(choiceContext, mark, SealElementType.Fire);
             // 直接设为满层（MaxSealStacks = 5）
-            var stacksToAdd = SealMarkPower.MaxSealStacks - mark.DisplayAmount;
+            var stacksToAdd = SealElementMarkPower.MaxSealStacks - mark.DisplayAmount;
             if (stacksToAdd > 0)
-                await PowerCmd.Apply<PrimaryMarkPower>(choiceContext, Owner.Creature, stacksToAdd, Owner.Creature, this);
+                await SealMarkCmd.GainElementMarks<PrimaryMarkPower>(choiceContext, mark, stacksToAdd, Owner.Creature, this);
         }
     }
 

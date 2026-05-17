@@ -10,13 +10,13 @@ namespace STS2_Starborn.Powers;
 
 /// <summary>
 /// 失序印记的抽象基类，继承自 <see cref="StarbornPower"/>。
-/// 作为属性占位符：图标和描述随 <see cref="CurrentAttribute"/> 动态切换，
+/// 作为属性占位符：图标和描述随 <see cref="CurrentElementType"/> 动态切换，
 /// 触发效果委托给对应的 <see cref="ElementPower"/> 实例。
 /// 印记最高 <see cref="MaxSealStacks"/> 层（显示 0~5），
 /// 达到 <see cref="ThresholdStacks"/> 层时触发基础效果，满层触发强化效果。
 /// 内部 Amount 始终 = stacks + 1，防止 Amount=0 时 power 被框架自动移除。
 /// </summary>
-public abstract class SealMarkPower : StarbornPower
+public abstract class SealElementMarkPower : StarbornPower
 {
     private class Data
     {
@@ -30,10 +30,10 @@ public abstract class SealMarkPower : StarbornPower
     public const int ThresholdStacks = 3;
 
     /// <summary>当前印记属性，回合开始时重置为无属性</summary>
-    public SealAttribute CurrentAttribute { get; set; } = SealAttribute.None;
+    public SealElementType CurrentElementType { get; set; } = SealElementType.None;
 
     /// <summary>当前激活的属性效果提供者；无属性时返回 <see cref="NonElementPower"/></summary>
-    private ElementPower CurrentElement => ElementPower.For(CurrentAttribute);
+    private ElementPower CurrentElementPower => ElementPower.For(CurrentElementType);
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -44,17 +44,17 @@ public abstract class SealMarkPower : StarbornPower
 
     // --- 动态图标：根据当前属性返回对应图标路径 ---
     public override string? CustomIconPath =>
-        $"res://STS2_Starborn/powers/Elements/{CurrentAttribute}.png";
+        $"res://STS2_Starborn/powers/Elements/{CurrentElementType}.png";
     public override string? CustomBigIconPath => CustomIconPath;
 
     // --- 动态标题：根据当前属性返回对应 title ---
     public override LocString Title =>
-        new LocString("powers", $"STS2_STARBORN_ELEMENT_{CurrentAttribute.ToString().ToUpperInvariant()}.title");
+        new LocString("powers", $"STS2_STARBORN_ELEMENT_{CurrentElementType.ToString().ToUpperInvariant()}.title");
 
     // --- 动态描述：SmartDescriptionLocKey 动态返回当前属性对应的 key ---
     protected override string SmartDescriptionLocKey =>
-        $"STS2_STARBORN_ELEMENT_{CurrentAttribute.ToString().ToUpperInvariant()}.smartDescription";
-    public override LocString Description => CurrentElement.ElementDescription;
+        $"STS2_STARBORN_ELEMENT_{CurrentElementType.ToString().ToUpperInvariant()}.smartDescription";
+    public override LocString Description => CurrentElementPower.ElementDescription;
 
     // --- 本地化变量：{MaxSealStacks}/{ThresholdStacks} 为常量，{Stacks} 跟踪当前层数（非 Amount）---
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -105,7 +105,7 @@ public abstract class SealMarkPower : StarbornPower
     public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == Owner.Side)
-            CurrentAttribute = SealAttribute.None;
+            CurrentElementType = SealElementType.None;
         return Task.CompletedTask;
     }
 
@@ -114,7 +114,7 @@ public abstract class SealMarkPower : StarbornPower
     {
         if (side != Owner.Side) return;
 
-        var element = CurrentElement;
+        var element = CurrentElementPower;
         var stacks = GetInternalData<Data>().stacks;
 
         if (stacks >= MaxSealStacks)
@@ -133,14 +133,5 @@ public abstract class SealMarkPower : StarbornPower
             if (reduce > 0)
                 SetStacks(Math.Max(0, stacks - reduce));
         }
-    }
-
-    /// <summary>
-    /// 切换当前印记属性。可在子类或外部卡牌中 await 调用，预留扩展空间（如未来的切换动画）。
-    /// </summary>
-    public virtual Task SetAttribute(PlayerChoiceContext ctx, SealAttribute attribute)
-    {
-        CurrentAttribute = attribute;
-        return Task.CompletedTask;
     }
 }

@@ -9,16 +9,16 @@ namespace STS2_Starborn.Powers;
 public sealed class WoodElementPower : ElementPower
 {
 
-    public override SealAttribute Attribute => SealAttribute.Wood;
+    public override SealElementType Attribute => SealElementType.Wood;
 
     public override LocString ElementDescription =>
         new LocString("powers", "STARBORN_ELEMENT_WOOD.description");
 
-    public override Task OnThreshold(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         // TODO: 实现木属性基础效果
         Task.CompletedTask;
 
-    public override Task OnEnhanced(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         // TODO: 实现木属性强化效果
         Task.CompletedTask;
 }

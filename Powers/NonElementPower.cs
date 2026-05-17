@@ -12,18 +12,18 @@ namespace STS2_Starborn.Powers;
 public sealed class NonElementPower : ElementPower
 {
 
-    public override SealAttribute Attribute => SealAttribute.None;
+    public override SealElementType Attribute => SealElementType.None;
 
     /// <summary>无属性不消耗层数</summary>
     public override int GetStacksToReduce(bool enhanced) => 0;
 
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_NONE.description");
-    public override Task OnThreshold(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         // 无属性效果，不执行任何操作
         Task.CompletedTask;
 
-    public override Task OnEnhanced(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         // 无属性效果，不执行任何操作
         Task.CompletedTask;
     

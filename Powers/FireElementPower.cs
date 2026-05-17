@@ -12,14 +12,14 @@ namespace STS2_Starborn.Powers;
 public sealed class FireElementPower : ElementPower
 {
 
-    public override SealAttribute Attribute => SealAttribute.Fire;
+    public override SealElementType Attribute => SealElementType.Fire;
 
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_FIRE.description");
 
-    public override async Task OnThreshold(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override async Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         await CreatureCmd.Damage(ctx, source.CombatState.HittableEnemies, 3m, ValueProp.Unpowered, source.Owner, null);
 
-    public override async Task OnEnhanced(PlayerChoiceContext ctx, SealMarkPower source) =>
+    public override async Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source) =>
         await CreatureCmd.Damage(ctx, source.CombatState.HittableEnemies, 10m, ValueProp.Unpowered, source.Owner, null);
 }
