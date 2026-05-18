@@ -66,6 +66,15 @@ public abstract class SealElementMarkPower : StarbornPower
         StarbornCardVars.Overload(CurrentElementPower.OverloadConsume),
     ];
 
+    /// <summary>
+    /// 元素切换后刷新 {Tuning}/{Overload} DynamicVar，确保数值和图标匹配当前属性。
+    /// </summary>
+    internal void RefreshElementVars()
+    {
+        StarbornCardVars.RefreshPowerVars(DynamicVars, CurrentElementPower, CurrentElementType);
+        InvokeDisplayAmountChanged();
+    }
+
     /// <inheritdoc/>
     protected override object InitInternalData() => new Data();
 
@@ -106,7 +115,10 @@ public abstract class SealElementMarkPower : StarbornPower
     public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == Owner.Side)
+        {
             CurrentElementType = SealElementType.None;
+            RefreshElementVars();
+        }
         return Task.CompletedTask;
     }
 

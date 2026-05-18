@@ -27,6 +27,7 @@ public static class SealElementMarkCmd
             return;
 
         element_mark.CurrentElementType = dst_element;
+        element_mark.RefreshElementVars();
         await SealElementMarkHooks.AfterElementChanged(element_mark.CombatState, ctx, element_mark, oldElement, dst_element);
     }
 

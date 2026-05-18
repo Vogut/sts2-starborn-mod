@@ -21,4 +21,23 @@ public static class StarbornCardVars
 
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None) =>
         new SealElementVar("Overload", stacks, elementType).WithSharedTooltip(OverloadKey, Icon(elementType));
+
+    /// <summary>
+    /// 元素切换时刷新 power 的 {Tuning}/{Overload} DynamicVar 数值、元素图标和 tooltip。
+    /// </summary>
+    internal static void RefreshPowerVars(DynamicVarSet vars, ElementPower ep, SealElementType et)
+    {
+        if (vars.TryGetValue("Tuning", out var tv) && tv is SealElementVar tsev)
+        {
+            tsev.BaseValue = ep.TuningConsume;
+            tsev.ElementType = et;
+            tsev.WithSharedTooltip(TuningKey, Icon(et));
+        }
+        if (vars.TryGetValue("Overload", out var ov) && ov is SealElementVar osev)
+        {
+            osev.BaseValue = ep.OverloadConsume;
+            osev.ElementType = et;
+            osev.WithSharedTooltip(OverloadKey, Icon(et));
+        }
+    }
 }

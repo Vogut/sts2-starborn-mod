@@ -5,5 +5,5 @@ namespace STS2_Starborn.Cards;
 
 public class SealElementVar(string name, int value, SealElementType elementType) : DynamicVar(name, value)
 {
-    public SealElementType ElementType { get; } = elementType;
+    public SealElementType ElementType { get; internal set; } = elementType;
 }
