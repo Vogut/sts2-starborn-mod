@@ -1,6 +1,5 @@
 {
-    "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.title": "主属性印记",
-    "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.title": "副属性印记",
+
     "STS2_STARBORN_ELEMENT_NONE.title": "无属性",
     "STS2_STARBORN_ELEMENT_FIRE.title": "火属性",
     "STS2_STARBORN_ELEMENT_WATER.title": "水属性",
@@ -12,6 +11,8 @@
     "STS2_STARBORN_ELEMENT_WATER.smartDescription": "【水属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
     "STS2_STARBORN_ELEMENT_WOOD.description": "【木属性】（效果施工中）",
     "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "【木属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
-    "STS2_STARBORN_POWER_SAVER_FORM.title": "调谐印刻",
-    "STS2_STARBORN_POWER_SAVER_FORM.description": "调谐和超限的印记消耗-1。回合开始时印记属性不再重置。"
+    "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.title": "主属性印记",
+    "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.title": "副属性印记",
+    "STS2_STARBORN_POWER_SAVER_FORM_POWER.title": "调谐印刻",
+    "STS2_STARBORN_POWER_SAVER_FORM_POWER.description": "调谐和超限的印记消耗-1。回合开始时印记属性不再重置。"
 }

@@ -8,10 +8,18 @@ namespace STS2_Starborn.Commands;
 public static class StarbornCmd
 {
     public static bool CanTuning(SealElementMarkPower? mark, int consume)
-        => mark?.CanTuning(consume) ?? false;
+    {
+        if (mark == null) return false;
+        consume = SealElementMarkHooks.ModifyTuningConsume(mark.CombatState, mark, consume);
+        return mark.CanTuning(consume);
+    }
 
     public static bool CanOverload(SealElementMarkPower? mark, int consume)
-        => mark?.CanOverload(consume) ?? false;
+    {
+        if (mark == null) return false;
+        consume = SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, consume);
+        return mark.CanOverload(consume);
+    }
 
     public static async Task Tuning(
         PlayerChoiceContext ctx,
@@ -19,11 +27,11 @@ public static class StarbornCmd
         int consume,
         CardModel? source = null)
     {
-        if (consume <= 0) return;
+        consume = SealElementMarkHooks.ModifyTuningConsume(mark.CombatState, mark, consume);
         if (mark.DisplayAmount < consume) return;
 
         await SealElementMarkHooks.BeforeTuning(mark.CombatState, ctx, mark, consume, source);
-        await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, source);
+        if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, source);
         await mark.TriggerTuning(ctx);
         await SealElementMarkHooks.AfterTuning(mark.CombatState, ctx, mark, consume, source);
     }
@@ -45,13 +53,13 @@ public static class StarbornCmd
         int consume,
         CardModel? source = null)
     {
-        if (consume <= 0) return;
+        consume = SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, consume);
         if (mark.DisplayAmount < SealElementMarkPower.ThresholdStacks) return;
         if (mark.DisplayAmount < consume) return;
 
         await SealElementMarkHooks.BeforeTuning(mark.CombatState, ctx, mark, consume, source);
         await SealElementMarkHooks.BeforeOverload(mark.CombatState, ctx, mark, consume, source);
-        await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, source);
+        if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, mark, consume, source);
         await mark.TriggerOverload(ctx);
         await SealElementMarkHooks.AfterTuning(mark.CombatState, ctx, mark, consume, source);
         await SealElementMarkHooks.AfterOverload(mark.CombatState, ctx, mark, consume, source);
