@@ -12,6 +12,6 @@
     "STS2_STARBORN_CARD_OVERLOAD_CARD.title": "炎印·超限",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
-    "STS2_STARBORN_CARD_SEAL_RESONANCE_CARD.title": "调谐印刻",
-    "STS2_STARBORN_CARD_SEAL_RESONANCE_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。"
+    "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
+    "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。"
 }

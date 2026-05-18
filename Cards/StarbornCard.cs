@@ -23,7 +23,7 @@ public abstract class StarbornCard(
     protected SecondaryMarkPower? SecondaryMark => Owner.Creature.FindPower<SecondaryMarkPower>();
 
     public override CardAssetProfile AssetProfile => new(
-        PortraitPath: $"res://STS2_Starborn/cards/{GetType().Name}.png"
+        PortraitPath: Const.Paths.CardPortrait(GetType())
         // 卡框等，有需求自己添加。需要自行判断卡牌类型（攻击、技能、能力等）设置，建议写在基类里。
         // 如果使用自定义卡池，需要改下material（TODO）
         // FramePath: "", // 卡牌背景

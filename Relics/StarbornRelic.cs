@@ -14,9 +14,9 @@ namespace STS2_Starborn.Relics;
 public abstract class StarbornRelic : ModRelicTemplate
 {
     public override RelicAssetProfile AssetProfile => new(
-        IconPath: $"res://STS2_Starborn/images/relics/{GetType().Name}.png",
-        IconOutlinePath: $"res://STS2_Starborn/images/relics/{GetType().Name}.png",
-        BigIconPath: $"res://STS2_Starborn/images/relics/{GetType().Name}.png"
+        IconPath: Const.Paths.RelicIcon(GetType()),
+        IconOutlinePath: Const.Paths.RelicIcon(GetType()),
+        BigIconPath: Const.Paths.RelicIcon(GetType())
     );
 
 }

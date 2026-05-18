@@ -6,3 +6,4 @@ sts2
 *.log
 *.uid
 sts2_starborn.csproj
+*.import

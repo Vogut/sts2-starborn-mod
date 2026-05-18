@@ -1,5 +1,7 @@
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Powers;
@@ -9,12 +11,18 @@ namespace STS2_Starborn.Powers;
 /// 作为 Buff 存在，可被移除。
 /// </summary>
 [RegisterPower]
-public class SealResonancePower : StarbornPower, IConsumeModifier, ISealElementMarkListener
+public class SaverFormPower : StarbornPower, IConsumeModifier, ISealElementMarkListener
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
+    public override PowerAssetProfile AssetProfile => new(
+        IconPath: Const.Paths.PowerIcon(GetType()),
+        BigIconPath: Const.Paths.PowerBigIcon(GetType())
+    );
 
+    public override string? CustomBigIconPath =>
+        ResourceLoader.Exists(AssetProfile.BigIconPath) ? AssetProfile.BigIconPath : CustomIconPath;
     public int ModifyTuningConsume(SealElementMarkPower mark, int consume) => consume - 1;
     public int ModifyOverloadConsume(SealElementMarkPower mark, int consume) => consume - 1;
 

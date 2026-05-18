@@ -31,11 +31,11 @@ public class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornRelicPool
         new(
             Scenes: new(
                 // 人物模型tscn路径。
-                VisualsPath: "res://STS2_Starborn/scenes/starborn_character.tscn",
+                VisualsPath: Const.Paths.StarbornCharacter,
                 // 能量表盘tscn路径。
-                EnergyCounterPath: "res://STS2_Starborn/scenes/starborn_energy_counter.tscn",
+                EnergyCounterPath: Const.Paths.EnergyCounter,
                 // 商店人物场景。
-                MerchantAnimPath: "res://STS2_Starborn/scenes/starborn_character_merchant.tscn"
+                MerchantAnimPath: Const.Paths.CharacterMerchant
                 // 篝火休息场景。
                 // RestSiteAnimPath: "res://STS2_Starborn/scenes/starborn_character_rest_site.tscn"
             ),
@@ -45,11 +45,11 @@ public class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornRelicPool
                 // 人物头像2号。
                 // IconPath: "res://scenes/ui/character_icons/ironclad_icon.tscn",
                 // 人物选择背景。
-                CharacterSelectBgPath: "res://STS2_Starborn/scenes/starborn_bg.tscn",
+                CharacterSelectBgPath: Const.Paths.CharacterSelectBg,
                 // 人物选择图标。
-                CharacterSelectIconPath: "res://STS2_Starborn/starborn/character/char_select_starborn.png",
+                CharacterSelectIconPath: Const.Paths.CharacterSelectIcon,
                 // 人物选择图标-锁定状态。
-                CharacterSelectLockedIconPath: "res://STS2_Starborn/starborn/character/char_select_starborn_locked.png"
+                CharacterSelectLockedIconPath: Const.Paths.CharacterSelectLockedIcon
                 // 人物选择过渡动画。
                 // CharacterSelectTransitionPath: "res://materials/transitions/ironclad_transition_mat.tres",
                 // 地图上的角色标记图标、表情轮盘上的角色头像

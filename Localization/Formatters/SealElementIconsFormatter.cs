@@ -29,7 +29,8 @@ public class SealElementIconsFormatter : IFormatter
             ? sev.ElementType
             : SealElementType.None;
 
-        var tag = $"[img=center]res://STS2_Starborn/powers/Elements/{elementType}Icon.png[/img]";
+        var iconPath = Const.Paths.ElementIcon(elementType);
+        var tag = $"[img=center]{iconPath}[/img]";
         if (single)
             formattingInfo.Write(tag);
         else

@@ -49,7 +49,7 @@ public abstract class SealElementMarkPower : StarbornPower
 
     // --- 动态图标：根据当前属性返回对应图标路径 ---
     public override string? CustomIconPath =>
-        $"res://STS2_Starborn/powers/Elements/{CurrentElementType}.png";
+        Const.Paths.ElementPowerIcon(CurrentElementType);
     public override string? CustomBigIconPath => CustomIconPath;
 
     // --- 动态标题：根据当前属性返回对应 title ---
