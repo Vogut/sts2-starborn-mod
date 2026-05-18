@@ -1,3 +1,6 @@
+using Godot;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2_Starborn.Powers;
@@ -22,22 +25,53 @@ public static class StarbornCardVars
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None) =>
         new SealElementVar("Overload", stacks, elementType).WithSharedTooltip(OverloadKey, Icon(elementType));
 
-    /// <summary>
-    /// 元素切换时刷新 power 的 {Tuning}/{Overload} DynamicVar 数值、元素图标和 tooltip。
-    /// </summary>
-    internal static void RefreshPowerVars(DynamicVarSet vars, ElementPower ep, SealElementType et)
+    /// <summary>构建调谐 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedTuning</c> 复用。</summary>
+    internal static HoverTip BuildTuningTip(SealElementType elementType, int consume)
     {
-        if (vars.TryGetValue("Tuning", out var tv) && tv is SealElementVar tsev)
+        return BuildTip(TuningKey, "Tuning", elementType, consume);
+    }
+
+    /// <summary>构建超限 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedOverload</c> 复用。</summary>
+    internal static HoverTip BuildOverloadTip(SealElementType elementType, int consume)
+    {
+        return BuildTip(OverloadKey, "Overload", elementType, consume);
+    }
+
+    /// <summary>构建带图标、标题和描述的统一 <see cref="HoverTip"/>，供 Tuning/Overload 复用。</summary>
+    private static HoverTip BuildTip(string key, string varName, SealElementType elementType, int consume)
+    {
+        var iconPath = Icon(elementType);
+        Texture2D? icon = null;
+        if (!string.IsNullOrWhiteSpace(iconPath) && ResourceLoader.Exists(iconPath))
+            icon = ResourceLoader.Load<Texture2D>(iconPath);
+
+        var dv = new SealElementVar(varName, consume, elementType);
+        var title = new LocString("static_hover_tips", $"{key}.title");
+        var description = new LocString("static_hover_tips", $"{key}.description");
+        title.Add(dv);
+        description.Add(dv);
+        return new HoverTip(title, description, icon);
+    }
+
+    internal static DynamicVar ComputedTuning(Func<int> value, Func<SealElementType> type)
+    {
+        var v = new SealElementVar("Tuning", value, type);
+        v.WithTooltip(var =>
         {
-            tsev.BaseValue = ep.TuningConsume;
-            tsev.ElementType = et;
-            tsev.WithSharedTooltip(TuningKey, Icon(et));
-        }
-        if (vars.TryGetValue("Overload", out var ov) && ov is SealElementVar osev)
+            var sev = (SealElementVar)var;
+            return BuildTuningTip(sev.ElementType, (int)sev.IntValue);
+        });
+        return v;
+    }
+
+    internal static DynamicVar ComputedOverload(Func<int> value, Func<SealElementType> type)
+    {
+        var v = new SealElementVar("Overload", value, type);
+        v.WithTooltip(var =>
         {
-            osev.BaseValue = ep.OverloadConsume;
-            osev.ElementType = et;
-            osev.WithSharedTooltip(OverloadKey, Icon(et));
-        }
+            var sev = (SealElementVar)var;
+            return BuildOverloadTip(sev.ElementType, (int)sev.IntValue);
+        });
+        return v;
     }
 }

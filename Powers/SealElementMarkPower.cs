@@ -2,11 +2,14 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Commands;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Powers;
 
@@ -62,17 +65,35 @@ public abstract class SealElementMarkPower : StarbornPower
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("Stacks", 0),
-        StarbornCardVars.Tuning(CurrentElementPower.TuningConsume),
-        StarbornCardVars.Overload(CurrentElementPower.OverloadConsume),
+        StarbornCardVars.ComputedTuning(
+            () => CombatState != null
+                ? SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume)
+                : CurrentElementPower.TuningConsume,
+            () => CurrentElementType),
+        StarbornCardVars.ComputedOverload(
+            () => CombatState != null
+                ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume)
+                : CurrentElementPower.OverloadConsume,
+            () => CurrentElementType),
     ];
 
-    /// <summary>
-    /// 元素切换后刷新 {Tuning}/{Overload} DynamicVar，确保数值和图标匹配当前属性。
-    /// </summary>
-    internal void RefreshElementVars()
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips
     {
-        StarbornCardVars.RefreshPowerVars(DynamicVars, CurrentElementPower, CurrentElementType);
-        InvokeDisplayAmountChanged();
+        get
+        {
+            if (CurrentElementType == SealElementType.None) yield break;
+
+            var elementType = CurrentElementType;
+            var tuningConsume = CombatState != null
+                ? SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume)
+                : CurrentElementPower.TuningConsume;
+            var overloadConsume = CombatState != null
+                ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume)
+                : CurrentElementPower.OverloadConsume;
+
+            yield return StarbornCardVars.BuildTuningTip(elementType, tuningConsume);
+            yield return StarbornCardVars.BuildOverloadTip(elementType, overloadConsume);
+        }
     }
 
     /// <inheritdoc/>
@@ -111,15 +132,29 @@ public abstract class SealElementMarkPower : StarbornPower
         return Task.CompletedTask;
     }
 
-    /// <summary>玩家回合开始时将属性重置为无属性</summary>
+    /// <summary>玩家回合开始时将属性重置为无属性（可由 <see cref="ISealElementMarkListener.ShouldPreventElementChange"/> 阻止）</summary>
     public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == Owner.Side)
         {
-            CurrentElementType = SealElementType.None;
-            RefreshElementVars();
+            var prev = CurrentElementType;
+            if (prev != SealElementType.None && !AnyListenerPreventsChange(combatState, prev, SealElementType.None))
+            {
+                CurrentElementType = SealElementType.None;
+                this.RequestVisualReload();
+            }
         }
         return Task.CompletedTask;
+    }
+
+    internal bool AnyListenerPreventsChange(ICombatState combatState, SealElementType from, SealElementType to)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is ISealElementMarkListener listener && listener.ShouldPreventElementChange(this, from, to))
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -153,22 +188,25 @@ public abstract class SealElementMarkPower : StarbornPower
         => CurrentElementType != SealElementType.None
         && DisplayAmount >= ThresholdStacks && DisplayAmount >= consume && consume > 0;
 
-    /// <summary>玩家回合结束时检查并触发印记效果</summary>
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    /// <summary>玩家回合结束前检查并触发印记效果</summary>
+    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != Owner.Side) return;
 
         var stacks = GetInternalData<Data>().stacks;
 
+        var tuningConsume = SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume);
+        var overloadConsume = SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume);
+
         if (stacks >= MaxSealStacks)
         {
             Flash();
-            await StarbornCmd.Overload(choiceContext, this, DynamicVars["Overload"].IntValue);
+            await StarbornCmd.Overload(choiceContext, this, overloadConsume);
         }
         else if (stacks >= ThresholdStacks)
         {
             Flash();
-            await StarbornCmd.Tuning(choiceContext, this, DynamicVars["Tuning"].IntValue);
+            await StarbornCmd.Tuning(choiceContext, this, tuningConsume);
         }
     }
 }
