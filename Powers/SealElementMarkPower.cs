@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Commands;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Powers;
 
@@ -62,8 +63,16 @@ public abstract class SealElementMarkPower : StarbornPower
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("Stacks", 0),
-        StarbornCardVars.Tuning(CurrentElementPower.TuningConsume),
-        StarbornCardVars.Overload(CurrentElementPower.OverloadConsume),
+        StarbornCardVars.ComputedTuning(
+            () => CombatState != null
+                ? SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume)
+                : CurrentElementPower.TuningConsume,
+            () => CurrentElementType),
+        StarbornCardVars.ComputedOverload(
+            () => CombatState != null
+                ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume)
+                : CurrentElementPower.OverloadConsume,
+            () => CurrentElementType),
     ];
 
     /// <inheritdoc/>
@@ -102,12 +111,26 @@ public abstract class SealElementMarkPower : StarbornPower
         return Task.CompletedTask;
     }
 
-    /// <summary>玩家回合开始时将属性重置为无属性</summary>
+    /// <summary>玩家回合开始时将属性重置为无属性（可由 <see cref="ISealElementMarkListener.ShouldPreventElementChange"/> 阻止）</summary>
     public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == Owner.Side)
-            CurrentElementType = SealElementType.None;
+        {
+            var prev = CurrentElementType;
+            if (prev != SealElementType.None && !AnyListenerPreventsChange(combatState, prev, SealElementType.None))
+                CurrentElementType = SealElementType.None;
+        }
         return Task.CompletedTask;
+    }
+
+    internal bool AnyListenerPreventsChange(ICombatState combatState, SealElementType from, SealElementType to)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is ISealElementMarkListener listener && listener.ShouldPreventElementChange(this, from, to))
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -148,15 +171,18 @@ public abstract class SealElementMarkPower : StarbornPower
 
         var stacks = GetInternalData<Data>().stacks;
 
+        var tuningConsume = SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume);
+        var overloadConsume = SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume);
+
         if (stacks >= MaxSealStacks)
         {
             Flash();
-            await StarbornCmd.Overload(choiceContext, this, DynamicVars["Overload"].IntValue);
+            await StarbornCmd.Overload(choiceContext, this, overloadConsume);
         }
         else if (stacks >= ThresholdStacks)
         {
             Flash();
-            await StarbornCmd.Tuning(choiceContext, this, DynamicVars["Tuning"].IntValue);
+            await StarbornCmd.Tuning(choiceContext, this, tuningConsume);
         }
     }
 }

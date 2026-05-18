@@ -103,4 +103,32 @@ public static class SealElementMarkHooks
             model.InvokeExecutionFinished();
         }
     }
+
+    /// <summary>
+    /// 向所有 <see cref="IConsumeModifier"/> 分发调谐消耗修正。
+    /// 对标原版 <c>Hook.ModifyDamage</c> 模式。
+    /// </summary>
+    public static int ModifyTuningConsume(ICombatState combatState, SealElementMarkPower mark, int consume)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IConsumeModifier modifier)
+                consume = modifier.ModifyTuningConsume(mark, consume);
+        }
+        return Math.Max(0, consume);
+    }
+
+    /// <summary>
+    /// 向所有 <see cref="IConsumeModifier"/> 分发超限消耗修正。
+    /// </summary>
+    public static int ModifyOverloadConsume(ICombatState combatState, SealElementMarkPower mark, int consume)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IConsumeModifier modifier)
+                consume = modifier.ModifyOverloadConsume(mark, consume);
+        }
+        return Math.Max(0, consume);
+    }
+
 }
