@@ -2,9 +2,11 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Hooks;
@@ -75,6 +77,25 @@ public abstract class SealElementMarkPower : StarbornPower
             () => CurrentElementType),
     ];
 
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips
+    {
+        get
+        {
+            if (CurrentElementType == SealElementType.None) yield break;
+
+            var elementType = CurrentElementType;
+            var tuningConsume = CombatState != null
+                ? SealElementMarkHooks.ModifyTuningConsume(CombatState, this, CurrentElementPower.TuningConsume)
+                : CurrentElementPower.TuningConsume;
+            var overloadConsume = CombatState != null
+                ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume)
+                : CurrentElementPower.OverloadConsume;
+
+            yield return StarbornCardVars.BuildTuningTip(elementType, tuningConsume);
+            yield return StarbornCardVars.BuildOverloadTip(elementType, overloadConsume);
+        }
+    }
+
     /// <inheritdoc/>
     protected override object InitInternalData() => new Data();
 
@@ -118,7 +139,10 @@ public abstract class SealElementMarkPower : StarbornPower
         {
             var prev = CurrentElementType;
             if (prev != SealElementType.None && !AnyListenerPreventsChange(combatState, prev, SealElementType.None))
+            {
                 CurrentElementType = SealElementType.None;
+                this.RequestVisualReload();
+            }
         }
         return Task.CompletedTask;
     }
@@ -164,8 +188,8 @@ public abstract class SealElementMarkPower : StarbornPower
         => CurrentElementType != SealElementType.None
         && DisplayAmount >= ThresholdStacks && DisplayAmount >= consume && consume > 0;
 
-    /// <summary>玩家回合结束时检查并触发印记效果</summary>
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    /// <summary>玩家回合结束前检查并触发印记效果</summary>
+    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != Owner.Side) return;
 

@@ -25,46 +25,52 @@ public static class StarbornCardVars
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None) =>
         new SealElementVar("Overload", stacks, elementType).WithSharedTooltip(OverloadKey, Icon(elementType));
 
-    /// <summary>
-    /// 计算型调谐变量（Power 用）。元素类型和数值在每次读取时当场计算，tooltip 图标惰性解析。
-    /// </summary>
+    /// <summary>构建调谐 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedTuning</c> 复用。</summary>
+    internal static HoverTip BuildTuningTip(SealElementType elementType, int consume)
+    {
+        return BuildTip(TuningKey, "Tuning", elementType, consume);
+    }
+
+    /// <summary>构建超限 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedOverload</c> 复用。</summary>
+    internal static HoverTip BuildOverloadTip(SealElementType elementType, int consume)
+    {
+        return BuildTip(OverloadKey, "Overload", elementType, consume);
+    }
+
+    /// <summary>构建带图标、标题和描述的统一 <see cref="HoverTip"/>，供 Tuning/Overload 复用。</summary>
+    private static HoverTip BuildTip(string key, string varName, SealElementType elementType, int consume)
+    {
+        var iconPath = Icon(elementType);
+        Texture2D? icon = null;
+        if (!string.IsNullOrWhiteSpace(iconPath) && ResourceLoader.Exists(iconPath))
+            icon = ResourceLoader.Load<Texture2D>(iconPath);
+
+        var dv = new SealElementVar(varName, consume, elementType);
+        var title = new LocString("static_hover_tips", $"{key}.title");
+        var description = new LocString("static_hover_tips", $"{key}.description");
+        title.Add(dv);
+        description.Add(dv);
+        return new HoverTip(title, description, icon);
+    }
+
     internal static DynamicVar ComputedTuning(Func<int> value, Func<SealElementType> type)
     {
         var v = new SealElementVar("Tuning", value, type);
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
-            var iconPath = Icon(sev.ElementType);
-            var title = new LocString("static_hover_tips", $"{TuningKey}.title");
-            var description = new LocString("static_hover_tips", $"{TuningKey}.description");
-            title.Add(var);
-            description.Add(var);
-            Texture2D? icon = null;
-            if (!string.IsNullOrWhiteSpace(iconPath) && ResourceLoader.Exists(iconPath))
-                icon = ResourceLoader.Load<Texture2D>(iconPath);
-            return new HoverTip(title, description, icon);
+            return BuildTuningTip(sev.ElementType, (int)sev.IntValue);
         });
         return v;
     }
 
-    /// <summary>
-    /// 计算型超限变量（Power 用）。元素类型和数值在每次读取时当场计算，tooltip 图标惰性解析。
-    /// </summary>
     internal static DynamicVar ComputedOverload(Func<int> value, Func<SealElementType> type)
     {
         var v = new SealElementVar("Overload", value, type);
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
-            var iconPath = Icon(sev.ElementType);
-            var title = new LocString("static_hover_tips", $"{OverloadKey}.title");
-            var description = new LocString("static_hover_tips", $"{OverloadKey}.description");
-            title.Add(var);
-            description.Add(var);
-            Texture2D? icon = null;
-            if (!string.IsNullOrWhiteSpace(iconPath) && ResourceLoader.Exists(iconPath))
-                icon = ResourceLoader.Load<Texture2D>(iconPath);
-            return new HoverTip(title, description, icon);
+            return BuildOverloadTip(sev.ElementType, (int)sev.IntValue);
         });
         return v;
     }

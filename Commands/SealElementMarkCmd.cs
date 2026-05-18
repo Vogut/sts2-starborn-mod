@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Hooks;
 using STS2_Starborn.Powers;
 
@@ -30,6 +31,7 @@ public static class SealElementMarkCmd
             return;
 
         element_mark.CurrentElementType = dst_element;
+        element_mark.RequestVisualReload();
         await SealElementMarkHooks.AfterElementChanged(element_mark.CombatState, ctx, element_mark, oldElement, dst_element);
     }
 
