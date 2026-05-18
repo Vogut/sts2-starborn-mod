@@ -16,7 +16,7 @@ public interface ISealElementMarkListener
     /// <param name="mark">触发属性切换的印记能力实例。</param>
     /// <param name="from">切换前的属性。</param>
     /// <param name="to">切换后的属性。</param>
-    Task BeforeElementChanged(PlayerChoiceContext ctx, SealElementMarkPower mark, SealElementType from, SealElementType to)        
+    Task BeforeElementChanged(PlayerChoiceContext ctx, SealElementMarkPower mark, SealElementType from, SealElementType to)
     {
         return Task.CompletedTask;
     }
@@ -24,4 +24,9 @@ public interface ISealElementMarkListener
     {
         return Task.CompletedTask;
     }
+
+    /// <summary>
+    /// 属性变化前调用。返回 <c>true</c> 时阻止变化（包括回合开始重置和卡牌切换）。
+    /// </summary>
+    bool ShouldPreventElementChange(SealElementMarkPower mark, SealElementType from, SealElementType to) => false;
 }

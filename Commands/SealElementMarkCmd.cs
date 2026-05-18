@@ -26,6 +26,9 @@ public static class SealElementMarkCmd
         if (oldElement == dst_element)
             return;
 
+        if (element_mark.AnyListenerPreventsChange(element_mark.CombatState, oldElement, dst_element))
+            return;
+
         element_mark.CurrentElementType = dst_element;
         await SealElementMarkHooks.AfterElementChanged(element_mark.CombatState, ctx, element_mark, oldElement, dst_element);
     }
