@@ -32,8 +32,7 @@ public static class SealElementMarkCmd
     }
 
     /// <summary>
-    /// 为印记叠加 <paramref name="stacks"/> 层，委托给 <see cref="PowerCmd.Apply(PowerModel, Creature, decimal, Creature?, CardModel?)"/>
-    /// 处理层数同步。
+    /// 为印记叠加 <paramref name="stacks"/> 层。
     /// </summary>
     public static async Task GainElementMarks(
         PlayerChoiceContext ctx,
@@ -43,11 +42,19 @@ public static class SealElementMarkCmd
     {
         if (stacks <= 0) return;
         var owner = mark.Owner;
-        await PowerCmd.Apply(ctx, mark, owner, stacks, owner, cardSource);
+        switch (mark)
+        {
+            case PrimaryMarkPower:
+                await PowerCmd.Apply<PrimaryMarkPower>(ctx, owner, stacks, owner, cardSource);
+                break;
+            case SecondaryMarkPower:
+                await PowerCmd.Apply<SecondaryMarkPower>(ctx, owner, stacks, owner, cardSource);
+                break;
+        }
     }
 
     /// <summary>
-    /// 移除印记的指定层数，委托给 <see cref="PowerCmd.Apply"/> 处理层数同步。
+    /// 移除印记的指定层数。
     /// </summary>
     public static async Task RemoveElementMarks(
         PlayerChoiceContext ctx,
@@ -57,6 +64,14 @@ public static class SealElementMarkCmd
     {
         if (stacks <= 0) return;
         var owner = mark.Owner;
-        await PowerCmd.Apply(ctx, mark, owner, -stacks, owner, cardSource);
+        switch (mark)
+        {
+            case PrimaryMarkPower:
+                await PowerCmd.Apply<PrimaryMarkPower>(ctx, owner, -stacks, owner, cardSource);
+                break;
+            case SecondaryMarkPower:
+                await PowerCmd.Apply<SecondaryMarkPower>(ctx, owner, -stacks, owner, cardSource);
+                break;
+        }
     }
 }
