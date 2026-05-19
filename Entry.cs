@@ -1,10 +1,13 @@
 using System.Reflection;
 using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Modding;
 using STS2RitsuLib;
+using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop;
 using STS2RitsuLib.Patching.Core;
 using STS2_Starborn.Cards.Common;
+using STS2_Starborn.Character;
 using STS2_Starborn.Kibo;
 using STS2_Starborn.Kibo.Patches;
 using STS2_Starborn.Relics;
@@ -28,6 +31,19 @@ public class Entry
         KiboTypeRegistry.Initialize();
         KiboRunData.Initialize();
         KiboPileManager.RegisterPile();
+
+        var starbornEntry = ModelDb.GetEntry(typeof(Starborn));
+        RitsuLibFramework.GetContentRegistry(Const.ModId)
+            .RegisterCardLibraryCompendiumSharedPoolFilter<KiboCardPool>(
+                "kibo",
+                Const.Paths.KiboPileIcon,
+                [
+                    new CardLibraryCompendiumPlacementRule
+                    {
+                        ModCharacterModelIdEntry = starbornEntry,
+                        Relation = CardLibraryCompendiumFilterInsertRelation.After,
+                    },
+                ]);
 
         var patcher = RitsuLibFramework.CreatePatcher(Const.ModId, "main");
         patcher.RegisterPatch<KiboAutoSummonPatch>();
