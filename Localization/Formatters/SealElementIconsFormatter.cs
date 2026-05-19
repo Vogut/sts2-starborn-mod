@@ -18,12 +18,13 @@ public class SealElementIconsFormatter : IFormatter
 
         var count = formattingInfo.CurrentValue switch
         {
+            SealElementVar se => (int)se.PreviewValue,
             DynamicVar dv => (int)dv.IntValue,
             int i => i,
             decimal d => (int)d,
             _ => single ? 1 : -1,
         };
-        if (!single && count <= 0) return false;
+        if (!single && count < 0) return false;
 
         var elementType = formattingInfo.CurrentValue is SealElementVar sev
             ? sev.ElementType
@@ -34,7 +35,7 @@ public class SealElementIconsFormatter : IFormatter
         if (single)
             formattingInfo.Write(tag);
         else
-            formattingInfo.Write(count <= 3
+            formattingInfo.Write(count <= 3 && count > 0
                 ? string.Concat(Enumerable.Repeat(tag, count))
                 : $"{count}{tag}");
 

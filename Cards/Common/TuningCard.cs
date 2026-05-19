@@ -26,7 +26,7 @@ public class TuningCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.ElementMark(2, SealElementType.Fire),
-        StarbornCardVars.ComputedCardTuning(() => PrimaryMark, 1, SealElementType.Fire),
+        StarbornCardVars.Tuning(2, SealElementType.Fire),
         new SealElementVar("Stacks", () => PrimaryMark?.DisplayAmount ?? 0, () => SealElementType.Fire),
     ];
 

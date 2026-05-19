@@ -20,7 +20,11 @@ public static class StarbornCmd
         consume = SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, consume);
         return mark.CanOverload(consume);
     }
-
+    
+    /// <summary>
+    /// 调谐：消耗 <paramref name="consume"/> 枚印记，触发当前属性的阈值效果。
+    /// 卡牌上的"调谐N"即调用 StarbornCmd.Tuning(ctx, mark, N, owner, this)。
+    /// </summary>
     public static async Task Tuning(
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
@@ -46,7 +50,11 @@ public static class StarbornCmd
         await SealElementMarkCmd.SetElementType(ctx, mark, targetElement);
         await Tuning(ctx, mark, consume, source);
     }
-
+    /// <summary>
+    /// 超限：消耗 <paramref name="consume"/> 枚印记，触发当前属性的强化效果。
+    /// 需要印记层数 >= ThresholdStacks（3）。
+    /// 卡牌上的"超限N"即调用 StarbornCmd.Overload(ctx, mark, N, owner, this)。
+    /// </summary>
     public static async Task Overload(
         PlayerChoiceContext ctx,
         SealElementMarkPower mark,
