@@ -19,8 +19,10 @@ public abstract class StarbornCard(
     bool shouldShowInCardLibrary = true
 ) : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
-    protected PrimaryMarkPower? PrimaryMark => Owner.Creature.FindPower<PrimaryMarkPower>();
-    protected SecondaryMarkPower? SecondaryMark => Owner.Creature.FindPower<SecondaryMarkPower>();
+    protected PrimaryMarkPower? PrimaryMark =>
+        !IsCanonical ? Owner.Creature.FindPower<PrimaryMarkPower>() : null;
+    protected SecondaryMarkPower? SecondaryMark =>
+        !IsCanonical ? Owner.Creature.FindPower<SecondaryMarkPower>() : null;
 
     public virtual Kibo.KiboTypeId? KiboSummonType => null;
 
