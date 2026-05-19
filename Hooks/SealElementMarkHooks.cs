@@ -110,10 +110,17 @@ public static class SealElementMarkHooks
     /// </summary>
     public static int ModifyTuningConsume(ICombatState combatState, SealElementMarkPower mark, int consume)
     {
+        // Phase 1: Absolute
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is IConsumeModifier modifier)
                 consume = modifier.ModifyTuningConsume(mark, consume);
+        }
+        // Phase 2: Additive
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IConsumeModifier modifier)
+                consume += modifier.ModifyTuningConsumeAdditive(mark, consume);
         }
         return Math.Max(0, consume);
     }
@@ -123,10 +130,17 @@ public static class SealElementMarkHooks
     /// </summary>
     public static int ModifyOverloadConsume(ICombatState combatState, SealElementMarkPower mark, int consume)
     {
+        // Phase 1: Absolute
         foreach (var model in combatState.IterateHookListeners())
         {
             if (model is IConsumeModifier modifier)
                 consume = modifier.ModifyOverloadConsume(mark, consume);
+        }
+        // Phase 2: Additive
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IConsumeModifier modifier)
+                consume += modifier.ModifyOverloadConsumeAdditive(mark, consume);
         }
         return Math.Max(0, consume);
     }

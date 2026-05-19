@@ -23,8 +23,8 @@ public class SaverFormPower : StarbornPower, IConsumeModifier, ISealElementMarkL
 
     public override string? CustomBigIconPath =>
         ResourceLoader.Exists(AssetProfile.BigIconPath) ? AssetProfile.BigIconPath : CustomIconPath;
-    public int ModifyTuningConsume(SealElementMarkPower mark, int consume) => consume - 1;
-    public int ModifyOverloadConsume(SealElementMarkPower mark, int consume) => consume - 1;
+    public int ModifyTuningConsumeAdditive(SealElementMarkPower mark, int consume) => -1;
+    public int ModifyOverloadConsumeAdditive(SealElementMarkPower mark, int consume) => -1;
 
     public bool ShouldPreventElementChange(SealElementMarkPower mark, SealElementType from, SealElementType to)
         => to == SealElementType.None; // 仅阻止重置为无属性，不阻止主动切换
