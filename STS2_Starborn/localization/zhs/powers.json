@@ -14,5 +14,7 @@
     "STS2_STARBORN_POWER_PRIMARY_MARK_POWER.title": "主属性印记",
     "STS2_STARBORN_POWER_SECONDARY_MARK_POWER.title": "副属性印记",
     "STS2_STARBORN_POWER_SAVER_FORM_POWER.title": "调谐印刻",
-    "STS2_STARBORN_POWER_SAVER_FORM_POWER.description": "调谐和超限的印记消耗-1。回合开始时印记属性不再重置。"
+    "STS2_STARBORN_POWER_SAVER_FORM_POWER.description": "调谐和超限的印记消耗-1。回合开始时印记属性不再重置。",
+    "STS2_STARBORN_POWER_KIBO_ACTIVE_POWER.title": "奇波",
+    "STS2_STARBORN_POWER_KIBO_ACTIVE_POWER.description": "每回合开始自动使用奇波的专属卡牌。"
 }

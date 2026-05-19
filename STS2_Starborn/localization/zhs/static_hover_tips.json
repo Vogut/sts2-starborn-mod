@@ -4,6 +4,9 @@
     "STS2_STARBORN_OVERLOAD.title": "超限",
     "STS2_STARBORN_OVERLOAD.description": "回合结束时，若印记层数达到满层（5层），触发属性的超限效果并消耗更多层数。",
     "STS2_STARBORN_ELEMENT_MARK.title": "属性印记",
-    "STS2_STARBORN_ELEMENT_MARK.description": "给予 {ElementMark:sealElementIcons()} 层属性印记。NL回合结束时若层数 >= 3 触发调谐，满层触发超限。"
-
+    "STS2_STARBORN_ELEMENT_MARK.description": "给予 {ElementMark:sealElementIcons()} 层属性印记。NL回合结束时若层数 >= 3 触发调谐，满层触发超限。",
+    "STS2_STARBORN_CARDPILE_KIBO_PILE.title": "奇波牌堆",
+    "STS2_STARBORN_CARDPILE_KIBO_PILE.description": "当前活跃奇波的专属卡牌。",
+    "STS2_STARBORN_CARDPILE_KIBO_COLLECTION.title": "奇波收藏",
+    "STS2_STARBORN_CARDPILE_KIBO_COLLECTION.description": "已收集的奇波。"
 }

@@ -13,5 +13,14 @@
     "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人造成[blue]{Overload}[/blue]点伤害。",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
-    "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。"
+    "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_ABILITY1_CARD.title": "狐火",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_ABILITY2_CARD.title": "狐守",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_REP_CARD.title": "火狐",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_REP_CARD.description": "[gold]奇波[/gold]：火狐。NL可打出[blue]狐火[/blue]和[blue]狐守[/blue]。",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.title": "召唤火狐",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.description": "获得[blue]{Block}[/blue]点格挡。NL[gold]奇波[/gold]：召唤火狐。",
+    "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.upgradeDescription": "获得[blue]{Block}[/blue]点格挡。NL[gold]奇波[/gold]：召唤火狐。"
 }

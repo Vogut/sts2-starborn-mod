@@ -50,6 +50,16 @@ namespace STS2_Starborn
             /// <summary>小图标：FireIcon.png / WaterIcon.png …（有 Icon 后缀）</summary>
             public static string ElementIcon(SealElementType et) =>
                 $"{Root}/powers/Elements/Icon/{et}.png";
+
+            // ─── Kibo ─────────────────────────────────────
+            public const string KiboPileIcon = Root + "/kibo/icons/kibo_pile.png";
+            public const string KiboCollectionPileIcon = Root + "/kibo/icons/kibo_collection.png";
+
+            public static string KiboIcon(Kibo.KiboTypeId type) =>
+                $"{Root}/kibo/icons/{type}.png";
+
+            public static string KiboCardPortrait(Type cardType) =>
+                $"{Root}/kibo/cards/{cardType.Name}.png";
         }
     }
 }
