@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Kibo;
@@ -17,7 +18,10 @@ public sealed class FoxSpiritCallCard() : StarbornCard(
 {
     public override KiboTypeId? KiboSummonType => KiboTypeId.FoxSpirit;
 
-    protected override IEnumerable<string> RegisteredKeywordIds => [KiboKeywords.KiboKeywordId];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        KiboKeywords.KiboKeywordId.GetModCardKeyword(),
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
