@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Cards.DynamicVars;
+using STS2_Starborn.Hooks;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards;
@@ -71,5 +72,35 @@ public static class StarbornCardVars
             return BuildOverloadTip(sev.ElementType, (int)sev.IntValue);
         });
         return v;
+    }
+
+    /// <summary>供卡面使用的 Tuning 计算 var，自动走 Modify 管线。</summary>
+    internal static DynamicVar ComputedCardTuning(
+        Func<SealElementMarkPower?> getMark, int baseConsume, SealElementType elementType)
+    {
+        return ComputedTuning(
+            () =>
+            {
+                var mark = getMark();
+                return mark?.CombatState != null
+                    ? SealElementMarkHooks.ModifyTuningConsume(mark.CombatState, mark, baseConsume)
+                    : baseConsume;
+            },
+            () => elementType);
+    }
+
+    /// <summary>供卡面使用的 Overload 计算 var，自动走 Modify 管线。</summary>
+    internal static DynamicVar ComputedCardOverload(
+        Func<SealElementMarkPower?> getMark, int baseConsume, SealElementType elementType)
+    {
+        return ComputedOverload(
+            () =>
+            {
+                var mark = getMark();
+                return mark?.CombatState != null
+                    ? SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, baseConsume)
+                    : baseConsume;
+            },
+            () => elementType);
     }
 }
