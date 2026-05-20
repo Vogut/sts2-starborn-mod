@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using STS2RitsuLib.Patching.Models;
-using STS2_Starborn.Kibo;
+using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Patches;
 

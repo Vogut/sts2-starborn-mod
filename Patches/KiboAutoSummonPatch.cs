@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Patching.Models;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Cards.Kibo;
-using STS2_Starborn.Kibo;
+using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Patches;
 
