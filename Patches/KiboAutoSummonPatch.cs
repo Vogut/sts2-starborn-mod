@@ -6,8 +6,10 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Patching.Models;
 using STS2_Starborn.Cards;
+using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Kibo;
 
-namespace STS2_Starborn.Kibo.Patches;
+namespace STS2_Starborn.Patches;
 
 public sealed class KiboAutoSummonPatch : IPatchMethod
 {

@@ -1,7 +1,7 @@
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterOwnedCardKeyword("kibo")]
 [RegisterOwnedCardKeyword("kibo_pile_member", IncludeInCardHoverTip = false)]

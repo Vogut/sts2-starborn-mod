@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -7,8 +8,10 @@ using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.CardPiles;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Keywords;
+using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Combat;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Pile;
 
 public static class KiboPileManager
 {
@@ -24,7 +27,8 @@ public static class KiboPileManager
             {
                 Scope = ModCardPileScope.CombatOnly,
                 Style = ModCardPileUiStyle.BottomLeft,
-                Anchor = new ModCardPileAnchor(ModCardPileAnchorKind.BottomLeftSecondary),
+                Anchor = new ModCardPileAnchor(ModCardPileAnchorKind.BottomLeftPrimary,
+                    Offset: new Vector2(0, -80f)),
                 IconPath = Const.Paths.KiboPileIcon,
             });
     }

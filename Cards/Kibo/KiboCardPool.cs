@@ -2,7 +2,7 @@ using Godot;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterSharedCardPool]
 public sealed class KiboCardPool : TypeListCardPoolModel

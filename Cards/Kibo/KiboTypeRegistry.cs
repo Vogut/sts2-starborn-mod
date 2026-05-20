@@ -1,6 +1,4 @@
-using STS2_Starborn.Kibo.Cards;
-
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Kibo;
 
 public sealed record KiboTypeDefinition(
     KiboTypeId TypeId,

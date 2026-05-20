@@ -7,8 +7,9 @@ using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.CardPiles;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2_Starborn.Cards.Kibo;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Pile;
 
 [RegisterOwnedCardPile("kibo_collection",
     Scope = ModCardPileScope.RunPersistent,

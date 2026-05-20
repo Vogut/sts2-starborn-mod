@@ -1,4 +1,4 @@
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Cards.Kibo;
 
 public enum KiboTypeId
 {

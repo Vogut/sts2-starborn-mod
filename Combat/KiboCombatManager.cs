@@ -6,8 +6,11 @@ using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models;
+using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Cards.Pile;
+using STS2_Starborn.Runs;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Combat;
 
 [RegisterSingleton]
 public sealed class KiboCombatManager : HookedSingletonModel

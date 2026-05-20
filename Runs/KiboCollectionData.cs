@@ -1,7 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using STS2RitsuLib.RunData;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.Runs;
 
 public sealed class KiboCollectionData
 {

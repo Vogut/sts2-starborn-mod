@@ -56,10 +56,10 @@ namespace STS2_Starborn
             public const string KiboCollectionPileIcon = Root + "/kibo/icons/kibo_collection.png";
             public const string KiboPedestal = Root + "/kibo/Base.png";
 
-            public static string KiboIcon(Kibo.KiboTypeId type) =>
+            public static string KiboIcon(Cards.Kibo.KiboTypeId type) =>
                 $"{Root}/kibo/icons/{type}.png";
 
-            public static string KiboPixelAnimation(Kibo.KiboTypeId type) =>
+            public static string KiboPixelAnimation(Cards.Kibo.KiboTypeId type) =>
                 $"{Root}/kibo/pixel_animation/{type}.png";
 
             public static string KiboCardPortrait(Type cardType) =>

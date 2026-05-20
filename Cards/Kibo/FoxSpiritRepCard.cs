@@ -4,12 +4,13 @@ using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2_Starborn.Cards;
 
-namespace STS2_Starborn.Kibo.Cards;
+namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-public sealed class FoxSpiritRepCard() : ModCardTemplate(
-    0, CardType.Power, CardRarity.Token, TargetType.Self, showInCardLibrary: false)
+public sealed class FoxSpiritRepCard() : StarbornCard(
+    0, CardType.Power, CardRarity.Token, TargetType.Self, shouldShowInCardLibrary: true)
 {
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: Const.Paths.KiboCardPortrait(GetType()));

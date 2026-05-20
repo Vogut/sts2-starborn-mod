@@ -1,8 +1,9 @@
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
+using STS2_Starborn.Cards.Kibo;
 
-namespace STS2_Starborn.Kibo;
+namespace STS2_Starborn.UI;
 
 public partial class NKiboWidget : Control
 {
@@ -77,7 +78,6 @@ public partial class NKiboWidget : Control
 
     public override void _Process(double delta)
     {
-        // Frame animation
         _frameTimer += (float)delta;
         if (_frameTimer >= FrameDuration)
         {
@@ -86,7 +86,6 @@ public partial class NKiboWidget : Control
             _atlas.Region = new Rect2(_currentFrame * FrameWidth, 0, FrameWidth, FrameHeight);
         }
 
-        // Layout
         var scale = 0.8f;
         var spriteW = FrameWidth * scale;
         var spriteH = FrameHeight * scale;
