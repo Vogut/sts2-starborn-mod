@@ -93,7 +93,7 @@ public partial class NKiboWidget : Control
 
     private void ApplyLayout()
     {
-        var scale = 0.8f;
+        var scale = 1.2f;
         var spriteW = FrameWidth * scale;
         var spriteH = FrameHeight * scale;
         var pedH = 64f * scale;

@@ -5,7 +5,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterOwnedCardKeyword("kibo")]
 [RegisterOwnedCardKeyword("kibo_pile_member", IncludeInCardHoverTip = false)]
-public static class KiboKeywords
+public class KiboKeywords
 {
     public static readonly string KiboKeywordId =
         ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "kibo");
