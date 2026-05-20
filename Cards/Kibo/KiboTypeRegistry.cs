@@ -3,7 +3,7 @@ namespace STS2_Starborn.Cards.Kibo;
 public sealed record KiboTypeDefinition(
     KiboTypeId TypeId,
     string LocKey,
-    string IconPath,
+    string PixelAnimationPath,
     Type CardType1,
     Type CardType2,
     Type RepCardType
@@ -21,7 +21,7 @@ public static class KiboTypeRegistry
         Register(new(
             KiboTypeId.FoxSpirit,
             "kibo_fox_spirit",
-            Const.Paths.KiboIcon(KiboTypeId.FoxSpirit),
+            Const.Paths.KiboPixelAnimation(KiboTypeId.FoxSpirit),
             typeof(FoxSpiritAbility1Card),
             typeof(FoxSpiritAbility2Card),
             typeof(FoxSpiritRepCard)

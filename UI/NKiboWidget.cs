@@ -34,6 +34,7 @@ public partial class NKiboWidget : Control
     public override void _Ready()
     {
         KiboCombatManager.PileChanged += OnPileChanged;
+        ApplyLayout();
         Refresh();
     }
 
@@ -72,7 +73,7 @@ public partial class NKiboWidget : Control
         var def = KiboTypeRegistry.Get(typeId);
         Visible = true;
 
-        _atlas.Atlas = GD.Load<Texture2D>(Const.Paths.KiboPixelAnimation(typeId));
+        _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
         _nameLabel.Text = def.LocKey;
 
         var pile = KiboPileManager.GetPile(_player);
@@ -84,11 +85,14 @@ public partial class NKiboWidget : Control
         _frameTimer += (float)delta;
         if (_frameTimer >= FrameDuration)
         {
-            _frameTimer -= FrameDuration;
+            _frameTimer = 0;
             _currentFrame = (_currentFrame + 1) % FrameCount;
             _atlas.Region = new Rect2(_currentFrame * FrameWidth, 0, FrameWidth, FrameHeight);
         }
+    }
 
+    private void ApplyLayout()
+    {
         var scale = 0.8f;
         var spriteW = FrameWidth * scale;
         var spriteH = FrameHeight * scale;
