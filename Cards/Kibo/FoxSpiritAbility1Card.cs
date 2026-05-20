@@ -19,7 +19,7 @@ public sealed class FoxSpiritAbility1Card() : StarbornCard(
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6, ValueProp.Unpowered),
+        new DamageVar(6, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

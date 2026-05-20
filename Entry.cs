@@ -50,6 +50,9 @@ public class Entry
 
         var patcher = RitsuLibFramework.CreatePatcher(Const.ModId, "main");
         patcher.RegisterPatch<KiboAutoSummonPatch>();
+        patcher.RegisterPatch<KiboCardPlayHookFilterPatch>();
+        patcher.RegisterPatch<KiboDamageModifierPatch>();
+        patcher.RegisterPatch<KiboDamageReflectorPatch>();
         patcher.RegisterPatch<KiboWidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<KiboWidgetCombatUiActivatePatch>();
         RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);

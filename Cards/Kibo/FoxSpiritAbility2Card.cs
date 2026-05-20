@@ -19,7 +19,7 @@ public sealed class FoxSpiritAbility2Card() : StarbornCard(
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(4, ValueProp.Unpowered),
+        new BlockVar(4, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

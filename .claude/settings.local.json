@@ -6,7 +6,9 @@
       "Skill(sts2-mod-dev)",
       "Skill(sts2-mod-dev:*)",
       "Bash(Get-ChildItem -Recurse -Filter \"*.cs\" \"d:\\\\notwork\\\\sts2-starborn-mod\\\\STS2_Starborn\\\\powers\")",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Read(//c/Users/Admin/AppData/Roaming/SlayTheSpire2/logs//**)",
+      "Read(//e/SteamLibrary/steamapps/common/Slay the Spire 2/**)"
     ]
   }
 }
