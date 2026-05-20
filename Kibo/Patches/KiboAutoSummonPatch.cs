@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Patching.Models;
@@ -25,11 +26,18 @@ public sealed class KiboAutoSummonPatch : IPatchMethod
 
     public static async void Postfix(CardModel __instance, PlayerChoiceContext choiceContext)
     {
-        if (__instance is not StarbornCard starbornCard)
-            return;
-        if (starbornCard.KiboSummonType is not { } kiboType)
-            return;
+        try
+        {
+            if (__instance is not StarbornCard starbornCard)
+                return;
+            if (starbornCard.KiboSummonType is not { } kiboType)
+                return;
 
-        await KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType, __instance);
+            await KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType, __instance);
+        }
+        catch (Exception ex)
+        {
+            Entry.Logger.Error($"[KiboAutoSummon] Failed to summon: {ex}");
+        }
     }
 }
