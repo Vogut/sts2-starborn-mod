@@ -1,44 +1,43 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
-using STS2RitsuLib.Scaffolding.Content;
-using STS2RitsuLib.Scaffolding.Characters;
+using STS2RitsuLib.Models;
 
 namespace STS2_Starborn.Kibo;
 
-[RegisterPower]
-public sealed class KiboActivePower : ModPowerTemplate
+[RegisterSingleton]
+public sealed class KiboCombatManager : HookedSingletonModel
 {
-    private KiboTypeId _activeType;
+    public static event Action? PileChanged;
 
-    public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
-    public override bool AllowNegative => false;
-    public override bool ShouldReceiveCombatHooks => true;
+    public KiboCombatManager() : base(HookedSingletonModel.HookType.Combat) { }
 
-    public void SetActiveKiboType(KiboTypeId typeId)
-    {
-        _activeType = typeId;
-    }
+    public static void NotifyPileChanged() => PileChanged?.Invoke();
 
     public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
-        if (side != Owner.Side)
+        if (side != CombatSide.Player)
             return;
 
-        var player = Owner.Player;
+        var player = combatState.Players.FirstOrDefault();
         if (player == null)
+            return;
+
+        var data = KiboRunData.Get(player);
+        if (data?.ActiveKiboTypeId == null)
+            return;
+
+        if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var typeId))
             return;
 
         var pile = KiboPileManager.GetPile(player);
         if (pile == null || pile.Cards.Count == 0)
         {
-            await KiboPileManager.RefillPile(new BlockingPlayerChoiceContext(), player, _activeType);
+            await KiboPileManager.RefillPile(new BlockingPlayerChoiceContext(), player, typeId);
             pile = KiboPileManager.GetPile(player);
         }
 

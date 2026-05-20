@@ -62,5 +62,7 @@ public static class KiboPileManager
             card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
             await CardPileCmd.Add(card, pile);
         }
+
+        KiboCombatManager.NotifyPileChanged();
     }
 }
