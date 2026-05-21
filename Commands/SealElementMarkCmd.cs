@@ -14,11 +14,6 @@ namespace STS2_Starborn.Commands;
 /// </summary>
 public static class SealElementMarkCmd
 {
-    /// <summary>
-    /// 将印记的 <see cref="SealElementMarkPower.CurrentElementType"/> 切换为 <paramref name="dst_element"/>，
-    /// 并通过 <see cref="SealElementMarkHooks.AfterElementChanged"/> 通知所有 <see cref="ISealElementMarkListener"/> 监听者。
-    /// 新旧属性相同时直接返回，不触发 Hook。
-    /// </summary>
     public static async Task SetElementType(
         PlayerChoiceContext ctx,
         MarkSlot slot,

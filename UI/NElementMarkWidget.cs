@@ -134,7 +134,7 @@ public partial class NElementMarkWidget : Control
 
         private void BuildHoverTips(Player player, MarkSlot slot, SealElementType elementType)
         {
-            var elementPower = Element.Element.For(elementType);
+            var elementPower = Element.StarbornElement.For(elementType);
 
             var title = new LocString("powers",
                 $"STS2_STARBORN_ELEMENT_{elementType.ToString().ToUpperInvariant()}.title");

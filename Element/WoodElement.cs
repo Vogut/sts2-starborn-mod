@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Localization;
 
 namespace STS2_Starborn.Element;
 
-public sealed class WoodElement : Element
+public sealed class WoodElement : StarbornElement
 {
     public override SealElementType Attribute => SealElementType.Wood;
 

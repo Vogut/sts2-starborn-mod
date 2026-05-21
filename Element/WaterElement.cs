@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace STS2_Starborn.Element;
 
-public sealed class WaterElement : Element
+public sealed class WaterElement : StarbornElement
 {
     public override SealElementType Attribute => SealElementType.Water;
 

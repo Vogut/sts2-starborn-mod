@@ -101,7 +101,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
             var elementType = GetElementType(player, slot);
             if (elementType == SealElementType.None) continue;
 
-            var elementPower = Element.Element.For(elementType);
+            var elementPower = Element.StarbornElement.For(elementType);
             var tuningConsume = SealElementMarkHooks.ModifyTuningConsume(combatState, slot, elementPower.TuningConsume);
             var overloadConsume = SealElementMarkHooks.ModifyOverloadConsume(combatState, slot, elementPower.OverloadConsume);
 

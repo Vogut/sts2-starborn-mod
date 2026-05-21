@@ -4,9 +4,9 @@ using MegaCrit.Sts2.Core.Localization;
 
 namespace STS2_Starborn.Element;
 
-public abstract class Element
+public abstract class StarbornElement
 {
-    private static readonly Dictionary<SealElementType, Element> _elements = new()
+    private static readonly Dictionary<SealElementType, StarbornElement> _elements = new()
     {
         [SealElementType.None]  = new NonElement(),
         [SealElementType.Fire]  = new FireElement(),
@@ -21,6 +21,6 @@ public abstract class Element
     public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner);
     public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner);
 
-    public static Element For(SealElementType attribute) =>
+    public static StarbornElement For(SealElementType attribute) =>
         _elements.TryGetValue(attribute, out var ep) ? ep : _elements[SealElementType.None];
 }

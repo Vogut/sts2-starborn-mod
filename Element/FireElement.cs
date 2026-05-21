@@ -9,7 +9,7 @@ namespace STS2_Starborn.Element;
 /// 火属性效果提供者。
 /// 基础效果：对全体敌人造成 3 点伤害；强化效果：造成 10 点伤害。
 /// </summary>
-public sealed class FireElement : Element
+public sealed class FireElement : StarbornElement
 {
     public override SealElementType Attribute => SealElementType.Fire;
 

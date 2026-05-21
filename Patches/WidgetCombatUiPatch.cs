@@ -9,9 +9,9 @@ using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Patches;
 
-public sealed class KiboWidgetCombatUiReadyPatch : IPatchMethod
+public sealed class WidgetCombatUiReadyPatch : IPatchMethod
 {
-    public static string PatchId => "sts2_starborn_kibo_widget_ready";
+    public static string PatchId => "sts2_starborn_widget_ready";
     public static string Description => "Inject Kibo and Element Mark widgets into NCombatUi";
     public static bool IsCritical => false;
 
@@ -38,10 +38,10 @@ public sealed class KiboWidgetCombatUiReadyPatch : IPatchMethod
     }
 }
 
-public sealed class KiboWidgetCombatUiActivatePatch : IPatchMethod
+public sealed class WidgetCombatUiActivatePatch : IPatchMethod
 {
-    public static string PatchId => "sts2_starborn_kibo_widget_activate";
-    public static string Description => "Initialize widgets with player on combat activate";
+    public static string PatchId => "sts2_starborn_widget_activate";
+    public static string Description => "Initialize Starborn widgets with player on combat activate";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
