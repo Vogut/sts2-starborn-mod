@@ -1,6 +1,6 @@
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2_Starborn.Combat;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Hooks;
 

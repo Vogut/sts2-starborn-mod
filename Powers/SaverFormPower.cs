@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Combat;
+using STS2_Starborn.Element;
 using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Powers;

@@ -2,7 +2,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using SmartFormat.Core.Extensions;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Cards;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Localization.Formatters;
 

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
+using STS2_Starborn.Element;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Rare;

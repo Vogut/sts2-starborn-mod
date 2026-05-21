@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Commands;
 
@@ -15,7 +15,7 @@ public static class StarbornCmd
         var stacks = ElementMarkManager.GetStacks(player, slot);
         var elementType = ElementMarkManager.GetElementType(player, slot);
         if (elementType == SealElementType.None) return false;
-        var consume = ElementPower.For(elementType).TuningConsume;
+        var consume = Element.Element.For(elementType).TuningConsume;
         if (player.Creature.CombatState != null)
             consume = SealElementMarkHooks.ModifyTuningConsume(player.Creature.CombatState, slot, consume);
         return stacks >= consume && consume >= 0;
@@ -26,7 +26,7 @@ public static class StarbornCmd
         var stacks = ElementMarkManager.GetStacks(player, slot);
         var elementType = ElementMarkManager.GetElementType(player, slot);
         if (elementType == SealElementType.None) return false;
-        var consume = ElementPower.For(elementType).OverloadConsume;
+        var consume = Element.Element.For(elementType).OverloadConsume;
         if (player.Creature.CombatState != null)
             consume = SealElementMarkHooks.ModifyOverloadConsume(player.Creature.CombatState, slot, consume);
         return stacks >= ElementMarkManager.ThresholdStacks && stacks >= consume && consume >= 0;
@@ -51,7 +51,7 @@ public static class StarbornCmd
 
         await SealElementMarkHooks.BeforeTuning(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await ElementPower.For(elementType).OnThreshold(ctx, player);
+        await Element.Element.For(elementType).OnThreshold(ctx, player);
         await SealElementMarkHooks.AfterTuning(combatState, ctx, slot, consume, source);
     }
 
@@ -91,7 +91,7 @@ public static class StarbornCmd
 
         await SealElementMarkHooks.BeforeOverload(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await ElementPower.For(elementType).OnEnhanced(ctx, player);
+        await Element.Element.For(elementType).OnEnhanced(ctx, player);
         await SealElementMarkHooks.AfterOverload(combatState, ctx, slot, consume, source);
     }
 

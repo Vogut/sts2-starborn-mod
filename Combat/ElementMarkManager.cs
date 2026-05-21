@@ -5,7 +5,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Hooks;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Combat;
@@ -101,7 +101,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
             var elementType = GetElementType(player, slot);
             if (elementType == SealElementType.None) continue;
 
-            var elementPower = ElementPower.For(elementType);
+            var elementPower = Element.Element.For(elementType);
             var tuningConsume = SealElementMarkHooks.ModifyTuningConsume(combatState, slot, elementPower.TuningConsume);
             var overloadConsume = SealElementMarkHooks.ModifyOverloadConsume(combatState, slot, elementPower.OverloadConsume);
 

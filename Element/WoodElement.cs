@@ -2,12 +2,9 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 
-namespace STS2_Starborn.Powers;
+namespace STS2_Starborn.Element;
 
-/// <summary>
-/// 木属性效果提供者。（施工中，效果待实现）
-/// </summary>
-public sealed class WoodElementPower : ElementPower
+public sealed class WoodElement : Element
 {
     public override SealElementType Attribute => SealElementType.Wood;
 

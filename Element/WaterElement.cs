@@ -4,12 +4,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace STS2_Starborn.Powers;
+namespace STS2_Starborn.Element;
 
-/// <summary>
-/// 水属性效果提供者。（施工中，效果待实现）
-/// </summary>
-public sealed class WaterElementPower : ElementPower
+public sealed class WaterElement : Element
 {
     public override SealElementType Attribute => SealElementType.Water;
 

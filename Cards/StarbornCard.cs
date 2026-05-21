@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Cards;
 

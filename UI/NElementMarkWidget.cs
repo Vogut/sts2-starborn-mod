@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.UI;
 
@@ -134,7 +134,7 @@ public partial class NElementMarkWidget : Control
 
         private void BuildHoverTips(Player player, MarkSlot slot, SealElementType elementType)
         {
-            var elementPower = ElementPower.For(elementType);
+            var elementPower = Element.Element.For(elementType);
 
             var title = new LocString("powers",
                 $"STS2_STARBORN_ELEMENT_{elementType.ToString().ToUpperInvariant()}.title");

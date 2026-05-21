@@ -1,5 +1,5 @@
 using STS2RitsuLib.Scaffolding.Content;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn
 {
