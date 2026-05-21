@@ -18,11 +18,43 @@ public sealed class ElementMarkManager : HookedSingletonModel
     public const int MaxSealStacks = 5;
     public const int ThresholdStacks = 3;
 
+    private readonly Dictionary<ulong, int> _switchCounts = [];
+    private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
+
     public static event Action? MarksChanged;
 
-    public ElementMarkManager() : base(HookedSingletonModel.HookType.Combat) { }
+    public ElementMarkManager() : base(HookedSingletonModel.HookType.Combat)
+    {
+        _instance = this;
+    }
 
     public static void NotifyMarksChanged() => MarksChanged?.Invoke();
+
+    // ── Per-turn switch tracking ──
+
+    private static ElementMarkManager _instance = null!;
+    private static ElementMarkManager Instance => _instance;
+
+    public static int GetSwitchCount(Player player) =>
+        Instance._switchCounts.GetValueOrDefault(player.NetId);
+
+    public static int GetSwitchedTypeCount(Player player) =>
+        Instance._switchedTypes.GetValueOrDefault(player.NetId)?.Count ?? 0;
+
+    private void RecordSwitch(Player player, SealElementType to)
+    {
+        var id = player.NetId;
+        _switchCounts[id] = _switchCounts.GetValueOrDefault(id) + 1;
+        if (!_switchedTypes.ContainsKey(id))
+            _switchedTypes[id] = [];
+        _switchedTypes[id].Add(to);
+    }
+
+    private void ResetSwitchTracking(Player player)
+    {
+        _switchCounts.Remove(player.NetId);
+        _switchedTypes.Remove(player.NetId);
+    }
 
     // ── Accessors ──
 
@@ -56,6 +88,9 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
     public static void SetElementType(Player player, MarkSlot slot, SealElementType elementType)
     {
+        if (elementType != SealElementType.None)
+            Instance.RecordSwitch(player, elementType);
+
         ElementMarkRunData.Modify(player, data =>
         {
             var raw = elementType.ToString();
@@ -74,6 +109,8 @@ public sealed class ElementMarkManager : HookedSingletonModel
         if (side != CombatSide.Player) return Task.CompletedTask;
         var player = combatState.Players.FirstOrDefault();
         if (player == null) return Task.CompletedTask;
+
+        Instance.ResetSwitchTracking(player);
 
         foreach (var slot in new[] { MarkSlot.Primary, MarkSlot.Secondary })
         {
