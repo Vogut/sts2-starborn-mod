@@ -24,7 +24,7 @@ public class TestKiboRelic : StarbornRelic, IKiboCardPlayListener
             return;
 
         _isReplaying = true;
-        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, null);
+        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, base.Owner.Creature.CombatState!);
         _isReplaying = false;
     }
 }
