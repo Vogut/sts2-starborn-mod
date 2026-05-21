@@ -21,9 +21,13 @@ public sealed class KiboCombatManager : HookedSingletonModel
 
     public static void NotifyPileChanged() => PileChanged?.Invoke();
 
-    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != CombatSide.Player)
+            return;
+
+        var combatState = CombatManager.Instance.DebugOnlyGetState();
+        if (combatState == null)
             return;
 
         var player = combatState.Players.FirstOrDefault();
