@@ -91,8 +91,8 @@ public abstract class SealElementMarkPower : StarbornPower
                 ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, this, CurrentElementPower.OverloadConsume)
                 : CurrentElementPower.OverloadConsume;
 
-            yield return StarbornCardVars.BuildTuningTip(elementType, tuningConsume);
-            yield return StarbornCardVars.BuildOverloadTip(elementType, overloadConsume);
+            yield return StarbornTipFactory.Tuning(elementType, tuningConsume);
+            yield return StarbornTipFactory.Overload(elementType, overloadConsume);
         }
     }
 

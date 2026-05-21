@@ -13,8 +13,6 @@ namespace STS2_Starborn.Cards;
 
 public static class StarbornCardVars
 {
-    private const string TuningKey = "STS2_STARBORN_TUNING";
-    private const string OverloadKey = "STS2_STARBORN_OVERLOAD";
     private const string ElementMarkKey = "STS2_STARBORN_ELEMENT_MARK";
 
 
@@ -30,7 +28,7 @@ public static class StarbornCardVars
                     ? SealElementMarkHooks.ModifyTuningConsume(mark.CombatState, mark, v)
                     : v;
             })
-            .WithSharedTooltip(TuningKey, Const.Paths.ElementIcon(elementType));
+            .WithSharedTooltip(StarbornTipFactory.TuningKey, Const.Paths.ElementIcon(elementType));
 
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None) =>
         new SealElementVar("Overload", stacks, elementType)
@@ -41,35 +39,7 @@ public static class StarbornCardVars
                     ? SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, v)
                     : v;
             })
-            .WithSharedTooltip(OverloadKey, Const.Paths.ElementIcon(elementType));
-
-    /// <summary>构建调谐 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedTuning</c> 复用。</summary>
-    internal static HoverTip BuildTuningTip(SealElementType elementType, int consume)
-    {
-        return BuildTip(TuningKey, "Tuning", elementType, consume);
-    }
-
-    /// <summary>构建超限 hover tip，供 Power 的 <c>AdditionalHoverTips</c> 和 <c>ComputedOverload</c> 复用。</summary>
-    internal static HoverTip BuildOverloadTip(SealElementType elementType, int consume)
-    {
-        return BuildTip(OverloadKey, "Overload", elementType, consume);
-    }
-
-    /// <summary>构建带图标、标题和描述的统一 <see cref="HoverTip"/>，供 Tuning/Overload 复用。</summary>
-    private static HoverTip BuildTip(string key, string varName, SealElementType elementType, int consume)
-    {
-        var iconPath = Const.Paths.ElementIcon(elementType);
-        Texture2D? icon = null;
-        if (!string.IsNullOrWhiteSpace(iconPath) && ResourceLoader.Exists(iconPath))
-            icon = ResourceLoader.Load<Texture2D>(iconPath);
-
-        var dv = new SealElementVar(varName, consume, elementType);
-        var title = new LocString("static_hover_tips", $"{key}.title");
-        var description = new LocString("static_hover_tips", $"{key}.description");
-        title.Add(dv);
-        description.Add(dv);
-        return new HoverTip(title, description, icon);
-    }
+            .WithSharedTooltip(StarbornTipFactory.OverloadKey, Const.Paths.ElementIcon(elementType));
 
     internal static DynamicVar ComputedTuning(Func<int> value, Func<SealElementType> type)
     {
@@ -77,7 +47,7 @@ public static class StarbornCardVars
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
-            return BuildTuningTip(sev.ElementType, (int)sev.IntValue);
+            return StarbornTipFactory.Tuning(sev.ElementType, (int)sev.IntValue);
         });
         return v;
     }
@@ -88,7 +58,7 @@ public static class StarbornCardVars
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
-            return BuildOverloadTip(sev.ElementType, (int)sev.IntValue);
+            return StarbornTipFactory.Overload(sev.ElementType, (int)sev.IntValue);
         });
         return v;
     }
