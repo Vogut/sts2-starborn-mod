@@ -47,7 +47,15 @@ public sealed class KiboCombatManager : HookedSingletonModel
         if (pile == null || pile.Cards.Count == 0)
             return;
 
-        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), pile.Cards[0], combatState);
+        var normalCards = pile.Cards
+            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeywordId))
+            .ToList();
+
+        if (normalCards.Count == 0)
+            return;
+
+        var card = normalCards[Random.Shared.Next(normalCards.Count)];
+        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
     }
 
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(

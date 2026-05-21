@@ -1,4 +1,8 @@
 {
     "STS2_STARBORN_KEYWORD_KIBO.title": "奇波",
-    "STS2_STARBORN_KEYWORD_KIBO.description": "打出后召唤对应的奇波。"
+    "STS2_STARBORN_KEYWORD_KIBO.description": "打出后召唤对应的奇波。",
+    "STS2_STARBORN_KEYWORD_KIBO_NORMAL.title": "普通",
+    "STS2_STARBORN_KEYWORD_KIBO_NORMAL.description": "奇波回合开始时会随机自动打出。",
+    "STS2_STARBORN_KEYWORD_KIBO_ULTIMATE.title": "大招牌",
+    "STS2_STARBORN_KEYWORD_KIBO_ULTIMATE.description": "奇波不会自动打出，需特殊条件触发。"
 }
