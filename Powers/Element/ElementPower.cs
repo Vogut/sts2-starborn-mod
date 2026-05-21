@@ -1,7 +1,9 @@
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
+
 namespace STS2_Starborn.Powers;
 
 /// <summary>
@@ -25,21 +27,14 @@ public abstract class ElementPower : StarbornPower
     public virtual int TuningConsume => 1;
     public virtual int OverloadConsume => 2;
 
-    /// <summary>基础效果：印记达到 <see cref="SealElementMarkPower.ThresholdStacks"/> 层时触发</summary>
-    public abstract Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source);
+    public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner);
+    public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner);
 
-    /// <summary>强化效果：印记达到 <see cref="SealElementMarkPower.MaxSealStacks"/> 层时触发</summary>
-    public abstract Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source);
-
-    /// <summary>
-    /// 根据 <see cref="SealElementType"/> 返回对应的 <see cref="ElementPower"/> 规范实例（由框架 ModelDb 管理）。
-    /// 始终返回非 null；<see cref="SealElementType.None"/> 返回 <see cref="NonElementPower"/>。
-    /// </summary>
     public static ElementPower For(SealElementType attribute) => attribute switch
     {
         SealElementType.Fire  => ModelDb.Power<FireElementPower>(),
         SealElementType.Water => ModelDb.Power<WaterElementPower>(),
         SealElementType.Wood  => ModelDb.Power<WoodElementPower>(),
-        _                   => ModelDb.Power<NonElementPower>(),
+        _                     => ModelDb.Power<NonElementPower>(),
     };
 }

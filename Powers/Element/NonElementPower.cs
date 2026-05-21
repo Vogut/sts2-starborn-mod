@@ -1,7 +1,6 @@
-using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace STS2_Starborn.Powers;
 
@@ -11,7 +10,6 @@ namespace STS2_Starborn.Powers;
 /// </summary>
 public sealed class NonElementPower : ElementPower
 {
-
     public override SealElementType Attribute => SealElementType.None;
 
     public override int TuningConsume => 0;
@@ -19,12 +17,10 @@ public sealed class NonElementPower : ElementPower
 
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_NONE.description");
-    public override Task OnThreshold(PlayerChoiceContext ctx, SealElementMarkPower source) =>
-        // 无属性效果，不执行任何操作
-        Task.CompletedTask;
 
-    public override Task OnEnhanced(PlayerChoiceContext ctx, SealElementMarkPower source) =>
-        // 无属性效果，不执行任何操作
-        Task.CompletedTask;
-    
+    public override Task OnThreshold(PlayerChoiceContext ctx, Player owner)
+        => Task.CompletedTask;
+
+    public override Task OnEnhanced(PlayerChoiceContext ctx, Player owner)
+        => Task.CompletedTask;
 }

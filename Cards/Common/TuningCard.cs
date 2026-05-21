@@ -10,6 +10,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Character;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
@@ -24,7 +25,7 @@ public class TuningCard() : StarbornCard(
 )
 {
     protected override bool IsPlayable =>
-        StarbornCmd.CanTuning(PrimaryMark, DynamicVars["Tuning"].IntValue);
+        StarbornCmd.CanTuning(Owner, MarkSlot.Primary);
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -33,20 +34,20 @@ public class TuningCard() : StarbornCard(
         new CalculationBaseVar(0),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier((card, _) =>
-            card.Owner.Creature.FindPower<PrimaryMarkPower>()?.DisplayAmount ?? 0),
+            ElementMarkManager.GetStacks(card.Owner, MarkSlot.Primary)),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await StarbornCmd.Tuning(choiceContext, PrimaryMark!, DynamicVars["Tuning"].IntValue, SealElementType.Fire, this);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark!, DynamicVars["ElementMark"].IntValue, this);
+        await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, SealElementType.Fire, this);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
         var damage = DynamicVars["CalculatedDamage"].BaseValue;
         if (damage > 0)
-            await CreatureCmd.Damage(choiceContext, PrimaryMark!.CombatState.HittableEnemies, damage, ValueProp.Unpowered, PrimaryMark.Owner, this);
+            await CreatureCmd.Damage(choiceContext, Owner.Creature.CombatState!.HittableEnemies, damage, ValueProp.Unpowered, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["ElementMark"].BaseValue += 1; // 2 → 3
+        DynamicVars["ElementMark"].BaseValue += 1;
     }
 }

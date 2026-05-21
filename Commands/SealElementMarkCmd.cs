@@ -1,9 +1,10 @@
-using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
-using STS2RitsuLib.Scaffolding.Content;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
 using STS2_Starborn.Powers;
+using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Commands;
 
@@ -20,19 +21,21 @@ public static class SealElementMarkCmd
     /// </summary>
     public static async Task SetElementType(
         PlayerChoiceContext ctx,
-        SealElementMarkPower element_mark,
-        SealElementType dst_element)
+        MarkSlot slot,
+        Player player,
+        SealElementType dstElement)
     {
-        var oldElement = element_mark.CurrentElementType;
-        if (oldElement == dst_element)
+        var combatState = player.Creature.CombatState;
+        if (combatState == null) return;
+
+        var oldElement = ElementMarkManager.GetElementType(player, slot);
+        if (oldElement == dstElement) return;
+
+        if (SealElementMarkHooks.AnyListenerPreventsElementChange(combatState, slot, oldElement, dstElement))
             return;
 
-        if (element_mark.AnyListenerPreventsChange(element_mark.CombatState, oldElement, dst_element))
-            return;
-
-        element_mark.CurrentElementType = dst_element;
-        element_mark.RequestVisualReload();
-        await SealElementMarkHooks.AfterElementChanged(element_mark.CombatState, ctx, element_mark, oldElement, dst_element);
+        ElementMarkManager.SetElementType(player, slot, dstElement);
+        await SealElementMarkHooks.AfterElementChanged(combatState, ctx, slot, oldElement, dstElement);
     }
 
     /// <summary>
@@ -41,13 +44,13 @@ public static class SealElementMarkCmd
     /// </summary>
     public static async Task GainElementMarks(
         PlayerChoiceContext ctx,
-        SealElementMarkPower mark,
-        int stacks,
-        CardModel? cardSource = null)
+        MarkSlot slot,
+        Player player,
+        int stacks)
     {
         if (stacks <= 0) return;
-        var owner = mark.Owner;
-        await PowerCmd.Apply(ctx, mark, owner, stacks, owner, cardSource);
+        var current = ElementMarkManager.GetStacks(player, slot);
+        ElementMarkManager.SetStacks(player, slot, current + stacks);
     }
 
     /// <summary>
@@ -55,12 +58,12 @@ public static class SealElementMarkCmd
     /// </summary>
     public static async Task RemoveElementMarks(
         PlayerChoiceContext ctx,
-        SealElementMarkPower mark,
-        int stacks,
-        CardModel? cardSource = null)
+        MarkSlot slot,
+        Player player,
+        int stacks)
     {
         if (stacks <= 0) return;
-        var owner = mark.Owner;
-        await PowerCmd.Apply(ctx, mark, owner, -stacks, owner, cardSource);
+        var current = ElementMarkManager.GetStacks(player, slot);
+        ElementMarkManager.SetStacks(player, slot, current - stacks);
     }
 }

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Scaffolding.Characters;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
 using STS2_Starborn.Powers;
 
@@ -23,9 +24,9 @@ public static class StarbornCardVars
         new SealElementVar("Tuning", stacks, elementType)
             .WithModifyPreview((card, v) =>
             {
-                var mark = card.Owner.Creature.FindPower<PrimaryMarkPower>();
-                return mark?.CombatState != null
-                    ? SealElementMarkHooks.ModifyTuningConsume(mark.CombatState, mark, v)
+                var combatState = card.Owner.Creature.CombatState;
+                return combatState != null
+                    ? SealElementMarkHooks.ModifyTuningConsume(combatState, MarkSlot.Primary, v)
                     : v;
             })
             .WithSharedTooltip(StarbornTipFactory.TuningKey, Const.Paths.ElementIcon(elementType));
@@ -34,9 +35,9 @@ public static class StarbornCardVars
         new SealElementVar("Overload", stacks, elementType)
             .WithModifyPreview((card, v) =>
             {
-                var mark = card.Owner.Creature.FindPower<PrimaryMarkPower>();
-                return mark?.CombatState != null
-                    ? SealElementMarkHooks.ModifyOverloadConsume(mark.CombatState, mark, v)
+                var combatState = card.Owner.Creature.CombatState;
+                return combatState != null
+                    ? SealElementMarkHooks.ModifyOverloadConsume(combatState, MarkSlot.Primary, v)
                     : v;
             })
             .WithSharedTooltip(StarbornTipFactory.OverloadKey, Const.Paths.ElementIcon(elementType));

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
@@ -23,12 +24,12 @@ public class SwitchPrimaryMarkCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await SealElementMarkCmd.SetElementType(choiceContext, PrimaryMark!, SealElementType.Fire);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, PrimaryMark!, DynamicVars["ElementMark"].IntValue, this);
+        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.Fire);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["ElementMark"].BaseValue += 1; // 2 → 3
+        DynamicVars["ElementMark"].BaseValue += 1;
     }
 }

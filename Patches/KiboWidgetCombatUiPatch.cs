@@ -12,7 +12,7 @@ namespace STS2_Starborn.Patches;
 public sealed class KiboWidgetCombatUiReadyPatch : IPatchMethod
 {
     public static string PatchId => "sts2_starborn_kibo_widget_ready";
-    public static string Description => "Inject Kibo widget into NCombatUi";
+    public static string Description => "Inject Kibo and Element Mark widgets into NCombatUi";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
@@ -22,19 +22,26 @@ public sealed class KiboWidgetCombatUiReadyPatch : IPatchMethod
 
     public static void Postfix(NCombatUi __instance)
     {
-        var widget = new NKiboWidget
+        var kiboWidget = new NKiboWidget
         {
             Name = "NKiboWidget",
             Size = new Vector2(220f, 140f),
         };
-        __instance.AddChildSafely(widget);
+        __instance.AddChildSafely(kiboWidget);
+
+        var elementWidget = new NElementMarkWidget
+        {
+            Name = "NElementMarkWidget",
+            Size = new Vector2(56f, 100f),
+        };
+        __instance.AddChildSafely(elementWidget);
     }
 }
 
 public sealed class KiboWidgetCombatUiActivatePatch : IPatchMethod
 {
     public static string PatchId => "sts2_starborn_kibo_widget_activate";
-    public static string Description => "Initialize Kibo widget with player on combat activate";
+    public static string Description => "Initialize widgets with player on combat activate";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
@@ -48,19 +55,26 @@ public sealed class KiboWidgetCombatUiActivatePatch : IPatchMethod
         if (me == null)
             return;
 
+        var creatureNode = NCombatRoom.Instance?.CreatureNodes
+            .FirstOrDefault(n => n.Entity == me.Creature);
+        Vector2 localPos = creatureNode != null
+            ? creatureNode.GlobalPosition - __instance.GlobalPosition
+            : new Vector2(100f, 600f);
+
         foreach (var widget in __instance.GetChildren().OfType<NKiboWidget>())
         {
             widget.Initialize(me);
+            widget.Position = new Vector2(
+                localPos.X + 100f,
+                localPos.Y - widget.Size.Y + 40f);
+        }
 
-            var creatureNode = NCombatRoom.Instance?.CreatureNodes
-                .FirstOrDefault(n => n.Entity == me.Creature);
-            if (creatureNode != null)
-            {
-                var localPos = creatureNode.GlobalPosition - __instance.GlobalPosition;
-                widget.Position = new Vector2(
-                    localPos.X + 100f,
-                    localPos.Y - widget.Size.Y + 40f);
-            }
+        foreach (var widget in __instance.GetChildren().OfType<NElementMarkWidget>())
+        {
+            widget.Initialize(me);
+            widget.Position = new Vector2(
+                localPos.X - 70f,
+                localPos.Y - widget.Size.Y + 40f);
         }
     }
 }

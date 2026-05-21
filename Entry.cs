@@ -33,6 +33,7 @@ public class Entry
 
         KiboTypeRegistry.Initialize();
         KiboRunData.Initialize();
+        ElementMarkRunData.Initialize();
         KiboPileManager.RegisterPile();
 
         var starbornEntry = ModelDb.GetEntry(typeof(Starborn));

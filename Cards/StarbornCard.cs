@@ -7,6 +7,7 @@ using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards;
@@ -19,10 +20,15 @@ public abstract class StarbornCard(
     bool shouldShowInCardLibrary = true
 ) : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
-    protected PrimaryMarkPower? PrimaryMark =>
-        !IsCanonical ? Owner.Creature.FindPower<PrimaryMarkPower>() : null;
-    protected SecondaryMarkPower? SecondaryMark =>
-        !IsCanonical ? Owner.Creature.FindPower<SecondaryMarkPower>() : null;
+    protected int PrimaryStacks =>
+        !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Primary) : 0;
+    protected SealElementType PrimaryElementType =>
+        !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
+
+    protected int SecondaryStacks =>
+        !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Secondary) : 0;
+    protected SealElementType SecondaryElementType =>
+        !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
 
     public virtual Kibo.KiboTypeId? KiboSummonType => null;
 

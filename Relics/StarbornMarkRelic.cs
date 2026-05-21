@@ -1,13 +1,11 @@
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
-using STS2_Starborn.Powers;
-
+using STS2_Starborn.Combat;
+using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Relics;
 
@@ -21,15 +19,17 @@ public class StarbornMarkRelic : StarbornRelic
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
-    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == base.Owner.Creature.Side && combatState.RoundNumber == 1)
         {
-            if (!base.Owner.Creature.HasPower<PrimaryMarkPower>())
-                await PowerCmd.Apply<PrimaryMarkPower>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1, base.Owner.Creature, null, silent: true);
-
-            if (!base.Owner.Creature.HasPower<SecondaryMarkPower>())
-                await PowerCmd.Apply<SecondaryMarkPower>(new ThrowingPlayerChoiceContext(), base.Owner.Creature, 1, base.Owner.Creature, null, silent: true);
+            ElementMarkRunData.Modify(base.Owner, data =>
+            {
+                data.PrimaryStacks = 1;
+                data.SecondaryStacks = 1;
+            });
+            ElementMarkManager.NotifyMarksChanged();
         }
+        return Task.CompletedTask;
     }
 }
