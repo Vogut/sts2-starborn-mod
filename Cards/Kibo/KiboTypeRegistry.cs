@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace STS2_Starborn.Cards.Kibo;
 
 public sealed record KiboTypeDefinition(
@@ -18,18 +20,18 @@ public static class KiboTypeRegistry
 
     public static void Initialize()
     {
-        Register(new(
-            KiboTypeId.FoxSpirit,
-            "kibo_fox_spirit",
-            Const.Paths.KiboPixelAnimation(KiboTypeId.FoxSpirit),
+        Register(KiboTypeId.FoxSpirit,
             typeof(FoxSpiritAbility1Card),
             typeof(FoxSpiritAbility2Card),
-            typeof(FoxSpiritRepCard)
-        ));
+            typeof(FoxSpiritRepCard));
     }
 
-    private static void Register(KiboTypeDefinition def)
+    private static void Register(KiboTypeId id, Type cardType1, Type cardType2, Type repCardType)
     {
-        _definitions[def.TypeId] = def;
+        _definitions[id] = new KiboTypeDefinition(
+            id,
+            $"kibo_{Regex.Replace(id.ToString(), "(?<=.)([A-Z])", "_$1").ToLowerInvariant()}",
+            Const.Paths.KiboPixelAnimation(id),
+            cardType1, cardType2, repCardType);
     }
 }
