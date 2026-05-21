@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -9,14 +7,10 @@ using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Combat;
-
-public interface IKiboCardPlayListener
-{
-    Task AfterKiboCardAutoPlayed(CardModel card);
-}
 
 [RegisterSingleton]
 public sealed class KiboCombatManager : HookedSingletonModel
@@ -53,14 +47,7 @@ public sealed class KiboCombatManager : HookedSingletonModel
         if (pile == null || pile.Cards.Count == 0)
             return;
 
-        var card = pile.Cards[0];
-        await CardCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, null);
-
-        foreach (var model in combatState.IterateHookListeners())
-        {
-            if (model is IKiboCardPlayListener listener)
-                await listener.AfterKiboCardAutoPlayed(card);
-        }
+        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), pile.Cards[0], combatState);
     }
 
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
