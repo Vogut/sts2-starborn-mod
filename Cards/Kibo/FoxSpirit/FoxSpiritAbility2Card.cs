@@ -22,6 +22,11 @@ public sealed class FoxSpiritAbility2Card() : KiboCard(CardType.Skill, TargetTyp
         new BlockVar(4, ValueProp.Move),
     ];
 
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3);
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
