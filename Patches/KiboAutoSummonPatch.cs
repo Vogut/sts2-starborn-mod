@@ -1,10 +1,9 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Patching.Models;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Cards.Kibo;
@@ -34,6 +33,10 @@ public sealed class KiboAutoSummonPatch : IPatchMethod
         if (starbornCard.KiboSummonType is not { } kiboType)
             return;
 
-        TaskHelper.RunSafely(KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType));
+        var permanent = __instance.DeckVersion != null
+                        && __instance.DeckVersion != __instance
+                        && __instance.DeckVersion.Pile == __instance.Owner.Deck;
+
+        TaskHelper.RunSafely(KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType, permanent));
     }
 }

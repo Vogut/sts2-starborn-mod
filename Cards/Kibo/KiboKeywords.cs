@@ -7,6 +7,7 @@ namespace STS2_Starborn.Cards.Kibo;
 [RegisterOwnedCardKeyword("kibo_pile_member", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_normal")]
 [RegisterOwnedCardKeyword("kibo_ultimate")]
+[RegisterOwnedCardKeyword("kibo_type_fox_spirit", IncludeInCardHoverTip = false)]
 public class KiboKeywords
 {
     public static readonly string KiboKeywordId =
@@ -20,4 +21,8 @@ public class KiboKeywords
 
     public static readonly string UltimateKeywordId =
         ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "kibo_ultimate");
+
+    public static string TypeKeyword(KiboTypeId typeId) =>
+        ModContentRegistry.GetQualifiedKeywordId(Const.ModId,
+            $"kibo_type_{typeId.ToString().ToLowerInvariant()}");
 }

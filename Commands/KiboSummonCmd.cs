@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2_Starborn.Cards.Kibo;
@@ -11,7 +10,8 @@ namespace STS2_Starborn.Commands;
 
 public static class KiboSummonCmd
 {
-    public static async Task Summon(PlayerChoiceContext ctx, Player player, KiboTypeId typeId)
+    public static async Task Summon(
+        PlayerChoiceContext ctx, Player player, KiboTypeId typeId, bool permanent = true)
     {
         var data = KiboRunData.Get(player);
         var from = data?.ActiveKiboTypeId != null
@@ -29,13 +29,16 @@ public static class KiboSummonCmd
             await KiboHooks.BeforeKiboSwitch(combatState, player, from.Value, typeId);
         }
 
-        KiboRunData.Modify(player, data =>
+        if (permanent)
         {
-            data.OwnedKiboTypeIds.Add(typeId.ToString());
-            data.ActiveKiboTypeId = typeId.ToString();
-        });
+            KiboRunData.Modify(player, data =>
+            {
+                data.OwnedKiboTypeIds.Add(typeId.ToString());
+                data.ActiveKiboTypeId = typeId.ToString();
+            });
 
-        await KiboCollectionPile.AddRepCard(player, typeId);
+            await KiboPileManager.CreateMasterCards(player, typeId);
+        }
 
         if (!CombatManager.Instance.IsInProgress)
             return;
@@ -43,6 +46,9 @@ public static class KiboSummonCmd
         if (from != null && combatState != null)
             await KiboHooks.AfterKiboSwitch(combatState, player, from.Value, typeId);
 
-        await KiboPileManager.RefillPile(ctx, player, typeId);
+        if (permanent)
+            await KiboPileManager.SwitchToType(player, typeId);
+        else
+            await KiboPileManager.SummonTemporary(player, typeId);
     }
 }

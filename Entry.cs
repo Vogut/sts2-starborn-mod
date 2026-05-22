@@ -34,7 +34,7 @@ public class Entry
         KiboTypeRegistry.Initialize();
         KiboRunData.Initialize();
         ElementMarkRunData.Initialize();
-        KiboPileManager.RegisterPile();
+        KiboPileManager.RegisterPiles();
 
         var starbornEntry = ModelDb.GetEntry(typeof(Starborn));
         RitsuLibFramework.GetContentRegistry(Const.ModId)

@@ -1,9 +1,7 @@
 using Godot;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
-using STS2_Starborn.Combat;
 using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.UI;
@@ -33,14 +31,14 @@ public partial class NKiboWidget : Control
 
     public override void _Ready()
     {
-        KiboCombatManager.PileChanged += OnPileChanged;
+        KiboPileManager.ActiveKiboChanged += OnActiveKiboChanged;
         ApplyLayout();
         Refresh();
     }
 
     public override void _ExitTree()
     {
-        KiboCombatManager.PileChanged -= OnPileChanged;
+        KiboPileManager.ActiveKiboChanged -= OnActiveKiboChanged;
     }
 
     public void Initialize(Player player)
@@ -76,7 +74,7 @@ public partial class NKiboWidget : Control
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
         _nameLabel.Text = def.LocKey;
 
-        var pile = KiboPileManager.GetPile(_player);
+        var pile = KiboPileManager.GetActivePile(_player);
         _pileCount.Text = pile?.Cards.Count.ToString() ?? "0";
     }
 
@@ -150,5 +148,5 @@ public partial class NKiboWidget : Control
         AddChild(_pileCount);
     }
 
-    private void OnPileChanged() => Refresh();
+    private void OnActiveKiboChanged() => Refresh();
 }

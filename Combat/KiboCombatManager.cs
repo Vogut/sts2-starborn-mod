@@ -1,8 +1,9 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models;
@@ -16,13 +17,16 @@ namespace STS2_Starborn.Combat;
 [RegisterSingleton]
 public sealed class KiboCombatManager : HookedSingletonModel
 {
-    public static event Action? PileChanged;
-
     public KiboCombatManager() : base(HookedSingletonModel.HookType.Combat) { }
 
-    public static void NotifyPileChanged() => PileChanged?.Invoke();
+    public override async Task AfterAutoPrePlayPhaseEnteredLate(
+        PlayerChoiceContext choiceContext, Player player)
+    {
+        await KiboPileManager.InitializeForCombat(player);
+    }
 
-    public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    public override async Task BeforeSideTurnEnd(
+        PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != CombatSide.Player)
             return;
@@ -42,13 +46,7 @@ public sealed class KiboCombatManager : HookedSingletonModel
         if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var typeId))
             return;
 
-        var pile = KiboPileManager.GetPile(player);
-        if (pile == null || pile.Cards.Count == 0)
-        {
-            await KiboPileManager.RefillPile(new BlockingPlayerChoiceContext(), player, typeId);
-            pile = KiboPileManager.GetPile(player);
-        }
-
+        var pile = KiboPileManager.GetActivePile(player);
         if (pile == null || pile.Cards.Count == 0)
             return;
 
@@ -67,7 +65,7 @@ public sealed class KiboCombatManager : HookedSingletonModel
         CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
     {
         if (card.HasModKeyword(KiboKeywords.PileMemberKeywordId))
-            return (KiboPileManager.GetPileType(), position);
+            return (KiboPileManager.GetActivePileType(), position);
 
         return (pileType, position);
     }
