@@ -24,5 +24,16 @@ public class KiboKeywords
 
     public static string TypeKeyword(KiboTypeId typeId) =>
         ModContentRegistry.GetQualifiedKeywordId(Const.ModId,
-            $"kibo_type_{typeId.ToString().ToLowerInvariant()}");
+            $"kibo_type_{PascalToSnake(typeId.ToString())}");
+    private static string PascalToSnake(string pascal)
+    {
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < pascal.Length; i++)
+        {
+            if (i > 0 && char.IsUpper(pascal[i]))
+                sb.Append('_');
+            sb.Append(char.ToLowerInvariant(pascal[i]));
+        }
+        return sb.ToString();
+    }
 }

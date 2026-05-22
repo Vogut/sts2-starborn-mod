@@ -110,6 +110,7 @@ public partial class KiboStorageViewer : Control, ICapstoneScreen
 
         _cardList = new VBoxContainer();
         _cardList.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        _cardList.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
         _scroll.AddChild(_cardList);
     }
 
@@ -123,10 +124,26 @@ public partial class KiboStorageViewer : Control, ICapstoneScreen
 
     private void RefreshCardList()
     {
-        foreach (var child in _cardList.GetChildren())
-            child.QueueFree();
+        // Recreate the list container to force layout refresh
+        _cardList.QueueFree();
+        _cardList = new VBoxContainer();
+        _cardList.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        _scroll.AddChild(_cardList);
 
-        foreach (var card in _pile.Cards)
+        var cards = _pile.Cards.ToList();
+        if (cards.Count == 0)
+        {
+            var emptyLabel = new Label
+            {
+                Text = "(empty)",
+                Modulate = new Color(0.5f, 0.5f, 0.5f),
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            _cardList.AddChild(emptyLabel);
+            return;
+        }
+
+        foreach (var card in cards)
         {
             var isRep = IsRepCardType(card.GetType());
             if (_showingCollection && !isRep) continue;

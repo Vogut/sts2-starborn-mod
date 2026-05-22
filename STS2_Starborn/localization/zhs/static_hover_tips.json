@@ -8,5 +8,11 @@
     "STS2_STARBORN_CARDPILE_KIBO_PILE.title": "奇波牌堆",
     "STS2_STARBORN_CARDPILE_KIBO_PILE.description": "当前活跃奇波的专属卡牌。",
     "STS2_STARBORN_CARDPILE_KIBO_COLLECTION.title": "奇波收藏",
-    "STS2_STARBORN_CARDPILE_KIBO_COLLECTION.description": "已收集的奇波。"
+    "STS2_STARBORN_CARDPILE_KIBO_COLLECTION.description": "已收集的奇波。",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE.title": "奇波储存",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE.description": "已储存的奇波。",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE.empty": "无奇波",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE_COMBAT.title": "战斗奇波储存",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE_COMBAT.description": "战斗中已储存的奇波。回合结束时若储存的奇波数量达到3个，触发奇波共鸣效果。",
+    "STS2_STARBORN_CARDPILE_KIBO_STORAGE_COMBAT.empty": "无奇波"
 }

@@ -2,7 +2,6 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
-using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.UI;
 
@@ -55,20 +54,14 @@ public partial class NKiboWidget : Control
             return;
         }
 
-        var data = KiboRunData.Get(_player);
-        if (data?.ActiveKiboTypeId == null)
+        var typeId = KiboPileManager.GetActiveKiboType(_player);
+        if (typeId == null)
         {
             Visible = false;
             return;
         }
 
-        if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var typeId))
-        {
-            Visible = false;
-            return;
-        }
-
-        var def = KiboTypeRegistry.Get(typeId);
+        var def = KiboTypeRegistry.Get(typeId.Value);
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);

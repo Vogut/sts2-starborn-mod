@@ -50,7 +50,12 @@ public static class KiboPileManager
         registry.RegisterOwned(StorageCombatStem, new ModCardPileSpec
         {
             Scope = ModCardPileScope.CombatOnly,
-            Style = ModCardPileUiStyle.Headless,
+            //Style = ModCardPileUiStyle.Headless,
+
+            Style = ModCardPileUiStyle.BottomRight,
+            Anchor = new ModCardPileAnchor(ModCardPileAnchorKind.BottomRightPrimary,
+                Offset: new Vector2(0, -80f)),
+            IconPath = Const.Paths.KiboPileIcon,
         });
 
         registry.RegisterOwned(PileStem, new ModCardPileSpec
@@ -99,12 +104,10 @@ public static class KiboPileManager
             return; // already created
 
         var def = KiboTypeRegistry.Get(typeId);
-        var combatState = player.Creature.CombatState;
-        if (combatState == null) return;
 
         // RepCard
         var repCanonical = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));
-        var repCard = combatState.CreateCard(repCanonical, player);
+        var repCard = player.RunState.CreateCard(repCanonical, player);
         repCard.AddModKeyword(KiboKeywords.PileMemberKeywordId);
         repCard.AddModKeyword(keyword);
         await CardPileCmd.Add(repCard, storage);
@@ -113,7 +116,7 @@ public static class KiboPileManager
         foreach (var cardType in new[] { def.CardType1, def.CardType2 })
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
-            var card = combatState.CreateCard(canonical, player);
+            var card = player.RunState.CreateCard(canonical, player);
             card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
             card.AddModKeyword(keyword);
             await CardPileCmd.Add(card, storage);
@@ -125,52 +128,29 @@ public static class KiboPileManager
     public static async Task InitializeForCombat(Player player)
     {
         var data = KiboRunData.Get(player);
-        if (data?.OwnedKiboTypeIds == null) return;
+        if (data == null || data.OwnedKiboTypeIds.Count == 0) return;
 
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
 
         var masterStorage = GetStoragePile(player);
         var combatStorage = GetStorageCombatPile(player);
-        var activePile = GetActivePile(player);
-        if (masterStorage == null || combatStorage == null || activePile == null) return;
+        if (masterStorage == null || combatStorage == null) return;
 
-        // Ensure masters exist for all owned types
-        foreach (var typeIdStr in data.OwnedKiboTypeIds)
-        {
-            if (!Enum.TryParse<KiboTypeId>(typeIdStr, out var typeId)) continue;
-            await CreateMasterCards(player, typeId);
-        }
-
-        // Clone all ability cards (not RepCards) to combat storage
+        // Clone all cards (including RepCards) from master to combat storage
         foreach (var card in masterStorage.Cards.ToList())
         {
-            if (IsRepCardType(card.GetType()))
-                continue;
-
             var clone = combatState.CloneCard(card);
             clone.DeckVersion = card;
             clone.AddModKeyword(KiboKeywords.PileMemberKeywordId);
             await CardPileCmd.Add(clone, combatStorage);
         }
 
-        // Move active type to visible pile
-        if (data.ActiveKiboTypeId != null
-            && Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var activeId))
-        {
-            var keyword = KiboKeywords.TypeKeyword(activeId);
-            foreach (var card in combatStorage.Cards
-                         .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
-                         .ToList())
-                await CardPileCmd.Add(card, activePile);
-        }
-
-        ActiveKiboChanged?.Invoke();
     }
 
-    // ── Switching ───────────────────────────────────────────
+    // ── Activate ────────────────────────────────────────────
 
-    public static async Task SwitchToType(Player player, KiboTypeId typeId)
+    public static async Task ActivateType(Player player, KiboTypeId typeId)
     {
         var activePile = GetActivePile(player);
         var combatStorage = GetStorageCombatPile(player);
@@ -178,50 +158,25 @@ public static class KiboPileManager
 
         var keyword = KiboKeywords.TypeKeyword(typeId);
 
-        // Acquired mid-combat: clone masters into combat
+        // Already active
+        if (activePile.Cards.Any(c => c.HasModKeyword(keyword)))
+            return;
+
+        // Not in combatStorage → create (clone from master, or fresh)
         if (!combatStorage.Cards.Any(c => c.HasModKeyword(keyword)))
-            await CloneTypeIntoCombat(player, typeId);
-
-        // Current active → storage
-        foreach (var card in activePile.Cards.ToList())
-            await CardPileCmd.Add(card, combatStorage);
-
-        // Target type → active
-        foreach (var card in combatStorage.Cards
-                     .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
-                     .ToList())
-            await CardPileCmd.Add(card, activePile);
-
-        ActiveKiboChanged?.Invoke();
-    }
-
-    public static async Task SummonTemporary(Player player, KiboTypeId typeId)
-    {
-        var combatState = player.Creature.CombatState;
-        if (combatState == null) return;
-
-        var combatStorage = GetStorageCombatPile(player);
-        var activePile = GetActivePile(player);
-        if (combatStorage == null || activePile == null) return;
-
-        var keyword = KiboKeywords.TypeKeyword(typeId);
-        if (combatStorage.Cards.Any(c => c.HasModKeyword(keyword)))
-            return; // already present
-
-        var def = KiboTypeRegistry.Get(typeId);
-        foreach (var cardType in new[] { def.CardType1, def.CardType2 })
         {
-            var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
-            var card = combatState.CreateCard(canonical, player);
-            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
-            card.AddModKeyword(keyword);
-            await CardPileCmd.Add(card, combatStorage);
+            var masterStorage = GetStoragePile(player);
+            if (masterStorage != null && masterStorage.Cards.Any(c => c.HasModKeyword(keyword)))
+                await CloneTypeIntoCombat(player, typeId);
+            else
+                await CreateTypeInCombat(player, typeId);
         }
 
-        // Move current active to storage, target to active
+        // Current active → combatStorage
         foreach (var card in activePile.Cards.ToList())
             await CardPileCmd.Add(card, combatStorage);
 
+        // Target ability cards → activePile (RepCard stays in combatStorage)
         foreach (var card in combatStorage.Cards
                      .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
                      .ToList())
@@ -241,7 +196,7 @@ public static class KiboPileManager
 
         var keyword = KiboKeywords.TypeKeyword(typeId);
         foreach (var card in masterStorage.Cards
-                     .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
+                     .Where(c => c.HasModKeyword(keyword))
                      .ToList())
         {
             var clone = combatState.CloneCard(card);
@@ -250,7 +205,39 @@ public static class KiboPileManager
         }
     }
 
+    private static async Task CreateTypeInCombat(Player player, KiboTypeId typeId)
+    {
+        var combatState = player.Creature.CombatState;
+        if (combatState == null) return;
+        var combatStorage = GetStorageCombatPile(player);
+        if (combatStorage == null) return;
+
+        var def = KiboTypeRegistry.Get(typeId);
+        var keyword = KiboKeywords.TypeKeyword(typeId);
+        foreach (var cardType in new[] { def.RepCardType, def.CardType1, def.CardType2 })
+        {
+            var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
+            var card = combatState.CreateCard(canonical, player);
+            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            card.AddModKeyword(keyword);
+            await CardPileCmd.Add(card, combatStorage);
+        }
+    }
+
     // ── Helpers ─────────────────────────────────────────────
+
+    public static KiboTypeId? GetActiveKiboType(Player player)
+    {
+        var activePile = GetActivePile(player);
+        if (activePile == null || activePile.Cards.Count == 0) return null;
+
+        foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
+        {
+            if (activePile.Cards.Any(c => c.HasModKeyword(KiboKeywords.TypeKeyword(typeId))))
+                return typeId;
+        }
+        return null;
+    }
 
     private static bool IsRepCardType(Type type)
     {

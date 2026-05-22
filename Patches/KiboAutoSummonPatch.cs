@@ -33,10 +33,6 @@ public sealed class KiboAutoSummonPatch : IPatchMethod
         if (starbornCard.KiboSummonType is not { } kiboType)
             return;
 
-        var permanent = __instance.DeckVersion != null
-                        && __instance.DeckVersion != __instance
-                        && __instance.DeckVersion.Pile == __instance.Owner.Deck;
-
-        TaskHelper.RunSafely(KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType, permanent));
+        TaskHelper.RunSafely(KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType));
     }
 }

@@ -10,7 +10,6 @@ using STS2RitsuLib.Models;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Commands;
-using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Combat;
 
@@ -19,10 +18,13 @@ public sealed class KiboCombatManager : HookedSingletonModel
 {
     public KiboCombatManager() : base(HookedSingletonModel.HookType.Combat) { }
 
-    public override async Task AfterAutoPrePlayPhaseEnteredLate(
-        PlayerChoiceContext choiceContext, Player player)
+    public override async Task BeforeCombatStart()
     {
-        await KiboPileManager.InitializeForCombat(player);
+        var combatState = CombatManager.Instance.DebugOnlyGetState();
+        if (combatState == null) return;
+
+        foreach (var player in combatState.Players)
+            await KiboPileManager.InitializeForCombat(player);
     }
 
     public override async Task BeforeSideTurnEnd(
@@ -37,13 +39,6 @@ public sealed class KiboCombatManager : HookedSingletonModel
 
         var player = combatState.Players.FirstOrDefault();
         if (player == null)
-            return;
-
-        var data = KiboRunData.Get(player);
-        if (data?.ActiveKiboTypeId == null)
-            return;
-
-        if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var typeId))
             return;
 
         var pile = KiboPileManager.GetActivePile(player);
