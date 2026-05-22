@@ -95,7 +95,7 @@ Scope guide:
 | `SaveScope.Global` | Mod settings, account-wide preferences |
 | `SaveScope.Profile` | Progression, unlock data tied to a save file |
 | `SaveScope.InMemory` | Temporary data using the store API without writing to disk |
-| `SaveScope.RunSidecar` | Per-run sidecar data (needs `contextProvider` overload) |
+| `SaveScope.RunSavedData` | Per-run sidecar data (needs `contextProvider` overload) |
 
 Always use a class (not a primitive) so you can add fields in future versions without migrating the storage slot.
 
