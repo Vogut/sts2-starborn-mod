@@ -7,7 +7,7 @@ using STS2_Starborn.Commands;
 using STS2_Starborn.Hooks;
 using STS2_Starborn.Element;
 using STS2_Starborn.Runs;
-
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace STS2_Starborn.Combat;
 
 public enum MarkSlot { Primary, Secondary }
@@ -104,7 +104,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
     // ── Hooks ──
 
-    public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side,IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side != CombatSide.Player) return Task.CompletedTask;
         var player = combatState.Players.FirstOrDefault();
@@ -124,7 +124,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
         return Task.CompletedTask;
     }
 
-    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != CombatSide.Player) return;
         var combatState = CombatManager.Instance.DebugOnlyGetState();
