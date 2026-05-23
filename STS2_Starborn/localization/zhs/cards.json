@@ -27,5 +27,10 @@
     "STS2_STARBORN_CARD_DEMON_KING_MELODY_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:NL目前已切换过[blue]{SwitchedTypes}种属性。|}NL直接获得战斗胜利。",
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "闪耀变量",
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "强化你所有的奇波牌。每当奇波切换时，新创建的奇波牌也会被强化。",
-    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.upgradeDescription": "强化你所有的奇波牌。每当奇波切换时，新创建的奇波牌也会被强化。"
+    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.upgradeDescription": "强化你所有的奇波牌。每当奇波切换时，新创建的奇波牌也会被强化。",
+    "STS2_STARBORN_CARD_STARBORN_STRIKE.title": "打击",
+    "STS2_STARBORN_CARD_STARBORN_STRIKE.description": "造成{Damage:diff()}点伤害。",
+    "STS2_STARBORN_CARD_STARBORN_DEFEND.title": "防御",
+    "STS2_STARBORN_CARD_STARBORN_DEFEND.description": "获得{Block:diff()}点格挡。",
+    "STS2_STARBORN_CARD_STARBORN_DEFEND.upgradeDescription": "获得{Block:diff()}点格挡。"
 }

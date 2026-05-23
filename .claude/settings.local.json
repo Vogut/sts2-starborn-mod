@@ -8,7 +8,8 @@
       "Bash(Get-ChildItem -Recurse -Filter \"*.cs\" \"d:\\\\notwork\\\\sts2-starborn-mod\\\\STS2_Starborn\\\\powers\")",
       "Bash(Select-Object FullName)",
       "Read(//c/Users/Admin/AppData/Roaming/SlayTheSpire2/logs//**)",
-      "Read(//e/SteamLibrary/steamapps/common/Slay the Spire 2/**)"
+      "Read(//e/SteamLibrary/steamapps/common/Slay the Spire 2/**)",
+      "Bash(xargs grep -l -i \"neow\\\\|reward.*screen\\\\|choice.*screen\\\\|select.*screen\\\\|blessing\\\\|starting.*bonus\")"
     ]
   }
 }

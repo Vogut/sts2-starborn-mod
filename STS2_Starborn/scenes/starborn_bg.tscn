@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cejqjeipgqe0n"]
 
-[ext_resource type="Texture2D" uid="uid://hn2nofekpwrp" path="res://icon.svg" id="1_c8lhi"]
+[ext_resource type="Texture2D" uid="uid://clue6741bhck7" path="res://STS2_Starborn/ModImage.jpg" id="1_44lrt"]
 
 [node name="TestBg" type="Control"]
 layout_mode = 3
@@ -40,20 +40,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.44705883, 0.49803922, 1, 1)
 
-[node name="Icon" type="TextureRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -28.0
-offset_top = 67.0
-offset_right = 612.0
-offset_bottom = 189.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.82, 0.82)
-texture = ExtResource("1_c8lhi")
-expand_mode = 1
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 3.0
+offset_right = 1922.0
+offset_bottom = 1073.0
+texture = ExtResource("1_44lrt")
 
 [node name="ash1" type="CPUParticles2D" parent="."]
 position = Vector2(1832, -17)
