@@ -55,6 +55,7 @@ public class Entry
         patcher.RegisterPatch<KiboDamageModifierPatch>();
         patcher.RegisterPatch<KiboDamageReflectorPatch>();
         patcher.RegisterPatch<KiboDeckEntryPatch>();
+        patcher.RegisterPatch<KiboEvolutionPatch>();
         patcher.RegisterPatch<WidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
         RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);

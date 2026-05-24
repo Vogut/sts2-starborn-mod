@@ -32,5 +32,16 @@
     "STS2_STARBORN_CARD_STARBORN_STRIKE.description": "造成{Damage:diff()}点伤害。",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.title": "防御",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.description": "获得{Block:diff()}点格挡。",
-    "STS2_STARBORN_CARD_STARBORN_DEFEND.upgradeDescription": "获得{Block:diff()}点格挡。"
+    "STS2_STARBORN_CARD_SHADOW_WOLF_REP_CARD.title": "暗影狼",
+    "STS2_STARBORN_CARD_SHADOW_WOLF_REP_CARD.description": "[gold]奇波[/gold]：暗影狼。NL可打出[blue]暗影突袭[/blue]和[blue]暗影守护[/blue]。",
+    "STS2_STARBORN_CARD_SHADOW_WOLF_ABILITY1_CARD.title": "暗影突袭",
+    "STS2_STARBORN_CARD_SHADOW_WOLF_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。NL如果你当前的印记属性为[red]暗影[/red]，改为造成[blue]{Damage+1}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_SHADOW_WOLF_ABILITY2_CARD.title": "暗影守护",
+    "STS2_STARBORN_CARD_SHADOW_WOLF_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY1_CARD.title": "雷鸣一击",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。NL如果你当前的印记属性为[red]雷[/red]，改为造成[blue]{Damage+1}[/blue]点伤害。",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY2_CARD.title": "雷羽防护",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。NL如果你当前的印记属性为[red]雷[/red]，改为获得[blue]{Block+1}[/blue]点格挡。",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.title": "雷鹰",
+    "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.description": "[gold]奇波[/gold]：雷鹰。NL可打出[blue]雷鸣一击[/blue]和[blue]雷羽防护[/blue]。"
 }

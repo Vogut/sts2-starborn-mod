@@ -89,7 +89,7 @@ public partial class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornR
 	public override float CastAnimDelay => 0f;
 
 	// 如果你的人物不需要时间线小故事，加上这句。
-	// public override bool RequiresEpochAndTimeline => false;
+	public override bool RequiresEpochAndTimeline => false;
 
 	// 自动转换人物场景，让你不需要手动挂脚本。复制即可。
 	protected override NCreatureVisuals? TryCreateCreatureVisuals() => RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(AssetProfile.Scenes!.VisualsPath!);
