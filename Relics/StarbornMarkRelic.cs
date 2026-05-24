@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
@@ -25,21 +28,15 @@ public class StarbornMarkRelic : StarbornRelic
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
-    public static MapCoord? KiboNodeCoord { get; private set; }
-
     public override ActMap ModifyGeneratedMap(IRunState runState, ActMap map, int actIndex)
     {
-        KiboNodeCoord = null;
         if (actIndex != 0) return map;
-
-        var wrapper = new KiboActMap(map);
-        KiboNodeCoord = new MapCoord(3, 1);
-        return wrapper;
+        return new KiboActMap(map);
     }
 
+    // LanternKey pattern: condition based on persistent state, not static coord
     private bool ShouldOverrideForKiboEvent()
     {
-        if (KiboNodeCoord == null) return false;
         if (base.Owner.RunState.CurrentActIndex != 0) return false;
         var data = KiboRunData.Get(base.Owner);
         return data?.ActiveKiboTypeId == null;
