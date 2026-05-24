@@ -123,6 +123,20 @@ public static class KiboPileManager
         }
     }
 
+    // ── Master card removal ──────────────────────────────────
+
+    public static void RemoveMasterCards(Player player, KiboTypeId typeId)
+    {
+        var storage = GetStoragePile(player);
+        if (storage == null) return;
+
+        var keyword = KiboKeywords.TypeKeyword(typeId);
+        foreach (var card in storage.Cards
+                     .Where(c => c.HasModKeyword(keyword))
+                     .ToList())
+            card.RemoveFromState();
+    }
+
     // ── Combat lifecycle ────────────────────────────────────
 
     public static async Task InitializeForCombat(Player player)
@@ -239,7 +253,7 @@ public static class KiboPileManager
         return null;
     }
 
-    private static bool IsRepCardType(Type type)
+    public static bool IsRepCardType(Type type)
     {
         return type.BaseType == typeof(KiboCard) &&
                type.Name.EndsWith("RepCard");

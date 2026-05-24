@@ -1,14 +1,20 @@
+using System.Linq;
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Runs;
 using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Element;
+using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Cards;
 
@@ -31,6 +37,47 @@ public abstract class StarbornCard(
         !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
 
     public virtual Kibo.KiboTypeId? KiboSummonType => null;
+
+    public override async Task AfterCardChangedPiles(
+        CardModel card, PileType oldPileType, AbstractModel? clonedBy)
+    {
+        await base.AfterCardChangedPiles(card, oldPileType, clonedBy);
+
+        if (KiboSummonType is not { } typeId) return;
+        if (card.Pile?.Type != PileType.Deck) return;
+        if (Owner == null) return;
+
+        var count = Owner.Deck.Cards.OfType<StarbornCard>()
+            .Count(c => c.KiboSummonType == typeId);
+        if (count > 1) return;
+
+        KiboRunData.Modify(Owner, data =>
+        {
+            data.OwnedKiboTypeIds.Add(typeId.ToString());
+            data.ActiveKiboTypeId ??= typeId.ToString();
+        });
+        await KiboPileManager.CreateMasterCards(Owner, typeId);
+    }
+
+    public override Task BeforeCardRemoved(CardModel card)
+    {
+        if (KiboSummonType is not { } typeId) return Task.CompletedTask;
+        if (card != this) return Task.CompletedTask;
+        if (Owner == null) return Task.CompletedTask;
+
+        var count = Owner.Deck.Cards.OfType<StarbornCard>()
+            .Count(c => c.KiboSummonType == typeId);
+        if (count > 1) return Task.CompletedTask;
+
+        KiboRunData.Modify(Owner, data =>
+        {
+            data.OwnedKiboTypeIds.Remove(typeId.ToString());
+            if (data.ActiveKiboTypeId == typeId.ToString())
+                data.ActiveKiboTypeId = null;
+        });
+        KiboPileManager.RemoveMasterCards(Owner, typeId);
+        return Task.CompletedTask;
+    }
 
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: Const.Paths.CardPortrait(GetType())

@@ -54,10 +54,9 @@ public class Entry
         patcher.RegisterPatch<KiboCardPlayHookFilterPatch>();
         patcher.RegisterPatch<KiboDamageModifierPatch>();
         patcher.RegisterPatch<KiboDamageReflectorPatch>();
-        patcher.RegisterPatch<KiboDeckEntryPatch>();
-        patcher.RegisterPatch<KiboEvolutionPatch>();
         patcher.RegisterPatch<WidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
+        patcher.RegisterPatch<KiboLoadPatch>();
         RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);
     }
 
