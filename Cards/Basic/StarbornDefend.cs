@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_Starborn.Cards.Basic
 {
     [RegisterCard(typeof(StarbornCardPool))]
-    [RegisterCharacterStarterCard(typeof(Starborn), 4)]
+    [RegisterCharacterStarterCard(typeof(Starborn), 4, Order = 1)]
     public class StarbornDefend() : StarbornCard(1,
         CardType.Skill, CardRarity.Basic,
         TargetType.Self)
