@@ -7,6 +7,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
+using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Powers;
 
@@ -58,6 +59,6 @@ public class RandomDutyPower : StarbornPower
         await KiboPileManager.ActivateType(player, targetType);
 
         // 从新活跃的牌堆中随机选一张普通能力牌自动打出
-        await KiboPileManager.TryAutoPlayRandomNormalCard(player, combatState);
+        await KiboCmd.TryAutoPlayRandomNormalCard(player, combatState);
     }
 }

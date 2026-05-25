@@ -284,25 +284,6 @@ public static class KiboPileManager
         return null;
     }
 
-    /// <summary>
-    /// 从活跃牌堆中随机选一张普通能力牌自动打出。返回是否成功打出。
-    /// </summary>
-    public static async Task<bool> TryAutoPlayRandomNormalCard(
-        Player player, ICombatState combatState)
-    {
-        var pile = GetActivePile(player);
-        if (pile == null) return false;
-
-        var normalCards = pile.Cards
-            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeywordId))
-            .ToList();
-        if (normalCards.Count == 0) return false;
-
-        var card = normalCards[Random.Shared.Next(normalCards.Count)];
-        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
-        return true;
-    }
-
     public static bool IsRepCardType(Type type)
     {
         return type.BaseType == typeof(KiboCard) &&

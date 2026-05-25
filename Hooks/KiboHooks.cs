@@ -30,6 +30,28 @@ public static class KiboHooks
         }
     }
 
+    // ── Random auto-play ──
+
+    public static async Task BeforeKiboRandomAutoPlay(ICombatState combatState, CardModel card, string keywordId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboCardPlayListener listener)
+                await listener.BeforeKiboRandomAutoPlay(card, keywordId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task AfterKiboRandomAutoPlay(ICombatState combatState, CardModel card, string keywordId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboCardPlayListener listener)
+                await listener.AfterKiboRandomAutoPlay(card, keywordId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
     // ── Kibo switch ──
 
     public static bool AnyListenerPreventsKiboSwitch(ICombatState combatState,
