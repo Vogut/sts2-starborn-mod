@@ -46,5 +46,11 @@
     "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.description": "[gold]奇波[/gold]：雷鹰。NL可打出[blue]雷鸣一击[/blue]和[blue]雷羽防护[/blue]。",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机将一只后备奇波换上岗位，并释放其一张普通能力牌。",
-    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.upgradeDescription": "回合开始时，随机将一只后备奇波换上岗位，并释放其一张普通能力牌。"
+    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.upgradeDescription": "回合开始时，随机将一只后备奇波换上岗位，并释放其一张普通能力牌。",
+    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.title": "不够大！",
+    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "给目标施加1层[b]变大[/b]。造成{Damage}×[b]变大[/b]层数的伤害。",
+    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.upgradeDescription": "给目标施加1层[b]变大[/b]。造成{Damage}×[b]变大[/b]层数的伤害。",
+    "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
+    "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block}点格挡。给目标施加1层[b]变小[/b]和1层[b]虚弱[/b]。",
+    "STS2_STARBORN_CARD_NO_BIGGER_CARD.upgradeDescription": "获得{Block}点格挡。给目标施加1层[b]变小[/b]和2层[b]虚弱[/b]。"
 }
