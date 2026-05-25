@@ -51,7 +51,7 @@ public static class StarbornCmd
 
         await SealElementMarkHooks.BeforeTuning(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player);
+        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, stacks);
         await SealElementMarkHooks.AfterTuning(combatState, ctx, slot, consume, source);
     }
 
@@ -91,7 +91,7 @@ public static class StarbornCmd
 
         await SealElementMarkHooks.BeforeOverload(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player);
+        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, stacks);
         await SealElementMarkHooks.AfterOverload(combatState, ctx, slot, consume, source);
     }
 

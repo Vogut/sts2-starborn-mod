@@ -18,8 +18,8 @@ public abstract class StarbornElement
     public abstract LocString ElementDescription { get; }
     public virtual int TuningConsume => 1;
     public virtual int OverloadConsume => 2;
-    public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner);
-    public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner);
+    public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks);
+    public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks);
 
     public static StarbornElement For(SealElementType attribute) =>
         _elements.TryGetValue(attribute, out var ep) ? ep : _elements[SealElementType.None];

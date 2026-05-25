@@ -11,11 +11,11 @@ public sealed class WaterElement : StarbornElement
     public override SealElementType Attribute => SealElementType.Water;
 
     public override LocString ElementDescription =>
-        new LocString("powers", "STARBORN_ELEMENT_WATER.description");
+        new LocString("powers", "STS2_STARBORN_ELEMENT_WATER.description");
 
-    public override async Task OnThreshold(PlayerChoiceContext ctx, Player owner) =>
+    public override async Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks) =>
         await CreatureCmd.GainBlock(owner.Creature, 5m, ValueProp.Unpowered, null);
 
-    public override async Task OnEnhanced(PlayerChoiceContext ctx, Player owner) =>
+    public override async Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks) =>
         await CreatureCmd.GainBlock(owner.Creature, 14m, ValueProp.Unpowered, null);
 }
