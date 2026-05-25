@@ -5,9 +5,11 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.CardPiles;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Keywords;
 using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Runs;
 using STS2_Starborn.UI;
 
@@ -240,6 +242,35 @@ public static class KiboPileManager
 
     // ── Helpers ─────────────────────────────────────────────
 
+    /// <summary>
+    /// 返回 <paramref name="pile"/> 中存在的所有奇波类型（仅检测非 RepCard 的能力牌）。
+    /// </summary>
+    public static HashSet<KiboTypeId> GetKiboTypesInPile(CardPile pile)
+    {
+        var types = new HashSet<KiboTypeId>();
+        foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
+        {
+            var keyword = KiboKeywords.TypeKeyword(typeId);
+            if (pile.Cards.Any(c =>
+                    c.HasModKeyword(keyword) &&
+                    !IsRepCardType(c.GetType())))
+            {
+                types.Add(typeId);
+            }
+        }
+        return types;
+    }
+
+    public static KiboTypeId? GetKiboType(CardModel card)
+    {
+        foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
+        {
+            if (card.HasModKeyword(KiboKeywords.TypeKeyword(typeId)))
+                return typeId;
+        }
+        return null;
+    }
+
     public static KiboTypeId? GetActiveKiboType(Player player)
     {
         var activePile = GetActivePile(player);
@@ -251,6 +282,25 @@ public static class KiboPileManager
                 return typeId;
         }
         return null;
+    }
+
+    /// <summary>
+    /// 从活跃牌堆中随机选一张普通能力牌自动打出。返回是否成功打出。
+    /// </summary>
+    public static async Task<bool> TryAutoPlayRandomNormalCard(
+        Player player, ICombatState combatState)
+    {
+        var pile = GetActivePile(player);
+        if (pile == null) return false;
+
+        var normalCards = pile.Cards
+            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeywordId))
+            .ToList();
+        if (normalCards.Count == 0) return false;
+
+        var card = normalCards[Random.Shared.Next(normalCards.Count)];
+        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
+        return true;
     }
 
     public static bool IsRepCardType(Type type)

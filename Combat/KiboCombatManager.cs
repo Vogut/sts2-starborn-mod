@@ -9,7 +9,6 @@ using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
-using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Combat;
 
@@ -41,19 +40,7 @@ public sealed class KiboCombatManager : HookedSingletonModel
         if (player == null)
             return;
 
-        var pile = KiboPileManager.GetActivePile(player);
-        if (pile == null || pile.Cards.Count == 0)
-            return;
-
-        var normalCards = pile.Cards
-            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeywordId))
-            .ToList();
-
-        if (normalCards.Count == 0)
-            return;
-
-        var card = normalCards[Random.Shared.Next(normalCards.Count)];
-        await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
+        await KiboPileManager.TryAutoPlayRandomNormalCard(player, combatState);
     }
 
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(

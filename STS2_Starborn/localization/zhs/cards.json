@@ -43,5 +43,8 @@
     "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY2_CARD.title": "雷羽防护",
     "STS2_STARBORN_CARD_THUNDER_HAWK_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。NL印记属性为[red]雷[/red]时格挡+1。",
     "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.title": "雷鹰",
-    "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.description": "[gold]奇波[/gold]：雷鹰。NL可打出[blue]雷鸣一击[/blue]和[blue]雷羽防护[/blue]。"
+    "STS2_STARBORN_CARD_THUNDER_HAWK_REP_CARD.description": "[gold]奇波[/gold]：雷鹰。NL可打出[blue]雷鸣一击[/blue]和[blue]雷羽防护[/blue]。",
+    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
+    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机将一只后备奇波换上岗位，并释放其一张普通能力牌。",
+    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.upgradeDescription": "回合开始时，随机将一只后备奇波换上岗位，并释放其一张普通能力牌。"
 }
