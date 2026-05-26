@@ -33,5 +33,10 @@
     "STS2_STARBORN_POWER_GREY_GHOST_POWER.description": "造成的攻击伤害翻倍，受到攻击伤害变为1点。",
 
     "STS2_STARBORN_POWER_SIMULATION_POWER.title": "演算",
-    "STS2_STARBORN_POWER_SIMULATION_POWER.description": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。"
+    "STS2_STARBORN_POWER_SIMULATION_POWER.description": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
+    "STS2_STARBORN_POWER_SIMULATION_POWER.smartDescription": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
+    
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.title": "红宝石布什曲",
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。每回合开始获得2/2层印记。前4张攻击牌额外触发调谐1/1并对目标造成等同于灼烧层数的伤害。",
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。每回合开始获得2/2层印记。前{Amount}张攻击牌额外触发调谐1/1并对目标造成等同于灼烧层数的伤害。"
 }

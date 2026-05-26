@@ -8,7 +8,7 @@ using STS2_Starborn.Combat;
 namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
-public sealed class DemonKingMelodyCard() : StarbornCard(
+public sealed class BossSongCard() : StarbornCard(
     2, CardType.Skill, CardRarity.Rare, TargetType.None
 )
 {
@@ -19,5 +19,10 @@ public sealed class DemonKingMelodyCard() : StarbornCard(
     {
         var enemies = Owner.Creature.CombatState!.Enemies.ToList();
         await CreatureCmd.Kill(enemies);
+    }
+    
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
     }
 }

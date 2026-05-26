@@ -9,35 +9,51 @@
     "STS2_STARBORN_CARD_TUNING_CARD.title": "炎印·调谐",
     "STS2_STARBORN_CARD_TUNING_CARD.description": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:sealElementIcons()}层。[gold]调谐{Tuning:sealElementIcons()}[/gold]：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
     "STS2_STARBORN_CARD_TUNING_CARD.upgradeDescription": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:sealElementIcons()}层。[gold]调谐{Tuning:sealElementIcons()}[/gold]：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
-    "STS2_STARBORN_CARD_OVERLOAD_CARD.title": "炎印·超限",
-    "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]。",
-    "STS2_STARBORN_CARD_OVERLOAD_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]。",
-    "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
-    "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。",
     "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.title": "召唤小芽狐",
     "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n[gold]奇波[/gold]：召唤小芽狐。",
     "STS2_STARBORN_CARD_FOX_SPIRIT_CALL_CARD.upgradeDescription": "获得[blue]{Block}[/blue]点格挡。\n[gold]奇波[/gold]：召唤小芽狐。",
-    "STS2_STARBORN_CARD_DEMON_KING_MELODY_CARD.title": "魔王曲",
-    "STS2_STARBORN_CARD_DEMON_KING_MELODY_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n目前已切换过[blue]{SwitchedTypes}种属性。|}\n直接获得战斗胜利。",
-    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "闪耀变量",
-    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "强化你所有的奇波牌。每当奇波切换时，新创建的奇波牌也会被强化。",
-    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.upgradeDescription": "强化你所有的奇波牌。每当奇波切换时，新创建的奇波牌也会被强化。",
+    "STS2_STARBORN_CARD_OVERLOAD_CARD.title": "炎印·超限",
+    "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:sealElementIcons()}[/gold]：对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]。",
+
     "STS2_STARBORN_CARD_STARBORN_STRIKE.title": "打击",
     "STS2_STARBORN_CARD_STARBORN_STRIKE.description": "造成{Damage:diff()}点伤害。",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.title": "防御",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.description": "获得{Block:diff()}点格挡。",
+            
+    "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
+    "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。",
+    
+    "STS2_STARBORN_CARD_BOSS_SONG_CARD.title": "魔王曲",
+    "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n目前已切换过[blue]{SwitchedTypes}种属性。|}\n获得战斗胜利。",
+    
+    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "异闪",
+    "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "升级你所有的奇波牌。",
+
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
-    "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.upgradeDescription": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
+
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.title": "不够大！",
-    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "给目标施加1层[b]变大[/b]。造成{Damage}×[b]变大[/b]层数的伤害。",
-    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.upgradeDescription": "给目标施加1层[b]变大[/b]。造成{Damage}×[b]变大[/b]层数的伤害。",
+    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "施加1层[gold]变大[/gold]。\n造成{CalculatedDamage:diff()}点伤害。每层[gold]变大[/gold]使此伤害+{ExtraDamage:diff()}。",
+    
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
-    "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block}点格挡。给目标施加1层[b]变小[/b]和1层[b]虚弱[/b]。",
-    "STS2_STARBORN_CARD_NO_BIGGER_CARD.upgradeDescription": "获得{Block}点格挡。给目标施加1层[b]变小[/b]和2层[b]虚弱[/b]。",
+    "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加1层[gold]变小[/gold]。\n施加{Weak:diff()}层[gold]虚弱[/gold]。",
+    
     "STS2_STARBORN_CARD_SYNERGY_CARD.title": "协同",
-    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage}点伤害。释放随机一张奇波[gold]Ultimate[/gold]牌。",
-    "STS2_STARBORN_CARD_SYNERGY_CARD.upgradeDescription": "造成{Damage}点伤害。释放随机一张奇波[gold]Ultimate[/gold]牌。",
+    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage:diff()}点伤害。释放随机一张奇波[gold]Ultimate[/gold]牌。",
+    
+    "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.title": "红宝石布什曲",
+    "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。每回合开始时获得2/2层印记。\n每回合打出的前{Limit:diff()}张攻击牌获得：调谐1/1，造成当前灼烧层数的伤害。",
+
+    "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
+    "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。\n[gold]消耗[/gold]。",
+    "STS2_STARBORN_CARD_LUCKY_E_CARD.upgradeDescription": "获得[gold]航空准备[/gold]。",
+
+    "STS2_STARBORN_CARD_DISCOUNT_CARD.title": "演算",
+    "STS2_STARBORN_CARD_DISCOUNT_CARD.description": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
+    "STS2_STARBORN_CARD_DISCOUNT_CARD.upgradeDescription": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。{IfUpgraded:show:所有牌|抽[blue]2[/blue]张牌。}",
+
+    "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.title": "失控",
+    "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.description": "[gold]保留[/gold]。\n在你的回合结束时，失去1点生命上限。\n战斗结束时，失去1点生命上限。",
 
     "STS2_STARBORN_CARD_LEAFOX_ABILITY1_CARD.title": "打",
     "STS2_STARBORN_CARD_LEAFOX_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。",
@@ -56,17 +72,6 @@
     "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.title": "打",
     "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。\n印记属性为[red]雷[/red]时伤害+1。",
     "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.title": "防",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n印记属性为[red]雷[/red]时格挡+1。",
-
-    "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
-    "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。\n[gold]消耗[/gold]。",
-    "STS2_STARBORN_CARD_LUCKY_E_CARD.upgradeDescription": "获得[gold]航空准备[/gold]。",
-
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.title": "演算",
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.description": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.upgradeDescription": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。抽[blue]2[/blue]张牌。",
-
-    "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.title": "失控",
-    "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.description": "[gold]保留[/gold]。\n在你的回合结束时，失去1点生命上限。\n战斗结束时，失去1点生命上限。"
+    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n印记属性为[red]雷[/red]时格挡+1。"
 
 }
