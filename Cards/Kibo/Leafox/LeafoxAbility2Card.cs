@@ -5,11 +5,12 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-public sealed class ThunderHawkAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class LeafoxAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -18,12 +19,12 @@ public sealed class ThunderHawkAbility2Card() : KiboCard(CardType.Skill, TargetT
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6, ValueProp.Move),
+        new BlockVar(4, ValueProp.Move),
     ];
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars.Block.UpgradeValueBy(3);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

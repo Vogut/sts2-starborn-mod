@@ -9,7 +9,7 @@ using STS2RitsuLib.Keywords;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-public sealed class ShadowWolfAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class FloratailAbility1Card() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -18,16 +18,14 @@ public sealed class ShadowWolfAbility2Card() : KiboCard(CardType.Skill, TargetTy
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5, ValueProp.Move),
+        new DamageVar(8, ValueProp.Move),
     ];
-
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Block.UpgradeValueBy(3);
-    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target!)
+            .Execute(choiceContext);
     }
 }

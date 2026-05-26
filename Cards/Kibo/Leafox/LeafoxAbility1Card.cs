@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-public sealed class FoxSpiritAbility1Card() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class LeafoxAbility1Card() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

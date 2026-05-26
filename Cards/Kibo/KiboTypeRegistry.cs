@@ -21,20 +21,20 @@ public static class KiboTypeRegistry
 
     public static void Initialize()
     {
-        Register(KiboTypeId.FoxSpirit,
-            typeof(FoxSpiritAbility1Card),
-            typeof(FoxSpiritAbility2Card),
-            typeof(FoxSpiritRepCard),
-            evolvesTo: KiboTypeId.ShadowWolf);
-        Register(KiboTypeId.ShadowWolf,
-            typeof(ShadowWolfAbility1Card),
-            typeof(ShadowWolfAbility2Card),
-            typeof(ShadowWolfRepCard),
-            evolvesTo: KiboTypeId.ThunderHawk);
-        Register(KiboTypeId.ThunderHawk,
-            typeof(ThunderHawkAbility1Card),
-            typeof(ThunderHawkAbility2Card),
-            typeof(ThunderHawkRepCard),
+        Register(KiboTypeId.Leafox,
+            typeof(LeafoxAbility1Card),
+            typeof(LeafoxAbility2Card),
+            typeof(LeafoxRepCard),
+            evolvesTo: KiboTypeId.Floratail);
+        Register(KiboTypeId.Floratail,
+            typeof(FloratailAbility1Card),
+            typeof(FloratailAbility2Card),
+            typeof(FloratailRepCard),
+            evolvesTo: KiboTypeId.Corovulpe);
+        Register(KiboTypeId.Corovulpe,
+            typeof(CorovulpeAbility1Card),
+            typeof(CorovulpeAbility2Card),
+            typeof(CorovulpeRepCard),
             evolvesTo: null);
     }
 

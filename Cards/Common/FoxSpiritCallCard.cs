@@ -16,7 +16,7 @@ public sealed class FoxSpiritCallCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Common, TargetType.Self
 )
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.FoxSpirit;
+    public override KiboTypeId? KiboSummonType => KiboTypeId.Leafox;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

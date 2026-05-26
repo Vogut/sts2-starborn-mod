@@ -7,7 +7,7 @@ using STS2RitsuLib.Keywords;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-public sealed class FoxSpiritRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class CorovulpeRepCard() : KiboCard(CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -16,8 +16,8 @@ public sealed class FoxSpiritRepCard() : KiboCard(CardType.Power, TargetType.Sel
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
-        HoverTipFactory.FromCard<FoxSpiritAbility1Card>(),
-        HoverTipFactory.FromCard<FoxSpiritAbility2Card>(),
+        HoverTipFactory.FromCard<CorovulpeAbility1Card>(),
+        HoverTipFactory.FromCard<CorovulpeAbility2Card>(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
