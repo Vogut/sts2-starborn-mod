@@ -9,6 +9,7 @@ using STS2RitsuLib.Keywords;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
+[KiboAbilityOf(KiboTypeId.Floratail)]
 public sealed class FloratailAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -24,6 +25,7 @@ public sealed class KiboStarterEvent : ModEventTemplate
     protected override IReadOnlyList<EventOption> GenerateInitialOptions()
     {
         return KiboTypeRegistry.All
+            .Where(def => def.IsStarter)
             .Select(def =>
             {
                 var repCardModel = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));

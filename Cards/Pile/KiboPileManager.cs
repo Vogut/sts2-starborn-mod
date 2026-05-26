@@ -116,7 +116,7 @@ public static class KiboPileManager
         CardCmd.PreviewCardPileAdd(repResult);
 
         // Ability cards
-        foreach (var cardType in new[] { def.CardType1, def.CardType2 })
+        foreach (var cardType in def.AbilityCardTypes)
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
             var card = player.RunState.CreateCard(canonical, player);
@@ -124,6 +124,17 @@ public static class KiboPileManager
             card.AddModKeyword(keyword);
             var abilityResult = await CardPileCmd.Add(card, storage);
             CardCmd.PreviewCardPileAdd(abilityResult);
+        }
+
+        // Ultimate card (if any)
+        if (def.UltimateCardType is { } ultimateType)
+        {
+            var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(ultimateType));
+            var card = player.RunState.CreateCard(canonical, player);
+            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            card.AddModKeyword(keyword);
+            var ultimateResult = await CardPileCmd.Add(card, storage);
+            CardCmd.PreviewCardPileAdd(ultimateResult);
         }
     }
 
@@ -232,7 +243,12 @@ public static class KiboPileManager
 
         var def = KiboTypeRegistry.Get(typeId);
         var keyword = KiboKeywords.TypeKeyword(typeId);
-        foreach (var cardType in new[] { def.RepCardType, def.CardType1, def.CardType2 })
+        var cardTypes = new List<Type>(def.AbilityCardTypes.Count + 2) { def.RepCardType };
+        cardTypes.AddRange(def.AbilityCardTypes);
+        if (def.UltimateCardType is { } ultimateType)
+            cardTypes.Add(ultimateType);
+
+        foreach (var cardType in cardTypes)
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
             var card = combatState.CreateCard(canonical, player);

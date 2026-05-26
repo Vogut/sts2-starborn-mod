@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
@@ -18,6 +21,18 @@ public abstract class KiboCard(
 {
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: Const.Paths.KiboCardPortrait(GetType()));
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips
+    {
+        get
+        {
+            if (!KiboPileManager.IsRepCardType(GetType()))
+                return [];
+
+            var def = KiboTypeRegistry.GetByRepCardType(GetType());
+            return def.CreatePlayableCardHoverTips();
+        }
+    }
 
     public override async Task AfterCombatEnd(CombatRoom room)
     {

@@ -10,6 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
+[KiboAbilityOf(KiboTypeId.Leafox)]
 public sealed class LeafoxAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
