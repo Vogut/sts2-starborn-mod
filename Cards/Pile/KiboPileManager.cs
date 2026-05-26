@@ -112,7 +112,8 @@ public static class KiboPileManager
         var repCard = player.RunState.CreateCard(repCanonical, player);
         repCard.AddModKeyword(KiboKeywords.PileMemberKeywordId);
         repCard.AddModKeyword(keyword);
-        await CardPileCmd.Add(repCard, storage);
+        var repResult = await CardPileCmd.Add(repCard, storage);
+        CardCmd.PreviewCardPileAdd(repResult);
 
         // Ability cards
         foreach (var cardType in new[] { def.CardType1, def.CardType2 })
@@ -121,7 +122,8 @@ public static class KiboPileManager
             var card = player.RunState.CreateCard(canonical, player);
             card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
             card.AddModKeyword(keyword);
-            await CardPileCmd.Add(card, storage);
+            var abilityResult = await CardPileCmd.Add(card, storage);
+            CardCmd.PreviewCardPileAdd(abilityResult);
         }
     }
 
