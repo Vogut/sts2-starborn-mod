@@ -17,7 +17,7 @@ namespace STS2_Starborn.Cards.Common;
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class NoBiggerCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy
 )
 {
     public override bool GainsBlock => true;
