@@ -7,4 +7,9 @@ namespace STS2_Starborn.Powers;
 /// </summary>
 public abstract class StarbornPower : ModPowerTemplate
 {
+    /// <summary>
+    /// 用于 SmartFormat 注入的 <c>elementPrefix</c> 变量值。返回元素类型名（如 "Fire"），
+    /// 配合 <c>{elementPrefix:elementIcon(1)}</c> 渲染固定元素图标。
+    /// </summary>
+    public virtual string? elementPrefix => null;
 }

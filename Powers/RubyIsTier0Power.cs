@@ -25,6 +25,8 @@ public class RubyIsTier0Power : StarbornPower, ISealElementMarkListener
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
+    public override string? elementPrefix => "Fire";
+
     public override PowerAssetProfile AssetProfile => new(
         IconPath: Const.Paths.PowerIcon(GetType()),
         BigIconPath: Const.Paths.PowerBigIcon(GetType())

@@ -9,12 +9,26 @@ namespace STS2_Starborn.Localization.Formatters;
 [RegisterSmartFormatter]
 public class SealElementIconsFormatter : IFormatter
 {
-    public string Name { get => "sealElementIcons"; set => _ = value; }
+    public string Name { get => "elementIcon"; set => _ = value; }
     public bool CanAutoDetect { get; set; }
 
     public bool TryEvaluateFormat(IFormattingInfo formattingInfo)
     {
         var single = formattingInfo.FormatterOptions == "single";
+
+        if (formattingInfo.CurrentValue is string elementName)
+        {
+            if (!System.Enum.TryParse<SealElementType>(elementName, ignoreCase: true, out var parsedType))
+                return false;
+            if (!int.TryParse(formattingInfo.FormatterOptions, out var fixedCount) || fixedCount <= 0)
+                return false;
+
+            var icon = $"[img=center]{Const.Paths.ElementIcon(parsedType)}[/img]";
+            formattingInfo.Write(fixedCount <= 3
+                ? string.Concat(Enumerable.Repeat(icon, fixedCount))
+                : $"{fixedCount}{icon}");
+            return true;
+        }
 
         var count = formattingInfo.CurrentValue switch
         {
