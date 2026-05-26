@@ -24,5 +24,14 @@
     "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.description": "每层使目标体型缩小[blue]10%[/blue]，下限[blue]20%[/blue]。",
     "STS2_STARBORN_POWER_BURN_POWER.title": "灼烧",
     "STS2_STARBORN_POWER_BURN_POWER.description": "在目标回合开始时受到等同于层数的伤害，随后层数减半。",
-    "STS2_STARBORN_POWER_BURN_POWER.smartDescription": "在回合开始时受到[blue]{Amount}[/blue]点伤害，随后层数减半。"
+    "STS2_STARBORN_POWER_BURN_POWER.smartDescription": "在回合开始时受到[blue]{Amount}[/blue]点伤害，随后层数减半。",
+
+    "STS2_STARBORN_POWER_GREY_GHOST_PREP_POWER.title": "航空准备",
+    "STS2_STARBORN_POWER_GREY_GHOST_PREP_POWER.description": "下回合获得[gold]灰色幽灵[/gold]。",
+
+    "STS2_STARBORN_POWER_GREY_GHOST_POWER.title": "灰色幽灵",
+    "STS2_STARBORN_POWER_GREY_GHOST_POWER.description": "造成的攻击伤害翻倍，受到攻击伤害变为1点。",
+
+    "STS2_STARBORN_POWER_SIMULATION_POWER.title": "演算",
+    "STS2_STARBORN_POWER_SIMULATION_POWER.description": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。"
 }

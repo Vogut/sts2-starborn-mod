@@ -1,11 +1,22 @@
 {
     "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.title": "奇波抉择",
     "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.description": "一道神秘的光芒从远处照来，三个灵魂轮廓在你面前显现。你感觉到其中一种力量将与你产生共鸣，成为你的奇波伙伴。",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.FOX_SPIRIT.title": "火狐之灵",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.FOX_SPIRIT.description": "灵动的火焰，攻守兼备。",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.SHADOW_WOLF.title": "暗影狼",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.SHADOW_WOLF.description": "潜伏于黑暗，蓄势待发。",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.THUNDER_HAWK.title": "雷鹰",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.THUNDER_HAWK.description": "振翅苍穹，雷霆万钧。",
-    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.DONE.description": "你与奇波的羁绊已然建立，踏上征途吧。"
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.LEAFOX.title": "小芽狐",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.LEAFOX.description": "小芽狐。",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.FLORATAIL.title": "蓬尾狐",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.FLORATAIL.description": "蓬尾狐。",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.COROVULPE.title": "萝冠灵狐",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.INITIAL.options.COROVULPE.description": "萝冠灵狐。",
+    "STS2_STARBORN_EVENT_KIBO_STARTER_EVENT.pages.DONE.description": "你与奇波的羁绊已然建立，踏上征途吧。",
+
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.INITIAL.description": "房间里面摆放着各种仪器，这似乎是一间实验室。而你感觉似曾相识。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.INITIAL.options.ENTER.title": "进入",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.INITIAL.options.ENTER.description": "翻找有用的东西。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.CHOOSE.description": "你在实验室里发现了两个立方体，虽然外观上没什么不同，但你还是感觉到了差异。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.CHOOSE.options.WISDOM.title": "选择令你感觉安全的那一个",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.CHOOSE.options.WISDOM.description": "获得[blue]心智魔方[/blue]，将一张LuckyE加入牌组。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.CHOOSE.options.META.title": "选择令你感觉危险的那一个",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.CHOOSE.options.META.description": "获得[red]元魔方[/red]，将一张演算和失控加入牌组。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.WISDOM_CHOSEN.description": "你相信自己的选择是正确的。",
+    "STS2_STARBORN_EVENT_AZUR_LANE_EVENT.pages.META_CHOSEN.description": "或许这才是正确的。"
 }
