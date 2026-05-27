@@ -96,6 +96,15 @@
     "STS2_STARBORN_CARD_WIND_MARK_SELECT_CARD.title": "风",
     "STS2_STARBORN_CARD_WIND_MARK_SELECT_CARD.description": "将印记切换为[green]风[/green]属性。",
     "STS2_STARBORN_CARD_LIGHT_MARK_SELECT_CARD.title": "光",
-    "STS2_STARBORN_CARD_LIGHT_MARK_SELECT_CARD.description": "将印记切换为[gold]光[/gold]属性。"
+    "STS2_STARBORN_CARD_LIGHT_MARK_SELECT_CARD.description": "将印记切换为[gold]光[/gold]属性。",
+
+    "STS2_STARBORN_CARD_RIDE_CARD.title": "乘骑",
+    "STS2_STARBORN_CARD_RIDE_CARD.description": "抽[blue]{Cards:diff()}[/blue]张牌。\n本回合[gold]奇波[/gold]无法自动出牌。",
+
+    "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.title": "1Q2Q3Q",
+    "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "将你的所有[gold]奇波[/gold]加入active池。\n无法再打出攻击牌。\n每次出技能牌释放一个随机能力牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
+
+    "STS2_STARBORN_CARD_SWAP_CARD.title": "切人",
+    "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。"
 
 }

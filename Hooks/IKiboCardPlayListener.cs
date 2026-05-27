@@ -5,6 +5,8 @@ namespace STS2_Starborn.Hooks;
 
 public interface IKiboCardPlayListener
 {
+    bool ShouldPreventKiboAutoPlay(CardModel card) => false;
+
     Task BeforeKiboRandomAutoPlay(CardModel card, string keywordId) => Task.CompletedTask;
     Task AfterKiboRandomAutoPlay(CardModel card, string keywordId) => Task.CompletedTask;
 

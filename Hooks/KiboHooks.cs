@@ -10,6 +10,17 @@ public static class KiboHooks
 {
     // ── Card auto-play ──
 
+    public static bool AnyListenerPreventsKiboAutoPlay(ICombatState combatState, CardModel card)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboCardPlayListener listener
+                && listener.ShouldPreventKiboAutoPlay(card))
+                return true;
+        }
+        return false;
+    }
+
     public static async Task BeforeKiboCardAutoPlay(ICombatState combatState, CardModel card)
     {
         foreach (var model in combatState.IterateHookListeners())

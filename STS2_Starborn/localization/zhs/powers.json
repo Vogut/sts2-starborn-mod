@@ -25,5 +25,12 @@
     
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.title": "红宝石布什曲",
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前4张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
-    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前{Amount}张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。"
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前{Amount}张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
+
+    "STS2_STARBORN_POWER_RIDE_POWER.title": "乘骑",
+    "STS2_STARBORN_POWER_RIDE_POWER.description": "本回合[gold]奇波[/gold]无法自动出牌。",
+
+    "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.title": "1Q2Q3Q",
+    "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.description": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]4[/blue]次出牌额外释放一个终极牌。",
+    "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.smartDescription": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]{Amount}[/blue]次出牌额外释放一个终极牌。"
 }

@@ -33,6 +33,6 @@ public sealed class KiboAutoSummonPatch : IPatchMethod
         if (starbornCard.KiboSummonType is not { } kiboType)
             return;
 
-        TaskHelper.RunSafely(KiboSummonCmd.Summon(choiceContext, __instance.Owner, kiboType));
+        TaskHelper.RunSafely(KiboCmd.Summon(choiceContext, __instance.Owner, kiboType));
     }
 }
