@@ -1,0 +1,23 @@
+{  
+    "STS2_STARBORN_ELEMENT_NONE.title": "无属性",
+    "STS2_STARBORN_ELEMENT_FIRE.title": "火属性",
+    "STS2_STARBORN_ELEMENT_FIRE.description": "施加灼烧效果。",
+    "STS2_STARBORN_ELEMENT_WATER.title": "水属性",
+    "STS2_STARBORN_ELEMENT_WOOD.title": "木属性",
+    "STS2_STARBORN_ELEMENT_NONE.description": "【无属性】回合结束时不触发效果，也不消耗印记层数。请使用属性切换卡激活属性。",
+    "STS2_STARBORN_ELEMENT_NONE.smartDescription": "回合结束不触发，不消耗层数。请使用属性切换卡激活属性。",
+    "STS2_STARBORN_ELEMENT_FIRE.smartDescription": "{Tuning:elementIcon(single)}调谐：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]，消耗[blue]{Tuning}[/blue]层印记。\n{Overload:elementIcon(single)}超限：施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]，消耗[blue]{Overload}[/blue]层印记。",
+    "STS2_STARBORN_ELEMENT_WATER.description": "【水属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WATER.smartDescription": "【水属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WOOD.description": "【木属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "【木属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_ICE.title": "冰属性",
+    "STS2_STARBORN_ELEMENT_ICE.description": "【冰属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_ICE.smartDescription": "【冰属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WIND.title": "风属性",
+    "STS2_STARBORN_ELEMENT_WIND.description": "【风属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WIND.smartDescription": "【风属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_LIGHT.title": "光属性",
+    "STS2_STARBORN_ELEMENT_LIGHT.description": "【光属性】（效果施工中）",
+    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "【光属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）"
+}

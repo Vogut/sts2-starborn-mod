@@ -45,11 +45,11 @@ namespace STS2_Starborn
             // ─── Element icons ─────────────────────────────
             /// <summary>Power 图标：Fire.png / Water.png …（无 Icon 后缀）</summary>
             public static string ElementPowerIcon(SealElementType et) =>
-                $"{Root}/powers/Elements/{et}.png";
+                $"{Root}/Elements/{et}.png";
 
             /// <summary>小图标：FireIcon.png / WaterIcon.png …（有 Icon 后缀）</summary>
             public static string ElementIcon(SealElementType et) =>
-                $"{Root}/powers/Elements/Icon/{et}.png";
+                $"{Root}/Elements/Icon/{et}.png";
 
             // ─── Kibo ─────────────────────────────────────
             public const string KiboPileIcon = Root + "/kibo/Icons/kibo_pile.png";
