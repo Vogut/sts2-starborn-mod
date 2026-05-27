@@ -10,7 +10,9 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Commands;
 
@@ -44,6 +46,7 @@ public class OneQTwoQThreeQPower : StarbornPower
     public override bool ShouldPlay(CardModel card, AutoPlayType _)
     {
         if (card.Owner?.Creature != Owner) return true;
+        if (card.HasModKeyword(KiboKeywords.PileMemberKeywordId)) return true;
         return card.Type != CardType.Attack;
     }
 
