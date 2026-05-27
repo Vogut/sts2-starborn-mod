@@ -23,6 +23,9 @@
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。",
     
+    "STS2_STARBORN_CARD_ANY_TUNING_CARD.title": "测试·任意调谐",
+    "STS2_STARBORN_CARD_ANY_TUNING_CARD.description": "[gold]调谐{Tuning:elementIcon(single)}[/gold]。",
+
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.title": "对轴",
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.description": "将主/副属性印记中较低一方的层数提升至与较高一方相同。",
 
@@ -55,11 +58,9 @@
 
     "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
     "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。",
-    "STS2_STARBORN_CARD_LUCKY_E_CARD.upgradeDescription": "获得[gold]航空准备[/gold]。",
 
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.title": "演算",
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.description": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
-    "STS2_STARBORN_CARD_DISCOUNT_CARD.upgradeDescription": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。{IfUpgraded:show:所有牌|抽[blue]2[/blue]张牌。}",
+    "STS2_STARBORN_CARD_SIMULATION_CARD.title": "演算",
+    "STS2_STARBORN_CARD_SIMULATION_CARD.description": "你的所有牌耗能减少1{energyPrefix:energyIcons(1)}。{IfUpgraded:show:抽[blue]2[/blue]张牌。}",
 
     "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.title": "失控",
     "STS2_STARBORN_CARD_OUT_OF_CONTROL_CARD.description": "[gold]保留[/gold]。\n在你的回合结束时，失去1点生命上限。\n战斗结束时，失去1点生命上限。",

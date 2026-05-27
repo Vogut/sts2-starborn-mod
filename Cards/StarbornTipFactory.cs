@@ -16,6 +16,9 @@ public static class StarbornTipFactory
     public static HoverTip Overload(SealElementType elementType, int consume)
         => Build(OverloadKey, "Overload", elementType, consume);
 
+    public static HoverTip ElementMark(SealElementType elementType, int stacks)
+        => Build("STS2_STARBORN_ELEMENT_MARK", "ElementMark", elementType, stacks);
+
     private static HoverTip Build(string key, string varName,
         SealElementType elementType, int consume)
     {

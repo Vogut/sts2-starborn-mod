@@ -14,6 +14,7 @@ using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Element;
+using STS2_Starborn.Hooks;
 using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Cards;
@@ -26,15 +27,84 @@ public abstract class StarbornCard(
     bool shouldShowInCardLibrary = true
 ) : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
-    protected int PrimaryStacks =>
+    internal int PrimaryStacks =>
         !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Primary) : 0;
-    protected SealElementType PrimaryElementType =>
+    internal SealElementType PrimaryElementType =>
         !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
 
-    protected int SecondaryStacks =>
+    internal int SecondaryStacks =>
         !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Secondary) : 0;
-    protected SealElementType SecondaryElementType =>
+    internal SealElementType SecondaryElementType =>
         !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
+
+    // ── Any element helpers ────────────────────────────────
+    // 当 elementType == SealElementType.Any 时，创建动态解析当前主属性印记的 computed var
+    // 预览时显示 Any 图标，战斗时显示实际元素图标
+
+    protected DynamicVar Tuning(int stacks, SealElementType elementType)
+    {
+        if (elementType != SealElementType.Any)
+            return StarbornCardVars.Tuning(stacks, elementType);
+
+        var v = new SealElementVar("Tuning", () => stacks, () => SealElementType.Any)
+        {
+            ResolveFromCurrentMark = true
+        };
+        v.WithModifyPreview((card, value) =>
+        {
+            var cs = card.Owner?.Creature?.CombatState;
+            return cs != null
+                ? SealElementMarkHooks.ModifyTuningConsume(cs, MarkSlot.Primary, value)
+                : value;
+        });
+        v.WithTooltip(var =>
+        {
+            var sev = (SealElementVar)var;
+            return StarbornTipFactory.Tuning(sev.ElementType, sev.IntValue);
+        });
+        return v;
+    }
+
+    protected DynamicVar Overload(int stacks, SealElementType elementType)
+    {
+        if (elementType != SealElementType.Any)
+            return StarbornCardVars.Overload(stacks, elementType);
+
+        var v = new SealElementVar("Overload", () => stacks, () => SealElementType.Any)
+        {
+            ResolveFromCurrentMark = true
+        };
+        v.WithModifyPreview((card, value) =>
+        {
+            var cs = card.Owner?.Creature?.CombatState;
+            return cs != null
+                ? SealElementMarkHooks.ModifyOverloadConsume(cs, MarkSlot.Primary, value)
+                : value;
+        });
+        v.WithTooltip(var =>
+        {
+            var sev = (SealElementVar)var;
+            return StarbornTipFactory.Overload(sev.ElementType, sev.IntValue);
+        });
+        return v;
+    }
+
+    protected DynamicVar ElementMark(int stacks, SealElementType elementType)
+    {
+        if (elementType != SealElementType.Any)
+            return StarbornCardVars.ElementMark(stacks, elementType);
+
+        var v = new SealElementVar("ElementMark", () => stacks, () => SealElementType.Any)
+        {
+            ResolveFromCurrentMark = true
+        };
+        v.WithTooltip(var =>
+        {
+            var sev = (SealElementVar)var;
+            return StarbornTipFactory.ElementMark(sev.ElementType, sev.IntValue);
+        });
+        return v;
+    }
 
     public virtual Kibo.KiboTypeId? KiboSummonType => null;
 
