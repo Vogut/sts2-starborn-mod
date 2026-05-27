@@ -5,5 +5,9 @@ public enum SealElementType
     None,
     Fire,
     Water,
-    Wood
+    Wood,
+    Ice,
+    Wind,
+    Light,
+    Any
 }

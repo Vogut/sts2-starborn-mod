@@ -23,6 +23,15 @@
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗[red]-1[/red]。回合开始时印记属性不再重置。",
     
+    "STS2_STARBORN_CARD_ALIGNMENT_CARD.title": "对轴",
+    "STS2_STARBORN_CARD_ALIGNMENT_CARD.description": "将主/副属性印记中较低一方的层数提升至与较高一方相同。",
+
+    "STS2_STARBORN_CARD_CUSTOMIZE_CARD.title": "自定义",
+    "STS2_STARBORN_CARD_CUSTOMIZE_CARD.description": "分别选择主属性印记和副属性印记的元素类型。",
+
+    "STS2_STARBORN_CARD_CUSTOMIZE_CARD.primaryPrompt": "选择主属性",
+    "STS2_STARBORN_CARD_CUSTOMIZE_CARD.secondaryPrompt": "选择副属性",
+
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.title": "魔王曲",
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n目前已切换过[blue]{SwitchedTypes}种属性。|}\n获得战斗胜利。",
     
@@ -45,7 +54,7 @@
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。每回合开始时获得2/2层印记。\n每回合打出的前{Limit:diff()}张攻击牌获得：调谐1/1，造成当前灼烧层数的伤害。",
 
     "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
-    "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。\n[gold]消耗[/gold]。",
+    "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。",
     "STS2_STARBORN_CARD_LUCKY_E_CARD.upgradeDescription": "获得[gold]航空准备[/gold]。",
 
     "STS2_STARBORN_CARD_DISCOUNT_CARD.title": "演算",
@@ -72,6 +81,20 @@
     "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.title": "打",
     "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。\n印记属性为[red]雷[/red]时伤害+1。",
     "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.title": "防",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n印记属性为[red]雷[/red]时格挡+1。"
+    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n印记属性为[red]雷[/red]时格挡+1。",
+
+    "STS2_STARBORN_CARD_FIRE_MARK_SELECT_CARD.title": "火",
+    "STS2_STARBORN_CARD_FIRE_MARK_SELECT_CARD.description": "将印记切换为[red]火[/red]属性。",
+    "STS2_STARBORN_CARD_WATER_MARK_SELECT_CARD.title": "水",
+    "STS2_STARBORN_CARD_WATER_MARK_SELECT_CARD.description": "将印记切换为[blue]水[/blue]属性。",
+    "STS2_STARBORN_CARD_WOOD_MARK_SELECT_CARD.title": "木",
+    "STS2_STARBORN_CARD_WOOD_MARK_SELECT_CARD.description": "将印记切换为[green]木[/green]属性。",
+
+    "STS2_STARBORN_CARD_ICE_MARK_SELECT_CARD.title": "冰",
+    "STS2_STARBORN_CARD_ICE_MARK_SELECT_CARD.description": "将印记切换为[blue]冰[/blue]属性。",
+    "STS2_STARBORN_CARD_WIND_MARK_SELECT_CARD.title": "风",
+    "STS2_STARBORN_CARD_WIND_MARK_SELECT_CARD.description": "将印记切换为[green]风[/green]属性。",
+    "STS2_STARBORN_CARD_LIGHT_MARK_SELECT_CARD.title": "光",
+    "STS2_STARBORN_CARD_LIGHT_MARK_SELECT_CARD.description": "将印记切换为[gold]光[/gold]属性。"
 
 }

@@ -12,6 +12,9 @@ public abstract class StarbornElement
         [SealElementType.Fire]  = new FireElement(),
         [SealElementType.Water] = new WaterElement(),
         [SealElementType.Wood]  = new WoodElement(),
+        [SealElementType.Ice]   = new IceElement(),
+        [SealElementType.Wind]  = new WindElement(),
+        [SealElementType.Light] = new LightElement(),
     };
 
     public abstract SealElementType Attribute { get; }
