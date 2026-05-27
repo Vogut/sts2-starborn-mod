@@ -111,6 +111,6 @@
     "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
 
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.title": "栗栗花的赠礼",
-    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{IfUpgraded:show:{A}层当前属性印记|{A}层无属性印记}/{B:diff()}层无属性印记。"
+    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。"
 
 }

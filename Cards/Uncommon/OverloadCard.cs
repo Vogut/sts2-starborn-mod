@@ -19,19 +19,12 @@ public class OverloadCard() : StarbornCard(
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        StarbornCardVars.Overload(10, SealElementType.Fire),
+        StarbornCardVars.Overload(1, SealElementType.Fire),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.Fire);
-        var need = ElementMarkManager.ThresholdStacks - PrimaryStacks;
-        if (need > 0)
-            await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, need);
-        await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner, 1, this);
-        var remain = ElementMarkManager.MaxSealStacks - ElementMarkManager.GetStacks(Owner, MarkSlot.Primary);
-        if (remain > 0)
-            await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, remain);
+        await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Overload"].IntValue, SealElementType.Fire, this);
     }
 
     protected override void OnUpgrade()

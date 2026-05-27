@@ -19,22 +19,22 @@ public class GiftOfLiliCard() : StarbornCard(
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("A", 2),
-        new IntVar("B", 1),
+        StarbornCardVars.ElementMark(2, SealElementType.None, name: "Primary"),
+        StarbornCardVars.ElementMark(2, SealElementType.None, name: "Secondary"),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (!IsUpgraded)
-            await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.None);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["A"].IntValue);
+
+        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.None);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Primary"].IntValue);
 
         await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Secondary, Owner, SealElementType.None);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Secondary, Owner, DynamicVars["B"].IntValue);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Secondary, Owner, DynamicVars["Secondary"].IntValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["B"].BaseValue += 1;
+        DynamicVars["Primary"].BaseValue += 1;
     }
 }
