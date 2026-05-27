@@ -28,8 +28,11 @@ public static class StarbornTipFactory
             icon = ResourceLoader.Load<Texture2D>(iconPath);
 
         var dv = new SealElementVar(varName, consume, elementType);
-        var title = new LocString("static_hover_tips", $"{key}.title");
-        var desc = new LocString("static_hover_tips", $"{key}.description");
+        var elementKey = elementType == SealElementType.Any
+            ? key
+            : $"{key}_{elementType.ToString().ToUpperInvariant()}";
+        var title = new LocString("static_hover_tips", $"{elementKey}.title");
+        var desc = new LocString("static_hover_tips", $"{elementKey}.description");
         title.Add(dv);
         desc.Add(dv);
         return new HoverTip(title, desc, icon);
