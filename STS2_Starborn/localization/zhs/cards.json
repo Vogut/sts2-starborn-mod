@@ -105,6 +105,12 @@
     "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "将你的所有[gold]奇波[/gold]加入active池。\n无法再打出攻击牌。\n每次出技能牌释放一个随机能力牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
 
     "STS2_STARBORN_CARD_SWAP_CARD.title": "切人",
-    "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。"
+    "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.title": "星八客",
+    "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
+
+    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.title": "栗栗花的赠礼",
+    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{IfUpgraded:show:{A}层当前属性印记|{A}层无属性印记}/{B:diff()}层无属性印记。"
 
 }
