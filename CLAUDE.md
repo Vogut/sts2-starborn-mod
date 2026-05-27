@@ -73,6 +73,8 @@ All player cards inherit from `StarbornCard` (which extends `ModCardTemplate`). 
 
 Kibo companion cards inherit from `KiboCard` (extends `StarbornCard`) — 0-cost Token rarity cards that auto-play. Their boss-room evolution is handled in the base class.
 
+Kibo auto-play cards are suppressed from `Hook.BeforeCardPlayed` and `Hook.AfterCardPlayed` by [KiboCardPlayHookFilterPatch](Patches/KiboCardPlayHookFilterPatch.cs) using `KiboKeywords.PileMemberKeywordId`. Cards/powers that implement `AfterCardPlayed` don't need additional Kibo-specific guards — the patch already filters them at the Hook level. Player auto-plays (non-Kibo) are NOT suppressed and should still trigger card play hooks normally.
+
 Relics inherit from `StarbornRelic` (`ModRelicTemplate`); powers from `StarbornPower` (`ModPowerTemplate`).
 
 ### The Two Core Mechanics
