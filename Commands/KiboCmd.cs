@@ -15,6 +15,8 @@ public static class KiboCmd
 {
     public static async Task AutoPlay(PlayerChoiceContext ctx, CardModel card, ICombatState combatState)
     {
+        if (KiboHooks.AnyListenerPreventsKiboAutoPlay(combatState, card))
+            return;
         await KiboHooks.BeforeKiboCardAutoPlay(combatState, card);
         await CardCmd.AutoPlay(ctx, card, null);
         await KiboHooks.AfterKiboCardAutoPlay(combatState, card);
@@ -27,6 +29,29 @@ public static class KiboCmd
     public static async Task<bool> TryAutoPlayRandomUltimateCard(
         Player player, ICombatState combatState) =>
         await TryAutoPlayRandomCard(player, combatState, KiboKeywords.UltimateKeywordId);
+
+    public static async Task Summon(
+        PlayerChoiceContext ctx, Player player, KiboTypeId typeId)
+    {
+        var from = KiboPileManager.GetActiveKiboType(player);
+        if (from == typeId) return;
+
+        var combatState = player.Creature.CombatState;
+        if (from != null && combatState != null)
+        {
+            if (KiboHooks.AnyListenerPreventsKiboSwitch(combatState, player, from.Value, typeId))
+                return;
+            await KiboHooks.BeforeKiboSwitch(combatState, player, from.Value, typeId);
+        }
+
+        if (!CombatManager.Instance.IsInProgress)
+            return;
+
+        if (from != null && combatState != null)
+            await KiboHooks.AfterKiboSwitch(combatState, player, from.Value, typeId);
+
+        await KiboPileManager.ActivateType(player, typeId);
+    }
 
     private static async Task<bool> TryAutoPlayRandomCard(
         Player player, ICombatState combatState, string keywordId)
