@@ -28,7 +28,7 @@ When I run /new-card:
 | `CardsVar` | 抽牌 | `new CardsVar(2)` |
 | `HealVar` | 治疗 | `new HealVar(3)` |
 | `IntVar` | 通用数值（印记层数、层数等） | `new IntVar("Weak", 2)` |
-| `EnergyVar` | 能量 | `new EnergyVar("Energy", 1)` |
+| `EnergyVar` | 能量数值，配合 `{Name:energyIcons()}` 渲染角色能量图标 | `new EnergyVar(3)` |
 
 - `DamageVar` / `BlockVar` 重写了 `UpdateCardPreview`，工具提示会显示附魔/Hook 修正后的实际值
 - `IntVar` / `CardsVar` 无预览逻辑，只显示基础值
@@ -124,6 +124,16 @@ var diff = primaryStacks - secondaryStacks;
 if (diff > 0) await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, Owner, diff);
 ```
 
+**同时消耗主/副印记**（[StarbornCoffeeCard](Cards/Uncommon/StarbornCoffeeCard.cs)）：
+```csharp
+// DynamicVar: StarbornCardVars.ElementMark(1, SealElementType.Any)
+// IsPlayable: PrimaryStacks >= 1 && SecondaryStacks >= 1
+await SealElementMarkCmd.RemoveElementMarks(ctx, MarkSlot.Primary, Owner, 1);
+await SealElementMarkCmd.RemoveElementMarks(ctx, MarkSlot.Secondary, Owner, 1);
+```
+- 描述用 `{ElementMark:elementIcon()}/{ElementMark:elementIcon()}` — 一个 `Any` 类型的 `ElementMark` var 引用两次，中间用 `/` 分隔，分别对应主/副印记各消耗 1 层
+- 获得印记同理
+
 ### Hook 接口（能力/遗物使用）
 
 | 接口 | 用途 | 文件 |
@@ -132,17 +142,32 @@ if (diff > 0) await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary,
 | `ITuningOverloadListener` | 监听调谐/超限前后 | [Hooks/ITuningOverloadListener.cs](Hooks/ITuningOverloadListener.cs) |
 | `IConsumeModifier` | 修改调谐/超限的层数消耗 | [Hooks/IConsumeModifier.cs](Hooks/IConsumeModifier.cs) |
 
+## OnPlay 中禁止硬编码数值
+- `OnPlay` 中所有数值**必须**从 `DynamicVars` 取值，**禁止**写死数字
+- 伤害用 `DynamicVars.Damage.BaseValue`、格挡用 `DynamicVars.Block.BaseValue`、能量用 `DynamicVars.Energy.IntValue`、印记用 `DynamicVars["ElementMark"].IntValue` 等
+- 原因：升级通过修改 `DynamicVar.BaseValue` 生效，硬编码数值会导致升级无效
+
 ## 卡牌 description 规则
 - 始终用 `{VarName:diff()}` 显示可升级数值，不要硬编码
 - 升级改变**文字内容**时用 `{IfUpgraded:show:升级版|基础版}`，原版**没有** upgradeDescription 这个 key
 - 升级**减少**数值时用 `{VarName:inverseDiff()}`
 - 战斗内实时数值用 `{InCombat:\n（造成{CalculatedDamage}点伤害）|}` — 非战斗时隐藏
 - 多行用 `\n` 分隔，每句以 `。` 结尾
-- 标准句式：
+- 标准句式（参照原版 [sts2/localization/zhs/cards.json](sts2/localization/zhs/cards.json)）：
   - 伤害：`造成{Damage:diff()}点伤害。`
   - 格挡：`获得{Block:diff()}点[gold]格挡[/gold]。`
-  - 状态：`给予{Weak:diff()}层[gold]虚弱[/gold]。`
+  - 能量：`获得{Energy:energyIcons()}。` — 必须用 `EnergyVar` + `energyIcons()` 格式化器，**禁止**手写 `[blue]N[/blue]点能量`
   - 抽牌：`抽{Cards:diff()}张牌。`
+  - 状态：`给予{Weak:diff()}层[gold]虚弱[/gold]。`
+  - 耗能展示：`0{energyPrefix:energyIcons(1)}` — 展示卡牌费用时用
+  - 生命失去：`失去{HpLoss:diff()}点生命。`
+  - 生命上限：`失去{MaxHp:diff()}点最大生命。`
+  - 治疗：`回复{Heal:diff()}点生命。`
+- `{VarName:diff()}` vs `{VarName:energyIcons()}` vs `{VarName:starIcons()}`
+  - `diff()` — 数值差异化显示（伤害、格挡、抽牌等通用值）
+  - `energyIcons()` — 能量图标专用，渲染角色对应颜色的能量图标
+  - `starIcons()` — 星能量图标专用
+  - 区分原则：看原版同类卡牌用哪个格式化器就照搬
 
 ## 能力 description 规则
 - 能力需要**两个** key：`description`（静态，硬编码基础值）和 `smartDescription`（动态，`{Amount}` 占位）
