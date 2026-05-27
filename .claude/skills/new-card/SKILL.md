@@ -1,177 +1,129 @@
-# STS2 Card Creation
-When I run /new-card:
-1. Ask for card name, type (Attack/Skill/Power/Event), and rarity
-2. grep existing cards of same type for structure reference
-3. Generate: Card class file + JSON data + DynamicVar setup
-4. Advise correct pool registration (EventCardPool vs CharacterPool vs PowerCardPool)
-5. Run build and confirm clean
+---
+name: new-card
+description: STS2 card creation and modification for the Starborn mod. Triggered by /new-card. Creates or edits card class files, localization JSON, and DynamicVars following project conventions. Use when the user wants to create a new card, modify an existing card, adjust card balance/numbers, fix card behavior, add card mechanics, or update card descriptions.
+---
 
-## 关键词规则
-- 消耗、保留、固有、虚无等原版关键词和自定义关键词（`RegisterOwnedCardKeyword`）通过 `CanonicalKeywords` 属性以**图标**形式显示在卡面上
-- description 中**不要**写 `[gold]消耗[/gold]`、`[gold]保留[/gold]` 等关键词图标文本——图标已由 `CanonicalKeywords` 渲染
-- 参照原版 HOTFIX：base 有 Exhaust，description 只写效果文本，升级 `RemoveKeyword` 去掉图标
-- **例外**：在描述中引用某个状态/机制名时仍需 `[gold]` 包裹，如"给予[gold]虚弱[/gold]"——这是状态名不是关键词图标
+# STS2 Card Creation & Modification
 
-## 颜色约定
-- `[gold]术语[/gold]` — 游戏术语（格挡、力量、虚弱、易伤、手牌、抽牌堆等）
-- `[blue]数值[/blue]` — 数字（主要用于 smartDescription 的 `[blue]{Amount}[/blue]`）
-- `[red]术语[/red]` — 敌对/警告性质术语
+## Determine the task type
 
-## DynamicVar 类型对照
+When invoked, first ask the user whether this is a **new card** or **modifying an existing card**. If already clear from context, skip the question and proceed.
 
-游戏源码 [sts2/src/Core/Localization/DynamicVars/](sts2/src/Core/Localization/DynamicVars/) 中的可用类型：
+## User Shorthand
 
-| 数值类型 | 使用 | 示例 |
-|---------|------|------|
-| `DamageVar` | 伤害（有预览修正） | `new DamageVar(4, ValueProp.Move)` |
-| `BlockVar` | 格挡（有预览修正） | `new BlockVar(5, ValueProp.Move)` |
-| `CardsVar` | 抽牌 | `new CardsVar(2)` |
-| `HealVar` | 治疗 | `new HealVar(3)` |
-| `IntVar` | 通用数值（印记层数、层数等） | `new IntVar("Weak", 2)` |
-| `EnergyVar` | 能量数值，配合 `{Name:energyIcons()}` 渲染角色能量图标 | `new EnergyVar(3)` |
+The user often uses compact terms. The `N/M` format means **主印记消耗N / 副印记消耗M**。When the user omits the secondary value, default to 0 (主印记 only).
 
-- `DamageVar` / `BlockVar` 重写了 `UpdateCardPreview`，工具提示会显示附魔/Hook 修正后的实际值
-- `IntVar` / `CardsVar` 无预览逻辑，只显示基础值
-- 多段伤害/格挡后续段用自定义名：`new DamageVar("Dam2", 6, ValueProp.Move)`、`new BlockVar("Block2", 3, ValueProp.Move)`
+| Shorthand | Expands to |
+|-----------|-----------|
+| `谐调N` | Tuning，消耗主印记 N 层（= 谐调N/0） |
+| `谐调N/M` | Tuning，消耗主印记 N 层 + 副印记 M 层 |
+| `超限X` | Overload，元素 X，消耗主印记（默认 1/0） |
+| `超限X,N/M` | Overload，元素 X，消耗主 N / 副 M |
+| `印记N` | 获得/消耗 主印记 N 层（= 印记N/0） |
+| `印记N/M` | 获得/消耗 主印记 N 层 + 副印记 M 层 |
+| `切换X` / `切X` | 切换印记属性为 X（火/水/木） |
 
-## 印记系统 (Seal Element Marks)
+Implementation: for each non-zero slot, generate the corresponding command call. For example, "谐调1/1" generates two `StarbornCmd.Tuning()` calls — one for Primary, one for Secondary. Never leave the shorthand un-expanded in the output.
 
-印记系统有两档：**调谐**（Tuning，≥3层）和**超限**（Overload，5层满）。每回合结束自动检查并触发。
+---
 
-核心常量（[Combat/ElementMarkManager.cs](Combat/ElementMarkManager.cs)）：
-- `MaxSealStacks = 5`（层数上限）
-- `ThresholdStacks = 3`（调谐阈值）
-- 两个槽位：`MarkSlot.Primary`、`MarkSlot.Secondary`
+## Creating a New Card
 
-### 命令（[Commands/SealElementMarkCmd.cs](Commands/SealElementMarkCmd.cs) + [Commands/StarbornCmd.cs](Commands/StarbornCmd.cs)）
+### 1. Gather Parameters
 
-| 操作 | API | 说明 |
-|------|-----|------|
-| 切换属性 | `SealElementMarkCmd.SetElementType(ctx, slot, player, type)` | 改变印记的元素类型 |
-| 叠加层数 | `SealElementMarkCmd.GainElementMarks(ctx, slot, player, stacks)` | 增加印记层数 |
-| 移除层数 | `SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, stacks)` | 减少印记层数 |
-| 调谐 | `StarbornCmd.Tuning(ctx, slot, player, consume, source)` | 消耗 consume 层触发调谐 |
-| 调谐+切换 | `StarbornCmd.Tuning(ctx, slot, player, consume, targetElement, source)` | 先切换到 targetElement 再调谐 |
-| 超限 | `StarbornCmd.Overload(ctx, slot, player, consume, source)` | 消耗 consume 层触发超限 |
-| 超限+切换 | `StarbornCmd.Overload(ctx, slot, player, consume, targetElement, source)` | 先切换再超限 |
+Ask the user for:
+- **Card name** (English class name + Chinese display name)
+- **Type**: Attack / Skill / Power / Event
+- **Rarity**: Basic / Common / Uncommon / Rare
+- **Brief effect description** (what should the card do?)
 
-### 卡牌父类属性（[Cards/StarbornCard.cs](Cards/StarbornCard.cs)）
+### 2. Research
 
+- Grep existing cards of the same type/rarity to use as structural reference
+- Note: base class, namespace, DynamicVars setup, and registration pattern
+
+### 3. Generate Card Class
+
+Create the C# file in `Cards/<Rarity>/`:
+- Inherit from `StarbornCard` (or `KiboCard` for Kibo companion cards)
+- Declare `DynamicVars` with proper types — read [references/dynamic-vars.md](references/dynamic-vars.md) for type selection
+- Implement `OnPlay` — **every numeric value must come from `DynamicVars`** (see Critical Rule below)
+
+### 4. Generate Localization
+
+Add entries to `STS2_Starborn/localization/zhs/cards.json`:
+- `name`: Chinese card name
+- `description`: Card effect text — read [references/description-rules.md](references/description-rules.md) for formatting
+- Follow keyword and color conventions — read [references/keywords-and-colors.md](references/keywords-and-colors.md)
+
+### 5. Register the Card
+
+Advise the correct registration attribute:
+- Character cards: `[RegisterCard(typeof(CharacterPool))]`
+- Power cards: `[RegisterCard(typeof(PowerCardPool))]`
+- Event cards: `[RegisterSharedEvent]`
+
+### 6. Build & Verify
+
+Run `dotnet build sts2_starborn.sln` and confirm no errors.
+
+---
+
+## Modifying an Existing Card
+
+### 1. Locate the Card
+
+- Find the card class file by name under `Cards/`
+- Read the current implementation to understand its structure
+
+### 2. Understand the Change
+
+Clarify what the user wants to modify:
+- **Numeric tuning**: adjust DynamicVar base values, add/remove upgrade deltas
+- **Mechanics change**: alter OnPlay logic, add/remove effect steps
+- **Description fix**: update localization text to match behavior
+- **Keyword/type change**: add/remove CanonicalKeywords, change rarity/pool
+
+### 3. Edit the Code
+
+- Modify `DynamicVars` declarations if values change
+- Edit `OnPlay` logic — keep all numeric values sourced from `DynamicVars`
+- If adding new mechanics that involve seal elements, read [references/seal-element-system.md](references/seal-element-system.md)
+
+### 4. Update Localization
+
+- Sync `STS2_Starborn/localization/zhs/cards.json` if the effect text changed
+- If adding new DynamicVars, ensure the description references them correctly — read [references/description-rules.md](references/description-rules.md)
+
+### 5. Build & Verify
+
+Run `dotnet build sts2_starborn.sln` and confirm no errors.
+
+---
+
+## Critical Rule: No Hardcoded Values in OnPlay
+
+All numeric values in `OnPlay` **must** come from `DynamicVars`:
 ```csharp
-PrimaryStacks    // int，主印记当前层数（Canonical 模式下返回 0）
-SecondaryStacks  // int，副印记当前层数
-PrimaryElementType    // SealElementType，主印记元素类型
-SecondaryElementType  // SealElementType，副印记元素类型
+// Correct
+var damage = DynamicVars.Damage.BaseValue;
+var block = DynamicVars.Block.BaseValue;
+var stacks = DynamicVars["ElementMark"].IntValue;
+
+// Wrong — upgrades won't affect these
+var damage = 6;
+var block = 5;
 ```
 
-### 可打出性检查
+Reason: upgrades work by modifying `DynamicVar.BaseValue`. Hardcoded numbers ignore upgrades entirely.
 
-- `StarbornCmd.CanTuning(player, slot)` — 元素已设置 且 层数 ≥ 调谐消耗（默认1）
-- `StarbornCmd.CanOverload(player, slot)` — 层数 ≥ 阈值(3) 且 层数 ≥ 超限消耗（默认2）
-- `PrimaryStacks > 0` — 简单检查印记是否已激活
+## Reference Files
 
-在卡牌中：
-```csharp
-protected override bool IsPlayable =>
-    StarbornCmd.CanTuning(Owner, MarkSlot.Primary);
-```
+Read these when the card being created or modified involves the relevant system:
 
-### DynamicVar 工厂方法
-
-用 `StarbornCardVars`（固定元素）或父类 `Tuning/Overload/ElementMark()` 方法（支持 `Any`）：
-
-| 用途 | 固定元素 | 支持 Any |
-|------|---------|----------|
-| 印记层数 | `StarbornCardVars.ElementMark(stacks, type)` | `ElementMark(stacks, type)` |
-| 调谐消耗 | `StarbornCardVars.Tuning(stacks, type)` | `Tuning(stacks, type)` |
-| 超限消耗 | `StarbornCardVars.Overload(stacks, type)` | `Overload(stacks, type)` |
-
-- **固定元素**（如 `SealElementType.Fire`）：描述用 `{ElementMark:elementIcon()}` 渲染对应元素图标
-- **SealElementType.Any**：必须用父类方法 `Tuning(stacks, SealElementType.Any)` 等方法，它们会创建 `SealElementVar` 并设 `ResolveFromCurrentMark = true`——预览显示 Any 图标，战斗中动态解析为当前印记的真实元素
-- 描述中**禁止**手写 `[gold]火属性[/gold]`、`[gold]任意元素[/gold]` 代替图标
-
-### 典型卡牌模式
-
-**切换印记 + 叠加层数**（[SwitchPrimaryMarkCard](Cards/Common/SwitchPrimaryMarkCard.cs)）：
-```csharp
-// DynamicVar: StarbornCardVars.ElementMark(2, SealElementType.Fire)
-await SealElementMarkCmd.SetElementType(ctx, MarkSlot.Primary, Owner, SealElementType.Fire);
-await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
-// 升级: DynamicVars["ElementMark"].BaseValue += 1
-```
-
-**调谐卡**（[TuningCard](Cards/Common/TuningCard.cs)）：
-```csharp
-// IsPlayable: StarbornCmd.CanTuning(Owner, MarkSlot.Primary)
-// DynamicVar: StarbornCardVars.Tuning(2, SealElementType.Fire)
-await StarbornCmd.Tuning(ctx, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, SealElementType.Fire, this);
-```
-
-**超限卡**（[OverloadCard](Cards/Uncommon/OverloadCard.cs)）：
-```csharp
-// IsPlayable: PrimaryStacks > 0
-// 先补足到满层 → 超限 → 补剩余层
-await SealElementMarkCmd.SetElementType(ctx, MarkSlot.Primary, Owner, SealElementType.Fire);
-var need = ElementMarkManager.ThresholdStacks - PrimaryStacks;
-if (need > 0) await SealElementMarkCmd.GainElementMarks(..., need);
-await StarbornCmd.Overload(ctx, MarkSlot.Primary, Owner, 1, this);
-```
-
-**印记平衡**（[AlignmentCard](Cards/Uncommon/AlignmentCard.cs)）：
-```csharp
-// 比较主/副印记层数，补齐较低一方（只操作 GainElementMarks，不切换属性）
-var diff = primaryStacks - secondaryStacks;
-if (diff > 0) await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, Owner, diff);
-```
-
-**同时消耗主/副印记**（[StarbornCoffeeCard](Cards/Uncommon/StarbornCoffeeCard.cs)）：
-```csharp
-// DynamicVar: StarbornCardVars.ElementMark(1, SealElementType.Any)
-// IsPlayable: PrimaryStacks >= 1 && SecondaryStacks >= 1
-await SealElementMarkCmd.RemoveElementMarks(ctx, MarkSlot.Primary, Owner, 1);
-await SealElementMarkCmd.RemoveElementMarks(ctx, MarkSlot.Secondary, Owner, 1);
-```
-- 描述用 `{ElementMark:elementIcon()}/{ElementMark:elementIcon()}` — 一个 `Any` 类型的 `ElementMark` var 引用两次，中间用 `/` 分隔，分别对应主/副印记各消耗 1 层
-- 获得印记同理
-
-### Hook 接口（能力/遗物使用）
-
-| 接口 | 用途 | 文件 |
-|------|------|------|
-| `ISealElementMarkListener` | 监听元素变化，可阻止切换 | [Hooks/ISealElementMarkListener.cs](Hooks/ISealElementMarkListener.cs) |
-| `ITuningOverloadListener` | 监听调谐/超限前后 | [Hooks/ITuningOverloadListener.cs](Hooks/ITuningOverloadListener.cs) |
-| `IConsumeModifier` | 修改调谐/超限的层数消耗 | [Hooks/IConsumeModifier.cs](Hooks/IConsumeModifier.cs) |
-
-## OnPlay 中禁止硬编码数值
-- `OnPlay` 中所有数值**必须**从 `DynamicVars` 取值，**禁止**写死数字
-- 伤害用 `DynamicVars.Damage.BaseValue`、格挡用 `DynamicVars.Block.BaseValue`、能量用 `DynamicVars.Energy.IntValue`、印记用 `DynamicVars["ElementMark"].IntValue` 等
-- 原因：升级通过修改 `DynamicVar.BaseValue` 生效，硬编码数值会导致升级无效
-
-## 卡牌 description 规则
-- 始终用 `{VarName:diff()}` 显示可升级数值，不要硬编码
-- 升级改变**文字内容**时用 `{IfUpgraded:show:升级版|基础版}`，原版**没有** upgradeDescription 这个 key
-- 升级**减少**数值时用 `{VarName:inverseDiff()}`
-- 战斗内实时数值用 `{InCombat:\n（造成{CalculatedDamage}点伤害）|}` — 非战斗时隐藏
-- 多行用 `\n` 分隔，每句以 `。` 结尾
-- 标准句式（参照原版 [sts2/localization/zhs/cards.json](sts2/localization/zhs/cards.json)）：
-  - 伤害：`造成{Damage:diff()}点伤害。`
-  - 格挡：`获得{Block:diff()}点[gold]格挡[/gold]。`
-  - 能量：`获得{Energy:energyIcons()}。` — 必须用 `EnergyVar` + `energyIcons()` 格式化器，**禁止**手写 `[blue]N[/blue]点能量`
-  - 抽牌：`抽{Cards:diff()}张牌。`
-  - 状态：`给予{Weak:diff()}层[gold]虚弱[/gold]。`
-  - 耗能展示：`0{energyPrefix:energyIcons(1)}` — 展示卡牌费用时用
-  - 生命失去：`失去{HpLoss:diff()}点生命。`
-  - 生命上限：`失去{MaxHp:diff()}点最大生命。`
-  - 治疗：`回复{Heal:diff()}点生命。`
-- `{VarName:diff()}` vs `{VarName:energyIcons()}` vs `{VarName:starIcons()}`
-  - `diff()` — 数值差异化显示（伤害、格挡、抽牌等通用值）
-  - `energyIcons()` — 能量图标专用，渲染角色对应颜色的能量图标
-  - `starIcons()` — 星能量图标专用
-  - 区分原则：看原版同类卡牌用哪个格式化器就照搬
-
-## 能力 description 规则
-- 能力需要**两个** key：`description`（静态，硬编码基础值）和 `smartDescription`（动态，`{Amount}` 占位）
-- `description`：`前4张攻击牌额外触发调谐1/1……`
-- `smartDescription`：`前[blue]{Amount}[/blue]张攻击牌额外触发调谐1/1……`
-- 数值用 `[blue]` 包裹：`[blue]1[/blue]`（静态）或 `[blue]{Amount}[/blue]`（动态）
-- 参照 [sts2/localization/zhs/powers.json](sts2/localization/zhs/powers.json) 已有能力的写法
+| File | Read when... |
+|------|-------------|
+| [references/keywords-and-colors.md](references/keywords-and-colors.md) | Formatting any card text — keyword icons, `[gold]`/`[blue]`/`[red]` conventions |
+| [references/dynamic-vars.md](references/dynamic-vars.md) | Choosing or adjusting DynamicVar types for damage, block, energy, draws, etc. |
+| [references/description-rules.md](references/description-rules.md) | Writing or updating `description` strings — `diff()`, `energyIcons()`, `IfUpgraded`, standard sentence patterns |
+| [references/seal-element-system.md](references/seal-element-system.md) | Card interacts with seal element marks — tuning, overload, gaining/removing stacks |
