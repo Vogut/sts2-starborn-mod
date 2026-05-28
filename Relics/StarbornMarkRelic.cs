@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
@@ -16,6 +17,7 @@ using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Events;
 using STS2_Starborn.Map;
 using STS2_Starborn.Runs;
@@ -74,6 +76,6 @@ public class StarbornMarkRelic : StarbornRelic
         var activePile = KiboPileManager.GetActivePile(base.Owner);
         if (activePile != null && activePile.Cards.Count > 0) return;
 
-        await KiboPileManager.ActivateType(base.Owner, typeId);
+        await KiboCmd.Summon(new BlockingPlayerChoiceContext(), base.Owner, typeId);
     }
 }

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Rare;
@@ -25,7 +26,7 @@ public class OneQTwoQThreeQCard() : StarbornCard(
     {
         var interval = DynamicVars["Interval"].IntValue;
         await PowerCmd.Apply<OneQTwoQThreeQPower>(choiceContext, Owner.Creature, interval, Owner.Creature, this);
-        await OneQTwoQThreeQPower.MoveAllKiboToActive(Owner);
+        await KiboCmd.SwitchOnAll(choiceContext, Owner);
     }
 
     protected override void OnUpgrade()

@@ -13,13 +13,13 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Cards.Kibo;
-using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Commands;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Powers;
 
 [RegisterPower]
-public class OneQTwoQThreeQPower : StarbornPower
+public class OneQTwoQThreeQPower : StarbornPower, IKiboSwitchListener
 {
     private int _cardsPlayed;
 
@@ -81,17 +81,9 @@ public class OneQTwoQThreeQPower : StarbornPower
         return Task.CompletedTask;
     }
 
-    public static async Task MoveAllKiboToActive(Player player)
-    {
-        var combatStorage = KiboPileManager.GetStorageCombatPile(player);
-        var activePile = KiboPileManager.GetActivePile(player);
-        if (combatStorage == null || activePile == null) return;
+    // ── IKiboSwitchOnOffListener ──
 
-        foreach (var card in combatStorage.Cards
-                     .Where(c => !KiboPileManager.IsRepCardType(c.GetType()))
-                     .ToList())
-        {
-            await CardPileCmd.Add(card, activePile);
-        }
-    }
+    public bool ShouldPreventKiboSwitchOff(Player player, KiboTypeId typeId) =>
+        player.Creature == Owner;
+
 }

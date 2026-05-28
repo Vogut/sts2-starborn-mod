@@ -15,8 +15,16 @@ using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Cards.Pile;
 
+/// <summary>
+/// 奇波牌堆管理器。
+/// 管理三套牌堆：
+/// - Storage（全局持久）: 存放所有已拥有奇波的"母版"牌（RepCard + 战技牌 + 绝技牌）
+/// - StorageCombat（战斗内）: 战斗开始时从 Storage 克隆的副本，战斗中激活/退场均操作此堆
+/// - Active（战斗内）: 当前活跃奇波的战技牌所在堆，回合结束时从此堆自动出牌
+/// </summary>
 public static class KiboPileManager
 {
+    // 三套牌堆的 ID 后缀
     public const string StorageStem = "kibo_storage";
     public const string StorageCombatStem = "kibo_storage_combat";
     public const string PileStem = "kibo_pile";
@@ -30,8 +38,12 @@ public static class KiboPileManager
     public static string QualifiedPileId =>
         ModContentRegistry.GetQualifiedCardPileId(Const.ModId, PileStem);
 
+    /// <summary>活跃奇波切换时触发，供 UI 等订阅刷新。</summary>
     public static event Action? ActiveKiboChanged;
 
+    /// <summary>
+    /// 注册三套奇波牌堆到 RitsuLib 牌堆注册表。在 Entry.cs 初始化阶段调用。
+    /// </summary>
     public static void RegisterPiles()
     {
         var registry = ModCardPileRegistry.For(Const.ModId);
@@ -70,7 +82,7 @@ public static class KiboPileManager
         });
     }
 
-    // ── Pile accessors ──────────────────────────────────────
+    // ── 牌堆访问器 ──────────────────────────────────────
 
     private static PileType GetPileType(string qualifiedId) =>
         ModCardPileRegistry.GetPileType(qualifiedId);
@@ -79,23 +91,30 @@ public static class KiboPileManager
     public static PileType GetStorageCombatPileType() => GetPileType(QualifiedStorageCombatId);
     public static PileType GetActivePileType() => GetPileType(QualifiedPileId);
 
+    /// <summary>获取全局持久的母版牌堆（全局始终存在）。</summary>
     public static CardPile? GetStoragePile(Player player) =>
         GetStoragePileType().GetPile(player);
 
+    /// <summary>获取战斗内后备牌堆。不在战斗中返回 null。</summary>
     public static CardPile? GetStorageCombatPile(Player player)
     {
         if (player.Creature.CombatState == null) return null;
         return GetStorageCombatPileType().GetPile(player);
     }
 
+    /// <summary>获取战斗内活跃牌堆。不在战斗中返回 null。</summary>
     public static CardPile? GetActivePile(Player player)
     {
         if (player.Creature.CombatState == null) return null;
         return GetActivePileType().GetPile(player);
     }
 
-    // ── Master card creation ────────────────────────────────
+    // ── 母版牌创建 ────────────────────────────────
 
+    /// <summary>
+    /// 在 Storage 牌堆中创建指定奇波类型的全套母版牌（RepCard + 能力牌 + 绝技牌）。
+    /// 如果该类型已存在则跳过，保证幂等。
+    /// </summary>
     public static async Task CreateMasterCards(Player player, KiboTypeId typeId)
     {
         var storage = GetStoragePile(player);
@@ -103,11 +122,11 @@ public static class KiboPileManager
 
         var keyword = KiboKeywords.TypeKeyword(typeId);
         if (storage.Cards.Any(c => c.HasModKeyword(keyword)))
-            return; // already created
+            return; // 已创建，幂等跳过
 
         var def = KiboTypeRegistry.Get(typeId);
 
-        // RepCard
+        // 代表牌 RepCard —— 标识奇波类型，不参与战斗出牌
         var repCanonical = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));
         var repCard = player.RunState.CreateCard(repCanonical, player);
         repCard.AddModKeyword(KiboKeywords.PileMemberKeywordId);
@@ -115,7 +134,7 @@ public static class KiboPileManager
         var repResult = await CardPileCmd.Add(repCard, storage);
         CardCmd.PreviewCardPileAdd(repResult);
 
-        // Ability cards
+        // 能力牌（普通技能/攻击）
         foreach (var cardType in def.AbilityCardTypes)
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
@@ -126,7 +145,7 @@ public static class KiboPileManager
             CardCmd.PreviewCardPileAdd(abilityResult);
         }
 
-        // Ultimate card (if any)
+        // 绝技牌（如有）
         if (def.UltimateCardType is { } ultimateType)
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(ultimateType));
@@ -138,8 +157,9 @@ public static class KiboPileManager
         }
     }
 
-    // ── Master card removal ──────────────────────────────────
+    // ── 母版牌移除 ──────────────────────────────────
 
+    /// <summary>从 Storage 牌堆中移除指定奇波类型的全套母版牌。</summary>
     public static void RemoveMasterCards(Player player, KiboTypeId typeId)
     {
         var storage = GetStoragePile(player);
@@ -152,8 +172,12 @@ public static class KiboPileManager
             card.RemoveFromState();
     }
 
-    // ── Combat lifecycle ────────────────────────────────────
+    // ── 战斗生命周期 ────────────────────────────────────
 
+    /// <summary>
+    /// 战斗开始时，将 Storage 中的所有母版牌克隆到 StorageCombat。
+    /// 后续战斗中 activate/deactivate 均在 StorageCombat 和 Active 之间搬运，母版不受影响。
+    /// </summary>
     public static async Task InitializeForCombat(Player player)
     {
         var data = KiboRunData.Get(player);
@@ -166,7 +190,7 @@ public static class KiboPileManager
         var combatStorage = GetStorageCombatPile(player);
         if (masterStorage == null || combatStorage == null) return;
 
-        // Clone all cards (including RepCards) from master to combat storage
+        // 把母版牌全部克隆到战斗后备堆
         foreach (var card in masterStorage.Cards.ToList())
         {
             var clone = combatState.CloneCard(card);
@@ -177,9 +201,31 @@ public static class KiboPileManager
 
     }
 
-    // ── Activate ────────────────────────────────────────────
+    // ── 换下 / 换上 / 切换 ────────────────────────────────
 
-    public static async Task ActivateType(Player player, KiboTypeId typeId)
+    /// <summary>
+    /// 换下：将指定奇波类型的能力牌从活跃堆移回后备堆。
+    /// 仅操作牌堆，不触发任何事件或钩子。
+    /// </summary>
+    public static async Task MoveKiboToStorage(Player player, KiboTypeId typeId)
+    {
+        var activePile = GetActivePile(player);
+        var combatStorage = GetStorageCombatPile(player);
+        if (activePile == null || combatStorage == null) return;
+
+        var keyword = KiboKeywords.TypeKeyword(typeId);
+        foreach (var card in activePile.Cards
+                     .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
+                     .ToList())
+            await CardPileCmd.Add(card, combatStorage);
+    }
+
+    /// <summary>
+    /// 换上：将指定奇波类型的能力牌从后备堆移入活跃堆。
+    /// 已在活跃中的类型跳过（幂等）。触发 <see cref="ActiveKiboChanged"/> 事件。
+    /// 如果后备堆中不存在该类型，则自动从母版克隆或创建。
+    /// </summary>
+    public static async Task MoveKiboToActive(Player player, KiboTypeId typeId)
     {
         var activePile = GetActivePile(player);
         var combatStorage = GetStorageCombatPile(player);
@@ -187,25 +233,19 @@ public static class KiboPileManager
 
         var keyword = KiboKeywords.TypeKeyword(typeId);
 
-        // Already active
+        // 已在活跃中，幂等跳过
         if (activePile.Cards.Any(c => c.HasModKeyword(keyword)))
             return;
 
-        // Not in combatStorage → create (clone from master, or fresh)
+        // 后备堆没有该类型 → 从母版克隆或全新创建
         if (!combatStorage.Cards.Any(c => c.HasModKeyword(keyword)))
         {
             var masterStorage = GetStoragePile(player);
             if (masterStorage != null && masterStorage.Cards.Any(c => c.HasModKeyword(keyword)))
-                await CloneTypeIntoCombat(player, typeId);
-            else
                 await CreateTypeInCombat(player, typeId);
         }
 
-        // Current active → combatStorage
-        foreach (var card in activePile.Cards.ToList())
-            await CardPileCmd.Add(card, combatStorage);
-
-        // Target ability cards → activePile (RepCard stays in combatStorage)
+        // 能力牌从后备堆移到活跃堆（RepCard 留在后备堆不动）
         foreach (var card in combatStorage.Cards
                      .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
                      .ToList())
@@ -214,6 +254,18 @@ public static class KiboPileManager
         ActiveKiboChanged?.Invoke();
     }
 
+    /// <summary>
+    /// 切换奇波：换下旧类型 + 换上新类型。Dismiss + Summon 的组合。
+    /// </summary>
+    public static async Task ActivateType(Player player, KiboTypeId typeId)
+    {
+        var fromType = GetActiveKiboType(player);
+        if (fromType != null && fromType != typeId)
+            await MoveKiboToStorage(player, fromType.Value);
+        await MoveKiboToActive(player, typeId);
+    }
+
+    /// <summary>从母版 Storage 克隆指定类型到战斗后备堆。</summary>
     private static async Task CloneTypeIntoCombat(Player player, KiboTypeId typeId)
     {
         var masterStorage = GetStoragePile(player);
@@ -234,6 +286,7 @@ public static class KiboPileManager
         }
     }
 
+    /// <summary>在战斗后备堆中全新创建指定类型的牌（不走母版，直接从 ModelDb）。</summary>
     private static async Task CreateTypeInCombat(Player player, KiboTypeId typeId)
     {
         var combatState = player.Creature.CombatState;
@@ -258,27 +311,25 @@ public static class KiboPileManager
         }
     }
 
-    // ── Helpers ─────────────────────────────────────────────
+    // ── 辅助方法 ─────────────────────────────────────────────
 
     /// <summary>
-    /// 返回 <paramref name="pile"/> 中存在的所有奇波类型（仅检测非 RepCard 的能力牌）。
+    /// 返回牌堆中存在的所有奇波类型。通过扫描 RepCard 来判定（每种奇波有且仅有一张 RepCard）。
+    /// RepCard 不会离开后备堆，因此无论是 combat storage 还是 active pile 都能正确检测。
     /// </summary>
     public static HashSet<KiboTypeId> GetKiboTypesInPile(CardPile pile)
     {
         var types = new HashSet<KiboTypeId>();
-        foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
+        foreach (var card in pile.Cards)
         {
-            var keyword = KiboKeywords.TypeKeyword(typeId);
-            if (pile.Cards.Any(c =>
-                    c.HasModKeyword(keyword) &&
-                    !IsRepCardType(c.GetType())))
-            {
-                types.Add(typeId);
-            }
+            if (!IsRepCardType(card.GetType())) continue;
+            var typeId = GetKiboType(card);
+            if (typeId != null) types.Add(typeId.Value);
         }
         return types;
     }
 
+    /// <summary>根据卡牌上的 type keyword 反查其所属的奇波类型。</summary>
     public static KiboTypeId? GetKiboType(CardModel card)
     {
         foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
@@ -289,6 +340,7 @@ public static class KiboPileManager
         return null;
     }
 
+    /// <summary>获取当前活跃的奇波类型。活跃堆为空时返回 null。</summary>
     public static KiboTypeId? GetActiveKiboType(Player player)
     {
         var activePile = GetActivePile(player);
@@ -302,6 +354,7 @@ public static class KiboPileManager
         return null;
     }
 
+    /// <summary>判断卡牌类型是否为 RepCard（继承 KiboCard 且类名以 "RepCard" 结尾）。</summary>
     public static bool IsRepCardType(Type type)
     {
         return type.BaseType == typeof(KiboCard) &&

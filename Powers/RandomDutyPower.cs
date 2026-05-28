@@ -1,12 +1,10 @@
-using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using STS2_Starborn.Cards.Kibo;
-using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Powers;
@@ -38,27 +36,9 @@ public class RandomDutyPower : StarbornPower
         var player = combatState.Players.FirstOrDefault(p => p.Creature == Owner);
         if (player == null) return;
 
-        var combatStorage = KiboPileManager.GetStorageCombatPile(player);
-        if (combatStorage == null) return;
-
-        // 收集 combatStorage 中所有可用奇波类型（排除 RepCard，排除当前活跃类型）
-        var candidates = KiboPileManager.GetKiboTypesInPile(combatStorage).ToList();
-        if (candidates.Count == 0) return;
-
-        var activeType = KiboPileManager.GetActiveKiboType(player);
-        if (activeType != null) candidates.Remove(activeType.Value);
-        if (candidates.Count == 0) return;
-
-        // 随机选一个与当前活跃不同的奇波类型
-        var targetType = candidates[Random.Shared.Next(candidates.Count)];
-
-        // 播放闪光动效，提示玩家能力触发
         Flash();
 
-        // 切换到随机选中的奇波类型
-        await KiboPileManager.ActivateType(player, targetType);
-
-        // 从新活跃的牌堆中随机选一张普通能力牌自动打出
+        await KiboCmd.SummonRandom(new BlockingPlayerChoiceContext(), player);
         await KiboCmd.TryAutoPlayRandomNormalCard(player, combatState);
     }
 }

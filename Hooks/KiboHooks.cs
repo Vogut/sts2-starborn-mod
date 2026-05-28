@@ -63,7 +63,77 @@ public static class KiboHooks
         }
     }
 
-    // ── Kibo switch ──
+    // ── Kibo switch on/off ──
+
+    public static bool AnyListenerPreventsKiboSwitchOff(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener
+                && listener.ShouldPreventKiboSwitchOff(player, typeId))
+                return true;
+        }
+        return false;
+    }
+
+    public static async Task BeforeKiboSwitchOff(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener)
+                await listener.BeforeKiboSwitchOff(player, typeId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task AfterKiboSwitchOff(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener)
+                await listener.AfterKiboSwitchOff(player, typeId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    public static bool AnyListenerPreventsKiboSwitchOn(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener
+                && listener.ShouldPreventKiboSwitchOn(player, typeId))
+                return true;
+        }
+        return false;
+    }
+
+    public static async Task BeforeKiboSwitchOn(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener)
+                await listener.BeforeKiboSwitchOn(player, typeId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task AfterKiboSwitchOn(ICombatState combatState,
+        Player player, KiboTypeId typeId)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IKiboSwitchListener listener)
+                await listener.AfterKiboSwitchOn(player, typeId);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    // ── Kibo switch (full) ──
 
     public static bool AnyListenerPreventsKiboSwitch(ICombatState combatState,
         Player player, KiboTypeId from, KiboTypeId to)
