@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
 
 namespace STS2_Starborn.Element;
 
@@ -21,6 +23,7 @@ public abstract class StarbornElement
     public abstract LocString ElementDescription { get; }
     public virtual int TuningConsume => 1;
     public virtual int OverloadConsume => 2;
+    public virtual IEnumerable<PowerModel> AssociatedPowers => [];
     public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks);
     public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks);
 

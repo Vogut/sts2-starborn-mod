@@ -33,6 +33,12 @@
     "STS2_STARBORN_POWER_DROWN_POWER.title": "淹没",
     "STS2_STARBORN_POWER_DROWN_POWER.description": "受到奇波牌造成的伤害增加[blue]{Amount}00%[/blue]。在敌人回合结束时减少1层。",
 
+    "STS2_STARBORN_POWER_FREEZE_POWER.title": "结冰",
+    "STS2_STARBORN_POWER_FREEZE_POWER.description": "层数达到10层时，击晕目标并清除所有结冰层数。",
+
+    "STS2_STARBORN_POWER_EXPOSE_POWER.title": "暴晒",
+    "STS2_STARBORN_POWER_EXPOSE_POWER.description": "下一次受到攻击伤害时，额外受到等同于暴晒层数的伤害。",
+
     "STS2_STARBORN_POWER_SURGE_POWER.title": "泉涌",
     "STS2_STARBORN_POWER_SURGE_POWER.description": "在本回合结束前，奇波打出的牌造成的伤害和格挡增加[blue]{Amount}0%[/blue]。",
 
@@ -58,15 +64,15 @@
     "STS2_STARBORN_ELEMENT_FIRE.smartDescription": "调谐：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]，消耗[blue]{Tuning}[/blue]层印记。\n{Overload:elementIcon(single)}超限：施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]，消耗[blue]{Overload}[/blue]层印记。",
     "STS2_STARBORN_ELEMENT_WATER.description": "调谐：获得2倍当前层数的[gold]泉涌[/gold]。\n超限：获得2倍当前层数的[gold]泉涌[/gold]，使所有敌人获得1层[gold]淹没[/gold]。",
     "STS2_STARBORN_ELEMENT_WATER.smartDescription": "调谐：获得等同于[blue]2倍[/blue]印记层数的[gold]泉涌[/gold]。\n超限：获得等同于[blue]2倍[/blue]印记层数的[gold]泉涌[/gold]，使所有敌人获得1层[gold]淹没[/gold]。",
-    "STS2_STARBORN_ELEMENT_WOOD.description": "【木属性】（效果施工中）",
-    "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "【木属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WOOD.description": "调谐：获得当前层数的格挡。\n超限：获得2倍当前层数的格挡，如果本场战斗第一次超限回复当前层数的生命。",
+    "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "调谐：获得[blue]{Stacks}[/blue]点格挡。\n超限：获得[blue]{Stacks}x2[/blue]点格挡，如果本场战斗第一次超限回复[blue]{Stacks}[/blue]点生命。",
     "STS2_STARBORN_ELEMENT_ICE.title": "冰属性",
-    "STS2_STARBORN_ELEMENT_ICE.description": "【冰属性】（效果施工中）",
-    "STS2_STARBORN_ELEMENT_ICE.smartDescription": "【冰属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_ICE.description": "调谐：使所有敌人获得当前层数的结冰。\n超限：使所有敌人获得2倍当前层数的结冰。",
+    "STS2_STARBORN_ELEMENT_ICE.smartDescription": "调谐：使所有敌人获得[blue]{Stacks}[/blue]层结冰。\n超限：使所有敌人获得[blue]{Stacks}x2[/blue]层结冰。",
     "STS2_STARBORN_ELEMENT_WIND.title": "风属性",
-    "STS2_STARBORN_ELEMENT_WIND.description": "【风属性】（效果施工中）",
-    "STS2_STARBORN_ELEMENT_WIND.smartDescription": "【风属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）",
+    "STS2_STARBORN_ELEMENT_WIND.description": "调谐：抽1张牌。\n超限：抽1张牌。获得1点能量。",
+    "STS2_STARBORN_ELEMENT_WIND.smartDescription": "调谐：抽1张牌。\n超限：抽1张牌。获得1点能量。",
     "STS2_STARBORN_ELEMENT_LIGHT.title": "光属性",
-    "STS2_STARBORN_ELEMENT_LIGHT.description": "【光属性】（效果施工中）",
-    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "【光属性】[blue]{Stacks}[/blue]/[blue]5[/blue] 层。（效果施工中）"
+    "STS2_STARBORN_ELEMENT_LIGHT.description": "调谐：使所有敌人获得2倍当前层数的暴晒。\n超限：使所有敌人获得2倍当前层数的暴晒。造成5点攻击伤害。",
+    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "调谐：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。\n超限：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。造成5点攻击伤害。"
 }

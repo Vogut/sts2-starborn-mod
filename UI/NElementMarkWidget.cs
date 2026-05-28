@@ -153,6 +153,9 @@ public partial class NElementMarkWidget : Control
                 _hoverTips.Add(StarbornTipFactory.Tuning(elementType, tuningConsume));
                 _hoverTips.Add(StarbornTipFactory.Overload(elementType, overloadConsume));
             }
+
+            foreach (var power in elementPower.AssociatedPowers)
+                _hoverTips.Add(HoverTipFactory.FromPower(power));
         }
 
         private void OnMouseEntered()

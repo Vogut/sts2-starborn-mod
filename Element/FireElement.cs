@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Element;
@@ -16,6 +18,8 @@ public sealed class FireElement : StarbornElement
 
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_FIRE.description");
+
+    public override IEnumerable<PowerModel> AssociatedPowers => [ModelDb.Power<BurnPower>()];
 
     public override async Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks) =>
         await PowerCmd.Apply<BurnPower>(ctx,

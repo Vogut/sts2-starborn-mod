@@ -20,6 +20,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
     private readonly Dictionary<ulong, int> _switchCounts = [];
     private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
+    private readonly HashSet<SealElementType> _firstOverloaded = [];
 
     public static event Action? MarksChanged;
 
@@ -55,6 +56,9 @@ public sealed class ElementMarkManager : HookedSingletonModel
         _switchCounts.Remove(player.NetId);
         _switchedTypes.Remove(player.NetId);
     }
+
+    public static bool IsFirstOverload(SealElementType element) =>
+        Instance._firstOverloaded.Add(element);
 
     // ── Accessors ──
 
