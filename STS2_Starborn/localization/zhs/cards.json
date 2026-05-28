@@ -60,6 +60,9 @@
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.title": "红宝石布什曲",
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。每回合开始时获得2/2层印记。\n每回合打出的前{Limit:diff()}张攻击牌获得：调谐1/1，造成当前灼烧层数的伤害。",
 
+    "STS2_STARBORN_CARD_DUEL_COMMAND_CARD.title": "对决指令",
+    "STS2_STARBORN_CARD_DUEL_COMMAND_CARD.description": "在本回合获得[blue]{Empower:diff()}[/blue]层[gold]奇波强化[/gold]。使用当前奇波的[gold]奇波绝技[/gold]。",
+
     "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
     "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。",
 
