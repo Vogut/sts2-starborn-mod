@@ -22,6 +22,7 @@ public sealed class KiboAbilityOfAttribute(KiboTypeId kiboType, bool isUltimate 
 {
     public KiboTypeId KiboType => kiboType;
     public bool IsUltimate => isUltimate;
+    public int Count { get; init; } = 1;
 }
 
 // ── Definition ────────────────────────────────────────────
@@ -81,7 +82,7 @@ public static class KiboTypeRegistry
             var group = abilityDefs[attr!.KiboType]!;
             var abilities = group
                 .Where(x => !x.Attr!.IsUltimate)
-                .Select(x => x.Type)
+                .SelectMany(x => Enumerable.Repeat(x.Type, x.Attr!.Count))
                 .ToList();
 
             var ultimate = group
