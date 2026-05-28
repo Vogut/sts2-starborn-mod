@@ -50,8 +50,12 @@
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加1层[gold]变小[/gold]。\n施加{Weak:diff()}层[gold]虚弱[/gold]。",
     
+    "STS2_STARBORN_CARD_DUEL_COMMAND.title": "对决指令",
+    "STS2_STARBORN_CARD_DUEL_COMMAND.description": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波绝技[/gold]。",
+    "STS2_STARBORN_CARD_DUEL_COMMAND.upgradeDescription": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波绝技[/gold]。",
+
     "STS2_STARBORN_CARD_SYNERGY_CARD.title": "协同",
-    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage:diff()}点伤害。释放随机一张奇波[gold]Ultimate[/gold]牌。",
+    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage:diff()}点伤害。使用当前奇波的[gold]奇波绝技[/gold]。",
     
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.title": "红宝石布什曲",
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。每回合开始时获得2/2层印记。\n每回合打出的前{Limit:diff()}张攻击牌获得：调谐1/1，造成当前灼烧层数的伤害。",
@@ -69,6 +73,8 @@
     "STS2_STARBORN_CARD_LEAFOX_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。",
     "STS2_STARBORN_CARD_LEAFOX_ABILITY2_CARD.title": "防",
     "STS2_STARBORN_CARD_LEAFOX_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。",
+    "STS2_STARBORN_CARD_LEAFOX_ULTIMATE_CARD.title": "大",
+    "STS2_STARBORN_CARD_LEAFOX_ULTIMATE_CARD.description": "造成[blue]{Damage}[/blue]点伤害。",
     "STS2_STARBORN_CARD_LEAFOX_REP_CARD.title": "小芽狐",
     "STS2_STARBORN_CARD_LEAFOX_REP_CARD.description": "[gold]奇波[/gold]：小芽狐。\n可打出[blue]狐火[/blue]和[blue]狐守[/blue]。",
     "STS2_STARBORN_CARD_FLORATAIL_REP_CARD.title": "蓬尾狐",
@@ -111,6 +117,27 @@
     "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
 
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.title": "栗栗花的赠礼",
-    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。"
+    "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_FRAGILE_AXE_CARD.title": "易碎手斧",
+    "STS2_STARBORN_CARD_FRAGILE_AXE_CARD.description": "造成{Damage:diff()}点伤害。",
+
+    "STS2_STARBORN_CARD_ELEMENT_TOOLBOX_CARD.title": "元素工具箱",
+    "STS2_STARBORN_CARD_ELEMENT_TOOLBOX_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_LOW_STARBOUND_CARD.title": "捕获率0.01%星结卡",
+    "STS2_STARBORN_CARD_LOW_STARBOUND_CARD.description": "随机切换一只[gold]奇波[/gold]。使用其[gold]奇波战技[/gold]。",
+
+    "STS2_STARBORN_CARD_STURDY_PLANK_CARD.title": "坚固木板",
+    "STS2_STARBORN_CARD_STURDY_PLANK_CARD.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
+
+    "STS2_STARBORN_CARD_FRAGILE_PICKAXE_CARD.title": "易碎镐",
+    "STS2_STARBORN_CARD_FRAGILE_PICKAXE_CARD.description": "造成{Damage:diff()}点伤害[blue]2[/blue]次。",
+
+    "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.title": "便携合成台",
+    "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.description": "[gold]消耗[/gold]手牌中的两张牌，从随机三张[gold]时尚小垃圾[/gold]中选择一张加入你的手牌。",
+
+    "STS2_STARBORN_CARD_LANCE_HURL_CARD.title": "投枪",
+    "STS2_STARBORN_CARD_LANCE_HURL_CARD.description": "当你[bold]主/副属性印记[/bold]层数都>=3时，[gold]耗能为0[/gold]。造成{Damage:diff()}点伤害。"
 
 }
