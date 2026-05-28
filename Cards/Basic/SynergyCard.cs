@@ -11,17 +11,17 @@ using STS2_Starborn.Commands;
 namespace STS2_Starborn.Cards.Basic;
 
 /// <summary>
-/// 协同：1费基础攻击。造成7点伤害，释放随机一张奇波 Ultimate 牌。
+/// 协同：2费基础攻击。造成10点伤害，释放随机一张奇波 Ultimate 牌。
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 [RegisterCharacterStarterCard(typeof(Starborn), 1, Order = 2)]
 public sealed class SynergyCard() : StarbornCard(
-    1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy
+    2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(7m, ValueProp.Move),
+        new DamageVar(10m, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -37,6 +37,6 @@ public sealed class SynergyCard() : StarbornCard(
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        EnergyCost.UpgradeBy(-1);
     }
 }
