@@ -122,7 +122,8 @@ public static class KiboCmd
             return;
 
         // 换下旧 + 换上新
-        await SwitchOff(ctx, player, from!.Value);
+        if (from != null)
+            await SwitchOff(ctx, player, from.Value);
         await SwitchOn(ctx, player, typeId);
 
         // 切换后：触发 After hook
