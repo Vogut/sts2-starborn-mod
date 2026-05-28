@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
@@ -11,9 +12,12 @@ public sealed class WindElement : StarbornElement
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_WIND.description");
 
-    public override Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks)
-        => Task.CompletedTask;
+    public override async Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks) =>
+        await CardPileCmd.Draw(ctx, 1, owner);
 
-    public override Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks)
-        => Task.CompletedTask;
+    public override async Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks)
+    {
+        await CardPileCmd.Draw(ctx, 1, owner);
+        await PlayerCmd.GainEnergy(1, owner);
+    }
 }
