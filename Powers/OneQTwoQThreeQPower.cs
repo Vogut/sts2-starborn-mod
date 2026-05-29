@@ -46,7 +46,7 @@ public class OneQTwoQThreeQPower : StarbornPower, IKiboSwitchListener
     public override bool ShouldPlay(CardModel card, AutoPlayType _)
     {
         if (card.Owner?.Creature != Owner) return true;
-        if (card.HasModKeyword(KiboKeywords.PileMemberKeywordId)) return true;
+        if (card.HasModKeyword(KiboKeywords.PileMemberKeyword)) return true;
         return card.Type != CardType.Attack;
     }
 

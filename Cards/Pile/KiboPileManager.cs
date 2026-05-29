@@ -120,7 +120,7 @@ public static class KiboPileManager
         var storage = GetStoragePile(player);
         if (storage == null) return;
 
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
         if (storage.Cards.Any(c => c.HasModKeyword(keyword)))
             return; // 已创建，幂等跳过
 
@@ -129,7 +129,7 @@ public static class KiboPileManager
         // 代表牌 RepCard —— 标识奇波类型，不参与战斗出牌
         var repCanonical = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));
         var repCard = player.RunState.CreateCard(repCanonical, player);
-        repCard.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+        repCard.AddModKeyword(KiboKeywords.PileMemberKeyword);
         repCard.AddModKeyword(keyword);
         var repResult = await CardPileCmd.Add(repCard, storage);
         CardCmd.PreviewCardPileAdd(repResult);
@@ -139,7 +139,7 @@ public static class KiboPileManager
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
             var card = player.RunState.CreateCard(canonical, player);
-            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            card.AddModKeyword(KiboKeywords.PileMemberKeyword);
             card.AddModKeyword(keyword);
             var abilityResult = await CardPileCmd.Add(card, storage);
             CardCmd.PreviewCardPileAdd(abilityResult);
@@ -150,7 +150,7 @@ public static class KiboPileManager
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(ultimateType));
             var card = player.RunState.CreateCard(canonical, player);
-            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            card.AddModKeyword(KiboKeywords.PileMemberKeyword);
             card.AddModKeyword(keyword);
             var ultimateResult = await CardPileCmd.Add(card, storage);
             CardCmd.PreviewCardPileAdd(ultimateResult);
@@ -165,7 +165,7 @@ public static class KiboPileManager
         var storage = GetStoragePile(player);
         if (storage == null) return;
 
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
         foreach (var card in storage.Cards
                      .Where(c => c.HasModKeyword(keyword))
                      .ToList())
@@ -195,7 +195,7 @@ public static class KiboPileManager
         {
             var clone = combatState.CloneCard(card);
             clone.DeckVersion = card;
-            clone.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            clone.AddModKeyword(KiboKeywords.PileMemberKeyword);
             await CardPileCmd.Add(clone, combatStorage);
         }
 
@@ -213,7 +213,7 @@ public static class KiboPileManager
         var combatStorage = GetStorageCombatPile(player);
         if (activePile == null || combatStorage == null) return;
 
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
         foreach (var card in activePile.Cards
                      .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
                      .ToList())
@@ -231,7 +231,7 @@ public static class KiboPileManager
         var combatStorage = GetStorageCombatPile(player);
         if (activePile == null || combatStorage == null) return;
 
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
 
         // 已在活跃中，幂等跳过
         if (activePile.Cards.Any(c => c.HasModKeyword(keyword)))
@@ -275,13 +275,13 @@ public static class KiboPileManager
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
 
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
         foreach (var card in masterStorage.Cards
                      .Where(c => c.HasModKeyword(keyword))
                      .ToList())
         {
             var clone = combatState.CloneCard(card);
-            clone.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            clone.AddModKeyword(KiboKeywords.PileMemberKeyword);
             await CardPileCmd.Add(clone, combatStorage);
         }
     }
@@ -295,7 +295,7 @@ public static class KiboPileManager
         if (combatStorage == null) return;
 
         var def = KiboTypeRegistry.Get(typeId);
-        var keyword = KiboKeywords.TypeKeyword(typeId);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
         var cardTypes = new List<Type>(def.AbilityCardTypes.Count + 2) { def.RepCardType };
         cardTypes.AddRange(def.AbilityCardTypes);
         if (def.UltimateCardType is { } ultimateType)
@@ -305,7 +305,7 @@ public static class KiboPileManager
         {
             var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
             var card = combatState.CreateCard(canonical, player);
-            card.AddModKeyword(KiboKeywords.PileMemberKeywordId);
+            card.AddModKeyword(KiboKeywords.PileMemberKeyword);
             card.AddModKeyword(keyword);
             await CardPileCmd.Add(card, combatStorage);
         }
@@ -334,7 +334,7 @@ public static class KiboPileManager
     {
         foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
         {
-            if (card.HasModKeyword(KiboKeywords.TypeKeyword(typeId)))
+            if (card.HasModKeyword(KiboKeywords.TypeKeywordValue(typeId)))
                 return typeId;
         }
         return null;
@@ -348,7 +348,7 @@ public static class KiboPileManager
 
         foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
         {
-            if (activePile.Cards.Any(c => c.HasModKeyword(KiboKeywords.TypeKeyword(typeId))))
+            if (activePile.Cards.Any(c => c.HasModKeyword(KiboKeywords.TypeKeywordValue(typeId))))
                 return typeId;
         }
         return null;

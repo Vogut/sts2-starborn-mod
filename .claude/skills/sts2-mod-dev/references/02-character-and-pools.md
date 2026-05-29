@@ -116,9 +116,11 @@ public sealed class MyCharacter : ModCharacterTemplate<MyCardPool, MyRelicPool, 
         {
             AttackSfx = "event:/MyMod/character_attack",
         },
-        // PlaceholderCharacterId = "ironclad",  // ← dev scaffold only: borrows missing fields
-                                                  //   from a vanilla character; remove before release
     };
+
+    // Borrow missing assets/animations from a vanilla character during development.
+    // Remove before release.
+    public override string? PlaceholderCharacterId => "ironclad";
 
     // Comment this out once you have a timeline set up (see references/06-epoch.md)
     public override bool RequiresEpochAndTimeline => false;

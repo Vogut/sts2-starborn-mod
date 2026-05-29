@@ -1,5 +1,7 @@
+using MegaCrit.Sts2.Core.Entities.Cards;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Keywords;
 
 namespace STS2_Starborn.Cards.Kibo;
 
@@ -27,6 +29,13 @@ public class KiboKeywords
     public static string TypeKeyword(KiboTypeId typeId) =>
         ModContentRegistry.GetQualifiedKeywordId(Const.ModId,
             $"kibo_type_{PascalToSnake(typeId.ToString())}");
+
+    public static readonly CardKeyword PileMemberKeyword = PileMemberKeywordId.GetModCardKeyword();
+    public static readonly CardKeyword NormalKeyword = NormalKeywordId.GetModCardKeyword();
+    public static readonly CardKeyword UltimateKeyword = UltimateKeywordId.GetModCardKeyword();
+    public static CardKeyword TypeKeywordValue(KiboTypeId typeId) =>
+        TypeKeyword(typeId).GetModCardKeyword();
+
     private static string PascalToSnake(string pascal)
     {
         var sb = new System.Text.StringBuilder();

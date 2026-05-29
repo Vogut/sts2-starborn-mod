@@ -27,7 +27,7 @@ public sealed class KiboDamageModifierPatch : IPatchMethod
     public static bool Prefix(MethodBase __originalMethod, object[] __args)
     {
         var cardSource = ExtractCardSource(__originalMethod, __args);
-        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return false;
         return true;
     }
@@ -35,7 +35,7 @@ public sealed class KiboDamageModifierPatch : IPatchMethod
     public static void Postfix(MethodBase __originalMethod, object[] __args, ref decimal __result)
     {
         var cardSource = ExtractCardSource(__originalMethod, __args);
-        if (cardSource == null || !cardSource.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (cardSource == null || !cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return;
 
         if (__originalMethod.DeclaringType == typeof(PenNib))

@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.RunRngs;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Cards.Token;
@@ -47,8 +48,8 @@ public sealed class PortableCraftingTableCard() : StarbornCard(
         foreach (var card in toExhaust)
             await CardCmd.Exhaust(choiceContext, card);
 
-        var rng = new Random();
-        var pickedTypes = TokenCardTypes.OrderBy(_ => rng.Next()).Take(3).ToList();
+        var rng = ModRunRngRegistry.Get(Owner, Const.ModId, "portable_crafting_table");
+        var pickedTypes = TokenCardTypes.OrderBy(_ => rng.NextDouble()).Take(3).ToList();
 
         var options = pickedTypes.Select(t =>
         {

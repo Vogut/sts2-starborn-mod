@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Keywords;
+using STS2RitsuLib.RunRngs;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Hooks;
@@ -35,14 +36,14 @@ public static class KiboCmd
     /// </summary>
     public static async Task<bool> TryAutoPlayRandomNormalCard(
         Player player, ICombatState combatState) =>
-        await TryAutoPlayRandomCard(player, combatState, KiboKeywords.NormalKeywordId);
+        await TryAutoPlayRandomCard(player, combatState, KiboKeywords.NormalKeyword);
 
     /// <summary>
     /// 从当前活跃牌堆中随机选一张绝技牌并自动打出。
     /// </summary>
     public static async Task<bool> TryAutoPlayRandomUltimateCard(
         Player player, ICombatState combatState) =>
-        await TryAutoPlayRandomCard(player, combatState, KiboKeywords.UltimateKeywordId);
+        await TryAutoPlayRandomCard(player, combatState, KiboKeywords.UltimateKeyword);
 
     /// <summary>
     /// 换下旧奇波（带钩子）。将指定类型从活跃堆退回后备堆。
@@ -148,7 +149,7 @@ public static class KiboCmd
         if (activeType != null) candidates.Remove(activeType.Value);
         if (candidates.Count == 0) return false;
 
-        var typeId = candidates[Random.Shared.Next(candidates.Count)];
+        var typeId = candidates[ModRunRngRegistry.Get(player, Const.ModId, "kibo_summon_random").NextInt(0, candidates.Count)];
         await Summon(ctx, player, typeId);
         return true;
     }
@@ -157,18 +158,19 @@ public static class KiboCmd
     /// 从活跃牌堆中随机选一张带指定 keyword 的牌，触发 hook 后自动打出。
     /// </summary>
     private static async Task<bool> TryAutoPlayRandomCard(
-        Player player, ICombatState combatState, string keywordId)
+        Player player, ICombatState combatState, CardKeyword keyword)
     {
         var pile = KiboPileManager.GetActivePile(player);
         if (pile == null) return false;
 
         var cards = pile.Cards
-            .Where(c => c.HasModKeyword(keywordId))
+            .Where(c => c.HasModKeyword(keyword))
             .ToList();
         if (cards.Count == 0) return false;
 
-        var card = cards[Random.Shared.Next(cards.Count)];
+        var card = cards[ModRunRngRegistry.Get(player, Const.ModId, "kibo_auto_play").NextInt(0, cards.Count)];
 
+        var keywordId = keyword.GetModKeywordId();
         await KiboHooks.BeforeKiboRandomAutoPlay(combatState, card, keywordId);
         await AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
         await KiboHooks.AfterKiboRandomAutoPlay(combatState, card, keywordId);

@@ -47,7 +47,7 @@ public sealed class KiboCombatManager : HookedSingletonModel
     public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
         CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
     {
-        if (card.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (card.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return (KiboPileManager.GetActivePileType(), position);
 
         return (pileType, position);

@@ -4,7 +4,8 @@
       "Bash(xargs grep -l \"class.*Neow\\\\|void.*NeowQueue\\\\|NeowEpoch\\\\|class.*Reward\\\\b\\\\|class.*RewardScreen\\\\|class.*ChoiceScreen\\\\|class.*SelectScreen\")",
       "Bash(xargs grep -l \"HookType\\\\|RunInitialize\\\\|PreRun\\\\|BeforeGame\\\\|OnRunStart\\\\|OnGameStart\")",
       "Bash(xargs grep -l \"StartNewSingleplayerRun\\\\|StartingBlessing\\\\|StartingBonus\\\\|BlessingScreen\\\\|NBlessing\")",
-      "Edit(/.claude/skills/new-card/**)"
+      "Edit(/.claude/skills/new-card/**)",
+      "Edit(/.claude/skills/sts2-mod-dev/**)"
     ]
   }
 }

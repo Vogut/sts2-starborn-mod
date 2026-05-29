@@ -21,10 +21,10 @@ public abstract class MyBaseCard : ModCardTemplate
         EnergyIconPath = Const.Paths.EnergyIcon,
     };
 
-    protected MyBaseCard(int cost, CardType type, CardRarity rarity,
+    protected MyBaseCard(int baseCost, CardType type, CardRarity rarity,
                          TargetType target = TargetType.None,
-                         bool showInLibrary = true)
-        : base(cost, type, rarity, target, showInLibrary) { }
+                         bool showInCardLibrary = true)
+        : base(baseCost, type, rarity, target, showInCardLibrary) { }
 }
 ```
 
@@ -102,8 +102,12 @@ public override DynamicVarSet DynamicVars => new()
     ModCardVars.Int("damage", Damage),           // simple int, uses existing Damage field
     ModCardVars.Int("block", Block),
     ModCardVars.Int("cards", 2),                 // fixed integer
+    ModCardVars.String("name", "default"),       // string dynamic var
     ModCardVars.Computed("bonus", 0,             // computed from card state
         card => card?.Upgraded == true ? 5 : 0),
+    // Target-aware computed (for enemy-sensitive values):
+    ModCardVars.Computed("conditional", 0,
+        (card, target) => target?.HasPower<WeakPower>() == true ? 10 : 5),
     ModCardVars.Int("heat", Heat)               // with hover tooltip
         .WithSharedTooltip("MY_MOD_HEAT", "res://MyMod/images/ui/heat.png"),
 };

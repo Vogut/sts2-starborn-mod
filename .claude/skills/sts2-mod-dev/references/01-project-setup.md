@@ -32,7 +32,7 @@ Create `{ModId}.json` in your project root (e.g., `MyMod.json`):
   "has_pck": true,
   "has_dll": true,
   "dependencies": [
-    { "id": "STS2-RitsuLib", "min_version": "0.2.27" }
+    { "id": "STS2-RitsuLib", "min_version": "0.3.5" }
   ],
   "affects_gameplay": true
 }
@@ -122,7 +122,8 @@ public static class Entry
 
         // Register Harmony patches through RitsuLib's patcher (recommended)
         var patcher = RitsuLibFramework.CreatePatcher(ModId, "main");
-        patcher.RegisterPatches<MyModPatches>();
+        patcher.RegisterPatch<MyModPatch>();   // IPatchMethod — single target
+        // patcher.RegisterPatches<MyModPatches>();  // IModPatches — group of targets
         RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);
     }
 

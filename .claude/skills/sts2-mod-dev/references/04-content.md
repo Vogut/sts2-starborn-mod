@@ -169,12 +169,14 @@ public class MyPotion : ModPotionTemplate
     // NoTarget = no targeting required; SingleTarget = must pick enemy; etc.
     public override PotionTargetType TargetType => PotionTargetType.NoTarget;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(3)
-    ];
+    public override DynamicVarSet DynamicVars => new()
+    {
+        ModCardVars.Int("cards", 3),
+    };
 
     public override PotionAssetProfile AssetProfile => new(
-        IconPath: $"{Const.Paths.Images}/potions/{GetType().Name}.png"
+        ImagePath: $"{Const.Paths.Images}/potions/{GetType().Name}.png",
+        OutlinePath: $"{Const.Paths.Images}/potions/{GetType().Name}_outline.png"
     );
 
     protected override async Task OnUse(PlayerChoiceContext ctx, Player player, object? target)
@@ -182,6 +184,16 @@ public class MyPotion : ModPotionTemplate
         await CardPileCmd.Draw(ctx, DynamicVars.Cards.IntValue, player);
     }
 }
+```
+
+The `DynamicVarSet` property with `ModCardVars` is now preferred over the older `CanonicalVars`
+pattern for potions — same as cards. Access via `DynamicVars.VarName.IntValue`.
+
+```csharp
+// Legacy pattern (still works):
+protected override IEnumerable<DynamicVar> CanonicalVars => [
+    new CardsVar(3)
+];
 ```
 
 ### Potion Localization

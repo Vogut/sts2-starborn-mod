@@ -29,7 +29,7 @@ public sealed class KiboCardPlayHookFilterPatch : IPatchMethod
     public static bool Prefix(MethodBase __originalMethod, object[] __args, ref Task __result)
     {
         var cardPlay = (CardPlay)__args[^1];
-        if (cardPlay.Card.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (cardPlay.Card.HasModKeyword(KiboKeywords.PileMemberKeyword))
         {
             __result = Task.CompletedTask;
             return false;

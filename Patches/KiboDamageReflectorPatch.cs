@@ -26,7 +26,7 @@ public sealed class KiboDamageReflectorPatch : IPatchMethod
     public static bool Prefix(MethodBase __originalMethod, object[] __args)
     {
         var cardSource = ExtractCardSource(__originalMethod, __args);
-        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return false;
         return true;
     }
@@ -37,7 +37,7 @@ public sealed class KiboDamageReflectorPatch : IPatchMethod
             return;
 
         var cardSource = ExtractCardSource(__originalMethod, __args);
-        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (cardSource != null && cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             __result = Task.CompletedTask;
     }
 

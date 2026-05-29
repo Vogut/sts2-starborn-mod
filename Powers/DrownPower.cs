@@ -33,7 +33,7 @@ public class DrownPower : StarbornPower
             return 1m;
         if (cardSource == null)
             return 1m;
-        if (!cardSource.HasModKeyword(KiboKeywords.PileMemberKeywordId))
+        if (!cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return 1m;
         return 1m + Amount;
     }
