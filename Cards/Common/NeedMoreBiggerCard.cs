@@ -21,25 +21,26 @@ public sealed class NeedMoreBiggerCard() : StarbornCard(
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(0m),
+        new CalculationBaseVar(8m),
         new ExtraDamageVar(8m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? target) =>
-            target?.GetPowerAmount<EnlargePower>() ?? 1),
+            target?.GetPowerAmount<EnlargePower>() ?? 0),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await PowerCmd.Apply<EnlargePower>(choiceContext,
-            cardPlay.Target, 1, Owner.Creature, this);
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
+        await PowerCmd.Apply<EnlargePower>(choiceContext,
+            cardPlay.Target, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars.CalculationBase.UpgradeValueBy(4m);
         DynamicVars.ExtraDamage.UpgradeValueBy(4m);
     }
 }
