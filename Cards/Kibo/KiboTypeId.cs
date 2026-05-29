@@ -5,4 +5,6 @@ public enum KiboTypeId
     Leafox,
     Floratail,
     Corovulpe,
+    SwiftWolf,
+    Moklido,
 }

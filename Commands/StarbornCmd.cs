@@ -69,6 +69,7 @@ public static class StarbornCmd
         SealElementType targetElement,
         CardModel? source = null)
     {
+        if (targetElement == SealElementType.None) return;
         await SealElementMarkCmd.SetElementType(ctx, slot, player, targetElement);
         await Tuning(ctx, slot, player, consume, source);
     }
@@ -109,6 +110,7 @@ public static class StarbornCmd
         SealElementType targetElement,
         CardModel? source = null)
     {
+        if (targetElement == SealElementType.None) return;
         await SealElementMarkCmd.SetElementType(ctx, slot, player, targetElement);
         await Overload(ctx, slot, player, consume, source);
     }

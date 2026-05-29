@@ -195,6 +195,32 @@ public static class KiboPileManager
 
     }
 
+    /// <summary>
+    /// 将指定奇波类型从战斗中完全移除（活跃堆 + 后备堆）。
+    /// 纯牌堆操作，不触发钩子。如需触发 AfterKiboSwitchOff 等事件，调用方应在此之前走 KiboCmd.SwitchOff。
+    /// </summary>
+    public static void RemoveKiboFromCombat(Player player, KiboTypeId typeId)
+    {
+        var combatStorage = GetStorageCombatPile(player);
+        if (combatStorage == null) return;
+
+        var activePile = GetActivePile(player);
+        var keyword = KiboKeywords.TypeKeywordValue(typeId);
+
+        if (activePile != null)
+        {
+            foreach (var card in activePile.Cards
+                         .Where(c => c.HasModKeyword(keyword))
+                         .ToList())
+                card.RemoveFromState();
+        }
+
+        foreach (var card in combatStorage.Cards
+                     .Where(c => c.HasModKeyword(keyword))
+                     .ToList())
+            card.RemoveFromState();
+    }
+
     // ── 换下 / 换上 / 切换 ────────────────────────────────
 
     /// <summary>
@@ -235,8 +261,7 @@ public static class KiboPileManager
         if (!combatStorage.Cards.Any(c => c.HasModKeyword(keyword)))
         {
             var masterStorage = GetStoragePile(player);
-            if (masterStorage != null && masterStorage.Cards.Any(c => c.HasModKeyword(keyword)))
-                await CreateTypeInCombat(player, typeId);
+            await CreateTypeInCombat(player, typeId);
         }
 
         // 能力牌从后备堆移到活跃堆（RepCard 留在后备堆不动）

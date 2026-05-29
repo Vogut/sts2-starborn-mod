@@ -55,6 +55,9 @@
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.description": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]4[/blue]次出牌额外释放一个终极牌。",
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.smartDescription": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]{Amount}[/blue]次出牌额外释放一个终极牌。",
 
+    "STS2_STARBORN_POWER_WOLF_PACK_POWER.title": "狼群",
+    "STS2_STARBORN_POWER_WOLF_PACK_POWER.description": "迅狼在场时，回合结束时自动打出所有迅狼的奇波战技。",
+
     "STS2_STARBORN_ELEMENT_NONE.title": "无属性",
     "STS2_STARBORN_ELEMENT_FIRE.title": "火属性",
     "STS2_STARBORN_ELEMENT_FIRE.description": "施加灼烧效果。",

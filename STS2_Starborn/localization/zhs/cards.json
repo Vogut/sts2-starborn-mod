@@ -45,7 +45,7 @@
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
 
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.title": "不够大！",
-    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "施加1层[gold]变大[/gold]。\n造成{CalculatedDamage:diff()}点伤害。每层[gold]变大[/gold]使此伤害+{ExtraDamage:diff()}。",
+    "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "造成{CalculatedDamage:diff()}点伤害。\n施加1层[gold]变大[/gold]。敌人每有一层[gold]变大[/gold]，造成额外{ExtraDamage:diff()}点伤害。",
     
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加1层[gold]变小[/gold]。\n施加{Weak:diff()}层[gold]虚弱[/gold]。",
@@ -141,6 +141,41 @@
     "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.description": "[gold]消耗[/gold]手牌中的两张牌，从随机三张[gold]时尚小垃圾[/gold]中选择一张加入你的手牌。",
 
     "STS2_STARBORN_CARD_LANCE_HURL_CARD.title": "投枪",
-    "STS2_STARBORN_CARD_LANCE_HURL_CARD.description": "当你[bold]主/副属性印记[/bold]层数都>=3时，[gold]耗能为0[/gold]。造成{Damage:diff()}点伤害。"
+    "STS2_STARBORN_CARD_LANCE_HURL_CARD.description": "当你[bold]主/副属性印记[/bold]层数都>=3时，[gold]耗能为0[/gold]。造成{Damage:diff()}点伤害。",
 
+    "STS2_STARBORN_CARD_WOLF_PACK_HUNT_CARD.title": "群狼狩猎",
+    "STS2_STARBORN_CARD_WOLF_PACK_HUNT_CARD.description": "[gold]奇波[/gold]：迅狼。对一名敌人造成{Damage:diff()}点伤害[blue]3[/blue]次。给自己施加[gold]狼群[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_CARD.title": "迅狼",
+    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_CLAW_CARD.title": "爪击",
+    "STS2_STARBORN_CARD_KIBO_CLAW_CARD.description": "[gold]奇波战技[/gold]。对随机一名敌人造成{Damage:diff()}点伤害。",
+
+    "STS2_STARBORN_CARD_KIBO_HOWL_CARD.title": "狼嚎",
+    "STS2_STARBORN_CARD_KIBO_HOWL_CARD.description": "[gold]奇波战技[/gold]。下回合使你获得{Strength:diff()}点临时力量。",
+
+    "STS2_STARBORN_CARD_KIBO_GNAW_CARD.title": "啃咬",
+    "STS2_STARBORN_CARD_KIBO_GNAW_CARD.description": "[gold]奇波战技[/gold]。对随机一名敌人造成{Damage:diff()}点伤害。施加{Vulnerable:diff()}层[gold]易伤[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_PINCER_CARD.title": "围攻",
+    "STS2_STARBORN_CARD_KIBO_PINCER_CARD.description": "[gold]奇波绝技[/gold]。对随机一名敌人造成{Damage:diff()}点伤害[blue]3[/blue]次。",
+
+    "STS2_STARBORN_CARD_LURUKA_SOUP_CARD.title": "璐璐卡的药汤",
+    "STS2_STARBORN_CARD_LURUKA_SOUP_CARD.description": "随机获得{Times:diff()}层随机属性印记。",
+
+    "STS2_STARBORN_CARD_PERFORMANCE_CARD.title": "演奏",
+    "STS2_STARBORN_CARD_PERFORMANCE_CARD.description": "[gold]奇波[/gold]：木灵朵。获得{Dexterity:diff()}点临时敏捷。获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_CARD.title": "木灵朵",
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_BUD_SHIELD_CARD.title": "花苞防护",
+    "STS2_STARBORN_CARD_KIBO_BUD_SHIELD_CARD.description": "[gold]奇波战技[/gold]。获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_BLOOM_CARD.title": "灵朵绽放",
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_BLOOM_CARD.description": "[gold]奇波绝技[/gold]。获得{Block:diff()}点格挡。获得1层副属性木属性印记。",
+
+    "STS2_STARBORN_CARD_WIND_ARROW_CARD.title": "乘风一箭",
+    "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。[gold]调谐{Tuning:elementIcon()}[/gold]：1风。"
 }
