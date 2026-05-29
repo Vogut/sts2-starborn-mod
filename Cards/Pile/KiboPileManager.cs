@@ -11,7 +11,6 @@ using STS2RitsuLib.Keywords;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Runs;
-using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Cards.Pile;
 
@@ -53,12 +52,7 @@ public static class KiboPileManager
             Scope = ModCardPileScope.RunPersistent,
             Style = ModCardPileUiStyle.TopBarDeck,
             IconPath = Const.Paths.KiboCollectionPileIcon,
-            OnOpen = ctx =>
-            {
-                var viewer = new KiboStorageViewer();
-                viewer.Setup(ctx.Pile, ctx.Player);
-                ctx.OpenCapstoneScreen(viewer);
-            },
+            OnOpen = ctx => ctx.ShowDefaultPileScreen(),
         });
 
         registry.RegisterOwned(StorageCombatStem, new ModCardPileSpec
