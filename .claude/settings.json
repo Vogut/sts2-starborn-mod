@@ -5,7 +5,8 @@
       "Bash(xargs grep -l \"HookType\\\\|RunInitialize\\\\|PreRun\\\\|BeforeGame\\\\|OnRunStart\\\\|OnGameStart\")",
       "Bash(xargs grep -l \"StartNewSingleplayerRun\\\\|StartingBlessing\\\\|StartingBonus\\\\|BlessingScreen\\\\|NBlessing\")",
       "Edit(/.claude/skills/new-card/**)",
-      "Edit(/.claude/skills/sts2-mod-dev/**)"
+      "Edit(/.claude/skills/sts2-mod-dev/**)",
+      "PowerShell(dotnet build \"d:\\\\notwork\\\\sts2-starborn-mod\\\\sts2_starborn.sln\")"
     ]
   }
 }

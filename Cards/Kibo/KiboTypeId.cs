@@ -7,4 +7,5 @@ public enum KiboTypeId
     Corovulpe,
     SwiftWolf,
     Moklido,
+    ArmoredPangolin,
 }
