@@ -193,7 +193,6 @@ public sealed class SomeCard() : StarbornCard(...)
 
 - **Player card description**: always prefix with `[gold]奇波[/gold]：<奇波名>。` — matches `FoxSpiritCallCard` convention
 - **RepCard**: needs both `.title` and `.description` (description can be `""`)
-- **Battle skills / Ultimate**: always lead with `[gold]奇波战技[/gold]。` or `[gold]奇波绝技[/gold]。`
 
 ### Key Namespaces for Kibo Cards
 
