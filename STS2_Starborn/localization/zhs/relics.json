@@ -14,5 +14,8 @@
     "STS2_STARBORN_RELIC_WISDOM_CUBE.flavor": "似曾相识。",
     "STS2_STARBORN_RELIC_META_CUBE.title": "元魔方",
     "STS2_STARBORN_RELIC_META_CUBE.description": "拾起时，将一张[gold]演算[/gold]和一张[gold]失控[/gold]加入你的牌组。",
-    "STS2_STARBORN_RELIC_META_CUBE.flavor": "一种可能性。"
+    "STS2_STARBORN_RELIC_META_CUBE.flavor": "一种可能性。",
+    "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.title": "哈库茵权戒",
+    "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.description": "战斗开始时，造成[blue]{Damage}[/blue]点伤害，弹跳[blue]{Counts}[/blue]次。",
+    "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.flavor": "挥金如土的大小姐的戒指。"
 }
