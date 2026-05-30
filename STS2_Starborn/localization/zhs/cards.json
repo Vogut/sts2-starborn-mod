@@ -184,5 +184,17 @@
     "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce}次。",
 
     "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.title": "滚动火球",
-    "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce}次。每次造成伤害获得1层[red]火[/red]印记。"
+    "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce}次。每次造成伤害获得1层[red]火[/red]印记。",
+
+    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_CARD.title": "绒心布里尼",
+    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.title": "绒心炸弹",
+    "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.description": "[gold]奇波战技[/gold]。获得{ElementMark:elementIcon()}层{ElementMark:elementIcon(single)}属性印记。[gold]超限[/gold]1{ElementMark:elementIcon(single)}。",
+
+    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.title": "隐于彩虹",
+    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "[gold]奇波绝技[/gold]。获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
+
+    "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.title": "幸运彩虹",
+    "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波绝技[/gold]。"
 }

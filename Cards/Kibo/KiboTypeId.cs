@@ -8,4 +8,5 @@ public enum KiboTypeId
     SwiftWolf,
     Moklido,
     ArmoredPangolin,
+    Downybrinny,
 }
