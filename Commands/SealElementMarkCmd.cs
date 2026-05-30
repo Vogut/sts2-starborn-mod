@@ -35,6 +35,20 @@ public static class SealElementMarkCmd
     }
 
     /// <summary>
+    /// 先切换到目标元素，再叠加 <paramref name="stacks"/> 层印记。
+    /// </summary>
+    public static async Task GainElementMarks(
+        PlayerChoiceContext ctx,
+        MarkSlot slot,
+        Player player,
+        int stacks,
+        SealElementType elementType)
+    {
+        await SetElementType(ctx, slot, player, elementType);
+        await GainElementMarks(ctx, slot, player, stacks);
+    }
+
+    /// <summary>
     /// 为印记叠加 <paramref name="stacks"/> 层，委托给 <see cref="PowerCmd.Apply(PowerModel, Creature, decimal, Creature?, CardModel?)"/>
     /// 处理层数同步。
     /// </summary>

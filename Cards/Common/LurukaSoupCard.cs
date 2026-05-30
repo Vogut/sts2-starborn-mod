@@ -47,8 +47,7 @@ public sealed class LurukaSoupCard() : StarbornCard(
         {
             var element = _elements[rng.NextInt(0, _elements.Length)];
             var slot = _slots[rng.NextInt(0, _slots.Length)];
-            await SealElementMarkCmd.SetElementType(choiceContext, slot, Owner, element);
-            await SealElementMarkCmd.GainElementMarks(choiceContext, slot, Owner, 1);
+            await SealElementMarkCmd.GainElementMarks(choiceContext, slot, Owner, 1, element);
         }
     }
 

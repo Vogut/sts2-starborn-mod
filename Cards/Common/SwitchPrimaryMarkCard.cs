@@ -24,8 +24,9 @@ public class SwitchPrimaryMarkCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.Fire);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+        await SealElementMarkCmd.GainElementMarks(
+            choiceContext, MarkSlot.Primary, Owner,
+            DynamicVars["ElementMark"].IntValue, SealElementType.Fire);
     }
 
     protected override void OnUpgrade()

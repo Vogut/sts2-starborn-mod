@@ -41,10 +41,8 @@ public sealed class KiboRollingFireCard() : KiboCard(CardType.Attack, TargetType
     {
         if (cardSource == this && result.UnblockedDamage > 0)
         {
-            await SealElementMarkCmd.SetElementType(
-                choiceContext, MarkSlot.Primary, Owner, SealElementType.Fire);
             await SealElementMarkCmd.GainElementMarks(
-                choiceContext, MarkSlot.Primary, Owner, 1);
+                choiceContext, MarkSlot.Primary, Owner, 1, SealElementType.Fire);
         }
     }
 
