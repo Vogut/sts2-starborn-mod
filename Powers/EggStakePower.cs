@@ -50,7 +50,7 @@ public class EggStakePower : StarbornPower
         var rng = ModRunRngRegistry.Get(player, Const.ModId, "EggStake");
         var picked = candidates[rng.NextInt(0, candidates.Count)];
 
-        var card = player.RunState.CreateCard(picked, player);
+        var card = player.Creature.CombatState!.CreateCard(picked, player);
         await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, player);
     }
 }

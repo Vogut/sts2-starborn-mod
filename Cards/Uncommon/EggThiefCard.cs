@@ -35,7 +35,7 @@ public sealed class EggThiefCard() : StarbornCard(
         var rng = ModRunRngRegistry.Get(Owner, Const.ModId, "EggThief");
         var picked = candidates[rng.NextInt(0, candidates.Count)];
 
-        var card = Owner.RunState.CreateCard(picked, Owner);
+        var card = Owner.Creature.CombatState!.CreateCard(picked, Owner);
         card.SetToFreeThisTurn();
         await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
     }
