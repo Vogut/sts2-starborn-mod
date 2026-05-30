@@ -17,11 +17,16 @@
 |------|-----|------|
 | 切换属性 | `SealElementMarkCmd.SetElementType(ctx, slot, player, type)` | 改变印记的元素类型 |
 | 叠加层数 | `SealElementMarkCmd.GainElementMarks(ctx, slot, player, stacks)` | 增加印记层数 |
+| 切换+叠加 | `SealElementMarkCmd.GainElementMarks(ctx, slot, player, stacks, elementType)` | 先切换元素再叠加（推荐） |
 | 移除层数 | `SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, stacks)` | 减少印记层数 |
 | 调谐 | `StarbornCmd.Tuning(ctx, slot, player, consume, source)` | 消耗 consume 层触发调谐 |
 | 调谐+切换 | `StarbornCmd.Tuning(ctx, slot, player, consume, targetElement, source)` | 先切换到 targetElement 再调谐 |
 | 超限 | `StarbornCmd.Overload(ctx, slot, player, consume, source)` | 消耗 consume 层触发超限 |
 | 超限+切换 | `StarbornCmd.Overload(ctx, slot, player, consume, targetElement, source)` | 先切换再超限 |
+
+### GainElementMarks 重载（推荐）
+
+新增重载 `GainElementMarks(ctx, slot, player, stacks, elementType)` 内部先调用 `SetElementType` 再叠加，一步到位。有元素类型参数时应优先用这个重载，而不是分开调用 `SetElementType` + `GainElementMarks`。
 
 ## 卡牌父类属性
 
@@ -58,9 +63,23 @@ protected override bool IsPlayable =>
 | 调谐消耗 | `StarbornCardVars.Tuning(stacks, type)` | `Tuning(stacks, type)` |
 | 超限消耗 | `StarbornCardVars.Overload(stacks, type)` | `Overload(stacks, type)` |
 
-- **固定元素**（如 `SealElementType.Fire`）：描述用 `{ElementMark:elementIcon()}` 渲染对应元素图标
+- **固定元素**（如 `SealElementType.Light`）：描述用 `{ElementMark:elementIcon()}` 渲染对应元素图标
 - **SealElementType.Any**：必须用父类方法 `Tuning(stacks, SealElementType.Any)` 等方法，它们会创建 `SealElementVar` 并设 `ResolveFromCurrentMark = true`——预览显示 Any 图标，战斗中动态解析为当前印记的真实元素
 - 描述中**禁止**手写任何形式的元素文字代替图标：`[gold]火属性[/gold]`、`[red]火[/red]`、`[gold]水[/gold]` 等一律不行——**必须**用 `{ElementMark:elementIcon()}`（包括 Any 也要用 icon）
+
+## 元素类型引用——禁止硬编码
+
+`SealElementType` 在 `CanonicalVars` 通过 `StarbornCardVars.ElementMark(4, SealElementType.Light)` 已定义一次。**OnPlay 中不要重复写 `SealElementType.Light`**，应从 `SealElementVar.ElementType` 提取：
+
+```csharp
+// ✓ Correct — 元素类型从 DynamicVar 提取，只定义一次
+var elementType = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
+await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, stacks, elementType);
+await StarbornCmd.Overload(ctx, slot, Owner, consume, elementType, this);
+
+// ✗ Wrong — 元素类型硬编码
+await StarbornCmd.Overload(ctx, slot, Owner, 1, SealElementType.Light, this);
+```
 
 ## 典型卡牌模式
 
@@ -69,8 +88,9 @@ protected override bool IsPlayable =>
 参照 [SwitchPrimaryMarkCard](Cards/Common/SwitchPrimaryMarkCard.cs)：
 ```csharp
 // DynamicVar: StarbornCardVars.ElementMark(2, SealElementType.Fire)
-await SealElementMarkCmd.SetElementType(ctx, MarkSlot.Primary, Owner, SealElementType.Fire);
-await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+// ★ 推荐：用 GainElementMarks 重载一步完成
+var et = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
+await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, DynamicVars["ElementMark"].IntValue, et);
 // 升级: DynamicVars["ElementMark"].BaseValue += 1
 ```
 
@@ -80,7 +100,8 @@ await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, Owner, DynamicV
 ```csharp
 // IsPlayable: StarbornCmd.CanTuning(Owner, MarkSlot.Primary)
 // DynamicVar: StarbornCardVars.Tuning(2, SealElementType.Fire)
-await StarbornCmd.Tuning(ctx, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, SealElementType.Fire, this);
+var et = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
+await StarbornCmd.Tuning(ctx, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, et, this);
 ```
 
 ### 超限卡
@@ -89,10 +110,10 @@ await StarbornCmd.Tuning(ctx, MarkSlot.Primary, Owner, DynamicVars["Tuning"].Int
 ```csharp
 // IsPlayable: StarbornCmd.CanOverload(Owner, MarkSlot.Primary)
 // DynamicVar: StarbornCardVars.Overload(2, SealElementType.Fire)
-await SealElementMarkCmd.SetElementType(ctx, MarkSlot.Primary, Owner, SealElementType.Fire);
+var et = ((SealElementVar)DynamicVars["Overload"]).ElementType;
 var need = ElementMarkManager.ThresholdStacks - PrimaryStacks;
-if (need > 0) await SealElementMarkCmd.GainElementMarks(..., need);
-await StarbornCmd.Overload(ctx, MarkSlot.Primary, Owner, 1, this);
+if (need > 0) await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, need, et);
+await StarbornCmd.Overload(ctx, MarkSlot.Primary, Owner, DynamicVars["Overload"].IntValue, et, this);
 ```
 
 ### 印记平衡

@@ -11,305 +11,99 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 
 ## User Shorthand
 
-The user often uses compact terms. The `N/M` format means **主印记消耗N / 副印记消耗M**。When the user omits the secondary value, default to 0 (主印记 only).
-
 | Shorthand | Expands to |
 |-----------|-----------|
-| `谐调N` | Tuning，消耗当前属性的主印记 N 层 |
-| `谐调N/M` | Tuning，消耗当前属性的主印记 N 层 + 副印记 M 层 |
-| `超限X` | Overload，元素 X，消耗当前属性的主印记（默认 1/0） |
-| `超限X,N/M` | Overload，元素 X，消耗当前属性的主 N / 副 M |
-| `印记N` | 获得/消耗 当前属性的主印记 N 层（= 印记N/0） |
-| `印记N/M` | 获得/消耗 当前属性的主印记 N 层 + 副印记 M 层 |
-| `切换X` / `切X` | 切换印记属性为 X（火/水/木） |
-| `谐调（火/水/光）` | Tuning 主属性 |
-| `谐调（风/冰/木）` | Tuning 副属性 |
-| `超限（火/水/光）` | Overload 主属性 |
-| `超限（风/冰/木）` | Overload 副属性 |
+| `谐调N` / `谐调N/M` | Tuning，消耗主 N / 主 N + 副 M |
+| `超限X` / `超限X,N/M` | Overload，元素 X，消耗主（默认1）/ 主 N + 副 M |
+| `印记N` / `印记N/M` | 获得/消耗主印记 N / 主 N + 副 M |
+| `切换X` / `切X` | 切换印记属性为 X |
 
-Implementation: for each non-zero slot, generate the corresponding command call. For example, "谐调1/1" generates two `StarbornCmd.Tuning()` calls — one for Primary, one for Secondary. Never leave the shorthand un-expanded in the output. 无特殊说明，火/水/光 默认为主属性，风/冰/木 默认为副属性。
+`N/M` = 主印记消耗 N / 副印记消耗 M。省略副值时默认 0。火/水/光 默认主属性，风/冰/木 默认副属性。
 
 ---
 
 ## Creating a New Card
 
-### 1. Gather Parameters
-
-Ask the user for:
-- **Card name** (English class name + Chinese display name)
-- **Type**: Attack / Skill / Power / Event
-- **Rarity**: Basic / Common / Uncommon / Rare
-- **Brief effect description** (what should the card do?)
-
-### 2. Research
-
-- Grep existing cards of the same type/rarity to use as structural reference
-- Note: base class, namespace, DynamicVars setup, and registration pattern
-
-### 3. Generate Card Class
-
-Create the C# file in `Cards/<Rarity>/`:
-- Inherit from `StarbornCard` (or `KiboCard` for Kibo companion cards)
-- Declare `DynamicVars` with proper types — read [references/dynamic-vars.md](references/dynamic-vars.md) for type selection
-- Implement `OnPlay` — **every numeric value must come from `DynamicVars`** (see Critical Rule below)
-- If the card references other entities (Powers, generated Cards, Relics, Potions), add `AdditionalHoverTips` — see the [AdditionalHoverTips section](#additionalhovertips--referencing-other-game-entities)
-
-### 4. Generate Localization
-
-Add entries to `STS2_Starborn/localization/zhs/cards.json`:
-- `name`: Chinese card name
-- `description`: Card effect text — read [references/description-rules.md](references/description-rules.md) for formatting
-- Follow keyword and color conventions — read [references/keywords-and-colors.md](references/keywords-and-colors.md)
-
-### 5. Register the Card
-
-Advise the correct registration attribute:
-- Character cards: `[RegisterCard(typeof(StarbornCardPool))]`
-- Kibo cards (RepCard / battle skills / ultimate): `[RegisterCard(typeof(KiboCardPool))]`
-- Event cards: `[RegisterSharedEvent]`
-
-### 6. Build & Verify
-
-Run `dotnet build sts2_starborn.sln` and confirm no errors.
+1. **Gather**: card name (EN class + CN display), type, rarity, effect
+2. **Research**: grep existing cards of same type/rarity for structure reference
+3. **Generate**: create `.cs` in `Cards/<Rarity>/`, inheriting `StarbornCard` (or `KiboCard` for Kibo cards)
+4. **Localize**: add entries to `STS2_Starborn/localization/zhs/cards.json`
+5. **Register**: `[RegisterCard(typeof(StarbornCardPool))]` for character cards, `[RegisterCard(typeof(KiboCardPool))]` for Kibo cards
+6. **Build**: `dotnet build sts2_starborn.sln`
 
 ---
 
-## Creating a New Kibo (奇波) & Kibo Cards
+## Creating a New Kibo (奇波)
 
-When the user wants a new Kibo type, several files must be created together. A complete Kibo needs:
+### Checklist
 
-### Kibo Checklist
+| # | File(s) | What to do |
+|---|---------|------------|
+| 1 | `Cards/Kibo/KiboTypeId.cs` | Add enum value |
+| 2 | `Cards/Kibo/KiboKeywords.cs` | Add `[RegisterOwnedCardKeyword("kibo_type_xxx", IncludeInCardHoverTip = false)]` |
+| 3 | `Cards/Kibo/<Name>/Kibo<Name>Card.cs` | RepCard: `[RegisterKibo(KiboTypeId.Xxx)]`, `KiboCard(Power, Self)`, `KiboKeywordId` |
+| 4 | `Cards/Kibo/<Name>/Kibo<Ability>Card.cs` | Normal ability: `[KiboAbilityOf(KiboTypeId.Xxx)]`, `NormalKeyword` |
+| 5 | `Cards/Kibo/<Name>/Kibo<Ultimate>Card.cs` | Ultimate: `[KiboAbilityOf(KiboTypeId.Xxx, true)]`, `UltimateKeyword` |
+| 6 | `Cards/<Rarity>/<PlayerCard>.cs` | Player card with `KiboSummonType`, `KiboKeywordId`, `AdditionalHoverTips` |
+| 7 | `cards.json` | Titles + descriptions for all cards |
 
-| Step | File(s) | What to do |
-|------|---------|------------|
-| 1. Enum | `Cards/Kibo/KiboTypeId.cs` | Add new value to the enum |
-| 2. Keyword | `Cards/Kibo/KiboKeywords.cs` | Add `[RegisterOwnedCardKeyword("kibo_type_xxx", IncludeInCardHoverTip = false)]` |
-| 3. RepCard | `Cards/Kibo/<TypeName>/Kibo<Name>Card.cs` | `[RegisterKibo(KiboTypeId.Xxx)]` on a `KiboCard(CardType.Power, TargetType.Self)` |
-| 4. Battle skills | `Cards/Kibo/<TypeName>/Kibo<Name>Card.cs` | `[KiboAbilityOf(KiboTypeId.Xxx)]` with `NormalKeyword` |
-| 5. Ultimate | `Cards/Kibo/<TypeName>/Kibo<Name>Card.cs` | `[KiboAbilityOf(KiboTypeId.Xxx, true)]` with `UltimateKeyword` |
-| 6. Player card | `Cards/<Rarity>/` | The card that summons this Kibo (see below) |
-| 7. Localization | `cards.json` | Title for RepCard + descriptions for all Kibo cards + player card |
+### Naming: `Kibo` + descriptive name + `Card` — never generic `Ability1`/`Ability2`.
 
-### Naming Convention
+### Player Card Requirements
 
-**Kibo cards MUST use `Kibo` + descriptive name + `Card`** — never generic `Ability1`/`Ability2`/`Ultimate`:
+Every player card that summons a Kibo needs four things:
+- `public override KiboTypeId? KiboSummonType => KiboTypeId.Xxx;`
+- `CanonicalKeywords`: include `KiboKeywords.KiboKeywordId.GetModCardKeyword()`
+- `AdditionalHoverTips`: yield RepCard + `KiboTypeRegistry.Get(Xxx).CreatePlayableCardHoverTips()`
+- `OnPlay`: `await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);`
 
-```
-KiboClawCard      ✓  爪击
-KiboHowlCard      ✓  狼嚎
-KiboPincerCard    ✓  围攻
-```
-```
-SwiftWolfAbility1Card  ✗  (too generic)
-```
-
-The RepCard follows the same pattern: `KiboSwiftWolfCard`, `KiboMoklidoCard`.
-
-### Kibo Card Templates
-
-**RepCard** — Minimal; just the `[RegisterKibo]` marker:
-```csharp
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Keywords;
-
-namespace STS2_Starborn.Cards.Kibo;
-
-[RegisterCard(typeof(KiboCardPool))]
-[RegisterKibo(KiboTypeId.Xxx)]
-public sealed class KiboXxxCard() : KiboCard(CardType.Power, TargetType.Self)
-{
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-    [
-        KiboKeywords.KiboKeywordId.GetModCardKeyword(),
-    ];
-
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-    }
-}
-```
-
-**Battle skill** (normal ability) — `[KiboAbilityOf]` + `NormalKeyword`:
-```csharp
-[RegisterCard(typeof(KiboCardPool))]
-[KiboAbilityOf(KiboTypeId.Xxx)]
-public sealed class KiboYyyCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
-{
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-    [ KiboKeywords.NormalKeyword ];
-    // ... DynamicVars + OnPlay
-}
-```
-
-**Ultimate skill** — `[KiboAbilityOf(Xxx, true)]` + `UltimateKeyword`:
-```csharp
-[RegisterCard(typeof(KiboCardPool))]
-[KiboAbilityOf(KiboTypeId.Xxx, true)]
-public sealed class KiboZzzCard() : KiboCard(...);
-```
-
-### Player Card That Summons a Kibo
-
-When a player card is associated with a Kibo (e.g. 奇波：迅狼), it **must** include ALL of:
-
-```csharp
-[RegisterCard(typeof(StarbornCardPool))]
-public sealed class SomeCard() : StarbornCard(...)
-{
-    // 1. Kibo association — triggers auto-registration when card enters deck
-    public override KiboTypeId? KiboSummonType => KiboTypeId.Xxx;
-
-    // 2. Show "奇波" keyword icon on the card face
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-    [
-        KiboKeywords.KiboKeywordId.GetModCardKeyword(),
-    ];
-
-    // 3. Hover tips: show the Kibo's RepCard + all playable cards
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips
-    {
-        get
-        {
-            yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboXxxCard>()));
-            var def = KiboTypeRegistry.Get(KiboTypeId.Xxx);
-            foreach (var tip in def.CreatePlayableCardHoverTips())
-                yield return tip;
-        }
-    }
-
-    protected override async Task OnPlay(...)
-    {
-        // 4. Summon the Kibo in combat — use KiboSummonType!.Value, never hardcode
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
-        // ... rest of card effect
-    }
-}
-```
-
-### Localization for Kibo Cards
-
-- **Player card description**: always prefix with `[gold]奇波[/gold]：<奇波名>。` — matches `FoxSpiritCallCard` convention
-- **RepCard**: needs both `.title` and `.description` (description can be `""`)
-
-### Key Namespaces for Kibo Cards
-
-| Namespace | For |
-|-----------|-----|
-| `STS2_Starborn.Cards.Kibo` | `KiboTypeId`, `KiboKeywords`, `KiboTypeRegistry`, `KiboCard`, `KiboCardPool` |
-| `STS2_Starborn.Commands` | `KiboCmd`, `SealElementMarkCmd` |
-| `STS2_Starborn.Combat` | `MarkSlot` |
-| `STS2_Starborn.Element` | `SealElementType` |
-| `STS2_Starborn.Character` | `StarbornCardPool` |
-| `STS2RitsuLib.Keywords` | `.GetModCardKeyword()` extension |
-| `MegaCrit.Sts2.Core.Models` | `ModelDb` (for `AdditionalHoverTips`) |
+Description prefix: `[gold]奇波[/gold]：<奇波名>。`.
 
 ---
 
 ## Modifying an Existing Card
 
-### 1. Locate the Card
-
-- Find the card class file by name under `Cards/`
-- Read the current implementation to understand its structure
-
-### 2. Understand the Change
-
-Clarify what the user wants to modify:
-- **Numeric tuning**: adjust DynamicVar base values, add/remove upgrade deltas
-- **Mechanics change**: alter OnPlay logic, add/remove effect steps
-- **Description fix**: update localization text to match behavior
-- **Keyword/type change**: add/remove CanonicalKeywords, change rarity/pool
-
-### 3. Edit the Code
-
-- Modify `DynamicVars` declarations if values change
-- Edit `OnPlay` logic — keep all numeric values sourced from `DynamicVars`
-- If adding new mechanics that involve seal elements, read [references/seal-element-system.md](references/seal-element-system.md)
-
-### 4. Update Localization
-
-- Sync `STS2_Starborn/localization/zhs/cards.json` if the effect text changed
-- If adding new DynamicVars, ensure the description references them correctly — read [references/description-rules.md](references/description-rules.md)
-
-### 5. Build & Verify
-
-Run `dotnet build sts2_starborn.sln` and confirm no errors.
+1. Locate the `.cs` file under `Cards/`
+2. Adjust `DynamicVars` declarations and/or `OnPlay` logic
+3. Sync `cards.json` if the effect text changed
+4. `dotnet build sts2_starborn.sln`
 
 ---
 
 ## Critical Rule: No Hardcoded Values in OnPlay
 
-All numeric values in `OnPlay` **must** come from `DynamicVars`:
+**Every number and element type in `OnPlay` MUST come from `DynamicVars`.** See [references/dynamic-vars.md](references/dynamic-vars.md) for the full type reference.
+
 ```csharp
-// Correct
-var damage = DynamicVars.Damage.BaseValue;
-var block = DynamicVars.Block.BaseValue;
+// ✓ Correct
+var dmg = DynamicVars.Damage.BaseValue;
 var stacks = DynamicVars["ElementMark"].IntValue;
+var elementType = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
 
-// Wrong — upgrades won't affect these
-var damage = 6;
-var block = 5;
+// ✗ Wrong — upgrades won't affect these
+var dmg = 6;
+await StarbornCmd.Overload(ctx, slot, Owner, 1, SealElementType.Light, this);
 ```
 
-Reason: upgrades work by modifying `DynamicVar.BaseValue`. Hardcoded numbers ignore upgrades entirely.
+Three rules:
+1. **No bare integer literals** — every number is a DynamicVar
+2. **Use official types** — `new CardsVar(2)`, not `new IntVar("Cards", 2)`; `new EnergyVar(3)`, not `new IntVar("Energy", 3)`. Only use `IntVar` when no specific type exists.
+3. **No hardcoded `SealElementType`** — extract from `((SealElementVar)DynamicVars["ElementMark"]).ElementType`
 
-## AdditionalHoverTips — Referencing Other Game Entities
+---
 
-When a card's effect references another game entity that the player may not know, add `AdditionalHoverTips` so the entity can be previewed directly from the card's tooltip. This applies whenever the card **applies a Power, summons/generates other Cards, creates a Relic/Potion**, or otherwise references a named entity beyond common keywords.
+## AdditionalHoverTips
 
-### Trigger conditions
-
-Ask: "would the player reading this card's description want to see what X does?" If yes, add a hover tip for X.
-
-| Card does this... | Add hover tip for... | Factory method |
-|---|---|---|
-| Applies a buff/debuff (Power) | That power | `HoverTipFactory.FromPower<ThePower>()` |
-| Generates or offers other cards | Each card type | `HoverTipFactory.FromCard(cardModel)` |
-| Creates or references a Relic | That relic | `HoverTipFactory.FromRelic(relicModel)` |
-| Creates or references a Potion | That potion | `HoverTipFactory.FromPotion(potionModel)` |
-
-### Code examples
-
-**Power reference** (most common):
-```csharp
-using MegaCrit.Sts2.Core.HoverTips;
-
-protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-[
-    HoverTipFactory.FromPower<RubyIsTier0Power>(),
-];
-```
-
-**Multiple card references** (e.g. generating Token cards):
-```csharp
-private static readonly Type[] TokenCardTypes = [typeof(AxeCard), typeof(PlankCard), /*...*/];
-
-protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-    TokenCardTypes.Select(t => HoverTipFactory.FromCard(
-        ModelDb.GetById<CardModel>(ModelDb.GetId(t))));
-```
-
-### When NOT to add
-
-- The referenced entity is a **common game keyword** already known to all players (e.g. Weak, Vulnerable, Strength)
-- The card description **already fully explains the effect** inline without naming another entity
-- The reference is purely cosmetic or narrative with no gameplay impact
-
-Place `AdditionalHoverTips` alongside `CanonicalKeywords` and `CanonicalVars` in the card class body.
+When a card references a Power, generated Card, Relic, or Potion, add hover tips so players can preview them. See [references/dynamic-vars.md](references/dynamic-vars.md) for code examples.
 
 ---
 
 ## Reference Files
 
-Read these when the card being created or modified involves the relevant system:
-
 | File | Read when... |
 |------|-------------|
-| [references/keywords-and-colors.md](references/keywords-and-colors.md) | Formatting any card text — keyword icons, `[gold]`/`[blue]`/`[red]` conventions |
-| [references/dynamic-vars.md](references/dynamic-vars.md) | Choosing or adjusting DynamicVar types for damage, block, energy, draws, etc. |
-| [references/description-rules.md](references/description-rules.md) | Writing or updating `description` strings — `diff()`, `energyIcons()`, `IfUpgraded`, standard sentence patterns |
-| [references/seal-element-system.md](references/seal-element-system.md) | Card interacts with seal element marks — tuning, overload, gaining/removing stacks |
-| [references/card-selection.md](references/card-selection.md) | Card shows a card picker UI — choose 1 from 3, grid select, hand/exhaust select |
+| [references/dynamic-vars.md](references/dynamic-vars.md) | Choosing DynamicVar types, the hardcoding rules in full, AdditionalHoverTips code examples |
+| [references/description-rules.md](references/description-rules.md) | Writing `description` strings — `diff()`, `energyIcons()`, `IfUpgraded` |
+| [references/keywords-and-colors.md](references/keywords-and-colors.md) | Keyword icons, `[gold]`/`[blue]`/`[red]` conventions |
+| [references/seal-element-system.md](references/seal-element-system.md) | Tuning, overload, gaining/removing marks, element type extraction pattern |
+| [references/card-selection.md](references/card-selection.md) | Card picker UI — choose 1 from 3, grid, hand select |
