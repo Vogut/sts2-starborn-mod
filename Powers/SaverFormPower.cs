@@ -13,7 +13,7 @@ namespace STS2_Starborn.Powers;
 /// 作为 Buff 存在，可被移除。
 /// </summary>
 [RegisterPower]
-public class SaverFormPower : StarbornPower, IConsumeModifier, ISealElementMarkListener
+public class SaverFormPower : StarbornPower, IElementMarkModifier, ISealElementMarkListener
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

@@ -34,7 +34,7 @@ public class TuningCard() : StarbornCard(
         new CalculationBaseVar(0),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier((card, _) =>
-            ElementMarkManager.GetStacks(card.Owner, MarkSlot.Primary)),
+            ElementMarkState.GetStacks(card.Owner, MarkSlot.Primary)),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

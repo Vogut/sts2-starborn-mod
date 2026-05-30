@@ -67,7 +67,7 @@ public class StarbornMarkRelic : StarbornRelic
             data.PrimaryStacks = 1;
             data.SecondaryStacks = 1;
         });
-        ElementMarkManager.NotifyMarksChanged();
+        ElementMarkState.NotifyMarksChanged();
 
         var data = KiboRunData.Get(base.Owner);
         if (data?.ActiveKiboTypeId == null) return;

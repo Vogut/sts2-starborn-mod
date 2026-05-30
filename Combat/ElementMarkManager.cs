@@ -1,40 +1,38 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 using STS2_Starborn.Commands;
-using STS2_Starborn.Hooks;
 using STS2_Starborn.Element;
-using STS2_Starborn.Runs;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-namespace STS2_Starborn.Combat;
 
-public enum MarkSlot { Primary, Secondary }
+
+namespace STS2_Starborn.Combat;
 
 [RegisterSingleton]
 public sealed class ElementMarkManager : HookedSingletonModel
 {
-    public const int MaxSealStacks = 5;
-    public const int ThresholdStacks = 3;
+    private static readonly MarkSlot[] Slots = [MarkSlot.Primary, MarkSlot.Secondary];
 
     private readonly Dictionary<ulong, int> _switchCounts = [];
     private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
     private readonly HashSet<SealElementType> _firstOverloaded = [];
 
-    public static event Action? MarksChanged;
-
-    public ElementMarkManager() : base(HookedSingletonModel.HookType.Combat)
+    public ElementMarkManager() : base(HookType.Combat)
     {
         _instance = this;
     }
 
-    public static void NotifyMarksChanged() => MarksChanged?.Invoke();
-
-    // ── Per-turn switch tracking ──
+    // ── Singleton ──
 
     private static ElementMarkManager _instance = null!;
     private static ElementMarkManager Instance => _instance;
+
+    // ── Switch tracking ──
 
     public static int GetSwitchCount(Player player) =>
         Instance._switchCounts.GetValueOrDefault(player.NetId);
@@ -42,13 +40,13 @@ public sealed class ElementMarkManager : HookedSingletonModel
     public static int GetSwitchedTypeCount(Player player) =>
         Instance._switchedTypes.GetValueOrDefault(player.NetId)?.Count ?? 0;
 
-    private void RecordSwitch(Player player, SealElementType to)
+    public static void RecordSwitch(Player player, SealElementType to)
     {
         var id = player.NetId;
-        _switchCounts[id] = _switchCounts.GetValueOrDefault(id) + 1;
-        if (!_switchedTypes.ContainsKey(id))
-            _switchedTypes[id] = [];
-        _switchedTypes[id].Add(to);
+        Instance._switchCounts[id] = Instance._switchCounts.GetValueOrDefault(id) + 1;
+        if (!Instance._switchedTypes.ContainsKey(id))
+            Instance._switchedTypes[id] = [];
+        Instance._switchedTypes[id].Add(to);
     }
 
     private void ResetSwitchTracking(Player player)
@@ -57,103 +55,45 @@ public sealed class ElementMarkManager : HookedSingletonModel
         _switchedTypes.Remove(player.NetId);
     }
 
+    // ── First overload tracking ──
+
     public static bool IsFirstOverload(SealElementType element) =>
         Instance._firstOverloaded.Add(element);
 
-    // ── Accessors ──
+    // ── Hook ──
 
-    public static ElementMarkData GetData(Player player) => ElementMarkRunData.Get(player);
-
-    public static int GetStacks(Player player, MarkSlot slot)
-    {
-        var data = GetData(player);
-        return slot == MarkSlot.Primary ? data.PrimaryStacks : data.SecondaryStacks;
-    }
-
-    public static SealElementType GetElementType(Player player, MarkSlot slot)
-    {
-        var data = GetData(player);
-        var raw = slot == MarkSlot.Primary ? data.PrimaryElementType : data.SecondaryElementType;
-        return raw != null && Enum.TryParse<SealElementType>(raw, out var t) ? t : SealElementType.None;
-    }
-
-    public static void SetStacks(Player player, MarkSlot slot, int stacks)
-    {
-        stacks = Math.Clamp(stacks, 0, MaxSealStacks);
-        ElementMarkRunData.Modify(player, data =>
-        {
-            if (slot == MarkSlot.Primary)
-                data.PrimaryStacks = stacks;
-            else
-                data.SecondaryStacks = stacks;
-        });
-        NotifyMarksChanged();
-    }
-
-    public static void SetElementType(Player player, MarkSlot slot, SealElementType elementType)
-    {
-        if (elementType != SealElementType.None)
-            Instance.RecordSwitch(player, elementType);
-
-        ElementMarkRunData.Modify(player, data =>
-        {
-            var raw = elementType.ToString();
-            if (slot == MarkSlot.Primary)
-                data.PrimaryElementType = raw;
-            else
-                data.SecondaryElementType = raw;
-        });
-        NotifyMarksChanged();
-    }
-
-    // ── Hooks ──
-
-    public override Task AfterSideTurnStart(CombatSide side,IReadOnlyList<Creature> participants, ICombatState combatState)
-    {
-        if (side != CombatSide.Player) return Task.CompletedTask;
-        var player = combatState.Players.FirstOrDefault();
-        if (player == null) return Task.CompletedTask;
-
-        Instance.ResetSwitchTracking(player);
-
-        foreach (var slot in new[] { MarkSlot.Primary, MarkSlot.Secondary })
-        {
-            var prev = GetElementType(player, slot);
-            if (prev != SealElementType.None
-                && !SealElementMarkHooks.AnyListenerPreventsElementChange(combatState, slot, prev, SealElementType.None))
-            {
-                SetElementType(player, slot, SealElementType.None);
-            }
-        }
-        return Task.CompletedTask;
-    }
-
-    public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side != CombatSide.Player) return;
-        var combatState = CombatManager.Instance.DebugOnlyGetState();
-        if (combatState == null) return;
         var player = combatState.Players.FirstOrDefault();
         if (player == null) return;
 
-        foreach (var slot in new[] { MarkSlot.Primary, MarkSlot.Secondary })
-        {
-            var stacks = GetStacks(player, slot);
-            var elementType = GetElementType(player, slot);
-            if (elementType == SealElementType.None) continue;
+        foreach (var slot in Slots)
+            await TryTriggerAutoTuning(player, slot, combatState);
 
-            var elementPower = Element.StarbornElement.For(elementType);
-            var tuningConsume = SealElementMarkHooks.ModifyTuningConsume(combatState, slot, elementPower.TuningConsume);
-            var overloadConsume = SealElementMarkHooks.ModifyOverloadConsume(combatState, slot, elementPower.OverloadConsume);
+        Instance.ResetSwitchTracking(player);
 
-            if (stacks >= MaxSealStacks)
-            {
-                await StarbornCmd.Overload(choiceContext, slot, player, overloadConsume);
-            }
-            else if (stacks >= ThresholdStacks)
-            {
-                await StarbornCmd.Tuning(choiceContext, slot, player, tuningConsume);
-            }
-        }
+        foreach (var slot in Slots)
+            await ResetElementToNone(player, slot);
+    }
+
+    private static async Task TryTriggerAutoTuning(Player player, MarkSlot slot, ICombatState combatState)
+    {
+        var elementType = ElementMarkState.GetElementType(player, slot);
+        if (elementType == SealElementType.None) return;
+
+        var stacks = ElementMarkState.GetStacks(player, slot);
+        var element = StarbornElement.For(elementType);
+
+        if (stacks >= ElementMarkState.MaxSealStacks)
+            await StarbornCmd.Overload(new ThrowingPlayerChoiceContext(), slot, player, element.OverloadConsume);
+        else if (stacks >= ElementMarkState.ThresholdStacks)
+            await StarbornCmd.Tuning(new ThrowingPlayerChoiceContext(), slot, player, element.TuningConsume);
+    }
+
+    private static async Task ResetElementToNone(Player player, MarkSlot slot)
+    {
+        await SealElementMarkCmd.SetElementType(
+            new ThrowingPlayerChoiceContext(), slot, player, SealElementType.None);
     }
 }

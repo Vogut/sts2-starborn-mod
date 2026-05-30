@@ -28,7 +28,7 @@ public sealed class LanceHurlCard() : StarbornCard(
         await base.AfterCardEnteredCombat(card);
         if (card == this)
         {
-            ElementMarkManager.MarksChanged += UpdateCost;
+            ElementMarkState.MarksChanged += UpdateCost;
             UpdateCost();
         }
     }
@@ -36,7 +36,7 @@ public sealed class LanceHurlCard() : StarbornCard(
     public override async Task BeforeCardRemoved(CardModel card)
     {
         if (card == this)
-            ElementMarkManager.MarksChanged -= UpdateCost;
+            ElementMarkState.MarksChanged -= UpdateCost;
         await base.BeforeCardRemoved(card);
     }
 

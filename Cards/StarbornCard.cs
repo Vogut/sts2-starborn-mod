@@ -28,14 +28,14 @@ public abstract class StarbornCard(
 ) : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
     internal int PrimaryStacks =>
-        !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Primary) : 0;
+        !IsCanonical ? ElementMarkState.GetStacks(Owner, MarkSlot.Primary) : 0;
     internal SealElementType PrimaryElementType =>
-        !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
+        !IsCanonical ? ElementMarkState.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
 
     internal int SecondaryStacks =>
-        !IsCanonical ? ElementMarkManager.GetStacks(Owner, MarkSlot.Secondary) : 0;
+        !IsCanonical ? ElementMarkState.GetStacks(Owner, MarkSlot.Secondary) : 0;
     internal SealElementType SecondaryElementType =>
-        !IsCanonical ? ElementMarkManager.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
+        !IsCanonical ? ElementMarkState.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
 
     // ── Any element helpers ────────────────────────────────
     // 当 elementType == SealElementType.Any 时，创建动态解析当前主属性印记的 computed var

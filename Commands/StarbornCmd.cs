@@ -18,8 +18,8 @@ public static class StarbornCmd
 {
     public static bool CanTuning(Player player, MarkSlot slot)
     {
-        var stacks = ElementMarkManager.GetStacks(player, slot);
-        var elementType = ElementMarkManager.GetElementType(player, slot);
+        var stacks = ElementMarkState.GetStacks(player, slot);
+        var elementType = ElementMarkState.GetElementType(player, slot);
         if (elementType == SealElementType.None) return false;
         var consume = Element.StarbornElement.For(elementType).TuningConsume;
         if (player.Creature.CombatState != null)
@@ -29,13 +29,13 @@ public static class StarbornCmd
 
     public static bool CanOverload(Player player, MarkSlot slot)
     {
-        var stacks = ElementMarkManager.GetStacks(player, slot);
-        var elementType = ElementMarkManager.GetElementType(player, slot);
+        var stacks = ElementMarkState.GetStacks(player, slot);
+        var elementType = ElementMarkState.GetElementType(player, slot);
         if (elementType == SealElementType.None) return false;
         var consume = Element.StarbornElement.For(elementType).OverloadConsume;
         if (player.Creature.CombatState != null)
             consume = SealElementMarkHooks.ModifyOverloadConsume(player.Creature.CombatState, slot, consume);
-        return stacks >= ElementMarkManager.ThresholdStacks && stacks >= consume && consume >= 0;
+        return stacks >= ElementMarkState.ThresholdStacks && stacks >= consume && consume >= 0;
     }
 
     public static async Task Tuning(
@@ -48,16 +48,17 @@ public static class StarbornCmd
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
 
-        var elementType = ElementMarkManager.GetElementType(player, slot);
+        var elementType = ElementMarkState.GetElementType(player, slot);
         if (elementType == SealElementType.None) return;
 
         consume = SealElementMarkHooks.ModifyTuningConsume(combatState, slot, consume);
-        var stacks = ElementMarkManager.GetStacks(player, slot);
+        var stacks = ElementMarkState.GetStacks(player, slot);
         if (stacks < consume) return;
 
         await SealElementMarkHooks.BeforeTuning(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, stacks);
+        var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
+        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, effectiveStacks);
         await SealElementMarkHooks.AfterTuning(combatState, ctx, slot, consume, source);
     }
 
@@ -88,17 +89,18 @@ public static class StarbornCmd
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
 
-        var elementType = ElementMarkManager.GetElementType(player, slot);
+        var elementType = ElementMarkState.GetElementType(player, slot);
         if (elementType == SealElementType.None) return;
 
         consume = SealElementMarkHooks.ModifyOverloadConsume(combatState, slot, consume);
-        var stacks = ElementMarkManager.GetStacks(player, slot);
-        if (stacks < ElementMarkManager.ThresholdStacks) return;
+        var stacks = ElementMarkState.GetStacks(player, slot);
+        if (stacks < ElementMarkState.ThresholdStacks) return;
         if (stacks < consume) return;
 
         await SealElementMarkHooks.BeforeOverload(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
-        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, stacks);
+        var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
+        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, effectiveStacks);
         await SealElementMarkHooks.AfterOverload(combatState, ctx, slot, consume, source);
     }
 

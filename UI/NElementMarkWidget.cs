@@ -27,13 +27,13 @@ public partial class NElementMarkWidget : Control
 
     public override void _Ready()
     {
-        ElementMarkManager.MarksChanged += Refresh;
+        ElementMarkState.MarksChanged += Refresh;
         Refresh();
     }
 
     public override void _ExitTree()
     {
-        ElementMarkManager.MarksChanged -= Refresh;
+        ElementMarkState.MarksChanged -= Refresh;
     }
 
     public void Initialize(Player player)
@@ -50,10 +50,10 @@ public partial class NElementMarkWidget : Control
             return;
         }
 
-        var primaryType = ElementMarkManager.GetElementType(_player, MarkSlot.Primary);
-        var secondaryType = ElementMarkManager.GetElementType(_player, MarkSlot.Secondary);
-        var primaryStacks = ElementMarkManager.GetStacks(_player, MarkSlot.Primary);
-        var secondaryStacks = ElementMarkManager.GetStacks(_player, MarkSlot.Secondary);
+        var primaryType = ElementMarkState.GetElementType(_player, MarkSlot.Primary);
+        var secondaryType = ElementMarkState.GetElementType(_player, MarkSlot.Secondary);
+        var primaryStacks = ElementMarkState.GetStacks(_player, MarkSlot.Primary);
+        var secondaryStacks = ElementMarkState.GetStacks(_player, MarkSlot.Secondary);
 
         Visible = primaryType != SealElementType.None || secondaryType != SealElementType.None
             || primaryStacks > 0 || secondaryStacks > 0;
@@ -118,8 +118,8 @@ public partial class NElementMarkWidget : Control
                 return;
             }
 
-            var elementType = ElementMarkManager.GetElementType(player, slot);
-            var stacks = ElementMarkManager.GetStacks(player, slot);
+            var elementType = ElementMarkState.GetElementType(player, slot);
+            var stacks = ElementMarkState.GetStacks(player, slot);
 
             var iconPath = Const.Paths.ElementIcon(elementType);
             if (ResourceLoader.Exists(iconPath))

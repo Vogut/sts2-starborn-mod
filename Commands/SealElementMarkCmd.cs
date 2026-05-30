@@ -4,7 +4,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
 using STS2_Starborn.Element;
-using STS2_Starborn.Runs;
 
 namespace STS2_Starborn.Commands;
 
@@ -23,13 +22,15 @@ public static class SealElementMarkCmd
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
 
-        var oldElement = ElementMarkManager.GetElementType(player, slot);
+        var oldElement = ElementMarkState.GetElementType(player, slot);
         if (oldElement == dstElement) return;
 
         if (SealElementMarkHooks.AnyListenerPreventsElementChange(combatState, slot, oldElement, dstElement))
             return;
 
-        ElementMarkManager.SetElementType(player, slot, dstElement);
+        ElementMarkState.SetElementType(player, slot, dstElement);
+        if (dstElement != SealElementType.None)
+            ElementMarkManager.RecordSwitch(player, dstElement);
         await SealElementMarkHooks.AfterElementChanged(combatState, ctx, slot, oldElement, dstElement);
     }
 
@@ -44,8 +45,8 @@ public static class SealElementMarkCmd
         int stacks)
     {
         if (stacks <= 0) return;
-        var current = ElementMarkManager.GetStacks(player, slot);
-        ElementMarkManager.SetStacks(player, slot, current + stacks);
+        var current = ElementMarkState.GetStacks(player, slot);
+        ElementMarkState.SetStacks(player, slot, current + stacks);
     }
 
     /// <summary>
@@ -58,7 +59,7 @@ public static class SealElementMarkCmd
         int stacks)
     {
         if (stacks <= 0) return;
-        var current = ElementMarkManager.GetStacks(player, slot);
-        ElementMarkManager.SetStacks(player, slot, current - stacks);
+        var current = ElementMarkState.GetStacks(player, slot);
+        ElementMarkState.SetStacks(player, slot, current - stacks);
     }
 }

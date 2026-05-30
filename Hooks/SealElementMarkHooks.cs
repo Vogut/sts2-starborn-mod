@@ -119,7 +119,7 @@ public static class SealElementMarkHooks
         }
     }
     /// <summary>
-    /// 向所有 <see cref="IConsumeModifier"/> 分发调谐消耗修正。
+    /// 向所有 <see cref="IElementMarkModifier"/> 分发调谐消耗修正。
     /// 对标原版 <c>Hook.ModifyDamage</c> 模式。
     /// </summary>
     // ── Consume modifiers ──
@@ -129,35 +129,47 @@ public static class SealElementMarkHooks
         // Phase 1: Absolute
         foreach (var model in combatState.IterateHookListeners())
         {
-            if (model is IConsumeModifier modifier)
+            if (model is IElementMarkModifier modifier)
                 consume = modifier.ModifyTuningConsume(slot, consume);
         }
         // Phase 2: Additive
         foreach (var model in combatState.IterateHookListeners())
         {
-            if (model is IConsumeModifier modifier)
+            if (model is IElementMarkModifier modifier)
                 consume += modifier.ModifyTuningConsumeAdditive(slot, consume);
         }
         return Math.Max(0, consume);
     }
     
     /// <summary>
-    /// 向所有 <see cref="IConsumeModifier"/> 分发超限消耗修正。
+    /// 向所有 <see cref="IElementMarkModifier"/> 分发超限消耗修正。
     /// </summary>
     public static int ModifyOverloadConsume(ICombatState combatState, MarkSlot slot, int consume)
     {
         // Phase 1: Absolute
         foreach (var model in combatState.IterateHookListeners())
         {
-            if (model is IConsumeModifier modifier)
+            if (model is IElementMarkModifier modifier)
                 consume = modifier.ModifyOverloadConsume(slot, consume);
         }
         // Phase 2: Additive
         foreach (var model in combatState.IterateHookListeners())
         {
-            if (model is IConsumeModifier modifier)
+            if (model is IElementMarkModifier modifier)
                 consume += modifier.ModifyOverloadConsumeAdditive(slot, consume);
         }
         return Math.Max(0, consume);
+    }
+
+    // ── Effective stacks modifier ──
+
+    public static int ModifyEffectiveStacks(ICombatState combatState, MarkSlot slot, int stacks)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IElementMarkModifier modifier)
+                stacks = modifier.ModifyEffectiveStacks(slot, stacks);
+        }
+        return Math.Max(0, stacks);
     }
 }
