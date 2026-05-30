@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -7,8 +6,9 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
-using STS2_Starborn.Powers;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Cards.Kibo;
 
@@ -25,7 +25,6 @@ public sealed class KiboRollingFireCard() : KiboCard(CardType.Attack, TargetType
     [
         new DamageVar(4m, ValueProp.Move),
         new DynamicVar("Bounce", 3m),
-        new DynamicVar("Burn", 3m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -42,10 +41,10 @@ public sealed class KiboRollingFireCard() : KiboCard(CardType.Attack, TargetType
     {
         if (cardSource == this && result.UnblockedDamage > 0)
         {
-            await PowerCmd.Apply<BurnPower>(
-                choiceContext, target,
-                DynamicVars["Burn"].IntValue,
-                Owner.Creature, this);
+            await SealElementMarkCmd.SetElementType(
+                choiceContext, MarkSlot.Primary, Owner, SealElementType.Fire);
+            await SealElementMarkCmd.GainElementMarks(
+                choiceContext, MarkSlot.Primary, Owner, 1);
         }
     }
 

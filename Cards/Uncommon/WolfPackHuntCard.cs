@@ -41,6 +41,7 @@ public sealed class WolfPackHuntCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(4m, ValueProp.Move),
+        new RepeatVar(3)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -50,7 +51,7 @@ public sealed class WolfPackHuntCard() : StarbornCard(
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitCount(3)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .Execute(choiceContext);
 
         await PowerCmd.Apply<WolfPackPower>(

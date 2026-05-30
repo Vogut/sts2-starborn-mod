@@ -20,6 +20,7 @@ public sealed class KiboPincerCard() : KiboCard(CardType.Attack, TargetType.AnyE
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(3m, ValueProp.Move),
+        new RepeatVar(3)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -27,7 +28,7 @@ public sealed class KiboPincerCard() : KiboCard(CardType.Attack, TargetType.AnyE
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target!)
-            .WithHitCount(3)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .Execute(choiceContext);
     }
 

@@ -1,9 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -34,10 +32,46 @@ public class WolfPackPower : StarbornPower, IKiboCardPlayListener, IKiboSwitchLi
 
     // ── IKiboCardPlayListener ──
 
-    public bool ShouldPreventKiboAutoPlay(CardModel card)
+    public async Task AfterKiboCardAutoPlayed(CardModel card)
     {
-        if (_isPlayingAllWolfCards) return false;
-        return true;
+        if (_isPlayingAllWolfCards)
+            return;
+
+        if (!card.HasModKeyword(KiboKeywords.NormalKeyword))
+            return;
+        if (!card.HasModKeyword(KiboKeywords.TypeKeywordValue(KiboTypeId.SwiftWolf)))
+            return;
+
+        var combatState = base.CombatState;
+        if (combatState == null)
+            return;
+
+        var player = combatState.Players.FirstOrDefault(p => p.Creature == Owner);
+        if (player == null)
+            return;
+
+        var activePile = KiboPileManager.GetActivePile(player);
+        if (activePile == null)
+            return;
+
+        var others = activePile.Cards
+            .Where(c => c != card)
+            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeyword)
+                     && c.HasModKeyword(KiboKeywords.TypeKeywordValue(KiboTypeId.SwiftWolf)))
+            .ToList();
+        if (others.Count == 0)
+            return;
+
+        _isPlayingAllWolfCards = true;
+        try
+        {
+            foreach (var c in others)
+                await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), c, combatState);
+        }
+        finally
+        {
+            _isPlayingAllWolfCards = false;
+        }
     }
 
     // ── IKiboSwitchListener ──
@@ -46,43 +80,5 @@ public class WolfPackPower : StarbornPower, IKiboCardPlayListener, IKiboSwitchLi
     {
         if (typeId == KiboTypeId.SwiftWolf && player.Creature == Owner)
             await PowerCmd.Remove(this);
-    }
-
-    // ── End of turn: play all SwiftWolf normal cards ──
-
-    public override async Task BeforeSideTurnEnd(
-        PlayerChoiceContext choiceContext, CombatSide side,
-        IEnumerable<Creature> participants)
-    {
-        if (side != CombatSide.Player) return;
-        if (!participants.Contains(Owner)) return;
-
-        var combatState = base.CombatState;
-        if (combatState == null) return;
-
-        var player = combatState.Players.FirstOrDefault(p => p.Creature == Owner);
-        if (player == null) return;
-
-        var activeType = KiboPileManager.GetActiveKiboType(player);
-        if (activeType != KiboTypeId.SwiftWolf) return;
-
-        var activePile = KiboPileManager.GetActivePile(player);
-        if (activePile == null) return;
-
-        var normalCards = activePile.Cards
-            .Where(c => c.HasModKeyword(KiboKeywords.NormalKeyword))
-            .ToList();
-        if (normalCards.Count == 0) return;
-
-        _isPlayingAllWolfCards = true;
-        try
-        {
-            foreach (var card in normalCards)
-                await KiboCmd.AutoPlay(new BlockingPlayerChoiceContext(), card, combatState);
-        }
-        finally
-        {
-            _isPlayingAllWolfCards = false;
-        }
     }
 }
