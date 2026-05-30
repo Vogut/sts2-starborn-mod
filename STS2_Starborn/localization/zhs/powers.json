@@ -21,7 +21,7 @@
 
     "STS2_STARBORN_POWER_SIMULATION_POWER.title": "演算",
     "STS2_STARBORN_POWER_SIMULATION_POWER.description": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
-    "STS2_STARBORN_POWER_SIMULATION_POWER.smartDescription": "所有牌耗能减少1{energyPrefix:energyIcons(1)}。",
+    "STS2_STARBORN_POWER_SIMULATION_POWER.smartDescription": "所有牌耗能减少[blue]{Amount}[/blue]点。",
 
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.title": "红宝石布什曲",
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前4张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",

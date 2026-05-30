@@ -22,6 +22,7 @@ public sealed class FragilePickaxeCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(8m, ValueProp.Move),
+        new RepeatVar(2)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -30,7 +31,7 @@ public sealed class FragilePickaxeCard() : StarbornCard(
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitCount(2)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .Execute(choiceContext);
     }
 

@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
@@ -18,6 +19,11 @@ public sealed class SimulationCard() : StarbornCard(
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
 
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new CardsVar(2),
+    ];
+
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.FromPower<SimulationPower>(),
@@ -28,7 +34,7 @@ public sealed class SimulationCard() : StarbornCard(
         await PowerCmd.Apply<SimulationPower>(
             choiceContext, Owner.Creature, 1, Owner.Creature, this);
         if (IsUpgraded)
-            await CardPileCmd.Draw(choiceContext, 2, Owner);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()
