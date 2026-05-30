@@ -44,14 +44,6 @@ public class RubyIsTier0Power : StarbornPower, ISealElementMarkListener
         if (!participants.Contains(Owner)) return;
 
         _cardsModifiedThisTurn = 0;
-
-        var player = combatState.Players.FirstOrDefault(p => p.Creature == Owner);
-        if (player == null) return;
-
-        await SealElementMarkCmd.GainElementMarks(
-            new ThrowingPlayerChoiceContext(), MarkSlot.Primary, player, 2);
-        await SealElementMarkCmd.GainElementMarks(
-            new ThrowingPlayerChoiceContext(), MarkSlot.Secondary, player, 2);
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -65,9 +57,9 @@ public class RubyIsTier0Power : StarbornPower, ISealElementMarkListener
         var player = cardPlay.Card.Owner;
 
         if (StarbornCmd.CanTuning(player, MarkSlot.Primary))
-            await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, player, 1, null);
+            await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, player, 0, null);
         if (StarbornCmd.CanTuning(player, MarkSlot.Secondary))
-            await StarbornCmd.Tuning(choiceContext, MarkSlot.Secondary, player, 1, null);
+            await StarbornCmd.Tuning(choiceContext, MarkSlot.Secondary, player, 0, null);
 
         var target = cardPlay.Target;
         if (target == null) return;

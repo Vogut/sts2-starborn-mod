@@ -46,17 +46,17 @@
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加1层[gold]变小[/gold]。\n施加{Weak:diff()}层[gold]虚弱[/gold]。",
     
     "STS2_STARBORN_CARD_DUEL_COMMAND.title": "对决指令",
-    "STS2_STARBORN_CARD_DUEL_COMMAND.description": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波绝技[/gold]。",
-    "STS2_STARBORN_CARD_DUEL_COMMAND.upgradeDescription": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波绝技[/gold]。",
+    "STS2_STARBORN_CARD_DUEL_COMMAND.description": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波特技[/gold]。",
+    "STS2_STARBORN_CARD_DUEL_COMMAND.upgradeDescription": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波特技[/gold]。",
 
     "STS2_STARBORN_CARD_SYNERGY_CARD.title": "协同",
-    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage:diff()}点伤害。使用当前奇波的[gold]奇波绝技[/gold]。",
+    "STS2_STARBORN_CARD_SYNERGY_CARD.description": "造成{Damage:diff()}点伤害。使用当前奇波的[gold]奇波特技[/gold]。",
     
     "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.title": "红宝石布什曲",
-    "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。每回合开始时获得2/2层印记。\n每回合打出的前{Limit:diff()}张攻击牌获得：调谐1/1，造成当前灼烧层数的伤害。",
+    "STS2_STARBORN_CARD_RUBY_IS_TIER0_CARD.description": "将主/副属性固定为[red]火[/red]。 \n每回合打出的前{Limit:diff()}张攻击牌获得：调谐{elementPrefix:elementIcon(0)}/{elementPrefix:elementIcon(0)}，造成当前灼烧层数的伤害。",
 
     "STS2_STARBORN_CARD_DUEL_COMMAND_CARD.title": "对决指令",
-    "STS2_STARBORN_CARD_DUEL_COMMAND_CARD.description": "在本回合获得[blue]{Empower:diff()}[/blue]层[gold]奇波强化[/gold]。使用当前奇波的[gold]奇波绝技[/gold]。",
+    "STS2_STARBORN_CARD_DUEL_COMMAND_CARD.description": "在本回合获得[blue]{Empower:diff()}[/blue]层[gold]奇波强化[/gold]。使用当前奇波的[gold]奇波特技[/gold]。",
 
     "STS2_STARBORN_CARD_LUCKY_E_CARD.title": "LuckyE",
     "STS2_STARBORN_CARD_LUCKY_E_CARD.description": "获得[gold]航空准备[/gold]。",
@@ -106,13 +106,13 @@
     "STS2_STARBORN_CARD_RIDE_CARD.description": "抽[blue]{Cards:diff()}[/blue]张牌。\n本回合[gold]奇波[/gold]无法自动出牌。",
 
     "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.title": "1Q2Q3Q",
-    "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "将你的所有[gold]奇波[/gold]加入active池。\n无法再打出攻击牌。\n每次出技能牌释放一个随机能力牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
+    "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "召唤你的所有[gold]奇波[/gold]。\n你无法再打出攻击牌。\n每次出技能牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
 
     "STS2_STARBORN_CARD_SWAP_CARD.title": "切人",
     "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。",
 
-    "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.title": "星八客",
-    "STS2_STARBORN_CARD_STARBORN_COFFEE_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
+    "STS2_STARBORN_CARD_STARBOCK_CARD.title": "星八客",
+    "STS2_STARBORN_CARD_STARBOCK_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
 
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.title": "栗栗花的赠礼",
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。",
@@ -193,8 +193,35 @@
     "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.description": "[gold]奇波战技[/gold]。获得{ElementMark:elementIcon()}层{ElementMark:elementIcon(single)}属性印记。[gold]超限[/gold]1{ElementMark:elementIcon(single)}。",
 
     "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.title": "隐于彩虹",
-    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "[gold]奇波绝技[/gold]。获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
+    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "[gold]奇波特技[/gold]。获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
 
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.title": "幸运彩虹",
-    "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波绝技[/gold]。"
+    "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波特技[/gold]。",
+
+    "STS2_STARBORN_CARD_EGG_THIEF_CARD.title": "偷蛋贼",
+    "STS2_STARBORN_CARD_EGG_THIEF_CARD.description": "将一张随机[gold]奇波[/gold]牌加入你的手牌。那张牌在本回合内可以免费打出。",
+
+    "STS2_STARBORN_CARD_EGG_STAKE_CARD.title": "孵蛋桩",
+    "STS2_STARBORN_CARD_EGG_STAKE_CARD.description": "每回合开始时将一张随机[gold]奇波[/gold]牌加入你的手牌。",
+
+    "STS2_STARBORN_CARD_WORLD_CLEAR_CARD.title": "锄大地",
+    "STS2_STARBORN_CARD_WORLD_CLEAR_CARD.description": "造成{Damage:diff()}点伤害。下一次[gold]调谐[/gold]或[gold]超限[/gold]的印记消耗为[blue]0[/blue]。",
+
+    "STS2_STARBORN_CARD_TWENTY_FOUR_SECOND_CYCLE_CARD.title": "24秒轴",
+    "STS2_STARBORN_CARD_TWENTY_FOUR_SECOND_CYCLE_CARD.description": "使你的下一次[gold]谐调[/gold]或[gold]超限[/gold]获得{Empower:diff()}层调谐强化。",
+
+    "STS2_STARBORN_CARD_ENSEMBLE_CARD.title": "合奏",
+    "STS2_STARBORN_CARD_ENSEMBLE_CARD.description": "[gold]奇波[/gold]：蔓音花。本场战斗你每切换过一种属性此牌的耗能减少1。获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_CARD.title": "蔓音花",
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_ECHO_CARD.title": "蔓音回响",
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_ECHO_CARD.description": "[gold]奇波战技[/gold]。获得{Block:diff()}点格挡。在下个回合获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.title": "种子风暴",
+    "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.description": "[gold]奇波战技[/gold]。对所有敌人造成{Damage:diff()}点伤害。每有一个敌人获得{ElementMark:elementIcon(single)}。",
+
+    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.title": "芳香疗法",
+    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.description": "[gold]奇波特技[/gold]。移除随机一张状态牌。{IfUpgraded:所有状态牌|}"
 }

@@ -77,5 +77,14 @@
     "STS2_STARBORN_ELEMENT_WIND.smartDescription": "调谐：抽1张牌。\n超限：抽1张牌。获得1点能量。",
     "STS2_STARBORN_ELEMENT_LIGHT.title": "光属性",
     "STS2_STARBORN_ELEMENT_LIGHT.description": "调谐：使所有敌人获得2倍当前层数的暴晒。\n超限：使所有敌人获得2倍当前层数的暴晒。造成5点攻击伤害。",
-    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "调谐：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。\n超限：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。造成5点攻击伤害。"
+    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "调谐：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。\n超限：使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒。造成5点攻击伤害。",
+
+    "STS2_STARBORN_POWER_FREE_TUNING_POWER.title": "免费调谐",
+    "STS2_STARBORN_POWER_FREE_TUNING_POWER.description": "下一次调谐或超限的印记消耗为0。",
+
+    "STS2_STARBORN_POWER_EGG_STAKE_POWER.title": "孵蛋桩",
+    "STS2_STARBORN_POWER_EGG_STAKE_POWER.description": "每回合开始时将一张随机[gold]奇波[/gold]牌加入你的手牌。",
+
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.title": "调谐强化",
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。"
 }
