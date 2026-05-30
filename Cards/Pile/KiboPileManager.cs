@@ -238,6 +238,8 @@ public static class KiboPileManager
                      .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
                      .ToList())
             await CardPileCmd.Add(card, combatStorage);
+
+        await Task.Yield();
     }
 
     /// <summary>
@@ -269,6 +271,9 @@ public static class KiboPileManager
                      .Where(c => c.HasModKeyword(keyword) && !IsRepCardType(c.GetType()))
                      .ToList())
             await CardPileCmd.Add(card, activePile);
+
+        // 等待 CardPileCmd.Add 的异步延续完成（AfterCardChangedPiles Hook 等）
+        await Task.Yield();
 
         ActiveKiboChanged?.Invoke();
     }
@@ -373,10 +378,10 @@ public static class KiboPileManager
         return null;
     }
 
-    /// <summary>判断卡牌类型是否为 RepCard（继承 KiboCard 且类名以 "RepCard" 结尾）。</summary>
+    /// <summary>判断卡牌类型是否为 RepCard（继承 KiboCard 且有 <see cref="RegisterKiboAttribute"/>）。</summary>
     public static bool IsRepCardType(Type type)
     {
         return type.BaseType == typeof(KiboCard) &&
-               type.Name.EndsWith("RepCard");
+               Attribute.IsDefined(type, typeof(RegisterKiboAttribute));
     }
 }
