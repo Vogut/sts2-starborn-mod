@@ -3,7 +3,7 @@
 ## 关键词规则
 
 - 消耗、保留、固有、虚无等原版关键词和自定义关键词（`RegisterOwnedCardKeyword`）通过 `CanonicalKeywords` 属性以**图标**形式显示在卡面上
-- description 中**不要**写 `[gold]消耗[/gold]`、`[gold]保留[/gold]` 等关键词图标文本——图标已由 `CanonicalKeywords` 渲染
+- description 中**不要**写 `[gold]消耗[/gold]`、`[gold]保留[/gold]`、`[gold]奇波战技[/gold]`等关键词图标文本——图标已由 `CanonicalKeywords` 渲染
 - 参照原版 HOTFIX：base 有 Exhaust，description 只写效果文本，升级 `RemoveKeyword` 去掉图标
 - **例外**：在描述中引用某个状态/机制名时仍需 `[gold]` 包裹，如"给予[gold]虚弱[/gold]"——这是状态名不是关键词图标
 

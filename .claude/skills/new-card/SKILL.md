@@ -41,7 +41,7 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 |---|---------|------------|
 | 1 | `Cards/Kibo/KiboTypeId.cs` | Add enum value |
 | 2 | `Cards/Kibo/KiboKeywords.cs` | Add `[RegisterOwnedCardKeyword("kibo_type_xxx", IncludeInCardHoverTip = false)]` |
-| 3 | `Cards/Kibo/<Name>/Kibo<Name>Card.cs` | RepCard: `[RegisterKibo(KiboTypeId.Xxx)]`, `KiboCard(Power, Self)`, `KiboKeywordId` |
+| 3 | `Cards/Kibo/<Name>/Kibo<Name>RepCard.cs` | RepCard: `[RegisterKibo(KiboTypeId.Xxx)]`, `KiboCard(Power, Self)`, `KiboKeywordId` |
 | 4 | `Cards/Kibo/<Name>/Kibo<Ability>Card.cs` | Normal ability: `[KiboAbilityOf(KiboTypeId.Xxx)]`, `NormalKeyword` |
 | 5 | `Cards/Kibo/<Name>/Kibo<Ultimate>Card.cs` | Ultimate: `[KiboAbilityOf(KiboTypeId.Xxx, true)]`, `UltimateKeyword` |
 | 6 | `Cards/<Rarity>/<PlayerCard>.cs` | Player card with `KiboSummonType`, `KiboKeywordId`, `AdditionalHoverTips` |
