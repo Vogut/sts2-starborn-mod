@@ -28,7 +28,7 @@ public class Entry
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(Const.ModId, assembly);
 
-        RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<TestCard, TestAncientCard>();
+        RitsuLibFramework.RegisterArchaicToothTranscendenceMapping<TestAncientCard, TestAncientCard>();
         RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<TestRelic, TestRelic>();
 
         KiboTypeRegistry.Initialize();

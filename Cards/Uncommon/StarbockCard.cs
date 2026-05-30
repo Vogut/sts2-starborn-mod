@@ -15,7 +15,7 @@ using STS2_Starborn.Element;
 namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
-public class StarbornCoffeeCard() : StarbornCard(
+public class StarbockCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Uncommon, TargetType.None
 )
 {

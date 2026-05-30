@@ -20,11 +20,11 @@ public class SealElementIconsFormatter : IFormatter
         {
             if (!System.Enum.TryParse<SealElementType>(elementName, ignoreCase: true, out var parsedType))
                 return false;
-            if (!int.TryParse(formattingInfo.FormatterOptions, out var fixedCount) || fixedCount <= 0)
+            if (!int.TryParse(formattingInfo.FormatterOptions, out var fixedCount) || fixedCount < 0)
                 return false;
 
             var icon = $"[img=center]{Const.Paths.ElementIcon(parsedType)}[/img]";
-            formattingInfo.Write(fixedCount <= 3
+            formattingInfo.Write(fixedCount is > 0 and <= 3
                 ? string.Concat(Enumerable.Repeat(icon, fixedCount))
                 : $"{fixedCount}{icon}");
             return true;

@@ -9,4 +9,5 @@ public enum KiboTypeId
     Moklido,
     ArmoredPangolin,
     Downybrinny,
+    MelodiousVine,
 }

@@ -42,6 +42,6 @@ public class RubyIsTier0Card() : StarbornCard(
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Limit"].UpgradeValueBy(2);
+        DynamicVars["Limit"].UpgradeValueBy(6);
     }
 }
