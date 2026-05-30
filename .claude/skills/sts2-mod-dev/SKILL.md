@@ -60,7 +60,6 @@ deep-dive details, load the matching reference file from `references/`.
 |---|---|---|
 | 1. Project Setup | brand-new mod, csproj issues, Entry.cs | `references/01-project-setup.md` |
 | 2. Character & Pools | creating the character class + 3 pools | `references/02-character-and-pools.md` |
-| 3. Cards | card logic, DynamicVars, base card class | `references/03-cards.md` |
 | 4. Content | relics, powers, potions, enchantments | `references/04-content.md` |
 | 5. Localization | JSON key naming, BBCode colors, dynamic vars | `references/05-localization.md` |
 | 6. Epoch / Timeline | character unlock, content unlock milestones | `references/06-epoch.md` |
