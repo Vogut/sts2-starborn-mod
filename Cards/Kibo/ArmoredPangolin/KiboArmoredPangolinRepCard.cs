@@ -6,8 +6,8 @@ using STS2RitsuLib.Keywords;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-[RegisterKibo(KiboTypeId.MelodiousVine)]
-public sealed class KiboMelodiousVineCard() : KiboCard(CardType.Power, TargetType.Self)
+[RegisterKibo(KiboTypeId.ArmoredPangolin)]
+public sealed class KiboArmoredPangolinRepCard() : KiboCard(CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

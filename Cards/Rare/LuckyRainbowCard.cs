@@ -27,7 +27,7 @@ public sealed class LuckyRainbowCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboDownybrinnyCard>()));
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboDownybrinnyRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.Downybrinny);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;

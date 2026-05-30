@@ -29,7 +29,7 @@ public sealed class RollingImpactCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboArmoredPangolinCard>()));
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboArmoredPangolinRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.ArmoredPangolin);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;

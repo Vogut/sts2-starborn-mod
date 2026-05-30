@@ -31,7 +31,7 @@ public sealed class WolfPackHuntCard() : StarbornCard(
         {
             yield return HoverTipFactory.FromPower<WolfPackPower>();
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboSwiftWolfCard>()));
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboSwiftWolfRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.SwiftWolf);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;

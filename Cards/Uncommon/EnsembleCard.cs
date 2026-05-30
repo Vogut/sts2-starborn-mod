@@ -31,7 +31,7 @@ public sealed class EnsembleCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboMelodiousVineCard>()));
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboMelodiousVineRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.MelodiousVine);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;

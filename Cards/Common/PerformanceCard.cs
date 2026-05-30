@@ -30,7 +30,7 @@ public sealed class PerformanceCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboMoklidoCard>()));
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboMoklidoRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.Moklido);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;
