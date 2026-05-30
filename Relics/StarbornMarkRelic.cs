@@ -62,12 +62,8 @@ public class StarbornMarkRelic : StarbornRelic
         if (side != base.Owner.Creature.Side || combatState.RoundNumber != 1)
             return;
 
-        ElementMarkRunData.Modify(base.Owner, data =>
-        {
-            data.PrimaryStacks = 1;
-            data.SecondaryStacks = 1;
-        });
-        ElementMarkState.NotifyMarksChanged();
+        ElementMarkState.SetStacks(base.Owner, MarkSlot.Primary, 1);
+        ElementMarkState.SetStacks(base.Owner, MarkSlot.Secondary, 1);
 
         var data = KiboRunData.Get(base.Owner);
         if (data?.ActiveKiboTypeId == null) return;

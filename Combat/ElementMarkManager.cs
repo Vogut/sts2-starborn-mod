@@ -10,13 +10,20 @@ using STS2RitsuLib.Models;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
 
-
 namespace STS2_Starborn.Combat;
 
 [RegisterSingleton]
 public sealed class ElementMarkManager : HookedSingletonModel
 {
+    public const int MaxSealStacks = 5;
+    public const int ThresholdStacks = 3;
+
     private static readonly MarkSlot[] Slots = [MarkSlot.Primary, MarkSlot.Secondary];
+
+    private int _primaryStacks;
+    private string? _primaryElementType;
+    private int _secondaryStacks;
+    private string? _secondaryElementType;
 
     private readonly Dictionary<ulong, int> _switchCounts = [];
     private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
@@ -30,7 +37,38 @@ public sealed class ElementMarkManager : HookedSingletonModel
     // ── Singleton ──
 
     private static ElementMarkManager _instance = null!;
-    private static ElementMarkManager Instance => _instance;
+    internal static ElementMarkManager Instance => _instance;
+
+    // ── Marks data (instance, combat-scoped) ──
+
+    public int GetStacks(MarkSlot slot) =>
+        slot == MarkSlot.Primary ? _primaryStacks : _secondaryStacks;
+
+    public void SetStacks(MarkSlot slot, int stacks)
+    {
+        stacks = Math.Clamp(stacks, 0, MaxSealStacks);
+        if (slot == MarkSlot.Primary)
+            _primaryStacks = stacks;
+        else
+            _secondaryStacks = stacks;
+        ElementMarkState.NotifyMarksChanged();
+    }
+
+    public SealElementType GetElementType(MarkSlot slot)
+    {
+        var raw = slot == MarkSlot.Primary ? _primaryElementType : _secondaryElementType;
+        return raw != null && System.Enum.TryParse<SealElementType>(raw, out var t) ? t : SealElementType.None;
+    }
+
+    public void SetElementType(MarkSlot slot, SealElementType elementType)
+    {
+        var raw = elementType.ToString();
+        if (slot == MarkSlot.Primary)
+            _primaryElementType = raw;
+        else
+            _secondaryElementType = raw;
+        ElementMarkState.NotifyMarksChanged();
+    }
 
     // ── Switch tracking ──
 
@@ -85,9 +123,9 @@ public sealed class ElementMarkManager : HookedSingletonModel
         var stacks = ElementMarkState.GetStacks(player, slot);
         var element = StarbornElement.For(elementType);
 
-        if (stacks >= ElementMarkState.MaxSealStacks)
+        if (stacks >= MaxSealStacks)
             await StarbornCmd.Overload(new ThrowingPlayerChoiceContext(), slot, player, element.OverloadConsume);
-        else if (stacks >= ElementMarkState.ThresholdStacks)
+        else if (stacks >= ThresholdStacks)
             await StarbornCmd.Tuning(new ThrowingPlayerChoiceContext(), slot, player, element.TuningConsume);
     }
 
