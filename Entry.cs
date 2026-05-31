@@ -13,7 +13,6 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Patches;
 using STS2_Starborn.Relics;
 using STS2_Starborn.Runs;
-using STS2_Starborn.UI;
 
 namespace STS2_Starborn;
 
@@ -56,6 +55,9 @@ public class Entry
         patcher.RegisterPatch<WidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
         patcher.RegisterPatch<KiboLoadPatch>();
+#if DEBUG
+        patcher.RegisterPatch<StarbornDebugPanelPatch>();
+#endif
         RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);
     }
 

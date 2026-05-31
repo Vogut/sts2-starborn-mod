@@ -86,5 +86,8 @@
     "STS2_STARBORN_POWER_EGG_STAKE_POWER.description": "每回合开始时将一张随机[gold]奇波[/gold]牌加入你的手牌。",
 
     "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.title": "调谐强化",
-    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。"
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
+
+    "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.title": "随机上岗",
+    "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "回合开始时，随机切换一只[gold]奇波[/gold]，并使用其一张[gold]奇波战技[/gold]。"
 }

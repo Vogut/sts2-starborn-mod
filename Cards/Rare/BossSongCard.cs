@@ -1,6 +1,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
@@ -14,6 +16,12 @@ public sealed class BossSongCard() : StarbornCard(
 {
     protected override bool IsPlayable =>
         ElementMarkManager.GetSwitchedTypeCount(Owner) >= 5;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new ComputedDynamicVar("SwitchedTypes", 0,
+            card => card?.Owner is { } p ? ElementMarkManager.GetSwitchedTypeCount(p) : 0),
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

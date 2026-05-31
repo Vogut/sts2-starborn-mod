@@ -31,7 +31,7 @@
     "STS2_STARBORN_CARD_CUSTOMIZE_CARD.secondaryPrompt": "选择副属性",
 
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.title": "魔王曲",
-    "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n目前已切换过[blue]{SwitchedTypes}种属性。|}\n获得战斗胜利。",
+    "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n（目前已切换过[blue]{SwitchedTypes}种属性。）|}\n获得战斗胜利。",
     
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "异闪",
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "升级你所有的奇波牌。",
