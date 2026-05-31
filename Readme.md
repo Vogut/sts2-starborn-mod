@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/badge/-Godot-478CBF?style=for-the-badge&logo=godotengine&logoColor=white" alt="Godot"/> 
 <img src="https://img.shields.io/badge/-Slay%20the%20Spire%202-8B0000?style=for-the-badge&logoColor=white" alt="Slay the Spire 2"/> 
 <a href="https://github.com/BAKAOLC/STS2-RitsuLib"><img src="https://img.shields.io/badge/-STS2--RitsuLib-5538DD?style=for-the-badge&logo=github&logoColor=white" alt="STS2-RitsuLib"/></a> 
-<img src="https://img.shields.io/badge/version-0.3.0--aplha-2196f3?style=for-the-badge" alt="Version"/>
+<img src="https://img.shields.io/badge/version-0.3.0--beta-2196f3?style=for-the-badge" alt="Version"/>
 </div>
 </div>
 
