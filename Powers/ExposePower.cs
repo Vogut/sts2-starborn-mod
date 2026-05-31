@@ -28,7 +28,7 @@ public class ExposePower : StarbornPower
     {
         if (target != Owner)
             return;
-        if (!props.IsPoweredAttack())
+        if (!props.HasFlag(ValueProp.Move))
             return;
 
         Flash();

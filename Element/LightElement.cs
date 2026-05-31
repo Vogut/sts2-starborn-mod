@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Element;
@@ -26,6 +27,6 @@ public sealed class LightElement : StarbornElement
         await PowerCmd.Apply<ExposePower>(
             ctx, owner.Creature.CombatState!.HittableEnemies, stacks * 2, owner.Creature, null);
         await CreatureCmd.Damage(ctx, owner.Creature.CombatState!.HittableEnemies, 5,
-            default, owner.Creature, null);
+            DamageProps.cardUnpowered, owner.Creature, null);
     }
 }
