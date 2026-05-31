@@ -7,32 +7,32 @@
     "STS2_STARBORN_TUNING_FIRE.title": "调谐",
     "STS2_STARBORN_TUNING_FIRE.description": "{Tuning:elementIcon()}对全体敌人施加等同于印记层数的[gold]灼烧[/gold]，消耗[blue]{Tuning}[/blue]层印记。",
     "STS2_STARBORN_OVERLOAD_FIRE.title": "超限",
-    "STS2_STARBORN_OVERLOAD_FIRE.description": "{Tuning:elementIcon()}对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]，消耗[blue]{Overload}[/blue]层印记。",
+    "STS2_STARBORN_OVERLOAD_FIRE.description": "{Overload:elementIcon()}对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]，消耗[blue]{Overload}[/blue]层印记。",
 
     "STS2_STARBORN_TUNING_WATER.title": "调谐",
     "STS2_STARBORN_TUNING_WATER.description": "{Tuning:elementIcon()}回合结束时若印记层数≥3，触发水属性调谐效果，消耗[blue]{Tuning}[/blue]层印记。（效果施工中）",
     "STS2_STARBORN_OVERLOAD_WATER.title": "超限",
-    "STS2_STARBORN_OVERLOAD_WATER.description": "{Tuning:elementIcon()}回合结束时若印记层数达到满层，触发水属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
+    "STS2_STARBORN_OVERLOAD_WATER.description": "{Overload:elementIcon()}回合结束时若印记层数达到满层，触发水属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
 
     "STS2_STARBORN_TUNING_WOOD.title": "调谐",
     "STS2_STARBORN_TUNING_WOOD.description": "{Tuning:elementIcon()}回合结束时若印记层数≥3，触发木属性调谐效果，消耗[blue]{Tuning}[/blue]层印记。（效果施工中）",
     "STS2_STARBORN_OVERLOAD_WOOD.title": "超限",
-    "STS2_STARBORN_OVERLOAD_WOOD.description": "{Tuning:elementIcon()}回合结束时若印记层数达到满层，触发木属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
+    "STS2_STARBORN_OVERLOAD_WOOD.description": "{Overload:elementIcon()}回合结束时若印记层数达到满层，触发木属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
 
     "STS2_STARBORN_TUNING_ICE.title": "调谐",
     "STS2_STARBORN_TUNING_ICE.description": "{Tuning:elementIcon()}回合结束时若印记层数≥3，触发冰属性调谐效果，消耗[blue]{Tuning}[/blue]层印记。（效果施工中）",
     "STS2_STARBORN_OVERLOAD_ICE.title": "超限",
-    "STS2_STARBORN_OVERLOAD_ICE.description": "{Tuning:elementIcon()}回合结束时若印记层数达到满层，触发冰属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
+    "STS2_STARBORN_OVERLOAD_ICE.description": "{Overload:elementIcon()}回合结束时若印记层数达到满层，触发冰属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
 
     "STS2_STARBORN_TUNING_WIND.title": "调谐",
     "STS2_STARBORN_TUNING_WIND.description": "{Tuning:elementIcon()}回合结束时若印记层数≥3，触发风属性调谐效果，消耗[blue]{Tuning}[/blue]层印记。（效果施工中）",
     "STS2_STARBORN_OVERLOAD_WIND.title": "超限",
-    "STS2_STARBORN_OVERLOAD_WIND.description": "{Tuning:elementIcon()}回合结束时若印记层数达到满层，触发风属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
+    "STS2_STARBORN_OVERLOAD_WIND.description": "{Overload:elementIcon()}回合结束时若印记层数达到满层，触发风属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
 
     "STS2_STARBORN_TUNING_LIGHT.title": "调谐",
     "STS2_STARBORN_TUNING_LIGHT.description": "{Tuning:elementIcon()}回合结束时若印记层数≥3，触发光属性调谐效果，消耗[blue]{Tuning}[/blue]层印记。（效果施工中）",
     "STS2_STARBORN_OVERLOAD_LIGHT.title": "超限",
-    "STS2_STARBORN_OVERLOAD_LIGHT.description": "{Tuning:elementIcon()}回合结束时若印记层数达到满层，触发光属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
+    "STS2_STARBORN_OVERLOAD_LIGHT.description": "{Overload:elementIcon()}回合结束时若印记层数达到满层，触发光属性超限效果，消耗[blue]{Overload}[/blue]层印记。（效果施工中）",
 
     "STS2_STARBORN_TUNING_NONE.title": "调谐",
     "STS2_STARBORN_TUNING_NONE.description": "无属性印记无法触发调谐效果。",

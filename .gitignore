@@ -8,3 +8,6 @@ sts2
 sts2_starborn.csproj
 *.import
 kibo_images
+
+.vscode
+steam_appid.txt

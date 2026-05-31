@@ -141,8 +141,8 @@
     "STS2_STARBORN_CARD_WOLF_PACK_HUNT_CARD.title": "群狼狩猎",
     "STS2_STARBORN_CARD_WOLF_PACK_HUNT_CARD.description": "[gold]奇波[/gold]：[blue]迅狼[/blue]。对一名敌人造成{Damage:diff()}点伤害[blue]{Repeat:diff()}[/blue]次。当使用[blue]迅狼[/blue]的[gold]奇波战技[/gold]时，使用其全部的[gold]奇波战技[/gold]。",
 
-    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_CARD.title": "迅狼",
-    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_REP_CARD.title": "迅狼",
+    "STS2_STARBORN_CARD_KIBO_SWIFT_WOLF_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_CLAW_CARD.title": "爪击",
     "STS2_STARBORN_CARD_KIBO_CLAW_CARD.description": "对随机一名敌人造成{Damage:diff()}点伤害。",
@@ -162,8 +162,8 @@
     "STS2_STARBORN_CARD_PERFORMANCE_CARD.title": "演奏",
     "STS2_STARBORN_CARD_PERFORMANCE_CARD.description": "[gold]奇波[/gold]：[blue]木灵朵[/blue]。获得{Dexterity:diff()}点临时敏捷。获得{Block:diff()}点格挡。",
 
-    "STS2_STARBORN_CARD_KIBO_MOKLIDO_CARD.title": "木灵朵",
-    "STS2_STARBORN_CARD_KIBO_MOKLIDO_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_REP_CARD.title": "木灵朵",
+    "STS2_STARBORN_CARD_KIBO_MOKLIDO_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_BUD_SHIELD_CARD.title": "花苞防护",
     "STS2_STARBORN_CARD_KIBO_BUD_SHIELD_CARD.description": "获得{Block:diff()}点格挡。",
@@ -177,8 +177,8 @@
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.title": "滚动撞击",
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有一个敌人弹跳一次。",
 
-    "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_CARD.title": "覆甲犰",
-    "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.title": "覆甲犰",
+    "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.title": "惯性滚动",
     "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce}次。",
@@ -186,14 +186,14 @@
     "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.title": "滚动火球",
     "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce}次。每次造成伤害获得1层[red]火[/red]印记。",
 
-    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_CARD.title": "绒心布里尼",
-    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_REP_CARD.title": "绒心布里尼",
+    "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.title": "绒心炸弹",
-    "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.description": "[gold]奇波战技[/gold]。获得{ElementMark:elementIcon()}层{ElementMark:elementIcon(single)}属性印记。[gold]超限[/gold]1{ElementMark:elementIcon(single)}。",
+    "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.description": "获得{ElementMark:elementIcon()}层{ElementMark:elementIcon(single)}属性印记。[gold]超限[/gold]1{ElementMark:elementIcon(single)}。",
 
     "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.title": "隐于彩虹",
-    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "[gold]奇波特技[/gold]。获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
+    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
 
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.title": "幸运彩虹",
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波特技[/gold]。",
@@ -213,15 +213,15 @@
     "STS2_STARBORN_CARD_ENSEMBLE_CARD.title": "合奏",
     "STS2_STARBORN_CARD_ENSEMBLE_CARD.description": "[gold]奇波[/gold]：蔓音花。本场战斗你每切换过一种属性此牌的耗能减少1。获得{Block:diff()}点格挡。",
 
-    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_CARD.title": "蔓音花",
-    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_REP_CARD.title": "蔓音花",
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_VINE_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_MELODIOUS_ECHO_CARD.title": "蔓音回响",
-    "STS2_STARBORN_CARD_KIBO_MELODIOUS_ECHO_CARD.description": "[gold]奇波战技[/gold]。获得{Block:diff()}点格挡。在下个回合获得{Block:diff()}点格挡。",
+    "STS2_STARBORN_CARD_KIBO_MELODIOUS_ECHO_CARD.description": "获得{Block:diff()}点格挡。在下个回合获得{Block:diff()}点格挡。",
 
     "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.title": "种子风暴",
-    "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.description": "[gold]奇波战技[/gold]。对所有敌人造成{Damage:diff()}点伤害。每有一个敌人获得{ElementMark:elementIcon(single)}。",
+    "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。每有一个敌人获得{ElementMark:elementIcon(single)}。",
 
     "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.title": "芳香疗法",
-    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.description": "[gold]奇波特技[/gold]。移除随机一张状态牌。{IfUpgraded:所有状态牌|}"
+    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.description": "移除随机一张状态牌。{IfUpgraded:所有状态牌|}"
 }
