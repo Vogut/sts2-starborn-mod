@@ -41,6 +41,13 @@ public static class KiboPileManager
     public static event Action? ActiveKiboChanged;
 
     /// <summary>
+    /// 显式跟踪当前活跃的奇波类型集合。此集合是 "奇波是否活跃" 的唯一真实来源，
+    /// 不依赖活跃牌堆中实际有哪些牌。仅通过 MoveKiboToActive / MoveKiboToStorage /
+    /// RemoveKiboFromCombat / InitializeForCombat 变更。
+    /// </summary>
+    private static readonly HashSet<KiboTypeId> _activeKiboTypes = [];
+
+    /// <summary>
     /// 注册三套奇波牌堆到 RitsuLib 牌堆注册表。在 Entry.cs 初始化阶段调用。
     /// </summary>
     public static void RegisterPiles()
@@ -174,6 +181,8 @@ public static class KiboPileManager
     /// </summary>
     public static async Task InitializeForCombat(Player player)
     {
+        _activeKiboTypes.Clear();
+
         var data = KiboRunData.Get(player);
         if (data == null || data.OwnedKiboTypeIds.Count == 0) return;
 
@@ -201,6 +210,8 @@ public static class KiboPileManager
     /// </summary>
     public static void RemoveKiboFromCombat(Player player, KiboTypeId typeId)
     {
+        _activeKiboTypes.Remove(typeId);
+
         var combatStorage = GetStorageCombatPile(player);
         if (combatStorage == null) return;
 
@@ -229,6 +240,8 @@ public static class KiboPileManager
     /// </summary>
     public static async Task MoveKiboToStorage(Player player, KiboTypeId typeId)
     {
+        _activeKiboTypes.Remove(typeId);
+
         var activePile = GetActivePile(player);
         var combatStorage = GetStorageCombatPile(player);
         if (activePile == null || combatStorage == null) return;
@@ -256,7 +269,7 @@ public static class KiboPileManager
         var keyword = KiboKeywords.TypeKeywordValue(typeId);
 
         // 已在活跃中，幂等跳过
-        if (activePile.Cards.Any(c => c.HasModKeyword(keyword)))
+        if (IsKiboTypeActive(player, typeId))
             return;
 
         // 后备堆没有该类型 → 从母版克隆或全新创建
@@ -265,6 +278,9 @@ public static class KiboPileManager
             var masterStorage = GetStoragePile(player);
             await CreateTypeInCombat(player, typeId);
         }
+
+        // 标记为活跃——必须在搬牌之前，确保 hook 回调中 IsKiboTypeActive 返回正确值
+        _activeKiboTypes.Add(typeId);
 
         // 能力牌从后备堆移到活跃堆（RepCard 留在后备堆不动）
         foreach (var card in combatStorage.Cards
@@ -364,15 +380,26 @@ public static class KiboPileManager
         return null;
     }
 
-    /// <summary>获取当前活跃的奇波类型。活跃堆为空时返回 null。</summary>
+    /// <summary>
+    /// 检查指定奇波类型是否仍在活跃中。基于 <see cref="_activeKiboTypes"/> 追踪器判断，
+    /// 不依赖活跃牌堆中实际牌的存否，因此单技能奇波打牌时不会误判为 "已下场"。
+    /// </summary>
+    public static bool IsKiboTypeActive(Player player, KiboTypeId typeId)
+    {
+        if (player.Creature.CombatState == null) return false;
+        return _activeKiboTypes.Contains(typeId);
+    }
+
+    /// <summary>
+    /// 获取当前活跃的奇波类型。多奇波同时活跃时只返回枚举序第一项；无活跃奇波时返回 null。
+    /// </summary>
     public static KiboTypeId? GetActiveKiboType(Player player)
     {
-        var activePile = GetActivePile(player);
-        if (activePile == null || activePile.Cards.Count == 0) return null;
+        if (player.Creature.CombatState == null) return null;
 
         foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
         {
-            if (activePile.Cards.Any(c => c.HasModKeyword(KiboKeywords.TypeKeywordValue(typeId))))
+            if (_activeKiboTypes.Contains(typeId))
                 return typeId;
         }
         return null;
