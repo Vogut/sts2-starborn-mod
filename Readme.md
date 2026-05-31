@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/badge/-Godot-478CBF?style=for-the-badge&logo=godotengine&logoColor=white" alt="Godot"/> 
 <img src="https://img.shields.io/badge/-Slay%20the%20Spire%202-8B0000?style=for-the-badge&logoColor=white" alt="Slay the Spire 2"/> 
 <a href="https://github.com/BAKAOLC/STS2-RitsuLib"><img src="https://img.shields.io/badge/-STS2--RitsuLib-5538DD?style=for-the-badge&logo=github&logoColor=white" alt="STS2-RitsuLib"/></a> 
-<img src="https://img.shields.io/badge/version-0.1.0--aplha-2196f3?style=for-the-badge" alt="Version"/>
+<img src="https://img.shields.io/badge/version-0.3.0--aplha-2196f3?style=for-the-badge" alt="Version"/>
 </div>
 </div>
 
@@ -112,7 +112,7 @@
 | 卡牌 | 费用 | 类型 | 效果 | 升级 |
 |------|------|------|------|------|
 | 不够小！（NoBigger）  | 1 | 技能 | 获得7格挡，给目标施加1层**变小**和1层**虚弱**。 | 虚弱层数→2 |
-| 随机上岗（RandomDuty）  | 2 | 能力 | 回合开始时，随机切换一只奇波，并释放其一张普通能力牌。 | 待定  |
+| 随机上岗（RandomDuty）  | 2 | 能力 | 回合开始时，随机切换一只奇波，并使用其一张**奇波战技**。 | 待定  |
 | 对轴（Alignment）  | 1 | 技能 | 将主/副属性印记中较低一方的层数提升至与较高一方相同。**消耗** 。 | 费用 1->0  |
 | 自定义（Customize）  | 1 | 技能 | 指定你的主属性印记和副属性印记的属性类型。**消耗** 。 | 移除**消耗**  |
 | 星八客 （StarbornCoffee） | 1 | 技能 | 消耗一层当前的主属性印记。获得3点能量。 | 耗能1 -> 0 |
