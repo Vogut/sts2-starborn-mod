@@ -45,6 +45,15 @@
     "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.title": "能量补充",
     "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.description": "从[gold]弃牌堆[/gold]中选择最多3张牌[gold]消耗[/gold]。每消耗一张牌获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。",
 
+    "STS2_STARBORN_CARD_ALPHA_TEST_GIFT_CARD.title": "一测大礼包",
+    "STS2_STARBORN_CARD_ALPHA_TEST_GIFT_CARD.description": "将所有的[gold]时尚小垃圾[/gold]加入你的手牌。{IfUpgraded:show:它们是升级后的。|}",
+
+    "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.title": "耕种之时",
+    "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.description": "每回合开始时，获得{Empower:diff()}层[gold]奇波强化[/gold]。",
+
+    "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.title": "氪金",
+    "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.description": "失去{Gold}金币。获得{Empower:diff()}层[gold]谐调强化[/gold]。",
+
     "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.title": "要我一直喷吗？",
     "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.description": "[gold]奇波[/gold]：碧羽灵龙。[gold]超限{Overload:elementIcon()}[/gold]。对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
 
@@ -53,6 +62,9 @@
 
     "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.title": "无影脚",
     "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "[gold]调谐{Tuning:elementIcon()}[/gold]。造成当前[gold]灼烧[/gold]层数的伤害{Repeat:diff()}次。",
+
+    "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.title": "玩雪",
+    "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.description": "[gold]奇波[/gold]：小雪狼。{IfUpgraded:show:将副属性变为[blue]冰[/blue]。|失去一层副印记。将副属性变为[blue]冰[/blue]。}",
 
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
@@ -93,6 +105,14 @@
     "STS2_STARBORN_CARD_LEAFOX_ULTIMATE_CARD.description": "造成[blue]{Damage}[/blue]点伤害。",
     "STS2_STARBORN_CARD_LEAFOX_REP_CARD.title": "小芽狐",
     "STS2_STARBORN_CARD_LEAFOX_REP_CARD.description": "[gold]奇波[/gold]：小芽狐。\n可打出[blue]狐火[/blue]和[blue]狐守[/blue]。",
+
+    "STS2_STARBORN_CARD_KIBO_SNOW_WOLF_PUP_REP_CARD.title": "小雪狼",
+    "STS2_STARBORN_CARD_KIBO_SNOW_WOLF_PUP_REP_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_PLAY_CARD.title": "嬉戏",
+    "STS2_STARBORN_CARD_KIBO_PLAY_CARD.description": "",
+    "STS2_STARBORN_CARD_KIBO_CLAWMARK_CARD.title": "爪印",
+    "STS2_STARBORN_CARD_KIBO_CLAWMARK_CARD.description": "将副属性变为[blue]冰[/blue]。{IfUpgraded:show:获得{ElementMarkSecondary:elementIcon()}。|}",
+
     "STS2_STARBORN_CARD_FLORATAIL_REP_CARD.title": "蓬尾狐",
     "STS2_STARBORN_CARD_FLORATAIL_REP_CARD.description": "[gold]奇波[/gold]：蓬尾狐。\n可打出[blue]突袭[/blue]和[blue]守护[/blue]。",
     "STS2_STARBORN_CARD_FLORATAIL_ABILITY1_CARD.title": "突袭",
@@ -161,6 +181,9 @@
 
     "STS2_STARBORN_CARD_FAVORITE_CARD.title": "本命",
     "STS2_STARBORN_CARD_FAVORITE_CARD.description": "获得{Empower:diff()}层[gold]奇波强化[/gold]。无法再切换[gold]奇波[/gold]。",
+
+    "STS2_STARBORN_CARD_MOONLIT_RITUAL_CARD.title": "月下秘仪",
+    "STS2_STARBORN_CARD_MOONLIT_RITUAL_CARD.description": "每个回合，每使用一张攻击牌获得{Empower:diff()}层临时[gold]谐调强化[/gold]。",
 
     "STS2_STARBORN_CARD_GUNSHOT_CARD.title": "枪击",
     "STS2_STARBORN_CARD_GUNSHOT_CARD.description": "[gold]超限{Overload:elementIcon()}[/gold]。造成{Multiplier:diff()}倍当前[gold]灼烧[/gold]层数的伤害。",

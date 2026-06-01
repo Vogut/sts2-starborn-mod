@@ -82,6 +82,14 @@
     "STS2_STARBORN_POWER_FAVORITE_POWER.title": "本命",
     "STS2_STARBORN_POWER_FAVORITE_POWER.description": "无法再切换[gold]奇波[/gold]。",
 
+    "STS2_STARBORN_POWER_MOONLIT_RITUAL_POWER.title": "月下密仪",
+    "STS2_STARBORN_POWER_MOONLIT_RITUAL_POWER.description": "每使用一张攻击牌获得[blue]1[/blue]层临时[gold]谐调强化[/gold]。",
+    "STS2_STARBORN_POWER_MOONLIT_RITUAL_POWER.smartDescription": "每使用一张攻击牌获得[blue]{Amount}[/blue]层临时[gold]谐调强化[/gold]。",
+
+    "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.title": "耕种之时",
+    "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.description": "每回合开始时获得[blue]3[/blue]层[gold]奇波强化[/gold]。",
+    "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.smartDescription": "每回合开始时获得[blue]{Amount}[/blue]层[gold]奇波强化[/gold]。",
+
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.title": "免费调谐",
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.description": "下一次调谐或超限的印记消耗为0。",
 

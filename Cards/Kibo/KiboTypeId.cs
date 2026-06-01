@@ -11,4 +11,5 @@ public enum KiboTypeId
     Downybrinny,
     MelodiousVine,
     JadeFeatherDragon,
+    SnowWolfPup,
 }
