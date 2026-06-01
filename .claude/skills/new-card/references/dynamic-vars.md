@@ -11,6 +11,7 @@
 | `CardsVar` | 抽牌 | `new CardsVar(2)` | `DynamicVars.Cards` |
 | `EnergyVar` | 能量数值，配合 `{Name:energyIcons()}` 渲染角色能量图标 | `new EnergyVar(3)` | `DynamicVars.Energy` |
 | `HealVar` | 治疗 | `new HealVar(3)` | `DynamicVars.Heal` |
+| `RepeatVar` | 重复次数，配合 `WithHitCount()` 或 循环 等方法实现多段效果 | `new RepeatVar(4)` | `DynamicVars.Repeat` |
 | `IntVar` | 通用数值（印记层数、层数等）——**仅在没有专用类型时使用** | `new IntVar("Weak", 2)` | `DynamicVars["Weak"]` |
 
 ## 严禁 IntVar 替代专用类型
