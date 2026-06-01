@@ -36,6 +36,18 @@
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "异闪",
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "升级你所有的奇波牌。",
 
+    "STS2_STARBORN_CARD_JADE_TWIG_LEANING_ROYAL_FAN_CARD.title": "玉枝倚宝扇",
+    "STS2_STARBORN_CARD_JADE_TWIG_LEANING_ROYAL_FAN_CARD.description": "[gold]超限[/gold]{Overload:elementIcon()}/{OverloadSecondary:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.title": "能量补充",
+    "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.description": "从[gold]弃牌堆[/gold]中选择最多3张牌[gold]消耗[/gold]。每消耗一张牌获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。",
+
+    "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.title": "蓝白碗",
+    "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.description": "抽{Cards:diff()}张牌。\n[gold]调谐{Tuning:elementIcon()}[/gold]。",
+
+    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.title": "无影脚",
+    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "[gold]调谐{Tuning:elementIcon()}[/gold]。造成当前[gold]灼烧[/gold]层数的伤害{Hits:diff()}次。",
+
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
 
@@ -135,6 +147,12 @@
     "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.title": "便携合成台",
     "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.description": "[gold]消耗[/gold]手牌中的两张牌，从随机三张[gold]时尚小垃圾[/gold]中选择一张加入你的手牌。",
 
+    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.title": "随机应变",
+    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，[gold]调谐{Tuning:elementIcon()}[/gold]。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
+
+    "STS2_STARBORN_CARD_CHARGE_HAMMER_CARD.title": "蓄力锤",
+    "STS2_STARBORN_CARD_CHARGE_HAMMER_CARD.description": "造成{Damage:diff()}点伤害。[gold]斩杀[/gold]：获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。",
+
     "STS2_STARBORN_CARD_LANCE_HURL_CARD.title": "投枪",
     "STS2_STARBORN_CARD_LANCE_HURL_CARD.description": "当你[bold]主/副属性印记[/bold]层数都大于等于3时，[gold]耗能为0[/gold]。造成{Damage:diff()}点伤害。",
 
@@ -172,7 +190,7 @@
     "STS2_STARBORN_CARD_KIBO_MOKLIDO_BLOOM_CARD.description": "获得{Block:diff()}点格挡。获得1层副属性木属性印记。",
 
     "STS2_STARBORN_CARD_WIND_ARROW_CARD.title": "乘风一箭",
-    "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。[gold]调谐{Tuning:elementIcon()}[/gold]：1风。",
+    "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。[gold]调谐{Tuning:elementIcon()}[/gold]。",
 
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.title": "滚动撞击",
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有一个敌人弹跳一次。",
@@ -193,7 +211,7 @@
     "STS2_STARBORN_CARD_KIBO_DOWNY_BOMB_CARD.description": "获得{ElementMark:elementIcon()}层{ElementMark:elementIcon(single)}属性印记。[gold]超限[/gold]1{ElementMark:elementIcon(single)}。",
 
     "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.title": "隐于彩虹",
-    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMark:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
+    "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
 
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.title": "幸运彩虹",
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波特技[/gold]。",

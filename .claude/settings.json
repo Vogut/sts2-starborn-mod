@@ -6,7 +6,8 @@
       "Bash(xargs grep -l \"StartNewSingleplayerRun\\\\|StartingBlessing\\\\|StartingBonus\\\\|BlessingScreen\\\\|NBlessing\")",
       "Edit(/.claude/skills/new-card/**)",
       "Edit(/.claude/skills/sts2-mod-dev/**)",
-      "PowerShell(dotnet build \"d:\\\\notwork\\\\sts2-starborn-mod\\\\sts2_starborn.sln\")"
+      "PowerShell(dotnet build \"d:\\\\notwork\\\\sts2-starborn-mod\\\\sts2_starborn.sln\")",
+      "PowerShell(dotnet build sts2_starborn.sln 2>&1)"
     ]
   }
 }
