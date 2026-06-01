@@ -18,18 +18,18 @@ public class MamaCard() : StarbornCard(
     1,CardType.Skill, CardRarity.Common,TargetType.Self)
 {
     public override bool GainsBlock => true;
-protected override IEnumerable<DynamicVar> CanonicalVars =>
-[
-    ElementMark(1, SealElementType.Light),
-    new BlockVar(8m, ValueProp.Move),
-];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        ElementMark(1, SealElementType.Light),
+        new BlockVar(8m, ValueProp.Move),
+    ];
 
-protected override async Task OnPlay(PlayerChoiceContext choiceContext,CardPlay play)
-{
-    await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-    await SealElementMarkCmd.GainElementMarks(
-        choiceContext, MarkSlot.Secondary, Owner, DynamicVars["ElementMark"].IntValue);
-}
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext,CardPlay play)
+    {
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
+        await SealElementMarkCmd.GainElementMarks(
+            choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+    }
 
     protected override void OnUpgrade()
     {

@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Corovulpe)]
-public sealed class CorovulpeAbility2Card() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboWoodStarlightCard() : KiboCard(CardType.Attack, TargetType.RandomEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -19,16 +19,23 @@ public sealed class CorovulpeAbility2Card() : KiboCard(CardType.Skill, TargetTyp
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6, ValueProp.Move),
+        new DamageVar(4, ValueProp.Move),
+        new RepeatVar(3),
     ];
-
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Block.UpgradeValueBy(4);
-    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        if (CombatState == null) return;
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .FromCard(this)
+            .TargetingRandomOpponents(CombatState)
+            .Execute(choiceContext);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(1);
     }
 }

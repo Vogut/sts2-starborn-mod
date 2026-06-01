@@ -9,8 +9,8 @@ using STS2RitsuLib.Keywords;
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-[KiboAbilityOf(KiboTypeId.Corovulpe)]
-public sealed class CorovulpeAbility1Card() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+[KiboAbilityOf(KiboTypeId.Floratail)]
+public sealed class KiboFlutterScatterCard() : KiboCard(CardType.Attack, TargetType.RandomEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -19,14 +19,23 @@ public sealed class CorovulpeAbility1Card() : KiboCard(CardType.Attack, TargetTy
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10, ValueProp.Move),
+        new DamageVar(2, ValueProp.Move),
+        new RepeatVar(3),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (CombatState == null) return;
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target!)
+            .TargetingRandomOpponents(CombatState)
             .Execute(choiceContext);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(1);
     }
 }
