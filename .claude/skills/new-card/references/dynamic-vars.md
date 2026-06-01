@@ -69,3 +69,47 @@ await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, stacks, elementType)
 // ✗ Wrong
 await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, stacks, SealElementType.Light);
 ```
+
+## AdditionalHoverTips 紧凑显示规则
+
+当卡牌的 `AdditionalHoverTips` 引用 **≥4 张牌预览**（`HoverTipFactory.FromCard`）时，必须使用 `CompactCardGridHoverTip` 打包为 2 列紧凑网格，避免垂直堆叠溢出屏幕。
+
+```csharp
+// ✓ Correct — 4+ 张牌用 CompactCardGridHoverTip 打包
+using STS2_Starborn.UI;
+
+protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+[
+    HoverTipFactory.FromPower<MyPower>(),
+    new CompactCardGridHoverTip(
+        TokenCardTypes.Select(t => ModelDb.GetById<CardModel>(ModelDb.GetId(t)))),
+];
+
+// ✗ Wrong — 4+ 张牌逐个返回，垂直堆叠超出屏幕
+protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    new[] { HoverTipFactory.FromPower<MyPower>() }
+        .Concat(TokenCardTypes.Select(t => HoverTipFactory.FromCard(
+            ModelDb.GetById<CardModel>(ModelDb.GetId(t)))));
+```
+
+**规则**：
+- 1~3 张牌：直接返回 `HoverTipFactory.FromCard` / `FromPower` 等
+- ≥4 张牌：必须用 `new CompactCardGridHoverTip(cards)` 打包
+- Power / Relic / Potion 等文本提示不计入牌数，只计算 `FromCard` 的数量
+
+### Kibo 召唤牌专用简化
+
+Kibo 召唤牌（有 `KiboSummonType` 的牌）直接使用 `KiboTypeDefinition.CreateCompactCardGridHoverTips()`，已内置 RepCard + 所有能力牌的打包：
+
+```csharp
+// ✓ Correct — Kibo 牌一行搞定
+protected override IEnumerable<IHoverTip> AdditionalHoverTips
+{
+    get
+    {
+        yield return HoverTipFactory.FromPower<WolfPackPower>();
+        yield return KiboTypeRegistry.Get(KiboTypeId.SwiftWolf)
+            .CreateCompactCardGridHoverTips();
+    }
+}
+```

@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Cards.Kibo;
 
@@ -47,6 +48,21 @@ public sealed record KiboTypeDefinition(
         if (UltimateCardType is { } ultType)
             yield return HoverTipFactory.FromCard(
                 ModelDb.GetById<CardModel>(ModelDb.GetId(ultType)));
+    }
+
+    /// <summary>
+    /// 将 RepCard + 所有能力牌打包为紧凑 2 列网格，避免垂直堆叠溢出屏幕。
+    /// </summary>
+    public CompactCardGridHoverTip CreateCompactCardGridHoverTips()
+    {
+        var cards = new List<CardModel>
+        {
+            ModelDb.GetById<CardModel>(ModelDb.GetId(RepCardType)),
+        };
+        foreach (var tip in CreatePlayableCardHoverTips())
+            cards.Add(((CardHoverTip)tip).Card);
+
+        return new CompactCardGridHoverTip(cards);
     }
 }
 

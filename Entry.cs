@@ -55,6 +55,7 @@ public class Entry
         patcher.RegisterPatch<WidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
         patcher.RegisterPatch<KiboLoadPatch>();
+        patcher.RegisterPatch<CompactCardGridHoverTipPatch>();
 #if DEBUG
         patcher.RegisterPatch<StarbornDebugPanelPatch>();
 #endif

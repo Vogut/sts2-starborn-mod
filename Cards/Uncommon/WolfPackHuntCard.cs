@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
@@ -30,11 +29,8 @@ public sealed class WolfPackHuntCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromPower<WolfPackPower>();
-            yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboSwiftWolfRepCard>()));
-            var def = KiboTypeRegistry.Get(KiboTypeId.SwiftWolf);
-            foreach (var tip in def.CreatePlayableCardHoverTips())
-                yield return tip;
+            yield return KiboTypeRegistry.Get(KiboTypeId.SwiftWolf)
+                .CreateCompactCardGridHoverTips();
         }
     }
 
