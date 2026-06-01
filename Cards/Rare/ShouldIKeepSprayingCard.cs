@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Keywords;
+using STS2_Starborn.Character;
+using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Combat;
+using STS2_Starborn.Commands;
+using STS2_Starborn.Element;
+
+namespace STS2_Starborn.Cards.Rare;
+
+[RegisterCard(typeof(StarbornCardPool))]
+public sealed class ShouldIKeepSprayingCard() : StarbornCard(
+    2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy
+)
+{
+    public override KiboTypeId? KiboSummonType => KiboTypeId.JadeFeatherDragon;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Exhaust,
+        KiboKeywords.KiboKeywordId.GetModCardKeyword(),
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        StarbornCardVars.Overload(1, SealElementType.Water),
+        new DamageVar(7m, ValueProp.Move),
+        new DamageVar("Dam2", 7m, ValueProp.Move),
+    ];
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips
+    {
+        get
+        {
+            yield return HoverTipFactory.FromCard(
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboJadeFeatherDragonRepCard>()));
+            var def = KiboTypeRegistry.Get(KiboTypeId.JadeFeatherDragon);
+            foreach (var tip in def.CreatePlayableCardHoverTips())
+                yield return tip;
+        }
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        var combatState = Owner.Creature.CombatState;
+        if (combatState == null) return;
+
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+
+        var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
+        await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,
+            DynamicVars["Overload"].IntValue, overloadElementType, this);
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this)
+            .Targeting(cardPlay.Target)
+            .Execute(choiceContext);
+
+        await DamageCmd.Attack(DynamicVars["Dam2"].BaseValue)
+            .FromCard(this)
+            .TargetingAllOpponents(combatState)
+            .Execute(choiceContext);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars["Dam2"].UpgradeValueBy(2);
+    }
+}

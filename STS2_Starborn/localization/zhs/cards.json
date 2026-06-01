@@ -14,7 +14,10 @@
     "STS2_STARBORN_CARD_STARBORN_STRIKE.description": "造成{Damage:diff()}点伤害。",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.title": "防御",
     "STS2_STARBORN_CARD_STARBORN_DEFEND.description": "获得{Block:diff()}点格挡。",
-            
+
+    "STS2_STARBORN_CARD_RETURN_SEA_OF_STARS_CARD.title": "归于星海",
+    "STS2_STARBORN_CARD_RETURN_SEA_OF_STARS_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。[gold]调谐{Tuning:elementIcon()}[/gold]。",
+
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗减少[red]1[/red]。回合开始时印记属性不再重置。",
     
@@ -42,11 +45,14 @@
     "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.title": "能量补充",
     "STS2_STARBORN_CARD_ENERGY_REFILL_CARD.description": "从[gold]弃牌堆[/gold]中选择最多3张牌[gold]消耗[/gold]。每消耗一张牌获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。",
 
+    "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.title": "要我一直喷吗？",
+    "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.description": "[gold]奇波[/gold]：碧羽灵龙。[gold]超限{Overload:elementIcon()}[/gold]。对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
+
     "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.title": "蓝白碗",
     "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.description": "抽{Cards:diff()}张牌。\n[gold]调谐{Tuning:elementIcon()}[/gold]。",
 
     "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.title": "无影脚",
-    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "[gold]调谐{Tuning:elementIcon()}[/gold]。造成当前[gold]灼烧[/gold]层数的伤害{Hits:diff()}次。",
+    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "[gold]调谐{Tuning:elementIcon()}[/gold]。造成当前[gold]灼烧[/gold]层数的伤害{Repeat:diff()}次。",
 
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
@@ -123,8 +129,8 @@
     "STS2_STARBORN_CARD_SWAP_CARD.title": "切人",
     "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。",
 
-    "STS2_STARBORN_CARD_STARBOCK_CARD.title": "星八客",
-    "STS2_STARBORN_CARD_STARBOCK_CARD.description": "消耗{ElementMark:elementIcon()}/{ElementMark:elementIcon()}。获得{Energy:energyIcons()}。",
+    "STS2_STARBORN_CARD_MAMA_CARD.title": "妈妈！",
+    "STS2_STARBORN_CARD_MAMA_CARD.description": "获得{Block:diff()}点格挡。获得{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.title": "栗栗花的赠礼",
     "STS2_STARBORN_CARD_GIFT_OF_LILI_CARD.description": "获得{Primary:elementIcon()}/{Secondary:elementIcon()}。",
@@ -149,6 +155,15 @@
 
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.title": "随机应变",
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，[gold]调谐{Tuning:elementIcon()}[/gold]。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
+
+    "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.title": "奇波产线",
+    "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.description": "本场战斗[gold]奇波[/gold]无法出牌。回合开始时将随机{Count:diff()}张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
+
+    "STS2_STARBORN_CARD_FAVORITE_CARD.title": "本命",
+    "STS2_STARBORN_CARD_FAVORITE_CARD.description": "获得{Empower:diff()}层[gold]奇波强化[/gold]。无法再切换[gold]奇波[/gold]。",
+
+    "STS2_STARBORN_CARD_GUNSHOT_CARD.title": "枪击",
+    "STS2_STARBORN_CARD_GUNSHOT_CARD.description": "[gold]超限{Overload:elementIcon()}[/gold]。造成{Multiplier:diff()}倍当前[gold]灼烧[/gold]层数的伤害。",
 
     "STS2_STARBORN_CARD_CHARGE_HAMMER_CARD.title": "蓄力锤",
     "STS2_STARBORN_CARD_CHARGE_HAMMER_CARD.description": "造成{Damage:diff()}点伤害。[gold]斩杀[/gold]：获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。",
@@ -212,6 +227,13 @@
 
     "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.title": "隐于彩虹",
     "STS2_STARBORN_CARD_KIBO_HIDDEN_IN_RAINBOW_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。获得{Energy:energyIcons()}。抽{Cards}张牌。随机换上一只[gold]奇波[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_JADE_FEATHER_DRAGON_REP_CARD.title": "碧羽灵龙",
+    "STS2_STARBORN_CARD_KIBO_JADE_FEATHER_DRAGON_REP_CARD.description": "[gold]奇波[/gold]：碧羽灵龙。\n可打出[blue]碧灵激流[/blue]和[blue]还要喷吗？[/blue]。",
+    "STS2_STARBORN_CARD_KIBO_AZUR_TORRENT_CARD.title": "碧灵激流",
+    "STS2_STARBORN_CARD_KIBO_AZUR_TORRENT_CARD.description": "对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
+    "STS2_STARBORN_CARD_KIBO_NO_WANT_SPRAYING_CARD.title": "还要喷吗？",
+    "STS2_STARBORN_CARD_KIBO_NO_WANT_SPRAYING_CARD.description": "[gold]超限{Overload:elementIcon()}[/gold]。对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
 
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.title": "幸运彩虹",
     "STS2_STARBORN_CARD_LUCKY_RAINBOW_CARD.description": "[gold]奇波[/gold]：绒心布里尼。[blue]消耗[/blue]。释放当前奇波的[gold]奇波特技[/gold]。",

@@ -10,4 +10,5 @@ public enum KiboTypeId
     ArmoredPangolin,
     Downybrinny,
     MelodiousVine,
+    JadeFeatherDragon,
 }

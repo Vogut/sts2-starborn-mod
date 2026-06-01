@@ -96,24 +96,24 @@ await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, DynamicVars["Element
 
 ### 调谐卡
 
-参照 [TuningCard](Cards/Common/TuningCard.cs)：
+参照 [TuningCard](Cards/Basic/ReturnSeaOfStarsCard.cs)：
 ```csharp
 // IsPlayable: StarbornCmd.CanTuning(Owner, MarkSlot.Primary)
-// DynamicVar: StarbornCardVars.Tuning(2, SealElementType.Fire)
-var et = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
-await StarbornCmd.Tuning(ctx, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, et, this);
+// DynamicVar: Tuning(0, SealElementType.Any, "Tuning", MarkSlot.Primary)
+var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
+await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
+    DynamicVars["Tuning"].IntValue, tuningElementType, this);
 ```
 
 ### 超限卡
 
-参照 [OverloadCard](Cards/Uncommon/OverloadCard.cs)：
+参照 [OverloadCard](Cards/Uncommon/GunshotCard.cs)：
 ```csharp
 // IsPlayable: StarbornCmd.CanOverload(Owner, MarkSlot.Primary)
-// DynamicVar: StarbornCardVars.Overload(2, SealElementType.Fire)
-var et = ((SealElementVar)DynamicVars["Overload"]).ElementType;
-var need = ElementMarkManager.ThresholdStacks - PrimaryStacks;
-if (need > 0) await SealElementMarkCmd.GainElementMarks(ctx, slot, Owner, need, et);
-await StarbornCmd.Overload(ctx, MarkSlot.Primary, Owner, DynamicVars["Overload"].IntValue, et, this);
+// DynamicVar: Overload(1, SealElementType.Fire, "Overload", MarkSlot.Primary)
+var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
+await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,
+    DynamicVars["Overload"].IntValue, overloadElementType, this);
 ```
 
 ### 印记平衡
