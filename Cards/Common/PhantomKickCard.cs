@@ -24,7 +24,7 @@ public sealed class PhantomKickCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.Tuning(1, SealElementType.Fire),
-        new IntVar("Hits", 4),
+        new RepeatVar(4),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
@@ -43,16 +43,15 @@ public sealed class PhantomKickCard() : StarbornCard(
         var burnStacks = cardPlay.Target.GetPowerAmount<BurnPower>();
         if (burnStacks <= 0) return;
 
-        var hits = DynamicVars["Hits"].IntValue;
         await DamageCmd.Attack((decimal)burnStacks)
             .FromCard(this)
             .Targeting(cardPlay.Target)
-            .WithHitCount(hits)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Hits"].UpgradeValueBy(1);
+        DynamicVars.Repeat.UpgradeValueBy(1);
     }
 }
