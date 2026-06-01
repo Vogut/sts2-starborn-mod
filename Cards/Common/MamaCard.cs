@@ -26,9 +26,10 @@ public class MamaCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext,CardPlay play)
     {
+        var elementType = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
         await SealElementMarkCmd.GainElementMarks(
-            choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+            choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue, elementType);
     }
 
     protected override void OnUpgrade()

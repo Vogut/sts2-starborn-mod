@@ -32,12 +32,14 @@ public sealed class KiboSproutBreathCard() : KiboCard(CardType.Attack, TargetTyp
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        if (CombatState == null) return;
+        var elementType = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target!)
+            .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
         await SealElementMarkCmd.GainElementMarks(
-            choiceContext, MarkSlot.Secondary, Owner, DynamicVars["ElementMark"].IntValue);
+            choiceContext, MarkSlot.Secondary, Owner, DynamicVars["ElementMark"].IntValue, elementType);
     }
 }

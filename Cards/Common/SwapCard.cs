@@ -41,13 +41,12 @@ public class SwapCard() : StarbornCard(
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.Any);
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, 1);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(1);
-        DynamicVars["Dam2"].BaseValue += 2;
+        DynamicVars["Dam2"].UpgradeValueBy(2);
     }
 }
