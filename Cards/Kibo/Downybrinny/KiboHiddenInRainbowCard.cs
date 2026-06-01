@@ -21,7 +21,8 @@ public sealed class KiboHiddenInRainbowCard() : KiboCard(CardType.Skill, TargetT
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        ElementMark(1, SealElementType.Any),
+        ElementMark(1, SealElementType.Any, "ElementMark", MarkSlot.Primary),
+        ElementMark(1, SealElementType.Any, "ElementMarkSecondary", MarkSlot.Secondary),
         new EnergyVar(2),
         new CardsVar(2),
     ];

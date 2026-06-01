@@ -41,20 +41,21 @@ public abstract class StarbornCard(
     // 当 elementType == SealElementType.Any 时，创建动态解析当前主属性印记的 computed var
     // 预览时显示 Any 图标，战斗时显示实际元素图标
 
-    protected DynamicVar Tuning(int stacks, SealElementType elementType)
+    protected DynamicVar Tuning(int stacks, SealElementType elementType, string name = "Tuning", MarkSlot resolveSlot = MarkSlot.Primary)
     {
         if (elementType != SealElementType.Any)
-            return StarbornCardVars.Tuning(stacks, elementType);
+            return StarbornCardVars.Tuning(stacks, elementType, name);
 
-        var v = new SealElementVar("Tuning", () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
         {
-            ResolveFromCurrentMark = true
+            ResolveFromCurrentMark = true,
+            ResolveSlot = resolveSlot,
         };
         v.WithModifyPreview((card, value) =>
         {
             var cs = card.Owner?.Creature?.CombatState;
             return cs != null
-                ? SealElementMarkHooks.ModifyTuningConsume(cs, MarkSlot.Primary, value)
+                ? SealElementMarkHooks.ModifyTuningConsume(cs, resolveSlot, value)
                 : value;
         });
         v.WithTooltip(var =>
@@ -65,20 +66,21 @@ public abstract class StarbornCard(
         return v;
     }
 
-    protected DynamicVar Overload(int stacks, SealElementType elementType)
+    protected DynamicVar Overload(int stacks, SealElementType elementType, string name = "Overload", MarkSlot resolveSlot = MarkSlot.Primary)
     {
         if (elementType != SealElementType.Any)
-            return StarbornCardVars.Overload(stacks, elementType);
+            return StarbornCardVars.Overload(stacks, elementType, name);
 
-        var v = new SealElementVar("Overload", () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
         {
-            ResolveFromCurrentMark = true
+            ResolveFromCurrentMark = true,
+            ResolveSlot = resolveSlot,
         };
         v.WithModifyPreview((card, value) =>
         {
             var cs = card.Owner?.Creature?.CombatState;
             return cs != null
-                ? SealElementMarkHooks.ModifyOverloadConsume(cs, MarkSlot.Primary, value)
+                ? SealElementMarkHooks.ModifyOverloadConsume(cs, resolveSlot, value)
                 : value;
         });
         v.WithTooltip(var =>
@@ -89,14 +91,15 @@ public abstract class StarbornCard(
         return v;
     }
 
-    protected DynamicVar ElementMark(int stacks, SealElementType elementType)
+    protected DynamicVar ElementMark(int stacks, SealElementType elementType, string name = "ElementMark", MarkSlot resolveSlot = MarkSlot.Primary)
     {
         if (elementType != SealElementType.Any)
-            return StarbornCardVars.ElementMark(stacks, elementType);
+            return StarbornCardVars.ElementMark(stacks, elementType, name);
 
-        var v = new SealElementVar("ElementMark", () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
         {
-            ResolveFromCurrentMark = true
+            ResolveFromCurrentMark = true,
+            ResolveSlot = resolveSlot,
         };
         v.WithTooltip(var =>
         {
