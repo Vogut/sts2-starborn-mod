@@ -17,7 +17,7 @@ namespace STS2_Starborn.Cards.Common;
 public sealed class RollingImpactCard() : StarbornCard(
     1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.ArmoredPangolin;
+    public override string? KiboSummonType => KiboTypeId.ArmoredPangolin;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -49,7 +49,7 @@ public sealed class RollingImpactCard() : StarbornCard(
         var enemyCount = combatState.HittableEnemies.Count(e => e.IsAlive);
         if (enemyCount == 0) return;
 
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
 
         await StarbornCmd.Bounce(
             choiceContext, Owner, this,

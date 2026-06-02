@@ -11,11 +11,11 @@ using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Powers;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class WorldClearCard() : StarbornCard(
-    2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

@@ -21,7 +21,7 @@ public sealed class PlayingWithSnowCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Uncommon, TargetType.None
 )
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.SnowWolfPup;
+    public override string? KiboSummonType => KiboTypeId.SnowWolfPup;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -49,7 +49,7 @@ public sealed class PlayingWithSnowCard() : StarbornCard(
         await SealElementMarkCmd.SetElementType(
             choiceContext, MarkSlot.Secondary, Owner, SealElementType.Ice);
 
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
     }
 
     protected override void OnUpgrade()

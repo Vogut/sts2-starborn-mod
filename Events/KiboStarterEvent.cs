@@ -38,17 +38,17 @@ public sealed class KiboStarterEvent : ModEventTemplate
             .ToList();
     }
 
-    private async Task SelectKibo(KiboTypeId typeId)
+    private async Task SelectKibo(string typeId)
     {
         KiboRunData.Modify(Owner!, d =>
         {
-            d.ActiveKiboTypeId = typeId.ToString();
-            d.OwnedKiboTypeIds.Add(typeId.ToString());
+            d.ActiveKiboTypeId = typeId;
+            d.OwnedKiboTypeIds.Add(typeId);
         });
         await KiboPileManager.CreateMasterCards(Owner!, typeId);
         SetEventFinished(PageDescription("DONE"));
     }
 
-    private static string ToOptionKey(KiboTypeId typeId) =>
-        Regex.Replace(typeId.ToString(), "(?<=.)([A-Z])", "_$1").ToUpperInvariant();
+    private static string ToOptionKey(string typeId) =>
+        typeId.Replace("_", " ").ToUpperInvariant();
 }

@@ -76,7 +76,7 @@ public class WolfPackPower : StarbornPower, IKiboCardPlayListener, IKiboSwitchLi
 
     // ── IKiboSwitchListener ──
 
-    public async Task AfterKiboSwitchOff(Player player, KiboTypeId typeId)
+    public async Task AfterKiboSwitchOff(Player player, string typeId)
     {
         if (typeId == KiboTypeId.SwiftWolf && player.Creature == Owner)
             await PowerCmd.Remove(this);

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.UI;
@@ -11,17 +10,23 @@ namespace STS2_Starborn.Cards.Kibo;
 // ── Attributes ────────────────────────────────────────────
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class RegisterKiboAttribute(KiboTypeId kiboType) : Attribute
+public sealed class RegisterKiboAttribute(string kiboTypeStem) : Attribute
 {
-    public KiboTypeId KiboType => kiboType;
-    public object? EvolvesTo { get; init; }
+    /// <summary>Local stem of the Kibo type (e.g. "swift_wolf").</summary>
+    public string KiboTypeStem => kiboTypeStem;
+
+    /// <summary>Local stem of the evolution target, if any.</summary>
+    public string? EvolvesTo { get; init; }
+
     public bool IsStarter { get; init; }
 }
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class KiboAbilityOfAttribute(KiboTypeId kiboType, bool isUltimate = false) : Attribute
+public sealed class KiboAbilityOfAttribute(string kiboTypeStem, bool isUltimate = false) : Attribute
 {
-    public KiboTypeId KiboType => kiboType;
+    /// <summary>Local stem of the Kibo type this ability belongs to.</summary>
+    public string KiboTypeStem => kiboTypeStem;
+
     public bool IsUltimate => isUltimate;
     public int Count { get; init; } = 1;
 }
@@ -29,13 +34,13 @@ public sealed class KiboAbilityOfAttribute(KiboTypeId kiboType, bool isUltimate 
 // ── Definition ────────────────────────────────────────────
 
 public sealed record KiboTypeDefinition(
-    KiboTypeId TypeId,
+    string TypeId,
     string LocKey,
     string PixelAnimationPath,
     IReadOnlyList<Type> AbilityCardTypes,
     Type RepCardType,
     Type? UltimateCardType = null,
-    KiboTypeId? EvolvesTo = null,
+    string? EvolvesTo = null,
     bool IsStarter = false
 )
 {
@@ -70,9 +75,9 @@ public sealed record KiboTypeDefinition(
 
 public static class KiboTypeRegistry
 {
-    private static readonly Dictionary<KiboTypeId, KiboTypeDefinition> _definitions = [];
+    private static readonly Dictionary<string, KiboTypeDefinition> _definitions = [];
 
-    public static KiboTypeDefinition Get(KiboTypeId id) => _definitions[id];
+    public static KiboTypeDefinition Get(string stem) => _definitions[stem];
 
     public static IEnumerable<KiboTypeDefinition> All => _definitions.Values;
 
@@ -91,11 +96,12 @@ public static class KiboTypeRegistry
         var abilityDefs = types
             .Select(t => (Type: t, Attr: t.GetCustomAttribute<KiboAbilityOfAttribute>()))
             .Where(x => x.Attr != null)
-            .ToLookup(x => x.Attr!.KiboType);
+            .ToLookup(x => x.Attr!.KiboTypeStem);
 
         foreach (var (repType, attr) in kiboDefs)
         {
-            var group = abilityDefs[attr!.KiboType]!;
+            var stem = attr!.KiboTypeStem;
+            var group = abilityDefs[stem];
             var abilities = group
                 .Where(x => !x.Attr!.IsUltimate)
                 .SelectMany(x => Enumerable.Repeat(x.Type, x.Attr!.Count))
@@ -106,14 +112,14 @@ public static class KiboTypeRegistry
                 .Select(x => (Type?)x.Type)
                 .FirstOrDefault();
 
-            _definitions[attr.KiboType] = new KiboTypeDefinition(
-                attr.KiboType,
-                $"kibo_{Regex.Replace(attr.KiboType.ToString(), "(?<=.)([A-Z])", "_$1").ToLowerInvariant()}",
-                Const.Paths.KiboPixelAnimation(attr.KiboType),
+            _definitions[stem] = new KiboTypeDefinition(
+                stem,
+                $"kibo_{stem}",
+                Const.Paths.KiboPixelAnimation(stem),
                 abilities,
                 repType,
                 ultimate,
-                attr.EvolvesTo as KiboTypeId?,
+                attr.EvolvesTo,
                 attr.IsStarter);
         }
     }
@@ -122,18 +128,18 @@ public static class KiboTypeRegistry
     /// 手动注册（备用），优先级低于 attribute 扫描。同名 TypeId 不会覆盖已有条目。
     /// </summary>
     public static void Register(
-        KiboTypeId id,
+        string stem,
         Type repCardType,
         IReadOnlyList<Type> abilityCardTypes,
         Type? ultimateCardType = null,
-        KiboTypeId? evolvesTo = null,
+        string? evolvesTo = null,
         bool isStarter = false)
     {
-        if (_definitions.ContainsKey(id)) return;
-        _definitions[id] = new KiboTypeDefinition(
-            id,
-            $"kibo_{Regex.Replace(id.ToString(), "(?<=.)([A-Z])", "_$1").ToLowerInvariant()}",
-            Const.Paths.KiboPixelAnimation(id),
+        if (_definitions.ContainsKey(stem)) return;
+        _definitions[stem] = new KiboTypeDefinition(
+            stem,
+            $"kibo_{stem}",
+            Const.Paths.KiboPixelAnimation(stem),
             abilityCardTypes,
             repCardType,
             ultimateCardType,

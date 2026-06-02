@@ -109,7 +109,7 @@ public abstract class StarbornCard(
         return v;
     }
 
-    public virtual Kibo.KiboTypeId? KiboSummonType => null;
+    public virtual string? KiboSummonType => null;
 
     public override async Task AfterCardChangedPiles(
         CardModel card, PileType oldPileType, AbstractModel? clonedBy)
@@ -126,8 +126,8 @@ public abstract class StarbornCard(
 
         KiboRunData.Modify(Owner, data =>
         {
-            data.OwnedKiboTypeIds.Add(typeId.ToString());
-            data.ActiveKiboTypeId ??= typeId.ToString();
+            data.OwnedKiboTypeIds.Add(typeId);
+            data.ActiveKiboTypeId ??= typeId;
         });
         await KiboPileManager.CreateMasterCards(Owner, typeId);
     }
@@ -144,8 +144,8 @@ public abstract class StarbornCard(
 
         KiboRunData.Modify(Owner, data =>
         {
-            data.OwnedKiboTypeIds.Remove(typeId.ToString());
-            if (data.ActiveKiboTypeId == typeId.ToString())
+            data.OwnedKiboTypeIds.Remove(typeId);
+            if (data.ActiveKiboTypeId == typeId)
                 data.ActiveKiboTypeId = null;
         });
         KiboPileManager.RemoveMasterCards(Owner, typeId);

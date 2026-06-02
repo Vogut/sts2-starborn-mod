@@ -33,7 +33,7 @@ public sealed class KiboLoadPatch : IPatchMethod
 
             foreach (var typeIdStr in data.OwnedKiboTypeIds)
             {
-                if (!Enum.TryParse<KiboTypeId>(typeIdStr, out var typeId))
+                if (!KiboTypeId.TryParse(typeIdStr, out var typeId))
                     continue;
 
                 TaskHelper.RunSafely(

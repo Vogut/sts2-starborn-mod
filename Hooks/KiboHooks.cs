@@ -66,7 +66,7 @@ public static class KiboHooks
     // ── Kibo switch on/off ──
 
     public static bool AnyListenerPreventsKiboSwitchOff(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -78,7 +78,7 @@ public static class KiboHooks
     }
 
     public static async Task BeforeKiboSwitchOff(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -89,7 +89,7 @@ public static class KiboHooks
     }
 
     public static async Task AfterKiboSwitchOff(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -100,7 +100,7 @@ public static class KiboHooks
     }
 
     public static bool AnyListenerPreventsKiboSwitchOn(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -112,7 +112,7 @@ public static class KiboHooks
     }
 
     public static async Task BeforeKiboSwitchOn(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -123,7 +123,7 @@ public static class KiboHooks
     }
 
     public static async Task AfterKiboSwitchOn(ICombatState combatState,
-        Player player, KiboTypeId typeId)
+        Player player, string typeId)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -136,7 +136,7 @@ public static class KiboHooks
     // ── Kibo switch (full) ──
 
     public static bool AnyListenerPreventsKiboSwitch(ICombatState combatState,
-        Player player, KiboTypeId from, KiboTypeId to)
+        Player player, string from, string to)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -148,7 +148,7 @@ public static class KiboHooks
     }
 
     public static async Task BeforeKiboSwitch(ICombatState combatState,
-        Player player, KiboTypeId from, KiboTypeId to)
+        Player player, string from, string to)
     {
         foreach (var model in combatState.IterateHookListeners())
         {
@@ -159,7 +159,7 @@ public static class KiboHooks
     }
 
     public static async Task AfterKiboSwitch(ICombatState combatState,
-        Player player, KiboTypeId from, KiboTypeId to)
+        Player player, string from, string to)
     {
         foreach (var model in combatState.IterateHookListeners())
         {

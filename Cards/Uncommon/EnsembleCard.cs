@@ -19,7 +19,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 public sealed class EnsembleCard() : StarbornCard(
     4, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.MelodiousVine;
+    public override string? KiboSummonType => KiboTypeId.MelodiousVine;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -68,7 +68,7 @@ public sealed class EnsembleCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
 

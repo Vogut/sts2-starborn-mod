@@ -115,14 +115,19 @@
     "STS2_STARBORN_CARD_FLORATAIL_REP_CARD.description": "",
     "STS2_STARBORN_CARD_KIBO_FLUTTER_SCATTER_CARD.title": "飘叶散射",
     "STS2_STARBORN_CARD_KIBO_FLUTTER_SCATTER_CARD.description": "随机对敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。",
-    "STS2_STARBORN_CARD_FLORATAIL_ABILITY2_CARD.title": "守护",
+    "STS2_STARBORN_CARD_KIBO_LUXURIANT_FLORA_CARD.title": "茂盛花木",
+    "STS2_STARBORN_CARD_KIBO_LUXURIANT_FLORA_CARD.description": "获得{Block:diff()}点格挡。\n获得{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_CARD_KIBO_FLORA_BREATH_CARD.title": "蓬尾之息",
+    "STS2_STARBORN_CARD_KIBO_FLORA_BREATH_CARD.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。获得{ElementMark:elementIcon()}。",
     "STS2_STARBORN_CARD_COROVULPE_REP_CARD.title": "萝冠灵狐",
-    "STS2_STARBORN_CARD_COROVULPE_REP_CARD.description": "[gold]奇波[/gold]：萝冠灵狐。\n可打出[blue]打[/blue]和[blue]防[/blue]。",
-    "STS2_STARBORN_CARD_FLORATAIL_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.title": "打",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY1_CARD.description": "造成[blue]{Damage}[/blue]点伤害。\n印记属性为[red]雷[/red]时伤害+1。",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.title": "防",
-    "STS2_STARBORN_CARD_COROVULPE_ABILITY2_CARD.description": "获得[blue]{Block}[/blue]点格挡。\n印记属性为[red]雷[/red]时格挡+1。",
+    "STS2_STARBORN_CARD_COROVULPE_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_WOOD_STARLIGHT_CARD.title": "灵木繁星",
+    "STS2_STARBORN_CARD_KIBO_WOOD_STARLIGHT_CARD.description": "随机对敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。",
+    "STS2_STARBORN_CARD_KIBO_FLORA_CROWN_CARD.title": "花木之冠",
+    "STS2_STARBORN_CARD_KIBO_FLORA_CROWN_CARD.description": "获得{Block:diff()}点格挡。\n获得{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_CARD_KIBO_CORA_BREATH_CARD.title": "蓬尾之息",
+    "STS2_STARBORN_CARD_KIBO_CORO_BREATH_CARD.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。获得{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_CARD_FIRE_MARK_SELECT_CARD.title": "火",
     "STS2_STARBORN_CARD_FIRE_MARK_SELECT_CARD.description": "将印记切换为[red]火[/red]属性。",
@@ -141,6 +146,9 @@
     "STS2_STARBORN_CARD_RIDE_CARD.title": "乘骑",
     "STS2_STARBORN_CARD_RIDE_CARD.description": "抽[blue]{Cards:diff()}[/blue]张牌。\n本回合[gold]奇波[/gold]无法自动出牌。",
 
+    "STS2_STARBORN_CARD_STARBOCK_CARD.title": "星八客",
+    "STS2_STARBORN_CARD_STARBOCK_CARD.description": "失去{ElementMark:elementIcon()}。\n获得{Energy:energyIcons()}。",
+    
     "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.title": "1Q2Q3Q",
     "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "召唤你的所有[gold]奇波[/gold]。\n你无法再打出攻击牌。\n每次出技能牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
 

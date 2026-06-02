@@ -61,7 +61,7 @@ public partial class NKiboWidget : Control
             return;
         }
 
-        var def = KiboTypeRegistry.Get(typeId.Value);
+        var def = KiboTypeRegistry.Get(typeId);
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);

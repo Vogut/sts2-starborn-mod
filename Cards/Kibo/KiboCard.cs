@@ -44,7 +44,7 @@ public abstract class KiboCard(
 
         var data = KiboRunData.Get(Owner);
         if (data?.ActiveKiboTypeId == null) return;
-        if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var currentTypeId)) return;
+        if (!KiboTypeId.TryParse(data.ActiveKiboTypeId, out var currentTypeId)) return;
 
         if (!Keywords.Contains(KiboKeywords.TypeKeyword(currentTypeId).GetModCardKeyword())) return;
 
@@ -53,9 +53,9 @@ public abstract class KiboCard(
 
         KiboRunData.Modify(Owner, d =>
         {
-            d.ActiveKiboTypeId = evolvedTypeId.ToString();
-            d.OwnedKiboTypeIds.Remove(currentTypeId.ToString());
-            d.OwnedKiboTypeIds.Add(evolvedTypeId.ToString());
+            d.ActiveKiboTypeId = evolvedTypeId;
+            d.OwnedKiboTypeIds.Remove(currentTypeId);
+            d.OwnedKiboTypeIds.Add(evolvedTypeId);
         });
 
         KiboPileManager.RemoveMasterCards(Owner, currentTypeId);

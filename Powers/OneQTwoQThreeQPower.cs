@@ -83,7 +83,7 @@ public class OneQTwoQThreeQPower : StarbornPower, IKiboSwitchListener
 
     // ── IKiboSwitchOnOffListener ──
 
-    public bool ShouldPreventKiboSwitchOff(Player player, KiboTypeId typeId) =>
+    public bool ShouldPreventKiboSwitchOff(Player player, string typeId) =>
         player.Creature == Owner;
 
 }

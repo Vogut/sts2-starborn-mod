@@ -35,11 +35,21 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 
 ## Creating a New Kibo (奇波)
 
+### KiboTypeId 背景
+
+`KiboTypeId` 是一个 `static class`，每个 Kibo 类型是一个 `const string` **本地词干**（如 `"swift_wolf"`、`"leafox"`）。背后由 `DynamicEnumValueRegistry<KiboTypeIdValue>` 提供基于 XXHash32 的确定性枚举值，用于 RitsuLib 扩展点。
+
+- **词干是稳定标识符**：即使代码变量改名，序列化的仍是词干 → 存档不会损坏
+- **限定 ID 用于跨系统引用**：`KiboTypeId.GetQualifiedId(stem)` → `"sts2_starborn_KIBOTYPE_swift_wolf"`
+- **属性仍然用 stem 常量**：`[RegisterKibo(KiboTypeId.SwiftWolf)]` — `const string` 是编译期常量
+- **不再有 `ToString()`**：stem 就是 string，无需转换
+- **不再有 `Enum.TryParse` / `Enum.GetValues`**：用 `KiboTypeId.TryParse()` / `KiboTypeId.All`
+
 ### Checklist
 
 | # | File(s) | What to do |
 |---|---------|------------|
-| 1 | `Cards/Kibo/KiboTypeId.cs` | Add enum value |
+| 1 | `Cards/Kibo/KiboTypeId.cs` | Add `const string` stem to `KiboTypeId` + add to `All` array |
 | 2 | `Cards/Kibo/KiboKeywords.cs` | Add `[RegisterOwnedCardKeyword("kibo_type_xxx", IncludeInCardHoverTip = false)]` |
 | 3 | `Cards/Kibo/<Name>/Kibo<Name>RepCard.cs` | RepCard: `[RegisterKibo(KiboTypeId.Xxx)]`, `KiboCard(Power, Self)`, `KiboKeywordId` |
 | 4 | `Cards/Kibo/<Name>/Kibo<Ability>Card.cs` | Normal ability: `[KiboAbilityOf(KiboTypeId.Xxx)]`, `NormalKeyword` |
@@ -49,15 +59,28 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 
 ### Naming: `Kibo` + descriptive name + `Card` — never generic `Ability1`/`Ability2`.
 
+### Stem 命名规则
+
+Stem 使用 `snake_case`，与关键词注册后缀一致：
+- `"swift_wolf"`（不是 `"SwiftWolf"`）
+- `"armored_pangolin"`（不是 `"ArmoredPangolin"`）
+- 单单词直接小写：`"leafox"`、`"moklido"`
+
+### KiboTypeRegistry 中的 LocKey
+
+`KiboTypeRegistry` 自动从 stem 生成 loc key：`$"kibo_{stem}"`。例如 stem `"swift_wolf"` → loc key `"kibo_swift_wolf"`。
+
 ### Player Card Requirements
 
 Every player card that summons a Kibo needs four things:
-- `public override KiboTypeId? KiboSummonType => KiboTypeId.Xxx;`
+- `public override string? KiboSummonType => KiboTypeId.Xxx;`
 - `CanonicalKeywords`: include `KiboKeywords.KiboKeywordId.GetModCardKeyword()`
-- `AdditionalHoverTips`: yield RepCard + `KiboTypeRegistry.Get(Xxx).CreatePlayableCardHoverTips()`
-- `OnPlay`: `await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);`
+- `AdditionalHoverTips`: yield RepCard + `KiboTypeRegistry.Get(KiboTypeId.Xxx).CreatePlayableCardHoverTips()`
+- `OnPlay`: `await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);`
 
 Description prefix: `[gold]奇波[/gold]：<奇波名>。`.
+
+> **注意**：`KiboSummonType` 现在是 `string?`（不是 `KiboTypeId?`），所以不需要 `.Value` 属性。直接 `KiboSummonType!` 即可。
 
 ---
 

@@ -23,7 +23,7 @@ public sealed class ShouldIKeepSprayingCard() : StarbornCard(
     2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy
 )
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.JadeFeatherDragon;
+    public override string? KiboSummonType => KiboTypeId.JadeFeatherDragon;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -56,7 +56,7 @@ public sealed class ShouldIKeepSprayingCard() : StarbornCard(
         var combatState = Owner.Creature.CombatState;
         if (combatState == null) return;
 
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
 
         var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
         await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,

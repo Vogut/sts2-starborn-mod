@@ -18,7 +18,7 @@ namespace STS2_Starborn.Cards.Common;
 public sealed class PerformanceCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.Moklido;
+    public override string? KiboSummonType => KiboTypeId.Moklido;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -50,7 +50,7 @@ public sealed class PerformanceCard() : StarbornCard(
             DynamicVars["Dexterity"].IntValue,
             Owner.Creature, this);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
     }
 
     protected override void OnUpgrade()

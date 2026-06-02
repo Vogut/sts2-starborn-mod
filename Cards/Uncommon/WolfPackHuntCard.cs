@@ -17,7 +17,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 public sealed class WolfPackHuntCard() : StarbornCard(
     2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.SwiftWolf;
+    public override string? KiboSummonType => KiboTypeId.SwiftWolf;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -43,7 +43,7 @@ public sealed class WolfPackHuntCard() : StarbornCard(
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)

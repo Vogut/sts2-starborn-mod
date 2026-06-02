@@ -392,7 +392,7 @@ public partial class StarbornDebugPanel : Control
         var (scroll, content) = MakeTabScroll("奇波");
 
         AddSectionTitle(content, "召唤 / 切换");
-        foreach (KiboTypeId typeId in Enum.GetValues<KiboTypeId>())
+        foreach (string typeId in KiboTypeId.All)
         {
             var captured = typeId;
             AddButton(content, KiboDisplayName(captured), () => SafeExec(() => DoSummonKibo(captured)));
@@ -408,14 +408,14 @@ public partial class StarbornDebugPanel : Control
     /// 动态获取 Kibo 的本地化显示名：通过其 RepCard 的 CardModel.Title。
     /// 新增的 KiboType 并不需要修改此处。
     /// </summary>
-    private static string KiboDisplayName(KiboTypeId id)
+    private static string KiboDisplayName(string id)
     {
         try
         {
             var repType = KiboTypeRegistry.Get(id).RepCardType;
-            return ModelDb.GetByIdOrNull<CardModel>(ModelDb.GetId(repType))?.Title ?? id.ToString();
+            return ModelDb.GetByIdOrNull<CardModel>(ModelDb.GetId(repType))?.Title ?? id;
         }
-        catch { return id.ToString(); }
+        catch { return id; }
     }
 
     // ── Element Tab ──────────────────────────────────────────
@@ -580,7 +580,7 @@ public partial class StarbornDebugPanel : Control
         await RelicCmd.Obtain(match.ToMutable(), player);
     }
 
-    private static async Task DoSummonKibo(KiboTypeId typeId)
+    private static async Task DoSummonKibo(string typeId)
     {
         var player = GetFirstPlayer();
         if (player == null) return;

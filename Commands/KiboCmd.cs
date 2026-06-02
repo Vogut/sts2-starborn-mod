@@ -49,7 +49,7 @@ public static class KiboCmd
     /// 换下旧奇波（带钩子）。将指定类型从活跃堆退回后备堆。
     /// 先检查 AnyListenerPreventsKiboSwitchOff，再触发 Before/After 钩子。
     /// </summary>
-    public static async Task SwitchOff(PlayerChoiceContext ctx, Player player, KiboTypeId typeId)
+    public static async Task SwitchOff(PlayerChoiceContext ctx, Player player, string typeId)
     {
         var combatState = player.Creature.CombatState;
         if (combatState != null)
@@ -69,7 +69,7 @@ public static class KiboCmd
     /// 换上新奇波（带钩子）。将指定类型从后备堆移入活跃堆。已在活跃中的类型跳过（幂等）。
     /// 先检查 AnyListenerPreventsKiboSwitchOn，再触发 Before/After 钩子。
     /// </summary>
-    public static async Task SwitchOn(PlayerChoiceContext ctx, Player player, KiboTypeId typeId)
+    public static async Task SwitchOn(PlayerChoiceContext ctx, Player player, string typeId)
     {
         var combatState = player.Creature.CombatState;
         if (combatState != null)
@@ -104,7 +104,7 @@ public static class KiboCmd
     /// 并检查 AnyListenerPreventsKiboSwitch 是否阻止切换。
     /// </summary>
     public static async Task Summon(
-        PlayerChoiceContext ctx, Player player, KiboTypeId typeId)
+        PlayerChoiceContext ctx, Player player, string typeId)
     {
         // 当前活跃的奇波类型
         var from = KiboPileManager.GetActiveKiboType(player);
@@ -114,9 +114,9 @@ public static class KiboCmd
         var combatState = player.Creature.CombatState;
         if (from != null && combatState != null)
         {
-            if (KiboHooks.AnyListenerPreventsKiboSwitch(combatState, player, from.Value, typeId))
+            if (KiboHooks.AnyListenerPreventsKiboSwitch(combatState, player, from, typeId))
                 return;
-            await KiboHooks.BeforeKiboSwitch(combatState, player, from.Value, typeId);
+            await KiboHooks.BeforeKiboSwitch(combatState, player, from, typeId);
         }
 
         if (!CombatManager.Instance.IsInProgress)
@@ -124,12 +124,12 @@ public static class KiboCmd
 
         // 换下旧 + 换上新
         if (from != null)
-            await SwitchOff(ctx, player, from.Value);
+            await SwitchOff(ctx, player, from);
         await SwitchOn(ctx, player, typeId);
 
         // 切换后：触发 After hook
         if (from != null && combatState != null)
-            await KiboHooks.AfterKiboSwitch(combatState, player, from.Value, typeId);
+            await KiboHooks.AfterKiboSwitch(combatState, player, from, typeId);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ public static class KiboCmd
         if (candidates.Count == 0) return false;
 
         var activeType = KiboPileManager.GetActiveKiboType(player);
-        if (activeType != null) candidates.Remove(activeType.Value);
+        if (activeType != null) candidates.Remove(activeType);
         if (candidates.Count == 0) return false;
 
         var typeId = candidates[ModRunRngRegistry.Get(player, Const.ModId, "kibo_summon_random").NextInt(0, candidates.Count)];

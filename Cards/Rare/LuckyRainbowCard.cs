@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Rare;
 public sealed class LuckyRainbowCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Rare, TargetType.None)
 {
-    public override KiboTypeId? KiboSummonType => KiboTypeId.Downybrinny;
+    public override string? KiboSummonType => KiboTypeId.Downybrinny;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -36,7 +36,7 @@ public sealed class LuckyRainbowCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!.Value);
+        await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
         await KiboCmd.TryAutoPlayRandomUltimateCard(Owner, Owner.Creature.CombatState!);
     }
 

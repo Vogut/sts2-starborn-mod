@@ -20,7 +20,7 @@ public sealed class KiboAromatherapyCard() : KiboCard(CardType.Skill, TargetType
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var statuses = Owner.PlayerCombatState!.AllCards
-            .Where(c => c.Type == CardType.Status && c.Pile.Type != PileType.Exhaust)
+            .Where(c => c.Type == CardType.Status && c.Pile?.Type != PileType.Exhaust)
             .ToList();
 
         if (statuses.Count == 0) return;

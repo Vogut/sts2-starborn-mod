@@ -19,5 +19,5 @@ public class FavoritePower : StarbornPower, IKiboSwitchListener
         BigIconPath: Const.Paths.PowerBigIcon(GetType())
     );
 
-    public bool ShouldPreventKiboSwitch(Player player, KiboTypeId from, KiboTypeId to) => true;
+    public bool ShouldPreventKiboSwitch(Player player, string from, string to) => true;
 }

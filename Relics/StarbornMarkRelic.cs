@@ -67,7 +67,7 @@ public class StarbornMarkRelic : StarbornRelic
 
         var data = KiboRunData.Get(base.Owner);
         if (data?.ActiveKiboTypeId == null) return;
-        if (!Enum.TryParse<KiboTypeId>(data.ActiveKiboTypeId, out var typeId)) return;
+        if (!KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) return;
 
         var activePile = KiboPileManager.GetActivePile(base.Owner);
         if (activePile != null && activePile.Cards.Count > 0) return;

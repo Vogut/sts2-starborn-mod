@@ -15,11 +15,11 @@ using STS2_Starborn.Cards.Token;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Element;
 
-namespace STS2_Starborn.Cards.Uncommon;
+namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class CustomizeCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Uncommon, TargetType.None
+    0, CardType.Skill, CardRarity.Common, TargetType.None
 )
 {
     private static readonly LocString PrimaryPrompt =

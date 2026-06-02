@@ -70,7 +70,7 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
             if (kiboType != null)
             {
                 // 牌所属的奇波已被换下 → 送回后备牌堆
-                if (!KiboPileManager.IsKiboTypeActive(card.Owner, kiboType.Value))
+                if (!KiboPileManager.IsKiboTypeActive(card.Owner, kiboType))
                     return (KiboPileManager.GetStorageCombatPileType(), position);
             }
             // 正常情况：送回活跃堆
@@ -92,7 +92,7 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
         if (kiboType == null) return;
 
         // 奇波仍在活跃中（基于追踪器而非牌堆扫描）→ 无需修正
-        if (KiboPileManager.IsKiboTypeActive(card.Owner, kiboType.Value))
+        if (KiboPileManager.IsKiboTypeActive(card.Owner, kiboType))
             return;
 
         // 奇波在 OnPlay 期间被换下，牌却被路由回了活跃堆 → 搬到后备堆

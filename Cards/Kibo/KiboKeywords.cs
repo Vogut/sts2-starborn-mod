@@ -12,7 +12,7 @@ namespace STS2_Starborn.Cards.Kibo;
 [RegisterOwnedCardKeyword("kibo_type_leafox", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_floratail", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_corovulpe", IncludeInCardHoverTip = false)]
-[RegisterOwnedCardKeyword("kibo_type_swiftwolf", IncludeInCardHoverTip = false)]
+[RegisterOwnedCardKeyword("kibo_type_swift_wolf", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_moklido", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_armored_pangolin", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_downybrinny", IncludeInCardHoverTip = false)]
@@ -33,25 +33,20 @@ public class KiboKeywords
     public static readonly string UltimateKeywordId =
         ModContentRegistry.GetQualifiedKeywordId(Const.ModId, "kibo_ultimate");
 
-    public static string TypeKeyword(KiboTypeId typeId) =>
-        ModContentRegistry.GetQualifiedKeywordId(Const.ModId,
-            $"kibo_type_{PascalToSnake(typeId.ToString())}");
+    /// <summary>
+    ///     Returns the qualified keyword id for a Kibo type stem (e.g. "swift_wolf" →
+    ///     <c>sts2_starborn_KEYWORD_kibo_type_swift_wolf</c>).
+    /// </summary>
+    public static string TypeKeyword(string stem) =>
+        ModContentRegistry.GetQualifiedKeywordId(Const.ModId, $"kibo_type_{stem}");
 
     public static readonly CardKeyword PileMemberKeyword = PileMemberKeywordId.GetModCardKeyword();
     public static readonly CardKeyword NormalKeyword = NormalKeywordId.GetModCardKeyword();
     public static readonly CardKeyword UltimateKeyword = UltimateKeywordId.GetModCardKeyword();
-    public static CardKeyword TypeKeywordValue(KiboTypeId typeId) =>
-        TypeKeyword(typeId).GetModCardKeyword();
 
-    private static string PascalToSnake(string pascal)
-    {
-        var sb = new System.Text.StringBuilder();
-        for (int i = 0; i < pascal.Length; i++)
-        {
-            if (i > 0 && char.IsUpper(pascal[i]))
-                sb.Append('_');
-            sb.Append(char.ToLowerInvariant(pascal[i]));
-        }
-        return sb.ToString();
-    }
+    /// <summary>
+    ///     Returns the <see cref="CardKeyword" /> for a Kibo type stem.
+    /// </summary>
+    public static CardKeyword TypeKeywordValue(string stem) =>
+        TypeKeyword(stem).GetModCardKeyword();
 }
