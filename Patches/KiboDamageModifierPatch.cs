@@ -21,6 +21,7 @@ public sealed class KiboDamageModifierPatch : IPatchMethod
             new(typeof(StrengthPower), nameof(StrengthPower.ModifyDamageAdditive)),
             new(typeof(DexterityPower), nameof(DexterityPower.ModifyBlockAdditive)),
             new(typeof(PenNib), nameof(PenNib.ModifyDamageMultiplicative)),
+            new(typeof(WeakPower),nameof(WeakPower.ModifyDamageAdditive))
         ];
     }
 

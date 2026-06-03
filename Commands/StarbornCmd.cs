@@ -60,6 +60,7 @@ public static class StarbornCmd
         var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
         await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, effectiveStacks);
         await SealElementMarkHooks.AfterTuning(combatState, ctx, slot, consume, source);
+        ElementMarkManager.RecordTuning();
     }
 
     public static async Task Tuning(
@@ -102,6 +103,7 @@ public static class StarbornCmd
         var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
         await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, effectiveStacks);
         await SealElementMarkHooks.AfterOverload(combatState, ctx, slot, consume, source);
+        ElementMarkManager.RecordOverload();
     }
 
     public static async Task Overload(

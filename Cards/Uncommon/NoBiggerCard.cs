@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
@@ -23,21 +23,28 @@ public sealed class NoBiggerCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(7m, ValueProp.Move),
-        new DynamicVar("Weak", 1m),
+        new IntVar("Shrink", 1),
+    ];
+
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    [
+        HoverTipFactory.FromPower<ShrinkBuffPower>(),
+        HoverTipFactory.FromPower<ShrinkDebuffPower>(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        var shrinkStacks = DynamicVars["Shrink"].BaseValue;
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         await PowerCmd.Apply<ShrinkBuffPower>(choiceContext,
-            cardPlay.Target, 1, Owner.Creature, this);
-        await PowerCmd.Apply<WeakPower>(choiceContext,
-            cardPlay.Target, DynamicVars["Weak"].IntValue, Owner.Creature, this);
+            cardPlay.Target, shrinkStacks, Owner.Creature, this);
+        await PowerCmd.Apply<ShrinkDebuffPower>(choiceContext,
+            cardPlay.Target, shrinkStacks, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Weak"].UpgradeValueBy(1m);
+        DynamicVars["Shrink"].UpgradeValueBy(1m);
     }
 }

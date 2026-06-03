@@ -25,6 +25,9 @@ public sealed class ElementMarkManager : HookedSingletonModel
     private int _secondaryStacks;
     private string? _secondaryElementType;
 
+    private int _tuningTotalCount;
+    private int _overloadTotalCount;
+
     private readonly Dictionary<ulong, int> _switchCounts = [];
     private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
     private readonly HashSet<SealElementType> _firstOverloaded = [];
@@ -92,6 +95,20 @@ public sealed class ElementMarkManager : HookedSingletonModel
         _switchCounts.Remove(player.NetId);
         _switchedTypes.Remove(player.NetId);
     }
+
+    // ── Tuning/Overload total count tracking ──
+
+    public static int GetTuningTotalCount() =>
+        Instance._tuningTotalCount;
+
+    public static int GetOverloadTotalCount() =>
+        Instance._overloadTotalCount;
+
+    public static void RecordTuning() =>
+        Instance._tuningTotalCount++;
+
+    public static void RecordOverload() =>
+        Instance._overloadTotalCount++;
 
     // ── First overload tracking ──
 

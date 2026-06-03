@@ -33,6 +33,9 @@
     "STS2_STARBORN_CARD_CUSTOMIZE_CARD.primaryPrompt": "选择主属性",
     "STS2_STARBORN_CARD_CUSTOMIZE_CARD.secondaryPrompt": "选择副属性",
 
+    "STS2_STARBORN_CARD_DERIVED_STRIKE_CARD.title": "派生打击",
+    "STS2_STARBORN_CARD_DERIVED_STRIKE_CARD.description": "造成{Damage:diff()}点伤害。如果本场战斗中上一张打出的牌是攻击牌，再次造成{Damage:diff()}点伤害，获得{ElementMark:elementIcon()}层主属性印记。",
+
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.title": "魔王曲",
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n（目前已切换过[blue]{SwitchedTypes}种属性。）|}\n获得战斗胜利。",
     
@@ -47,6 +50,9 @@
 
     "STS2_STARBORN_CARD_ALPHA_TEST_GIFT_CARD.title": "一测大礼包",
     "STS2_STARBORN_CARD_ALPHA_TEST_GIFT_CARD.description": "将所有的[gold]时尚小垃圾[/gold]加入你的手牌。{IfUpgraded:show:它们是升级后的。|}",
+
+    "STS2_STARBORN_CARD_BECAUSE_I_LOVE_EVERYONE_CARD.title": "因为我喜欢大家",
+    "STS2_STARBORN_CARD_BECAUSE_I_LOVE_EVERYONE_CARD.description": "给予所有敌人X{IfUpgraded:show:+1}层[gold]易伤[/gold]、X{IfUpgraded:show:+1}层[gold]虚弱[/gold]、[gold]中毒[/gold]、[gold]灾祸[/gold]、[gold]消亡[/gold]、[gold]紧勒[/gold]。",
 
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.title": "耕种之时",
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.description": "每回合开始时，获得{Empower:diff()}层[gold]奇波强化[/gold]。",
@@ -73,7 +79,7 @@
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "造成{CalculatedDamage:diff()}点伤害。\n施加1层[gold]变大[/gold]。敌人每有一层[gold]变大[/gold]，造成额外{ExtraDamage:diff()}点伤害。",
     
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
-    "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加1层[gold]变小[/gold]。\n施加{Weak:diff()}层[gold]虚弱[/gold]。",
+    "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加{Shrink:diff()}层[gold]变小[/gold]。",
     
     "STS2_STARBORN_CARD_DUEL_COMMAND.title": "对决指令",
     "STS2_STARBORN_CARD_DUEL_COMMAND.description": "在本回合获得[blue]{Empower:diff()}[/blue]层临时奇波强化。使用当前奇波的[gold]奇波特技[/gold]。",
@@ -178,6 +184,10 @@
 
     "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.title": "便携合成台",
     "STS2_STARBORN_CARD_PORTABLE_CRAFTING_TABLE_CARD.description": "[gold]消耗[/gold]手牌中的两张牌，从随机三张[gold]时尚小垃圾[/gold]中选择一张加入你的手牌。",
+
+    "STS2_STARBORN_CARD_PURE_SEA_CARD.title": "无垢海",
+    "STS2_STARBORN_CARD_PURE_SEA_CARD.description": "死亡时，立刻回复所有血量，结束敌人的回合。抽满手牌，将此牌从卡组中移除。{IfUpgraded:show:[gold]保留[/gold]。|}",
+    "STS2_STARBORN_CARD_PURE_SEA_CARD.upgradeDescription": "[gold]保留[/gold]。死亡时，立刻回复所有血量，结束敌人的回合。抽满手牌，将此牌从卡组中移除。",
 
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.title": "随机应变",
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，[gold]调谐{Tuning:elementIcon()}[/gold]。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
@@ -292,5 +302,20 @@
     "STS2_STARBORN_CARD_KIBO_SEED_STORM_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。每有一个敌人获得{ElementMark:elementIcon(single)}。",
 
     "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.title": "芳香疗法",
-    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.description": "移除随机一张状态牌。{IfUpgraded:所有状态牌|}"
+    "STS2_STARBORN_CARD_KIBO_AROMATHERAPY_CARD.description": "移除随机一张状态牌。{IfUpgraded:所有状态牌|}",
+
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_1_CARD.title": "三连击",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_1_CARD.description": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]二连[/b]。",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_1_CARD.upgradeDescription": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]二连[/b]。",
+
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_2_CARD.title": "二连",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_2_CARD.description": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]三连[/b]。{singleStarIcon} 回合结束时若仍在手牌中则转为[b]三连击[/b]。",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_2_CARD.upgradeDescription": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]三连[/b]。{singleStarIcon} 回合结束时若仍在手牌中则转为[b]三连击[/b]。",
+
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_3_CARD.title": "三连",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_3_CARD.description": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]三连击[/b]。{singleStarIcon} 回合结束时若仍在手牌中则转为[b]三连击[/b]。",
+    "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_3_CARD.upgradeDescription": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]三连击[/b]。{singleStarIcon} 回合结束时若仍在手牌中则转为[b]三连击[/b]。",
+
+    "STS2_STARBORN_CARD_CONVERGE_CARD.title": "汇聚",
+    "STS2_STARBORN_CARD_CONVERGE_CARD.description": "造成{CalculatedDamage:diff()}点伤害。在本场战斗中你每[gold]调谐[/gold]/[gold]超限[/gold]过一次额外造成{ExtraDamage:diff()}点伤害。"
 }

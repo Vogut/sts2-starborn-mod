@@ -9,6 +9,8 @@
     "STS2_STARBORN_POWER_ENLARGE_POWER.description": "每层使目标体型放大[blue]10%[/blue]。",
     "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.title": "不够小！",
     "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.description": "每层使目标体型缩小[blue]10%[/blue]，下限[blue]20%[/blue]。",
+    "STS2_STARBORN_POWER_SHRINK_DEBUFF_POWER.title": "变小",
+    "STS2_STARBORN_POWER_SHRINK_DEBUFF_POWER.description": "造成的攻击伤害降低[blue]30%[/blue]。",
     "STS2_STARBORN_POWER_BURN_POWER.title": "灼烧",
     "STS2_STARBORN_POWER_BURN_POWER.description": "在目标回合开始时受到等同于层数的伤害，随后层数减半。",
     "STS2_STARBORN_POWER_BURN_POWER.smartDescription": "在回合开始时受到[blue]{Amount}[/blue]点伤害，随后层数减半。",
@@ -54,6 +56,9 @@
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.title": "1Q2Q3Q",
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.description": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]4[/blue]次出牌额外释放一个终极牌。",
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.smartDescription": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]{Amount}[/blue]次出牌额外释放一个终极牌。",
+
+    "STS2_STARBORN_POWER_PURE_SEA_POWER.title": "无垢海",
+    "STS2_STARBORN_POWER_PURE_SEA_POWER.description": "死亡时回复所有血量，结束敌人回合，抽满手牌，并将此卡从你的卡组中移除。",
 
     "STS2_STARBORN_POWER_WOLF_PACK_POWER.title": "狼群",
     "STS2_STARBORN_POWER_WOLF_PACK_POWER.description": "迅狼在场时，回合结束时自动打出所有迅狼的奇波战技。",
