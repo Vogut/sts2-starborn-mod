@@ -78,6 +78,9 @@
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.title": "不够大！",
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "造成{CalculatedDamage:diff()}点伤害。\n施加1层[gold]变大[/gold]。敌人每有一层[gold]变大[/gold]，造成额外{ExtraDamage:diff()}点伤害。",
     
+    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.title":"慈爱的惩罚",
+    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.description":"[gold]调谐{Tuning:elementIcon()}[/gold]。对所有敌人造成{Damage:diff()}点伤害。",
+    
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加{Shrink:diff()}层[gold]变小[/gold]。",
     
@@ -317,5 +320,11 @@
     "STS2_STARBORN_CARD_THREE_STRIKE_CHAIN_3_CARD.upgradeDescription": "造成{Damage:diff()}点伤害。{singleStarIcon} 打出后转为[b]三连击[/b]。{singleStarIcon} 回合结束时若仍在手牌中则转为[b]三连击[/b]。",
 
     "STS2_STARBORN_CARD_CONVERGE_CARD.title": "汇聚",
-    "STS2_STARBORN_CARD_CONVERGE_CARD.description": "造成{CalculatedDamage:diff()}点伤害。在本场战斗中你每[gold]调谐[/gold]/[gold]超限[/gold]过一次额外造成{ExtraDamage:diff()}点伤害。"
+    "STS2_STARBORN_CARD_CONVERGE_CARD.description": "造成{CalculatedDamage:diff()}点伤害。在本场战斗中你每[gold]调谐[/gold]/[gold]超限[/gold]过一次额外造成{ExtraDamage:diff()}点伤害。",
+
+    "STS2_STARBORN_CARD_SLACKING_CARD.title": "划水",
+    "STS2_STARBORN_CARD_SLACKING_CARD.description": "给予{Weak:inverseDiff()}层[gold]虚弱[/gold]。获得{Energy:energyIcons()}。",
+
+    "STS2_STARBORN_CARD_UTURN_CARD.title": "急速折返",
+    "STS2_STARBORN_CARD_UTURN_CARD.description": "造成{Damage:diff()}点伤害。随机切换一个[gold]奇波[/gold]。释放当前[gold]奇波[/gold]的[gold]奇波战技[/gold]。"
 }

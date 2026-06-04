@@ -124,26 +124,36 @@ public sealed class ElementMarkManager : HookedSingletonModel
         if (player == null) return;
 
         foreach (var slot in Slots)
-            await TryTriggerAutoTuning(player, slot, combatState);
+        {
+            var triggered = await TryTriggerAutoTuning(player, slot, combatState);
+            if (!triggered)
+                await ResetElementToNone(player, slot);
+        }
 
         Instance.ResetSwitchTracking(player);
-
-        foreach (var slot in Slots)
-            await ResetElementToNone(player, slot);
     }
 
-    private static async Task TryTriggerAutoTuning(Player player, MarkSlot slot, ICombatState combatState)
+    private static async Task<bool> TryTriggerAutoTuning(Player player, MarkSlot slot, ICombatState combatState)
     {
         var elementType = ElementMarkState.GetElementType(player, slot);
-        if (elementType == SealElementType.None) return;
+        if (elementType == SealElementType.None) return false;
 
         var stacks = ElementMarkState.GetStacks(player, slot);
         var element = StarbornElement.For(elementType);
 
         if (stacks >= MaxSealStacks)
+        {
             await StarbornCmd.Overload(new ThrowingPlayerChoiceContext(), slot, player, element.OverloadConsume);
-        else if (stacks >= ThresholdStacks)
+            return true;
+        }
+
+        if (stacks >= ThresholdStacks)
+        {
             await StarbornCmd.Tuning(new ThrowingPlayerChoiceContext(), slot, player, element.TuningConsume);
+            return true;
+        }
+
+        return false;
     }
 
     private static async Task ResetElementToNone(Player player, MarkSlot slot)

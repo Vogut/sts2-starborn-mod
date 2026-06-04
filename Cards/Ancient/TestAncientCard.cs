@@ -12,14 +12,15 @@ using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Ancient;
 
 // 注册卡牌到指定池（这里是无色）。如果要写自定义池看添加人物的开头
 [RegisterCard(typeof(StarbornCardPool))]
+
 // 注册成人物起始卡，后面是数量。不需要删除即可。
 // [RegisterCharacterStarterCard(typeof(TestCharacter), 5)]
 public class TestAncientCard() : StarbornCard(
-    1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy
+    1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy
 )
 {
 

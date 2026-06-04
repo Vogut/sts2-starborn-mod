@@ -15,13 +15,6 @@ namespace STS2_Starborn.Cards.Common;
 public sealed class LurukaSoupCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    private static readonly SealElementType[] _elements =
-    [
-        SealElementType.Fire,
-        SealElementType.Water,
-        SealElementType.Wood,
-    ];
-
     private static readonly MarkSlot[] _slots =
     [
         MarkSlot.Primary,
@@ -45,8 +38,11 @@ public sealed class LurukaSoupCard() : StarbornCard(
 
         for (int i = 0; i < times; i++)
         {
-            var element = _elements[rng.NextInt(0, _elements.Length)];
             var slot = _slots[rng.NextInt(0, _slots.Length)];
+            var pool = slot == MarkSlot.Primary
+                ? ElementPoolRegistry.PrimaryPool
+                : ElementPoolRegistry.SecondaryPool;
+            var element = pool[rng.NextInt(0, pool.Length)];
             await SealElementMarkCmd.GainElementMarks(choiceContext, slot, Owner, 1, element);
         }
     }

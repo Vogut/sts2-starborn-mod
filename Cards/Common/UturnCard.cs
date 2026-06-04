@@ -4,25 +4,18 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
-using STS2_Starborn.Cards.Ancient;
-namespace STS2_Starborn.Cards.Basic;
 
-/// <summary>
-/// 协同：2费基础攻击。造成10点伤害，释放随机一张奇波 Ultimate 牌。
-/// </summary>
+namespace STS2_Starborn.Cards.Common;
+
 [RegisterCard(typeof(StarbornCardPool))]
-[RegisterCharacterStarterCard(typeof(Starborn), 1, Order = 2)]
-[RegisterArchaicToothTranscendence(typeof(TestAncientCard))]
-public sealed class SynergyCard() : StarbornCard(
-    2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy
-)
+public sealed class UturnCard() : StarbornCard(
+    1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(9m, ValueProp.Move),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -33,11 +26,15 @@ public sealed class SynergyCard() : StarbornCard(
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        await KiboCmd.TryAutoPlayRandomUltimateCard(Owner, Owner.Creature.CombatState!);
+        await KiboCmd.SummonRandom(choiceContext, Owner);
+
+        var combatState = Owner!.Creature.CombatState;
+        if (combatState != null)
+            await KiboCmd.TryAutoPlayRandomNormalCard(Owner, combatState);
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }
