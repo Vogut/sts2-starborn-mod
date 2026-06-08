@@ -17,5 +17,11 @@
     "STS2_STARBORN_RELIC_META_CUBE.flavor": "一种可能性。",
     "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.title": "哈库茵权戒",
     "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.description": "战斗开始时，造成[blue]{Damage}[/blue]点伤害，弹跳[blue]{Counts}[/blue]次。",
-    "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.flavor": "挥金如土的大小姐的戒指。"
+    "STS2_STARBORN_RELIC_HAKUIN_RING_RELIC.flavor": "挥金如土的大小姐的戒指。",
+    "STS2_STARBORN_RELIC_LADDER_OF_ZUZANKA_RELIC.title": "祖赞卡之梯",
+    "STS2_STARBORN_RELIC_LADDER_OF_ZUZANKA_RELIC.description": "每场战斗首次切换过3种属性后，获得[blue]{Stacks}[/blue]层[gold]调谐强化[/gold]。",
+    "STS2_STARBORN_RELIC_LADDER_OF_ZUZANKA_RELIC.flavor": "神秘的脑溢血小游戏。",
+    "STS2_STARBORN_RELIC_DAILY_LOGIN_BOOK_RELIC.title": "签到本",
+    "STS2_STARBORN_RELIC_DAILY_LOGIN_BOOK_RELIC.description": "每经过[blue]{CombatInterval}[/blue]场战斗，额外掉落一次卡牌、遗物奖励以及[blue]{GoldAmount}[/blue]金币。",
+    "STS2_STARBORN_RELIC_DAILY_LOGIN_BOOK_RELIC.flavor": "连续签到可获得额外奖励哦！"
 }
