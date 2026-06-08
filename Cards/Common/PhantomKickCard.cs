@@ -24,6 +24,8 @@ public sealed class PhantomKickCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.Tuning(1, SealElementType.Fire),
+        StarbornCardVars.Overload(2, SealElementType.Fire),
+        StarbornCardVars.IfCanOverload(),
         new RepeatVar(4),
     ];
 

@@ -20,6 +20,8 @@ public sealed class BlueWhiteBowlCard() : StarbornCard(
     [
         new CardsVar(2),
         StarbornCardVars.Tuning(1, SealElementType.Wind),
+        StarbornCardVars.Overload(2, SealElementType.Wind),
+        StarbornCardVars.IfCanOverload(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

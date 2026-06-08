@@ -51,6 +51,18 @@ public static class StarbornCmd
         var elementType = ElementMarkState.GetElementType(player, slot);
         if (elementType == SealElementType.None) return;
 
+        // 卡牌触发的调谐：印记层数 > 3 时自动变为超限
+        if (source != null)
+        {
+            var currentStacks = ElementMarkState.GetStacks(player, slot);
+            if (currentStacks > ElementMarkState.ThresholdStacks)
+            {
+                var overloadConsume = Element.StarbornElement.For(elementType).OverloadConsume;
+                await Overload(ctx, slot, player, overloadConsume, source);
+                return;
+            }
+        }
+
         consume = SealElementMarkHooks.ModifyTuningConsume(combatState, slot, consume);
         var stacks = ElementMarkState.GetStacks(player, slot);
         if (stacks < consume) return;

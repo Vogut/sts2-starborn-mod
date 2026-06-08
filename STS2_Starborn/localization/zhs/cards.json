@@ -5,8 +5,8 @@
     "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加{ElementMark:elementIcon()}层。",
     "STS2_STARBORN_CARD_SWITCH_PRIMARY_MARK_CARD.upgradeDescription": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠加{ElementMark:elementIcon()}层。",
     "STS2_STARBORN_CARD_TUNING_CARD.title": "炎印·调谐",
-    "STS2_STARBORN_CARD_TUNING_CARD.description": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:elementIcon()}层。[gold]调谐{Tuning:elementIcon()}[/gold]：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
-    "STS2_STARBORN_CARD_TUNING_CARD.upgradeDescription": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:elementIcon()}层。[gold]调谐{Tuning:elementIcon()}[/gold]：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
+    "STS2_STARBORN_CARD_TUNING_CARD.description": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:elementIcon()}层。{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
+    "STS2_STARBORN_CARD_TUNING_CARD.upgradeDescription": "将[b]主属性印记[/b]切换为[red]火[/red]属性，叠加{ElementMark:elementIcon()}层。{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}：对全体敌人施加等同于印记层数的[gold]灼烧[/gold]。{InCombat:\n(造成[blue]{CalculatedDamage}[/blue]点伤害)|}",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.title": "炎印·超限",
     "STS2_STARBORN_CARD_OVERLOAD_CARD.description": "将[bold]主属性印记[/bold]切换为[red]火[/red]属性并叠满5层。[gold]超限{Overload:elementIcon()}[/gold]：对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]。",
 
@@ -16,13 +16,13 @@
     "STS2_STARBORN_CARD_STARBORN_DEFEND.description": "获得{Block:diff()}点格挡。",
 
     "STS2_STARBORN_CARD_RETURN_SEA_OF_STARS_CARD.title": "归于星海",
-    "STS2_STARBORN_CARD_RETURN_SEA_OF_STARS_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。[gold]调谐{Tuning:elementIcon()}[/gold]。",
+    "STS2_STARBORN_CARD_RETURN_SEA_OF_STARS_CARD.description": "获得{ElementMark:elementIcon()}/{ElementMarkSecondary:elementIcon()}当前属性印记。{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
 
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗减少[red]1[/red]。回合开始时印记属性不再重置。",
     
     "STS2_STARBORN_CARD_ANY_TUNING_CARD.title": "测试·任意调谐",
-    "STS2_STARBORN_CARD_ANY_TUNING_CARD.description": "[gold]调谐{Tuning:elementIcon(single)}[/gold]。",
+    "STS2_STARBORN_CARD_ANY_TUNING_CARD.description": "{IfCanOverload:[gold]超限{Overload:elementIcon(single)}[/gold]|[gold]调谐{Tuning:elementIcon(single)}[/gold]}。",
 
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.title": "对轴",
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.description": "将主/副属性印记中较低一方的层数提升至与较高一方相同。",
@@ -64,10 +64,10 @@
     "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.description": "[gold]奇波[/gold]：碧羽灵龙。[gold]超限{Overload:elementIcon()}[/gold]。对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
 
     "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.title": "蓝白碗",
-    "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.description": "抽{Cards:diff()}张牌。\n[gold]调谐{Tuning:elementIcon()}[/gold]。",
+    "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.description": "抽{Cards:diff()}张牌。\n{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
 
     "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.title": "无影脚",
-    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "[gold]调谐{Tuning:elementIcon()}[/gold]。造成当前[gold]灼烧[/gold]层数的伤害{Repeat:diff()}次。",
+    "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。造成当前[gold]灼烧[/gold]层数的伤害{Repeat:diff()}次。",
 
     "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.title": "玩雪",
     "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.description": "[gold]奇波[/gold]：小雪狼。{IfUpgraded:show:将副属性变为[blue]冰[/blue]。|失去一层副印记。将副属性变为[blue]冰[/blue]。}",
@@ -79,7 +79,7 @@
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "造成{CalculatedDamage:diff()}点伤害。\n施加1层[gold]变大[/gold]。敌人每有一层[gold]变大[/gold]，造成额外{ExtraDamage:diff()}点伤害。",
     
     "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.title":"慈爱的惩罚",
-    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.description":"[gold]调谐{Tuning:elementIcon()}[/gold]。对所有敌人造成{Damage:diff()}点伤害。",
+    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.description":"{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。对所有敌人造成{Damage:diff()}点伤害。",
     
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加{Shrink:diff()}层[gold]变小[/gold]。",
@@ -193,7 +193,7 @@
     "STS2_STARBORN_CARD_PURE_SEA_CARD.upgradeDescription": "[gold]保留[/gold]。死亡时，立刻回复所有血量，结束敌人的回合。抽满手牌，将此牌从卡组中移除。",
 
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.title": "随机应变",
-    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，[gold]调谐{Tuning:elementIcon()}[/gold]。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
+    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
 
     "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.title": "奇波产线",
     "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.description": "本场战斗[gold]奇波[/gold]无法出牌。回合开始时将随机{Count:diff()}张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
@@ -247,7 +247,7 @@
     "STS2_STARBORN_CARD_KIBO_MOKLIDO_BLOOM_CARD.description": "获得{Block:diff()}点格挡。获得1层副属性木属性印记。",
 
     "STS2_STARBORN_CARD_WIND_ARROW_CARD.title": "乘风一箭",
-    "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。[gold]调谐{Tuning:elementIcon()}[/gold]。",
+    "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
 
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.title": "滚动撞击",
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有一个敌人弹跳一次。",

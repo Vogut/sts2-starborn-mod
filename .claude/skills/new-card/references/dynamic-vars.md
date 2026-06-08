@@ -57,6 +57,8 @@ Tuning(1, SealElementType.Any)
 Overload(1, SealElementType.Any)
 ```
 
+`StarbornCardVars.IfCanOverload()` — 可选的条件变量，配合 JSON `{IfCanOverload:超限文本|调谐文本}` 在印记 >3 层时自动切换卡面文字。
+
 ## 元素类型引用——禁止硬编码
 
 当卡牌始终操作固定元素时，在 `CanonicalVars` 定义一次，`OnPlay` 从 `SealElementVar.ElementType` 提取，**不要在 OnPlay 中重复写 `SealElementType.Xxx`**：

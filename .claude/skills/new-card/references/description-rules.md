@@ -4,6 +4,8 @@
 
 - 始终用 `{VarName:diff()}` 显示可升级数值，不要硬编码
 - 升级改变**文字内容**时用 `{IfUpgraded:show:升级版|基础版}`，原版**没有** upgradeDescription 这个 key
+- 印记 >3 层时调谐显示为超限：用 `{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}`（需卡牌声明 `IfCanOverloadVar` + `Overload` var）
+- **不要**将 `{IfCanOverload:...|...}` 嵌套在 `{IfUpgraded:show:...|}` 内部——`|` 分隔符会冲突
 - 升级**减少**数值时用 `{VarName:inverseDiff()}`
 - 战斗内实时数值用 `{InCombat:\n（造成{CalculatedDamage}点伤害）|}` — 非战斗时隐藏
 - 多行用 `\n` 分隔，每句以 `。` 结尾

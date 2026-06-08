@@ -1,6 +1,10 @@
 # Seal Element Mark System
 
-印记系统有两档：**调谐**（Tuning，≥3层）和**超限**（Overload，5层满）。每回合结束自动检查并触发。
+印记系统有两档：**调谐**（Tuning）和**超限**（Overload）。
+
+- **回合开始自动触发**：印记 ≥ 3 层触发调谐，印记 = 5 层触发超限
+- **卡牌手动触发**：印记 ≥ 3 层触发调谐，但**印记 > 3 层（≥ 4）时调谐自动升级为超限**（仅卡牌，回合开始不受影响）
+- 重定向逻辑见 [Commands/StarbornCmd.cs](Commands/StarbornCmd.cs) `Tuning()` 方法：`source != null && stacks > ThresholdStacks` 时调用 `Overload()` 代替
 
 ## Core Constants
 
@@ -104,6 +108,34 @@ var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
 await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
     DynamicVars["Tuning"].IntValue, tuningElementType, this);
 ```
+
+#### 可选：印记 >3 层时自动升级为超限
+
+如果调谐卡牌需要在印记层数较高时自动变为超限，需同时做三件事：
+
+**① CanonicalVars 添加 Overload + IfCanOverloadVar**：
+```csharp
+protected override IEnumerable<DynamicVar> CanonicalVars =>
+[
+    StarbornCardVars.Tuning(1, SealElementType.Fire),
+    StarbornCardVars.Overload(2, SealElementType.Fire), // 超限消耗（卡面显示用）
+    StarbornCardVars.IfCanOverload(),    // 条件变量
+    // ...
+];
+```
+
+**② JSON 描述使用条件语法**：
+```
+{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}
+```
+
+**③ OnPlay 无需改动**——`StarbornCmd.Tuning()` 内部在 `source != null && stacks > 3` 时自动重定向到 `Overload()`。
+
+> 条件变量 `IfCanOverloadVar` 在 `UpdateCardPreview` 中动态检测主印记层数是否 > 3。战斗外始终为 false（显示"调谐"）。
+> 
+> **注意**：不要将 `{IfCanOverload:...|...}` 嵌套在 `{IfUpgraded:show:...|}` 内部——两者的 `|` 分隔符可能冲突。
+
+参照：[TuningCard](Cards/Common/TuningCard.cs)、[AnyTuningCard](Cards/Common/AnyTuningCard.cs)、[ReturnSeaOfStarsCard](Cards/Basic/ReturnSeaOfStarsCard.cs)
 
 ### 超限卡
 

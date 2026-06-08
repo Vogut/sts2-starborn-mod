@@ -25,6 +25,8 @@ public sealed class SweetPunishmentCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.Tuning(1, SealElementType.Light),
+        StarbornCardVars.Overload(2, SealElementType.Light),
+        StarbornCardVars.IfCanOverload(),
         new DamageVar(5,ValueProp.Move),
     ];
 

@@ -22,7 +22,10 @@ public sealed class AdaptabilityCard() : StarbornCard(
     [
         new CardsVar(1),
         Tuning(1, SealElementType.Any, "Tuning", MarkSlot.Primary),
+        Overload(2, SealElementType.Any, "Overload", MarkSlot.Primary),
         Tuning(1, SealElementType.Any, "TuningSecondary", MarkSlot.Secondary),
+        Overload(2, SealElementType.Any, "OverloadSecondary", MarkSlot.Secondary),
+        StarbornCardVars.IfCanOverload(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

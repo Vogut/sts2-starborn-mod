@@ -20,6 +20,8 @@ public sealed class WindArrowCard() : StarbornCard(
     [
         new DamageVar(6m, ValueProp.Move),
         StarbornCardVars.Tuning(1, SealElementType.Wind),
+        StarbornCardVars.Overload(2, SealElementType.Wind),
+        StarbornCardVars.IfCanOverload(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

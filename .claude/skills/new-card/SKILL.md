@@ -17,6 +17,7 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 | `超限X` / `超限X,N/M` | Overload，元素 X，消耗主（默认1）/ 主 N + 副 M |
 | `印记N` / `印记N/M` | 获得/消耗主印记 N / 主 N + 副 M |
 | `切换X` / `切X` | 切换印记属性为 X |
+| `自动超限` | 调谐卡在印记 >3 时自动升级为超限（需加 `IfCanOverloadVar` + JSON 条件） |
 
 `N/M` = 主印记消耗 N / 副印记消耗 M。省略副值时默认 0。火/水/光 默认主属性，风/冰/木 默认副属性。
 

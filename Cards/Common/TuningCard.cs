@@ -31,6 +31,8 @@ public class TuningCard() : StarbornCard(
     [
         StarbornCardVars.ElementMark(2, SealElementType.Fire),
         StarbornCardVars.Tuning(2, SealElementType.Fire),
+        StarbornCardVars.Overload(2, SealElementType.Fire),
+        StarbornCardVars.IfCanOverload(),
         new CalculationBaseVar(0),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier((card, _) =>

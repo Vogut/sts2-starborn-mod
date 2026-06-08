@@ -61,7 +61,7 @@ public class PureSeaPower : StarbornPower
 
         // 2. 结束敌人回合 + 抽满手牌
         var player = Owner.Player;
-        if (player != null)
+        if (player?.PlayerCombatState != null)
         {
             // 强制跳过当前阶段
             PlayerCmd.EndTurn(player, canBackOut: false);

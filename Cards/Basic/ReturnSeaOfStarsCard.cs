@@ -22,6 +22,8 @@ public sealed class ReturnSeaOfStarsCard() : StarbornCard(
         ElementMark(1, SealElementType.Any, "ElementMark", MarkSlot.Primary),
         ElementMark(1, SealElementType.Any, "ElementMarkSecondary", MarkSlot.Secondary),
         Tuning(0, SealElementType.Any, "Tuning", MarkSlot.Primary),
+        Overload(2, SealElementType.Any, "Overload", MarkSlot.Primary),
+        StarbornCardVars.IfCanOverload(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

@@ -22,6 +22,8 @@ public class AnyTuningCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         Tuning(1, SealElementType.Any),
+        Overload(2, SealElementType.Any),
+        StarbornCardVars.IfCanOverload(),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

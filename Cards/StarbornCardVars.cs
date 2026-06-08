@@ -1,4 +1,5 @@
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
@@ -62,5 +63,41 @@ public static class StarbornCardVars
             return StarbornTipFactory.Overload(sev.ElementType, (int)sev.IntValue);
         });
         return v;
+    }
+
+    /// <summary>
+    /// Creates an <see cref="IfCanOverloadVar"/> — true when primary mark stacks > ThresholdStacks (3).
+    /// Use in a card's <c>CanonicalVars</c> along with <c>StarbornCardVars.Overload(...)</c> and
+    /// the JSON conditional <c>{IfCanOverload:超限{Overload:elementIcon()}|调谐{Tuning:elementIcon()}}</c>.
+    /// </summary>
+    public static DynamicVar IfCanOverload() => new IfCanOverloadVar();
+}
+
+/// <summary>
+/// DynamicVar that indicates whether the current primary seal mark has enough stacks
+/// to trigger overload instead of tuning (stacks > ThresholdStacks, i.e. ≥ 4).
+/// Used in card descriptions with SmartFormat native conditional syntax.
+/// Add to a card's CanonicalVars via <c>StarbornCardVars.IfCanOverload()</c>.
+/// </summary>
+public class IfCanOverloadVar : DynamicVar
+{
+    public const string DefaultName = "IfCanOverload";
+
+    public IfCanOverloadVar()
+        : base(DefaultName, 0)
+    {
+    }
+
+    public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
+    {
+        if (!card.IsCanonical && card.Owner != null)
+        {
+            var stacks = ElementMarkState.GetStacks(card.Owner, MarkSlot.Primary);
+            PreviewValue = stacks > ElementMarkState.ThresholdStacks ? 1 : 0;
+        }
+        else
+        {
+            PreviewValue = 0;
+        }
     }
 }
