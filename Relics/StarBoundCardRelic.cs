@@ -18,7 +18,9 @@ using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
+using STS2_Starborn.Element;
 using STS2_Starborn.Events;
+using STS2_Starborn.Hooks;
 using STS2_Starborn.Map;
 using STS2_Starborn.Runs;
 
@@ -26,7 +28,7 @@ namespace STS2_Starborn.Relics;
 
 [RegisterRelic(typeof(StarbornRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Starborn))]
-public class StarbornMarkRelic : StarbornRelic
+public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
@@ -55,16 +57,8 @@ public class StarbornMarkRelic : StarbornRelic
         if (!ShouldOverrideForKiboEvent()) return currentEvent;
         return ModelDb.Event<KiboStarterEvent>();
     }
-
-    public override async Task AfterSideTurnStart(CombatSide side,
-        IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task BeforeCombatStart()
     {
-        if (side != base.Owner.Creature.Side || combatState.RoundNumber != 1)
-            return;
-
-        ElementMarkState.SetStacks(base.Owner, MarkSlot.Primary, 1);
-        ElementMarkState.SetStacks(base.Owner, MarkSlot.Secondary, 1);
-
         var data = KiboRunData.Get(base.Owner);
         if (data?.ActiveKiboTypeId == null) return;
         if (!KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) return;
@@ -73,5 +67,16 @@ public class StarbornMarkRelic : StarbornRelic
         if (activePile != null && activePile.Cards.Count > 0) return;
 
         await KiboCmd.Summon(new BlockingPlayerChoiceContext(), base.Owner, typeId);
+    }
+
+    // IAutoTriggerListener 实现
+    public async Task AfterAutoTrigger(PlayerChoiceContext ctx, bool anyTriggered)
+    {
+        // 若本回合开始时未触发调谐/超限，给主副属性各+1层（包括 None）
+        if (!anyTriggered)
+        {
+            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, base.Owner, 1);
+            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, base.Owner, 1);
+        }
     }
 }

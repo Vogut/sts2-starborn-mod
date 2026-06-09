@@ -9,6 +9,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Combat;
 
@@ -27,6 +28,8 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
     private int _tuningTotalCount;
     private int _overloadTotalCount;
+
+    private bool _triggeredThisTurnStart;
 
     private readonly Dictionary<ulong, int> _switchCounts = [];
     private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
@@ -110,6 +113,11 @@ public sealed class ElementMarkManager : HookedSingletonModel
     public static void RecordOverload() =>
         Instance._overloadTotalCount++;
 
+    // ── Turn start trigger tracking ──
+
+    public static bool TriggeredThisTurnStart() =>
+        Instance._triggeredThisTurnStart;
+
     // ── First overload tracking ──
 
     public static bool IsFirstOverload(SealElementType element) =>
@@ -123,14 +131,28 @@ public sealed class ElementMarkManager : HookedSingletonModel
         var player = combatState.Players.FirstOrDefault();
         if (player == null) return;
 
+        await ProcessAutoTrigger(player, combatState);
+        Instance.ResetSwitchTracking(player);
+    }
+
+    private async Task ProcessAutoTrigger(Player player, ICombatState combatState)
+    {
+        var ctx = new ThrowingPlayerChoiceContext();
+
+        // Before 钩子：开始自动触发流程
+        await SealElementMarkHooks.BeforeAutoTrigger(combatState, ctx);
+
+        _triggeredThisTurnStart = false;
         foreach (var slot in Slots)
         {
             var triggered = await TryTriggerAutoTuning(player, slot, combatState);
+            if (triggered) _triggeredThisTurnStart = true;
             if (!triggered)
                 await ResetElementToNone(player, slot);
         }
 
-        Instance.ResetSwitchTracking(player);
+        // After 钩子：完成自动触发流程
+        await SealElementMarkHooks.AfterAutoTrigger(combatState, ctx, _triggeredThisTurnStart);
     }
 
     private static async Task<bool> TryTriggerAutoTuning(Player player, MarkSlot slot, ICombatState combatState)
@@ -140,16 +162,17 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
         var stacks = ElementMarkState.GetStacks(player, slot);
         var element = StarbornElement.For(elementType);
+        var ctx = new ThrowingPlayerChoiceContext();
 
         if (stacks >= MaxSealStacks)
         {
-            await StarbornCmd.Overload(new ThrowingPlayerChoiceContext(), slot, player, element.OverloadConsume);
+            await StarbornCmd.Overload(ctx, slot, player, element.OverloadConsume);
             return true;
         }
 
         if (stacks >= ThresholdStacks)
         {
-            await StarbornCmd.Tuning(new ThrowingPlayerChoiceContext(), slot, player, element.TuningConsume);
+            await StarbornCmd.Tuning(ctx, slot, player, element.TuningConsume);
             return true;
         }
 

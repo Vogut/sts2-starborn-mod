@@ -60,10 +60,10 @@ public static class SealElementMarkHooks
     // ── Tuning / Overload ──
 
     public static async Task BeforeTuning(
-        ICombatState combatState, 
+        ICombatState combatState,
         PlayerChoiceContext ctx,
-        MarkSlot slot, 
-        int consume, 
+        MarkSlot slot,
+        int consume,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
@@ -75,10 +75,10 @@ public static class SealElementMarkHooks
     }
 
     public static async Task AfterTuning(
-        ICombatState combatState, 
+        ICombatState combatState,
         PlayerChoiceContext ctx,
-        MarkSlot slot, 
-        int consume, 
+        MarkSlot slot,
+        int consume,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
@@ -90,10 +90,10 @@ public static class SealElementMarkHooks
     }
 
     public static async Task BeforeOverload(
-        ICombatState combatState, 
+        ICombatState combatState,
         PlayerChoiceContext ctx,
-        MarkSlot slot, 
-        int consume, 
+        MarkSlot slot,
+        int consume,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
@@ -105,10 +105,10 @@ public static class SealElementMarkHooks
     }
 
     public static async Task AfterOverload(
-        ICombatState combatState, 
+        ICombatState combatState,
         PlayerChoiceContext ctx,
-        MarkSlot slot, 
-        int consume, 
+        MarkSlot slot,
+        int consume,
         CardModel? source)
     {
         foreach (var model in combatState.IterateHookListeners())
@@ -118,10 +118,34 @@ public static class SealElementMarkHooks
             model.InvokeExecutionFinished();
         }
     }
-    /// <summary>
-    /// 向所有 <see cref="IElementMarkModifier"/> 分发调谐消耗修正。
-    /// 对标原版 <c>Hook.ModifyDamage</c> 模式。
-    /// </summary>
+
+    // ── Auto Trigger ──
+
+    public static async Task BeforeAutoTrigger(
+        ICombatState combatState,
+        PlayerChoiceContext ctx)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IAutoTriggerListener listener)
+                await listener.BeforeAutoTrigger(ctx);
+            model.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task AfterAutoTrigger(
+        ICombatState combatState,
+        PlayerChoiceContext ctx,
+        bool anyTriggered)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IAutoTriggerListener listener)
+                await listener.AfterAutoTrigger(ctx, anyTriggered);
+            model.InvokeExecutionFinished();
+        }
+    }
+
     // ── Consume modifiers ──
 
     public static int ModifyTuningConsume(ICombatState combatState, MarkSlot slot, int consume)
