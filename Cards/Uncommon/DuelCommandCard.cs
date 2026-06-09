@@ -9,11 +9,11 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Powers;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class DuelCommandCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.None
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.None
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

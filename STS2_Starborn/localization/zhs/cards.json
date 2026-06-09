@@ -326,5 +326,17 @@
     "STS2_STARBORN_CARD_SLACKING_CARD.description": "给予{Weak:inverseDiff()}层[gold]虚弱[/gold]。获得{Energy:energyIcons()}。",
 
     "STS2_STARBORN_CARD_UTURN_CARD.title": "急速折返",
-    "STS2_STARBORN_CARD_UTURN_CARD.description": "造成{Damage:diff()}点伤害。随机切换一个[gold]奇波[/gold]。释放当前[gold]奇波[/gold]的[gold]奇波战技[/gold]。"
+    "STS2_STARBORN_CARD_UTURN_CARD.description": "造成{Damage:diff()}点伤害。随机切换一个[gold]奇波[/gold]。释放当前[gold]奇波[/gold]的[gold]奇波战技[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_MURO_RABBIT_REP_CARD.title": "目绒兔",
+    "STS2_STARBORN_CARD_KIBO_MURO_RABBIT_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_SOFT_FUR_CARD.title": "柔软绒毛",
+    "STS2_STARBORN_CARD_KIBO_SOFT_FUR_CARD.description": "获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_GLOWING_TILT_CARD.title": "辉光倾至",
+    "STS2_STARBORN_CARD_KIBO_GLOWING_TILT_CARD.description": "获得{ElementMark:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_BACK_TOWARD_ENEMY_CARD.title": "此面向敌",
+    "STS2_STARBORN_CARD_BACK_TOWARD_ENEMY_CARD.description": "[gold]奇波[/gold]：[blue]目绒兔[/blue]。随机使敌人在本回合失去{StrengthLoss:diff()}点力量{Repeat}次。"
 }
