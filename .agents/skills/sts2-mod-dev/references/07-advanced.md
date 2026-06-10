@@ -88,14 +88,26 @@ store.Modify<MySettings>("settings", data => { data.Volume = 60; });
 store.Save("settings");
 ```
 
-Scope guide:
+### SaveScope + RunSavedData
 
+Use `SaveScope` for DataStore-persisted data across saves/profiles, and `RunSavedDataStore` for per-run sidecar data:
+
+**SaveScope** values (`STS2RitsuLib.Utils.Persistence`):
 | Scope | Use for |
 |---|---|
 | `SaveScope.Global` | Mod settings, account-wide preferences |
 | `SaveScope.Profile` | Progression, unlock data tied to a save file |
 | `SaveScope.InMemory` | Temporary data using the store API without writing to disk |
-| `SaveScope.RunSavedData` | Per-run sidecar data (needs `contextProvider` overload) |
+
+**RunSavedDataStore** for per-run data (replaces the old `SaveScope.RunSavedData`):
+```csharp
+var store = RitsuLibFramework.GetRunSavedDataStore(ModId);
+store.RegisterPerPlayer<MyRunData>("my_run_data");
+
+// Access in gameplay:
+var data = store.Get<MyRunData>(player);
+store.Modify<MyRunData>(player, data => data.Counter++);
+```
 
 Always use a class (not a primitive) so you can add fields in future versions without migrating the storage slot.
 
@@ -108,12 +120,16 @@ Use RitsuLib's patcher API instead of vanilla Harmony directly — it supports g
 ```csharp
 // In Entry.Init():
 var patcher = RitsuLibFramework.CreatePatcher("MyMod", "combat");
-patcher.RegisterPatches<MyCombatPatches>();
+patcher.RegisterPatch<MyCombatPatch>();        // single IPatchMethod
+patcher.RegisterPatch<MyOtherPatch>();
 RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);
+
+// For patches grouped into one class implementing IModPatches:
+// patcher.RegisterPatches<MyGroupedPatches>();   // IModPatches (plural)
 
 // Optional: separate patcher for a feature that can safely fail
 var optPatcher = RitsuLibFramework.CreatePatcher("MyMod", "compat");
-optPatcher.RegisterPatches<MyCompatPatches>();
+optPatcher.RegisterPatch<MyCompatPatch>();
 optPatcher.PatchAll();  // not "required" — mod stays active if it fails
 ```
 
@@ -125,8 +141,8 @@ using STS2RitsuLib.Patching.Core;
 public sealed class MyCombatPatches : IPatchMethod
 {
     public static string PatchId => "my_mod_combat_patch";
-    public static string Description => "Adjust combat start behavior";
-    public static bool IsCritical => true;
+    public static string Description => "Adjust combat start behavior";   // default: "Patch"
+    public static bool IsCritical => true;                                 // default: true
 
     public static ModPatchTarget[] GetTargets() =>
     [
@@ -184,6 +200,26 @@ Common lifecycle events:
 
 ---
 
+## ModRunRngRegistry — Deterministic Per-Mod RNG (v0.3.4)
+
+Replace `Random.Shared` and `new Random()` with per-mod, per-run RNG streams that are save-safe and multiplayer-synced:
+
+```csharp
+using STS2RitsuLib.RunRngs;
+
+// Player-scoped RNG
+var rng = ModRunRngRegistry.Get(player, ModId, "my_stream");
+var index = rng.NextInt(0, candidates.Count);
+var item = rng.NextItem(candidates);    // convenience: pick random element
+
+// Run-scoped RNG
+var rng = ModRunRngRegistry.Get(runState, ModId, "my_stream");
+```
+
+Stream IDs partition RNG state — use distinct IDs for distinct gameplay decisions.
+
+---
+
 ## ModCardVars — Dynamic Variables
 
 The preferred API for card description variables is `ModCardVars` via the `DynamicVarSet` property:
@@ -213,32 +249,60 @@ var hasHeat = card.DynamicVars.HasPositiveValue("heat");
 
 ## Custom Keywords
 
-Register via content pack:
+### Registration
+
+Register via content pack or attribute:
 
 ```csharp
+// Content pack style
 RitsuLibFramework.CreateContentPack("MyMod")
-    .KeywordOwned("HEAT")          // card_keywords table
-    // or: .CardKeywordOwnedByLocNamespace("heat")
+    .KeywordOwned("HEAT", ModKeywordCardDescriptionPlacement.Below, includeInCardHoverTip: true)
     .Apply();
+
+// Attribute style (on any class in the mod assembly)
+[RegisterOwnedCardKeyword("heat", IncludeInCardHoverTip = true)]
+public class MyKeywords { }
 ```
 
-Add to `card_keywords/eng.json`:
+Localization in `card_keywords/eng.json`:
 ```json
 {
-    "MY_MOD_HEAT.title": "Heat",
-    "MY_MOD_HEAT.description": "Some cards change based on current Heat."
+    "MY_MOD_KEYWORD_HEAT.title": "Heat",
+    "MY_MOD_KEYWORD_HEAT.description": "Some cards change based on current Heat."
 }
+```
+
+### Migration: String → CardKeyword (v0.3.5)
+
+RitsuLib v0.3.5 deprecated string-based keyword extension methods. **Always pre-mint a `CardKeyword` value and use the strongly-typed overloads:**
+
+```csharp
+using STS2RitsuLib.Keywords;
+
+// Old — compiler warning, per-call hash:
+card.HasModKeyword("MY_MOD_KEYWORD_HEAT");
+card.AddModKeyword("MY_MOD_KEYWORD_HEAT");
+
+// New — pre-mint once, use everywhere:
+public static readonly CardKeyword HeatKeyword = "MY_MOD_KEYWORD_HEAT".GetModCardKeyword();
+card.HasModKeyword(HeatKeyword);
+card.AddModKeyword(HeatKeyword);
+```
+
+`GetModCardKeyword()` is a pure hash function — no registration dependency, safe at static init time.
+The same pattern applies to CardTags via `GetModCardTag()`.
+
+### Logger.ErrorNoTrace() (v0.3.3)
+
+Log errors without the automatic stack trace:
+
+```csharp
+Logger.ErrorNoTrace("Something went wrong but we don't need a full trace.");
 ```
 
 ---
 
 ## FMOD Audio
-
-```csharp
-// In Entry.Init() — register .bank files bundled in your PCK
-RitsuLibFramework.RegisterAudioBank("res://MyMod/audio/MyMod.bank");
-RitsuLibFramework.RegisterAudioBank("res://MyMod/audio/MyMod.strings.bank");
-```
 
 Reference the FMOD event path in `CharacterAssetProfile.Audio`:
 ```csharp
@@ -246,6 +310,8 @@ Audio = new() { AttackSfx = "event:/MyMod/character_attack" }
 ```
 
 Or play directly: `AudioCmd.Play("event:/sfx/mymod/my_sfx");`
+
+Audio banks are registered via the Godot audio system. See the vanilla game's audio setup for the current registration pattern.
 
 ---
 
@@ -258,22 +324,21 @@ public sealed class MyEvent : ModEventTemplate
 {
     protected override async Task OnEnterEvent(PlayerChoiceContext ctx, Player player)
     {
-        var choice = await EventCmd.PresentChoice(ctx, ["Option A", "Option B", "Leave"]);
-        switch (choice)
-        {
-            case 0:  await HandleOptionA(ctx, player); break;
-            case 1:  await HandleOptionB(ctx, player); break;
-        }
+        // Use event page system — present pages with options via EventCmd API
+        // ModEventTemplate provides helpers for building option keys and page descriptions
     }
 
-    // Helper from ModEventTemplate:
+    // Helpers from ModEventTemplate:
     // protected string ModOptionKey(string pageName, string optionName)
     // protected LocString PageDescription(string pageName)
 }
 ```
 
-Event localization keys: `{ENTRY}.pages.INITIAL.description`, `{ENTRY}.pages.INITIAL.options.OPEN`, etc.
-Keep page and option names stable after release.
+Event options are defined via localization pages. Each page has a description and a list of options.
+Event page localization keys:
+- `{ENTRY}.pages.INITIAL.description` — page description text
+- `{ENTRY}.pages.INITIAL.options.OPEN` — option button label
+Keep page and option names stable after release — they are part of the player's event-choice history.
 
 ---
 

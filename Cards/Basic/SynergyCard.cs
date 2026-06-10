@@ -15,7 +15,7 @@ namespace STS2_Starborn.Cards.Basic;
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 [RegisterCharacterStarterCard(typeof(Starborn), 1, Order = 2)]
-[RegisterArchaicToothTranscendence(typeof(TestAncientCard))]
+[RegisterArchaicToothTranscendence(typeof(KiboComboCard))]
 public sealed class SynergyCard() : StarbornCard(
     2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy
 )

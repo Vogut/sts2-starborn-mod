@@ -10,9 +10,12 @@ description: >
   users mention RegisterCard, ModCharacterTemplate, TypeListCardPoolModel, ModCardTemplate, ModRelicTemplate,
   ModPowerTemplate, SavedAttachedState, ModCardVars, ContentPack, RegisterEpoch, IPatchMethod,
   RitsuLibFramework, ModTypeDiscoveryHub, RegisterOwnedCardPile, ModCardPileSpec, CardCmd, PowerCmd,
-  CardPileCmd, HookPlayerChoiceContext, AttachedState, IModCardPileHandler, or any other RitsuLib or STS2
-  game API. Invoke proactively whenever the user is clearly building, debugging, or designing for STS2,
-  even if they don't say "RitsuLib" or "mod" explicitly.
+  CardPileCmd, HookPlayerChoiceContext, AttachedState, IModCardPileHandler, ModRunRngRegistry,
+  ModRightClickRegistry, ModCardTransformRegistry, ModRelicVisibilityRegistry, RitsuToastService,
+  RitsuGodotNodeFactories, ModModelIdentity, HarmonyIl, GetModCardKeyword, GetModCardTag,
+  CardKeyword, ModKeywordRegistry, or any other RitsuLib or STS2 game API. Invoke proactively
+  whenever the user is clearly building, debugging, or designing for STS2, even if they don't
+  say "RitsuLib" or "mod" explicitly.
 ---
 
 # STS2 Mod Development with RitsuLib
@@ -57,13 +60,13 @@ deep-dive details, load the matching reference file from `references/`.
 |---|---|---|
 | 1. Project Setup | brand-new mod, csproj issues, Entry.cs | `references/01-project-setup.md` |
 | 2. Character & Pools | creating the character class + 3 pools | `references/02-character-and-pools.md` |
-| 3. Cards | card logic, DynamicVars, base card class | `references/03-cards.md` |
 | 4. Content | relics, powers, potions, enchantments | `references/04-content.md` |
 | 5. Localization | JSON key naming, BBCode colors, dynamic vars | `references/05-localization.md` |
 | 6. Epoch / Timeline | character unlock, content unlock milestones | `references/06-epoch.md` |
 | 7. Advanced | DataStore, patches, lifecycle events, audio, events | `references/07-advanced.md` |
 | 8. Settings & Diagnostics | mod settings UI, DataStore patterns, release warnings | `references/08-settings-and-diagnostics.md` |
 | 9. Card Piles | custom draw/discard-style piles, UI styles, runtime access | `references/09-card-piles.md` |
+| 10. New APIs (v0.3.3–0.3.5) | ModRunRng, right-click, card transforms, keyword migration, toast, and more | `references/10-new-apis.md` |
 
 ---
 
@@ -86,7 +89,8 @@ ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger); // only if you have .tscn-backed C# scripts
 
 var patcher = RitsuLibFramework.CreatePatcher(ModId, "main");
-patcher.RegisterPatches<MyPatches>();
+patcher.RegisterPatch<MyPatch>();   // IPatchMethod — one per target
+// patcher.RegisterPatches<MyPatches>();  // IModPatches — group of targets
 RitsuLibFramework.ApplyRequiredPatcher(patcher, DisableMod);
 ```
 

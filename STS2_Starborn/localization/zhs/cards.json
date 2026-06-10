@@ -338,5 +338,17 @@
     "STS2_STARBORN_CARD_KIBO_GLOWING_TILT_CARD.description": "获得{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_CARD_BACK_TOWARD_ENEMY_CARD.title": "此面向敌",
-    "STS2_STARBORN_CARD_BACK_TOWARD_ENEMY_CARD.description": "[gold]奇波[/gold]：[blue]目绒兔[/blue]。随机使敌人在本回合失去{StrengthLoss:diff()}点力量{Repeat}次。"
+    "STS2_STARBORN_CARD_BACK_TOWARD_ENEMY_CARD.description": "[gold]奇波[/gold]：[blue]目绒兔[/blue]。随机使敌人在本回合失去{StrengthLoss:diff()}点力量{Repeat}次。",
+
+    "STS2_STARBORN_CARD_FOREST_WISH_CARD.title": "森之祈愿",
+    "STS2_STARBORN_CARD_FOREST_WISH_CARD.description": "获得{ElementMark:elementIcon()}。将一张[gold]灵木之种[/gold]加入你的手牌。",
+
+    "STS2_STARBORN_CARD_SPIRIT_WOOD_SEED_CARD.title": "灵木之种",
+    "STS2_STARBORN_CARD_SPIRIT_WOOD_SEED_CARD.description": "{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
+
+    "STS2_STARBORN_CARD_KIBO_COMBO_CARD.title": "奇波合击",
+    "STS2_STARBORN_CARD_KIBO_COMBO_CARD.description": "对敌方施加{Vulnerable}层[gold]易伤[/gold]。造成{Damage:diff()}点伤害。使用当前奇波的所有[gold]奇波战技[/gold]和[gold]奇波特技[/gold]。",
+
+    "STS2_STARBORN_CARD_FLEE_CARD.title": "脱战",
+    "STS2_STARBORN_CARD_FLEE_CARD.description": "失去所有的印记。每失去一层印记，获得{BlockPerMark:diff()}点格挡。"
 }

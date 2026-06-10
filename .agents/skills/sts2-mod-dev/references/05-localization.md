@@ -172,14 +172,17 @@ This file requires more keys than other content types. All keys use the characte
 }
 ```
 
-Register the keyword through the content pack or a registry:
+Register the keyword through the content pack or attribute:
 
 ```csharp
+// Content pack style
 RitsuLibFramework.CreateContentPack("MyMod")
-    .KeywordOwned("HEAT")
+    .KeywordOwned("HEAT", ModKeywordCardDescriptionPlacement.Below, includeInCardHoverTip: true)
     .Apply();
-// or directly:
-RitsuLibFramework.GetKeywordRegistry("MyMod").RegisterCardKeywordOwnedByLocNamespace("HEAT");
+
+// Attribute style (on any class in the mod assembly)
+[RegisterOwnedCardKeyword("HEAT", IncludeInCardHoverTip = true)]
+public class MyKeywords { }
 ```
 
 Reference in card descriptions: `"Use [gold]Heat[/gold] once."`

@@ -19,6 +19,9 @@ This ID is the stem for localization keys in `static_hover_tips.json`:
 - `MYMOD_CARDPILE_OVERFLOW.description`
 - `MYMOD_CARDPILE_OVERFLOW.empty` (shown in thought bubble when the pile is empty and clicked)
 
+> **v0.3.5:** `GetPileType()` now uses deterministic minting — any string ID produces a valid `PileType` without
+> pre-registration. Registration is still required for UI configuration (icon, style, anchor).
+
 ---
 
 ## Registration — Attribute Style
@@ -85,12 +88,12 @@ RitsuLibFramework.GetCardPileRegistry("MyMod")
 | `IconPath` | `string?` | null | `res://` Godot path; falls back to placeholder |
 | `Hotkeys` | `string[]?` | null | Hotkey ids that open the pile view |
 | `CardShouldBeVisible` | `bool` | false | Only meaningful for `ExtraHand` — renders cards as NCard nodes |
-| `VisibleWhen` | `Func<..., bool>?` | null (always shown) | Button visibility predicate, checked per `_Process` tick |
+| `VisibleWhen` | `Func<ModCardPileVisibilityContext, bool>?` | null (always shown) | Button visibility predicate, checked per `_Process` tick |
 | `OnOpen` | `Action<ModCardPileOpenContext>?` | null (default screen) | Custom button-click handler |
 | `HoverTipPlacement` | `ModCardPileHoverTipPlacement` | `Auto` | Hover tip anchor relative to the button |
 | `HoverTipScreenOffset` | `Vector2` | `Zero` | Fine-tune hover tip position |
-| `FlightTargetPositionResolver` | `Func<..., Vector2?>?` | null | Dynamic fly-in target for cards entering the pile |
-| `FlightStartPositionResolver` | `Func<..., Vector2?>?` | null | Dynamic fly-out source for cards leaving the pile |
+| `FlightTargetPositionResolver` | `Func<ModCardPileFlightTargetContext, Vector2?>?` | null | Dynamic fly-in target for cards entering the pile |
+| `FlightStartPositionResolver` | `Func<ModCardPileFlightStartContext, Vector2?>?` | null | Dynamic fly-out source for cards leaving the pile |
 
 ---
 
