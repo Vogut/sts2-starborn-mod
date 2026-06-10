@@ -9,6 +9,8 @@ using STS2RitsuLib.Keywords;
 using STS2RitsuLib.RunRngs;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
+using STS2_Starborn.Combat;
+using STS2_Starborn.Element;
 using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Commands;
@@ -80,6 +82,14 @@ public static class KiboCmd
         }
 
         await KiboPileManager.MoveKiboToActive(player, typeId);
+
+        // 自动设置元素属性到对应槽位
+        if (combatState != null)
+        {
+            var def = KiboTypeRegistry.Get(typeId);
+            var slot = ElementPoolRegistry.PrimaryPool.Contains(def.Element) ? MarkSlot.Primary : MarkSlot.Secondary;
+            await SealElementMarkCmd.SetElementType(ctx, slot, player, def.Element);
+        }
 
         if (combatState != null)
             await KiboHooks.AfterKiboSwitchOn(combatState, player, typeId);

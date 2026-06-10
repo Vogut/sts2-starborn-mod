@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using STS2_Starborn.Element;
 using STS2_Starborn.UI;
 
 namespace STS2_Starborn.Cards.Kibo;
@@ -19,6 +20,9 @@ public sealed class RegisterKiboAttribute(string kiboTypeStem) : Attribute
     public string? EvolvesTo { get; init; }
 
     public bool IsStarter { get; init; }
+
+    /// <summary>Element type associated with this Kibo. When summoned, sets Primary seal mark to this element.</summary>
+    public SealElementType Element { get; init; } = SealElementType.None;
 }
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
@@ -41,7 +45,8 @@ public sealed record KiboTypeDefinition(
     Type RepCardType,
     Type? UltimateCardType = null,
     string? EvolvesTo = null,
-    bool IsStarter = false
+    bool IsStarter = false,
+    SealElementType Element = SealElementType.None
 )
 {
     public IEnumerable<IHoverTip> CreatePlayableCardHoverTips()
@@ -120,7 +125,8 @@ public static class KiboTypeRegistry
                 repType,
                 ultimate,
                 attr.EvolvesTo,
-                attr.IsStarter);
+                attr.IsStarter,
+                attr.Element);
         }
     }
 

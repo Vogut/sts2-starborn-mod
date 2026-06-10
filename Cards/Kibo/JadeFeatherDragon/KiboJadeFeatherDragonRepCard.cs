@@ -2,11 +2,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
-[RegisterKibo(KiboTypeId.JadeFeatherDragon)]
+[RegisterKibo(KiboTypeId.JadeFeatherDragon, Element = SealElementType.Water)]
 public sealed class KiboJadeFeatherDragonRepCard() : KiboCard(CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
