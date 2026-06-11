@@ -8,11 +8,11 @@ using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
 using STS2_Starborn.Powers;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class TwentyFourSecondCycleCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

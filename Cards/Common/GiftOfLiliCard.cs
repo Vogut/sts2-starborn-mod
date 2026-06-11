@@ -10,11 +10,11 @@ using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
 
-namespace STS2_Starborn.Cards.Uncommon;
+namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class GiftOfLiliCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Uncommon, TargetType.None
+    1, CardType.Skill, CardRarity.Common, TargetType.None
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
