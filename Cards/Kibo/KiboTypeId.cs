@@ -45,6 +45,8 @@ public static class KiboTypeId
     public const string JadeFeatherDragon = "jade_feather_dragon";
     public const string SnowWolfPup = "snow_wolf_pup";
     public const string MuroRabbit = "muro_rabbit";
+    public const string FlameCrystalArmor = "flame_crystal_armor";
+    public const string VineDoll = "vine_doll";
 
     /// <summary>All known local stems, in definition order.</summary>
     public static readonly string[] All =
@@ -60,6 +62,8 @@ public static class KiboTypeId
         JadeFeatherDragon,
         SnowWolfPup,
         MuroRabbit,
+        FlameCrystalArmor,
+        VineDoll,
     ];
 
     private const string CategoryStem = "KIBOTYPE";

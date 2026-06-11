@@ -38,7 +38,13 @@
 
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.title": "魔王曲",
     "STS2_STARBORN_CARD_BOSS_SONG_CARD.description": "在本回合切换过5种属性后才可打出。{InCombat:\n（目前已切换过[blue]{SwitchedTypes}种属性。）|}\n获得战斗胜利。",
-    
+
+    "STS2_STARBORN_CARD_STARBORN_RISING_CARD.title": "星临者立于大地之上",
+    "STS2_STARBORN_CARD_STARBORN_RISING_CARD.description": "你每有一层印记，获得{Block:diff()}点[gold]格挡[/gold]。",
+
+    "STS2_STARBORN_CARD_ARCANE_MOONWHEEL_CARD.title": "奥传·月轮",
+    "STS2_STARBORN_CARD_ARCANE_MOONWHEEL_CARD.description": "失去你的所有印记。每失去一枚印记，对所有敌人造成{Damage:diff()}点伤害。",
+
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.title": "异闪",
     "STS2_STARBORN_CARD_VARIABLE_SHINY_CARD.description": "升级你所有的奇波牌。",
 
@@ -70,7 +76,7 @@
     "STS2_STARBORN_CARD_PHANTOM_KICK_CARD.description": "{IfCanOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。造成当前[gold]灼烧[/gold]层数的伤害{Repeat:diff()}次。",
 
     "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.title": "玩雪",
-    "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.description": "[gold]奇波[/gold]：小雪狼。{IfUpgraded:show:将副属性变为[blue]冰[/blue]。|失去一层副印记。将副属性变为[blue]冰[/blue]。}",
+    "STS2_STARBORN_CARD_PLAYING_WITH_SNOW_CARD.description": "[gold]奇波[/gold]：小雪狼。{IfUpgraded:show:|失去一层副印记。}",
 
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.title": "随机上岗",
     "STS2_STARBORN_CARD_RANDOM_DUTY_CARD.description": "回合开始时，随机切换一只奇波，并释放其一张普通能力牌。",
@@ -162,7 +168,7 @@
     "STS2_STARBORN_CARD_ONE_Q_TWO_Q_THREE_Q_CARD.description": "召唤你的所有[gold]奇波[/gold]。\n你无法再打出攻击牌。\n每次出技能牌。\n每[blue]{Interval:diff()}[/blue]次出牌额外释放一个终极牌。",
 
     "STS2_STARBORN_CARD_SWAP_CARD.title": "切人",
-    "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。获得{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_CARD_SWAP_CARD.description": "造成{Damage:diff()}点伤害。造成{Dam2:diff()}点伤害。[gold]调谐{Tuning:elementIcon()}[/gold]。",
 
     "STS2_STARBORN_CARD_MAMA_CARD.title": "妈妈！",
     "STS2_STARBORN_CARD_MAMA_CARD.description": "获得{Block:diff()}点格挡。获得{ElementMark:elementIcon()}。",
@@ -353,5 +359,29 @@
     "STS2_STARBORN_CARD_FLEE_CARD.description": "失去所有的印记。每失去一层印记，获得{BlockPerMark:diff()}点格挡。",
 
     "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.title": "失控飞行",
-    "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.description": "随机对敌人造成{Damage:diff()}点伤害。如果主属性为[red]火[/red]该牌耗能为0。"
+    "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.description": "随机对敌人造成{Damage:diff()}点伤害。如果主属性为[red]火[/red]该牌耗能为0。",
+
+    "STS2_STARBORN_CARD_DISGUISE_ORE_CARD.title": "伪装矿石",
+    "STS2_STARBORN_CARD_DISGUISE_ORE_CARD.description": "[gold]奇波[/gold]：[blue]炎晶甲[/blue]。获得{Block:diff()}点格挡。",
+
+    "STS2_STARBORN_CARD_KIBO_FLAME_CRYSTAL_ARMOR_REP_CARD.title": "炎晶甲",
+    "STS2_STARBORN_CARD_KIBO_FLAME_CRYSTAL_ARMOR_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_DISLODGED_ORE_CARD.title": "抖落矿石",
+    "STS2_STARBORN_CARD_KIBO_DISLODGED_ORE_CARD.description": "获得{Block:diff()}点格挡。你在这个回合每受到一次攻击，[gold]谐调[/gold]0[red]火[/red]。",
+
+    "STS2_STARBORN_CARD_KIBO_DETONATING_CRYSTAL_CARD.title": "炎晶爆轰",
+    "STS2_STARBORN_CARD_KIBO_DETONATING_CRYSTAL_CARD.description": "给予{IfUpgraded:所有敌人|随机一个敌人}当前格挡的[gold]灼烧[/gold]。",
+
+    "STS2_STARBORN_CARD_KAMIKAZE_PLAN_CARD.title": "神风计划",
+    "STS2_STARBORN_CARD_KAMIKAZE_PLAN_CARD.description": "[gold]奇波[/gold]：蔓灵偶。[gold]超限{Overload:elementIcon()}[/gold]。[gold]消耗[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_VINE_DOLL_REP_CARD.title": "蔓灵偶",
+    "STS2_STARBORN_CARD_KIBO_VINE_DOLL_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_KAMIKAZE_CARD.title": "神风",
+    "STS2_STARBORN_CARD_KIBO_KAMIKAZE_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。将蔓灵偶移出战斗。",
+
+    "STS2_STARBORN_CARD_KIBO_VERDANT_CARD.title": "强袭",
+    "STS2_STARBORN_CARD_KIBO_VERDANT_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。将蔓灵偶移出战斗。"
 }

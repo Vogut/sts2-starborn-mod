@@ -24,7 +24,7 @@ public class SwapCard() : StarbornCard(
     [
         new DamageVar(4, ValueProp.Move),
         new DamageVar("Dam2", 6, ValueProp.Move),
-        StarbornCardVars.ElementMark(1, SealElementType.Any),
+        Tuning(1, SealElementType.Any),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -41,7 +41,8 @@ public class SwapCard() : StarbornCard(
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+        var tuningVar = (SealElementVar)DynamicVars["Tuning"];
+        await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner, tuningVar.IntValue, tuningVar.ElementType, this);
     }
 
     protected override void OnUpgrade()
