@@ -109,5 +109,8 @@
     "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
 
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.title": "随机上岗",
-    "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "回合开始时，随机切换一只[gold]奇波[/gold]，并使用其一张[gold]奇波战技[/gold]。"
+    "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "回合开始时，随机切换一只[gold]奇波[/gold]，并使用其一张[gold]奇波战技[/gold]。",
+
+    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.title": "狩猎姿态",
+    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。"
 }

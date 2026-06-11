@@ -38,7 +38,7 @@ public sealed class GunshotCard() : StarbornCard(
 
         var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
         await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,
-            DynamicVars["Overload"].IntValue, overloadElementType, this);
+            DynamicVars["Overload"].IntValue, overloadElementType, this, [cardPlay.Target]);
 
         var burnStacks = cardPlay.Target.GetPowerAmount<BurnPower>();
         if (burnStacks <= 0) return;

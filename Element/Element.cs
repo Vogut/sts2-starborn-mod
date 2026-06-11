@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
@@ -24,8 +25,8 @@ public abstract class StarbornElement
     public virtual int TuningConsume => 1;
     public virtual int OverloadConsume => 2;
     public virtual IEnumerable<PowerModel> AssociatedPowers => [];
-    public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks);
-    public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks);
+    public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null);
+    public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null);
 
     public static StarbornElement For(SealElementType attribute) =>
         _elements.TryGetValue(attribute, out var ep) ? ep : _elements[SealElementType.None];

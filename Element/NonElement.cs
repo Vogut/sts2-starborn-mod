@@ -1,6 +1,8 @@
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
 
 namespace STS2_Starborn.Element;
 /// <summary>
@@ -16,9 +18,9 @@ public sealed class NonElement : StarbornElement
     public override LocString ElementDescription =>
         new LocString("powers", "STS2_STARBORN_ELEMENT_NONE.description");
 
-    public override Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks)
+    public override Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null)
         => Task.CompletedTask;
 
-    public override Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks)
+    public override Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null)
         => Task.CompletedTask;
 }

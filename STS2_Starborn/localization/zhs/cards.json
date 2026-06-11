@@ -63,6 +63,9 @@
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.title": "耕种之时",
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.description": "每回合开始时，获得{Empower:diff()}层[gold]奇波强化[/gold]。",
 
+    "STS2_STARBORN_CARD_HUNTER_STANCE_CARD.title": "狩猎姿态",
+    "STS2_STARBORN_CARD_HUNTER_STANCE_CARD.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。",
+
     "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.title": "氪金",
     "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.description": "失去{Gold}金币。获得{Empower:diff()}层[gold]谐调强化[/gold]。",
 

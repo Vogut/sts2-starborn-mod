@@ -6,12 +6,12 @@ using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class VariableShinyCard : StarbornCard
 {
-    public VariableShinyCard() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public VariableShinyCard() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
     }
 
@@ -31,5 +31,10 @@ public sealed class VariableShinyCard : StarbornCard
         }
 
         return Task.CompletedTask;
+    }
+
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
     }
 }

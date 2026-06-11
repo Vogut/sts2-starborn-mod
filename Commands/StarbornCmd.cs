@@ -43,7 +43,8 @@ public static class StarbornCmd
         MarkSlot slot,
         Player player,
         int consume,
-        CardModel? source = null)
+        CardModel? source = null,
+        IReadOnlyList<Creature>? targets = null)
     {
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
@@ -58,7 +59,7 @@ public static class StarbornCmd
             if (currentStacks > ElementMarkState.ThresholdStacks)
             {
                 var overloadConsume = Element.StarbornElement.For(elementType).OverloadConsume;
-                await Overload(ctx, slot, player, overloadConsume, source);
+                await Overload(ctx, slot, player, overloadConsume, source, targets);
                 return;
             }
         }
@@ -70,7 +71,7 @@ public static class StarbornCmd
         await SealElementMarkHooks.BeforeTuning(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
         var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
-        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, effectiveStacks);
+        await Element.StarbornElement.For(elementType).OnThreshold(ctx, player, effectiveStacks, source, targets);
         await SealElementMarkHooks.AfterTuning(combatState, ctx, slot, consume, source);
         ElementMarkManager.RecordTuning();
     }
@@ -81,11 +82,12 @@ public static class StarbornCmd
         Player player,
         int consume,
         SealElementType targetElement,
-        CardModel? source = null)
+        CardModel? source = null,
+        IReadOnlyList<Creature>? targets = null)
     {
         if (targetElement == SealElementType.None) return;
         await SealElementMarkCmd.SetElementType(ctx, slot, player, targetElement);
-        await Tuning(ctx, slot, player, consume, source);
+        await Tuning(ctx, slot, player, consume, source, targets);
     }
     /// <summary>
     /// 超限：消耗 <paramref name="consume"/> 枚印记，触发当前属性的强化效果。
@@ -97,7 +99,8 @@ public static class StarbornCmd
         MarkSlot slot,
         Player player,
         int consume,
-        CardModel? source = null)
+        CardModel? source = null,
+        IReadOnlyList<Creature>? targets = null)
     {
         var combatState = player.Creature.CombatState;
         if (combatState == null) return;
@@ -113,7 +116,7 @@ public static class StarbornCmd
         await SealElementMarkHooks.BeforeOverload(combatState, ctx, slot, consume, source);
         if (consume > 0) await SealElementMarkCmd.RemoveElementMarks(ctx, slot, player, consume);
         var effectiveStacks = SealElementMarkHooks.ModifyEffectiveStacks(combatState, slot, stacks);
-        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, effectiveStacks);
+        await Element.StarbornElement.For(elementType).OnEnhanced(ctx, player, effectiveStacks, source, targets);
         await SealElementMarkHooks.AfterOverload(combatState, ctx, slot, consume, source);
         ElementMarkManager.RecordOverload();
     }
@@ -124,11 +127,12 @@ public static class StarbornCmd
         Player player,
         int consume,
         SealElementType targetElement,
-        CardModel? source = null)
+        CardModel? source = null,
+        IReadOnlyList<Creature>? targets = null)
     {
         if (targetElement == SealElementType.None) return;
         await SealElementMarkCmd.SetElementType(ctx, slot, player, targetElement);
-        await Overload(ctx, slot, player, consume, source);
+        await Overload(ctx, slot, player, consume, source, targets);
     }
 
     /// <summary>

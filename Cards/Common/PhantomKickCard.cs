@@ -40,7 +40,7 @@ public sealed class PhantomKickCard() : StarbornCard(
 
         var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
         await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
-            DynamicVars["Tuning"].IntValue, tuningElementType, this);
+            DynamicVars["Tuning"].IntValue, tuningElementType, this, [cardPlay.Target]);
 
         var burnStacks = cardPlay.Target.GetPowerAmount<BurnPower>();
         if (burnStacks <= 0) return;
