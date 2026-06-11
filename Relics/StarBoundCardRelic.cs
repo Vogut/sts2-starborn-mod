@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
@@ -13,6 +14,7 @@ using MegaCrit.Sts2.Core.Runs;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2_Starborn.Cards;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
@@ -31,6 +33,12 @@ namespace STS2_Starborn.Relics;
 public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        StarbornCardVars.ElementMark(1, SealElementType.Any, "PrimaryMark"),
+        StarbornCardVars.ElementMark(1, SealElementType.Any, "SecondaryMark")
+    ];
 
     public override ActMap ModifyGeneratedMap(IRunState runState, ActMap map, int actIndex)
     {
@@ -75,8 +83,10 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
         // 若本回合开始时未触发调谐/超限，给主副属性各+1层（包括 None）
         if (!anyTriggered)
         {
-            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, base.Owner, 1);
-            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, base.Owner, 1);
+            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, base.Owner,
+                DynamicVars["PrimaryMark"].IntValue);
+            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, base.Owner,
+                DynamicVars["SecondaryMark"].IntValue);
         }
     }
 }

@@ -27,7 +27,7 @@ public class Entry
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ModTypeDiscoveryHub.RegisterModAssembly(Const.ModId, assembly);
 
-        RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<TestRelic, TestRelic>();
+        RitsuLibFramework.RegisterTouchOfOrobasRefinementMapping<StarBoundCardRelic, WanderingStarlinesRelic>();
 
         KiboTypeRegistry.Initialize();
         KiboRunData.Initialize();
