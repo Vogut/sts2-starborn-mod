@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class JadeTwigLeaningRoyalFanCard() : StarbornCard(
-    3, CardType.Attack, CardRarity.Rare, TargetType.None
+    3, CardType.Attack, CardRarity.Rare, TargetType.Self
 )
 {
     protected override bool IsPlayable =>

@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class RideCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Common, TargetType.None
+    0, CardType.Skill, CardRarity.Common, TargetType.Self
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

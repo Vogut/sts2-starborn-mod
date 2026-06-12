@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Token;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class SpiritWoodSeedCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Token, TargetType.None
+    0, CardType.Skill, CardRarity.Token, TargetType.Self
 )
 {
     private const int BaseConsume = 1;

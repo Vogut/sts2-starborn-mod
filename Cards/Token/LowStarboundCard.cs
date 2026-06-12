@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Token;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class LowStarboundCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Token, TargetType.None
+    1, CardType.Skill, CardRarity.Token, TargetType.Self
 )
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>

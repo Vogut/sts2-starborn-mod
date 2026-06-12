@@ -17,7 +17,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class RubyIsTier0Card() : StarbornCard(
-    2, CardType.Power, CardRarity.Rare, TargetType.None
+    2, CardType.Power, CardRarity.Rare, TargetType.Self
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

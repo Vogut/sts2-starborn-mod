@@ -19,7 +19,7 @@ namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class CustomizeCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Common, TargetType.None
+    0, CardType.Skill, CardRarity.Common, TargetType.Self
 )
 {
     private static readonly LocString PrimaryPrompt =

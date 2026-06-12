@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class PayToWinCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Rare, TargetType.None
+    0, CardType.Skill, CardRarity.Rare, TargetType.Self
 )
 {
     protected override bool IsPlayable => Owner.Gold >= 6;

@@ -16,7 +16,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class StarbockCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Uncommon, TargetType.None
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.Self
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

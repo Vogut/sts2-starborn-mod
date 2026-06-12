@@ -15,7 +15,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class AlphaTestGiftCard() : StarbornCard(
-    2, CardType.Skill, CardRarity.Rare, TargetType.None
+    2, CardType.Skill, CardRarity.Rare, TargetType.Self
 )
 {
     private static readonly Type[] TokenCardTypes =

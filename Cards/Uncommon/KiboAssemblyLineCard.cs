@@ -17,7 +17,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class KiboAssemblyLineCard() : StarbornCard(
-    2, CardType.Power, CardRarity.Uncommon, TargetType.None
+    2, CardType.Power, CardRarity.Uncommon, TargetType.Self
 )
 {
     private static readonly Type[] TokenCardTypes =

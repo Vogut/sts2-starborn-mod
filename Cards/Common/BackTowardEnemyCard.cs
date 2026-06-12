@@ -18,7 +18,7 @@ namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class BackTowardEnemyCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.None)
+    1, CardType.Skill, CardRarity.Common, TargetType.RandomEnemy)
 {
     public override string? KiboSummonType => KiboTypeId.MuroRabbit;
 

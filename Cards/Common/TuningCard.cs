@@ -21,7 +21,7 @@ namespace STS2_Starborn.Cards.Common;
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 public class TuningCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.None
+    1, CardType.Skill, CardRarity.Common, TargetType.Self
 )
 {
     protected override bool IsPlayable =>

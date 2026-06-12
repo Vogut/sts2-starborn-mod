@@ -15,7 +15,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class KamikazePlanCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Uncommon, TargetType.None
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.Self
 )
 {
     public override string? KiboSummonType => KiboTypeId.VineDoll;

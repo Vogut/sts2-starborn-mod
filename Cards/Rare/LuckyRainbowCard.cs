@@ -12,7 +12,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class LuckyRainbowCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Rare, TargetType.None)
+    1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override string? KiboSummonType => KiboTypeId.Downybrinny;
 

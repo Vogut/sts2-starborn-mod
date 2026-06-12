@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Basic;
 [RegisterCard(typeof(StarbornCardPool))]
 [RegisterCharacterStarterCard(typeof(Starborn), 1, Order = 2)]
 public sealed class ReturnSeaOfStarsCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Basic, TargetType.None
+    1, CardType.Skill, CardRarity.Basic, TargetType.Self
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

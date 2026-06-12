@@ -115,14 +115,17 @@ await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
 
 **① CanonicalVars 添加 Overload + IfCanOverloadVar**：
 ```csharp
+protected const int BaseConsume = 2;
 protected override IEnumerable<DynamicVar> CanonicalVars =>
 [
-    StarbornCardVars.Tuning(1, SealElementType.Fire),
-    StarbornCardVars.Overload(2, SealElementType.Fire), // 超限消耗（卡面显示用）
+    StarbornCardVars.Tuning(BaseConsume, SealElementType.Fire),
+    StarbornCardVars.Overload(BaseConsume + 1, SealElementType.Fire), // 超限 = 调谐 + 1
     StarbornCardVars.IfCanOverload(),    // 条件变量
     // ...
 ];
 ```
+
+**最佳实践**：用 `BaseConsume` 常量统一管理调谐/超限消耗关系，避免硬编码。超限通常比调谐多消耗1层。
 
 **② JSON 描述使用条件语法**：
 ```

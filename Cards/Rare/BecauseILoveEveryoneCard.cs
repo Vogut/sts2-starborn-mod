@@ -44,7 +44,6 @@ public sealed class BecauseILoveEveryoneCard() : StarbornCard(
         {
             powerAmount++;
         }
-        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         var enemies = CombatState!.HittableEnemies;
         await PowerCmd.Apply<VulnerablePower>(choiceContext, enemies, powerAmount, Owner.Creature, this);
         await PowerCmd.Apply<WeakPower>(choiceContext, enemies, powerAmount, Owner.Creature, this);

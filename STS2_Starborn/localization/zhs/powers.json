@@ -29,6 +29,9 @@
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前4张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。每回合开始获得{elementPrefix:elementIcon(2)}/{elementPrefix:elementIcon(2)}层印记。前{Amount}张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
 
+    "STS2_STARBORN_POWER_INDOMITABLE_HEART_POWER.title": "不屈之心",
+    "STS2_STARBORN_POWER_INDOMITABLE_HEART_POWER.description": "如果怪物的攻击被完全格挡，将其击晕。",
+
     "STS2_STARBORN_POWER_RIDE_POWER.title": "乘骑",
     "STS2_STARBORN_POWER_RIDE_POWER.description": "本回合[gold]奇波[/gold]无法自动出牌。",
 
@@ -112,5 +115,9 @@
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "回合开始时，随机切换一只[gold]奇波[/gold]，并使用其一张[gold]奇波战技[/gold]。",
 
     "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.title": "狩猎姿态",
-    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。"
+    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。",
+
+    "STS2_STARBORN_POWER_RHYTHM_POWER.title": "律动",
+    "STS2_STARBORN_POWER_RHYTHM_POWER.description": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成[blue]3[/blue]点伤害。",
+    "STS2_STARBORN_POWER_RHYTHM_POWER.smartDescription": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
 }

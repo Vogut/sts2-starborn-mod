@@ -10,7 +10,7 @@ using STS2_Starborn.Element;
 namespace STS2_Starborn.Cards.Token;
 
 public abstract class MarkSelectCard(SealElementType elementType)
-    : StarbornCard(0, CardType.Skill, CardRarity.Token, TargetType.None, false), IElementChoosable
+    : StarbornCard(0, CardType.Skill, CardRarity.Token, TargetType.Self, false), IElementChoosable
 {
     public override bool CanBeGeneratedInCombat => false;
     public SealElementType ElementType => elementType;

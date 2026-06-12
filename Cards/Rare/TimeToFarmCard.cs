@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using STS2RitsuLib.Cards.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
 using STS2_Starborn.Powers;
@@ -14,12 +13,12 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class TimeToFarmCard() : StarbornCard(
-    3, CardType.Power, CardRarity.Rare, TargetType.None
+    3, CardType.Power, CardRarity.Rare, TargetType.Self
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("Empower", 3),
+        new IntVar("Empower", 5),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
@@ -36,6 +35,6 @@ public sealed class TimeToFarmCard() : StarbornCard(
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Empower"].UpgradeValueBy(2);
+        DynamicVars["Empower"].UpgradeValueBy(8);
     }
 }

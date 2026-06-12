@@ -12,7 +12,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public class OverloadCard() : StarbornCard(
-    2, CardType.Skill, CardRarity.Uncommon, TargetType.None
+    2, CardType.Skill, CardRarity.Uncommon, TargetType.Self
 )
 {
     protected override bool IsPlayable => PrimaryStacks > 0;

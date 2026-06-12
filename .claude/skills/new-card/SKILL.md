@@ -25,12 +25,40 @@ When invoked, first ask the user whether this is a **new card** or **modifying a
 
 ## Creating a New Card
 
-1. **Gather**: card name (EN class + CN display), type, rarity, effect
+1. **Gather**: card name (EN class + CN display), type, rarity, effect, **target type**
 2. **Research**: grep existing cards of same type/rarity for structure reference
 3. **Generate**: create `.cs` in `Cards/<Rarity>/`, inheriting `StarbornCard` (or `KiboCard` for Kibo cards)
-4. **Localize**: add entries to `STS2_Starborn/localization/zhs/cards.json`
-5. **Register**: `[RegisterCard(typeof(StarbornCardPool))]` for character cards, `[RegisterCard(typeof(KiboCardPool))]` for Kibo cards
-6. **Build**: `dotnet build sts2_starborn.sln`
+4. **Set correct TargetType** (see TargetType section below)
+5. **Localize**: add entries to `STS2_Starborn/localization/zhs/cards.json`
+6. **Register**: `[RegisterCard(typeof(StarbornCardPool))]` for character cards, `[RegisterCard(typeof(KiboCardPool))]` for Kibo cards
+7. **Build**: `dotnet build sts2_starborn.sln`
+
+---
+
+## TargetType Rules
+
+**CRITICAL**: `TargetType.None` is ONLY for Curse and Status cards. All playable cards must use specific target types.
+
+| TargetType | Usage | Examples |
+|-----------|-------|----------|
+| `None` | **Curse and Status ONLY** | OutOfControlCard (Curse) |
+| `Self` | Skills/Powers affecting yourself | Most skill cards, ALL power cards, cards that give block/draw/energy/buffs to yourself |
+| `RandomEnemy` | Random enemy target(s) | BackTowardEnemyCard (applies debuff to random enemies), BouncingFlask |
+| `AllEnemies` | All enemies | BossSongCard (kills all enemies) |
+| `AnyEnemy` | Player selects one enemy | Most attack cards |
+| `AnyAlly` | Player selects ally | Multiplayer support cards |
+
+**Decision Tree**:
+1. Is it a Curse or Status? → `TargetType.None`
+2. Does it affect yourself (block/draw/energy/buffs/印记)? → `TargetType.Self`
+3. Does it affect random enemy/enemies? → `TargetType.RandomEnemy`
+4. Does it affect all enemies? → `TargetType.AllEnemies`
+5. Player picks enemy target? → `TargetType.AnyEnemy`
+
+**Common Mistakes**:
+- ✗ Using `None` for skills that affect yourself
+- ✗ Using `Self` for cards that target enemies
+- ✗ Using `None` for power cards (ALL powers use `Self`)
 
 ---
 

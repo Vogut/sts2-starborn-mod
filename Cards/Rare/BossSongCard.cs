@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Rare;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class BossSongCard() : StarbornCard(
-    2, CardType.Skill, CardRarity.Rare, TargetType.None
+    2, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies
 )
 {
     protected override bool IsPlayable =>
