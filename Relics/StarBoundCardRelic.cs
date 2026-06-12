@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -74,7 +76,17 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
         var activePile = KiboPileManager.GetActivePile(base.Owner);
         if (activePile != null && activePile.Cards.Count > 0) return;
 
+        // 1. 保留原有的直接召唤逻辑
         await KiboCmd.Summon(new BlockingPlayerChoiceContext(), base.Owner, typeId);
+
+        // 2. 添加召唤卡到手牌
+        var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId<Cards.Event.SummonStarterKiboCard>());
+        var combatState = base.Owner.Creature.CombatState;
+        if (combatState != null)
+        {
+            var summonCard = combatState.CreateCard(canonical, base.Owner);
+            await CardPileCmd.AddGeneratedCardToCombat(summonCard, PileType.Hand, base.Owner);
+        }
     }
 
     // IAutoTriggerListener 实现

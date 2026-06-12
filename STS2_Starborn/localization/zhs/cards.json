@@ -431,5 +431,8 @@
     "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.description": "获得{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.title": "水流激涌",
-    "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.description": "失去{ElementMark}层主属性印记。造成{Damage:diff()}点伤害{Times}次。"
+    "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.description": "失去{ElementMark}层主属性印记。造成{Damage:diff()}点伤害{Times}次。",
+
+    "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.title": "御三家",
+    "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.description": "召唤你的初始奇波。"
 }
