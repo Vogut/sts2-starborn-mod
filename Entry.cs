@@ -55,6 +55,7 @@ public class Entry
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
         patcher.RegisterPatch<KiboLoadPatch>();
         patcher.RegisterPatch<CompactCardGridHoverTipPatch>();
+        patcher.RegisterPatch<BurnPowerBloodBarPatch>();
 #if DEBUG
         patcher.RegisterPatch<StarbornDebugPanelPatch>();
 #endif

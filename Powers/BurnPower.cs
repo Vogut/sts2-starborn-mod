@@ -28,6 +28,11 @@ public class BurnPower : StarbornPower
         BigIconPath: Const.Paths.PowerBigIcon(GetType())
     );
 
+    public int CalculateTotalDamageNextTurn()
+    {
+        return Amount;
+    }
+
     public override async Task AfterSideTurnStart(
         CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
