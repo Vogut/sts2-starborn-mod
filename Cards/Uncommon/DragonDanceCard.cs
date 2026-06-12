@@ -20,7 +20,7 @@ namespace STS2_Starborn.Cards.Uncommon;
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class DragonDanceCard() : StarbornCard(
-    2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy
+    3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy
 )
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

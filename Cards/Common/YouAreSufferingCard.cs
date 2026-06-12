@@ -4,20 +4,22 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Character;
+using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
+using STS2_Starborn.Element;
+using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Common;
 
 [RegisterCard(typeof(StarbornCardPool))]
-public sealed class SlackingCard() : StarbornCard(
-    0, CardType.Skill, CardRarity.Common, TargetType.Self)
+public sealed class YouAreSufferingCard() : StarbornCard(
+    1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    public override string? KiboSummonType => KiboTypeId.Bruda;
+    public override string? KiboSummonType => KiboTypeId.Cabbird;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
@@ -29,8 +31,8 @@ public sealed class SlackingCard() : StarbornCard(
         get
         {
             yield return HoverTipFactory.FromCard(
-                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboBrudaRepCard>()));
-            var def = KiboTypeRegistry.Get(KiboTypeId.Bruda);
+                ModelDb.GetById<CardModel>(ModelDb.GetId<KiboCabbirdRepCard>()));
+            var def = KiboTypeRegistry.Get(KiboTypeId.Cabbird);
             foreach (var tip in def.CreatePlayableCardHoverTips())
                 yield return tip;
         }
@@ -38,22 +40,28 @@ public sealed class SlackingCard() : StarbornCard(
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("Weak", 2),
-        new EnergyVar(2),
+        new CardsVar(2),
+        StarbornCardVars.ElementMark(1, SealElementType.Wood),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<WeakPower>(
+        // Gain wood marks immediately
+        await SealElementMarkCmd.GainElementMarks(
+            choiceContext, MarkSlot.Primary, Owner,
+            DynamicVars["ElementMark"].IntValue, SealElementType.Wood);
+
+        // Apply YouAreSufferingPower for next turn
+        await PowerCmd.Apply<YouAreSufferingPower>(
             choiceContext, Owner.Creature,
-            DynamicVars["Weak"].IntValue,
+            DynamicVars.Cards.IntValue,
             Owner.Creature, this);
-        await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+
         await KiboCmd.Summon(choiceContext, Owner, KiboSummonType!);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Weak"].UpgradeValueBy(-1);
+        DynamicVars["ElementMark"].UpgradeValueBy(1);
     }
 }

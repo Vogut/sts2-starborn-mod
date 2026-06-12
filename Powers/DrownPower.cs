@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -48,6 +49,16 @@ public class DrownPower : StarbornPower
         PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side == CombatSide.Enemy && participants.Contains(Owner))
+        {
+            var combatState = Owner.CombatState;
+            if (combatState != null)
+            {
+                var hasRetain = combatState.Players.Any(p => p.Creature.GetPower<RetainSurgeAndDrownPower>() != null);
+                if (hasRetain)
+                    return;
+            }
+
             await PowerCmd.Decrement(this);
+        }
     }
 }

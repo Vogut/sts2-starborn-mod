@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
+using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Cards.Uncommon;
@@ -42,7 +43,7 @@ public sealed class OutOfControlFlightCard() : StarbornCard(
 
     private void UpdateCost()
     {
-        if (PrimaryElementType == SealElementType.Fire)
+        if (PrimaryElementType != SealElementType.None)
             EnergyCost.SetThisCombat(0);
         else
             EnergyCost.SetThisCombat(2);
@@ -56,6 +57,8 @@ public sealed class OutOfControlFlightCard() : StarbornCard(
             .FromCard(this)
             .TargetingRandomOpponents(CombatState)
             .Execute(choiceContext);
+
+        await SealElementMarkCmd.SetElementType(choiceContext, MarkSlot.Primary, Owner, SealElementType.None);
     }
 
     protected override void OnUpgrade()

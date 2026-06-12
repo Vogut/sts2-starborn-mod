@@ -119,5 +119,17 @@
 
     "STS2_STARBORN_POWER_RHYTHM_POWER.title": "律动",
     "STS2_STARBORN_POWER_RHYTHM_POWER.description": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成[blue]3[/blue]点伤害。",
-    "STS2_STARBORN_POWER_RHYTHM_POWER.smartDescription": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
+    "STS2_STARBORN_POWER_RHYTHM_POWER.smartDescription": "每次进行[gold]调谐[/gold]或[gold]超限[/bold]后，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
+
+    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.title": "你已疾苦",
+    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.description": "下回合开始时，多抽[blue]{Amount}[/blue]张牌。",
+    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.smartDescription": "下回合开始时，多抽[blue]{Amount}[/blue]张牌。",
+
+    "STS2_STARBORN_POWER_SURGE_POWER.title": "泉涌",
+    "STS2_STARBORN_POWER_SURGE_POWER.description": "奇波卡牌的伤害和格挡提升[blue]{Amount}x10%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
+    "STS2_STARBORN_POWER_SURGE_POWER.smartDescription": "奇波卡牌的伤害和格挡提升[blue]{Amount}x10%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
+
+    "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.title": "水流保护",
+    "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.description": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。",
+    "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.smartDescription": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。"
 }

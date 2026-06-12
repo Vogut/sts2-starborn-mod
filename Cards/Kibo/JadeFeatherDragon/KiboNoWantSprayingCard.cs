@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,8 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2_Starborn.Combat;
-using STS2_Starborn.Commands;
-using STS2_Starborn.Element;
+using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Kibo;
 
@@ -21,12 +21,11 @@ public sealed class KiboNoWantSprayingCard() : KiboCard(CardType.Attack, TargetT
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.UltimateKeyword,
-        CardKeyword.Exhaust,
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        StarbornCardVars.Overload(1, SealElementType.Water),
+        new IntVar("Drown", 1),
         new DamageVar(7m, ValueProp.Move),
         new DamageVar("Dam2", 7m, ValueProp.Move),
     ];
@@ -37,9 +36,14 @@ public sealed class KiboNoWantSprayingCard() : KiboCard(CardType.Attack, TargetT
         var combatState = Owner.Creature.CombatState;
         if (combatState == null) return;
 
-        var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
-        await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,
-            DynamicVars["Overload"].IntValue, overloadElementType, this);
+        var enemies = combatState.HittableEnemies.Where(e => e.IsAlive).ToList();
+        foreach (var enemy in enemies)
+        {
+            await PowerCmd.Apply<DrownPower>(
+                choiceContext, enemy,
+                DynamicVars["Drown"].IntValue,
+                Owner.Creature, this);
+        }
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)

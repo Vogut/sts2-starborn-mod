@@ -337,9 +337,6 @@
     "STS2_STARBORN_CARD_CONVERGE_CARD.title": "汇聚",
     "STS2_STARBORN_CARD_CONVERGE_CARD.description": "造成{CalculatedDamage:diff()}点伤害。在本场战斗中你每[gold]调谐[/gold]/[gold]超限[/gold]过一次额外造成{ExtraDamage:diff()}点伤害。",
 
-    "STS2_STARBORN_CARD_SLACKING_CARD.title": "划水",
-    "STS2_STARBORN_CARD_SLACKING_CARD.description": "给予{Weak:inverseDiff()}层[gold]虚弱[/gold]。获得{Energy:energyIcons()}。",
-
     "STS2_STARBORN_CARD_UTURN_CARD.title": "急速折返",
     "STS2_STARBORN_CARD_UTURN_CARD.description": "造成{Damage:diff()}点伤害。随机切换一个[gold]奇波[/gold]。释放当前[gold]奇波[/gold]的[gold]奇波战技[/gold]。",
 
@@ -398,5 +395,41 @@
     "STS2_STARBORN_CARD_KIBO_KAMIKAZE_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。将蔓灵偶移出战斗。",
 
     "STS2_STARBORN_CARD_KIBO_VERDANT_CARD.title": "强袭",
-    "STS2_STARBORN_CARD_KIBO_VERDANT_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。将蔓灵偶移出战斗。"
+    "STS2_STARBORN_CARD_KIBO_VERDANT_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。将蔓灵偶移出战斗。",
+
+    "STS2_STARBORN_CARD_SLACKING_CARD.title": "划水",
+    "STS2_STARBORN_CARD_SLACKING_CARD.description": "[gold]奇波[/gold]：布鲁达。给予自身{Weak}层[gold]虚弱[/gold]。获得{Energy}点能量。",
+
+    "STS2_STARBORN_CARD_KIBO_BRUDA_REP_CARD.title": "布鲁达",
+    "STS2_STARBORN_CARD_KIBO_BRUDA_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_DAYDREAMING_CARD.title": "呆...",
+    "STS2_STARBORN_CARD_KIBO_DAYDREAMING_CARD.description": "无效果。",
+
+    "STS2_STARBORN_CARD_KIBO_WATER_BULLET_CARD.title": "水弹",
+    "STS2_STARBORN_CARD_KIBO_WATER_BULLET_CARD.description": "造成{Damage:diff()}点伤害。获得{ElementMark:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_YOU_ARE_SUFFERING_CARD.title": "你已疾苦",
+    "STS2_STARBORN_CARD_YOU_ARE_SUFFERING_CARD.description": "[gold]奇波[/gold]：菜鸡。获得{ElementMark:elementIcon()}。在下个回合，抽{Cards:diff()}张牌。",
+
+    "STS2_STARBORN_CARD_KIBO_CABBIRD_REP_CARD.title": "菜鸡",
+    "STS2_STARBORN_CARD_KIBO_CABBIRD_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_MEAT_AND_GREENS_CARD.title": "有菜有肉",
+    "STS2_STARBORN_CARD_KIBO_MEAT_AND_GREENS_CARD.description": "获得{Block:diff()}点格挡。给所有敌人回复{Heal:diff()}点生命值。",
+
+    "STS2_STARBORN_CARD_KIBO_MAN_CARD.title": "Man!",
+    "STS2_STARBORN_CARD_KIBO_MAN_CARD.description": "如果你有[gold]你已疾苦[/gold]，抽{Cards:diff()}张牌并移除它。否则，获得{YouAreSufferingStacks:diff()}层[gold]你已疾苦[/gold]。",
+
+    "STS2_STARBORN_CARD_CROSS_WATER_RING_CARD.title": "穿越水圈",
+    "STS2_STARBORN_CARD_CROSS_WATER_RING_CARD.description": "[gold]奇波[/gold]：星鳐。[gold]调谐{Tuning:elementIcon()}[/gold]。获得1层[gold]水流保护[/gold]。",
+
+    "STS2_STARBORN_CARD_KIBO_STARAY_REP_CARD.title": "星鳐",
+    "STS2_STARBORN_CARD_KIBO_STARAY_REP_CARD.description": "",
+
+    "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.title": "蓄水",
+    "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.description": "获得{ElementMark:elementIcon()}。",
+
+    "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.title": "水流激涌",
+    "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.description": "失去{ElementMark}层主属性印记。造成{Damage:diff()}点伤害{Times}次。"
 }
