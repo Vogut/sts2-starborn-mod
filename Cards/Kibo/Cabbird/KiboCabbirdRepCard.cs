@@ -8,7 +8,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.Cabbird, Element = SealElementType.Wood)]
-public sealed class KiboCabbirdRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class KiboCabbirdRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

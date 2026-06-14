@@ -8,7 +8,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.Downybrinny, Element = SealElementType.Light)]
-public sealed class KiboDownybrinnyRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class KiboDownybrinnyRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

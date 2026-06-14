@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.MelodiousVine)]
-public sealed class KiboSeedStormCard() : KiboCard(CardType.Attack, TargetType.AllEnemies)
+public sealed class KiboSeedStormCard() : KiboCard(2, CardType.Attack, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Floratail)]
-public sealed class KiboLuxuriantFloraCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboLuxuriantFloraCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

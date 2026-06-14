@@ -16,7 +16,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Floratail, true)]
-public sealed class KiboFloraBreathCard() : KiboCard(CardType.Attack, TargetType.AllEnemies)
+public sealed class KiboFloraBreathCard() : KiboCard(1, CardType.Attack, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

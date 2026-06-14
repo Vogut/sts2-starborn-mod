@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.MuroRabbit, Element = SealElementType.Light)]
-public sealed class KiboMuroRabbitRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class KiboMuroRabbitRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

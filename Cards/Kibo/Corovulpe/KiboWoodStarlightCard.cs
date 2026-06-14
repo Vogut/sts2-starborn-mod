@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Corovulpe)]
-public sealed class KiboWoodStarlightCard() : KiboCard(CardType.Attack, TargetType.RandomEnemy)
+public sealed class KiboWoodStarlightCard() : KiboCard(1, CardType.Attack, TargetType.RandomEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

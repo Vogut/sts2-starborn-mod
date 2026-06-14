@@ -8,7 +8,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.FlameCrystalArmor, Element = SealElementType.Fire)]
-public sealed class KiboFlameCrystalArmorRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class KiboFlameCrystalArmorRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

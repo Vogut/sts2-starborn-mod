@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.MelodiousVine, true)]
-public sealed class KiboAromatherapyCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboAromatherapyCard() : KiboCard(3, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

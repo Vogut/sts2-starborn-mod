@@ -16,7 +16,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Leafox, true)]
-public sealed class KiboSproutBreathCard() : KiboCard(CardType.Attack, TargetType.AllEnemies)
+public sealed class KiboSproutBreathCard() : KiboCard(1, CardType.Attack, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

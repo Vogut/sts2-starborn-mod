@@ -15,9 +15,10 @@ using STS2_Starborn.Runs;
 namespace STS2_Starborn.Cards.Kibo;
 
 public abstract class KiboCard(
+    int cost,
     CardType type,
     TargetType targetType
-) : StarbornCard(0, type, CardRarity.Token, targetType, shouldShowInCardLibrary: true)
+) : StarbornCard(cost, type, CardRarity.Token, targetType, shouldShowInCardLibrary: true)
 {
     public override CardAssetProfile AssetProfile => new(
         PortraitPath: Const.Paths.KiboCardPortrait(GetType()));

@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Bruda, true)]
-public sealed class KiboWaterBulletCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboWaterBulletCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

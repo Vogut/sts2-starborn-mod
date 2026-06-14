@@ -12,7 +12,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Downybrinny, true)]
-public sealed class KiboHiddenInRainbowCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboHiddenInRainbowCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

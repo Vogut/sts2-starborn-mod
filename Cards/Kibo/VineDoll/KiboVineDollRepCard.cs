@@ -7,7 +7,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.VineDoll)]
-public sealed class KiboVineDollRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class KiboVineDollRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

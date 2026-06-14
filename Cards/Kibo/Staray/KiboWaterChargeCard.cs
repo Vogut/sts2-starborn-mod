@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Staray)]
-public sealed class KiboWaterChargeCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboWaterChargeCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

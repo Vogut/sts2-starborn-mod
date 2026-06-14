@@ -16,7 +16,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.JadeFeatherDragon, true)]
-public sealed class KiboNoWantSprayingCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboNoWantSprayingCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

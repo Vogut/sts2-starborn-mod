@@ -7,7 +7,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Bruda)]
-public sealed class KiboDaydreamingCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboDaydreamingCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

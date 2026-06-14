@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.SnowWolfPup, true)]
-public sealed class KiboClawmarkCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboClawmarkCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

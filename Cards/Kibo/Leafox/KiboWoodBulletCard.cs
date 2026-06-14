@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Leafox)]
-public sealed class KiboWoodBulletCard() : KiboCard(CardType.Attack, TargetType.RandomEnemy)
+public sealed class KiboWoodBulletCard() : KiboCard(1, CardType.Attack, TargetType.RandomEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

@@ -15,7 +15,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.FlameCrystalArmor)]
-public sealed class KiboDislodgedOreCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboDislodgedOreCard() : KiboCard(2, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

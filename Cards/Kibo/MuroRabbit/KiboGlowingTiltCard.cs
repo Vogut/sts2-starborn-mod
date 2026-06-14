@@ -14,7 +14,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.MuroRabbit, true)]
-public sealed class KiboGlowingTiltCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboGlowingTiltCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

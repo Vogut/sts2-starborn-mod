@@ -13,7 +13,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.JadeFeatherDragon, Count = 2)]
-public sealed class KiboAzurTorrentCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboAzurTorrentCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

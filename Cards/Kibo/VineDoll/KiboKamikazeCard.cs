@@ -12,7 +12,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.VineDoll, false)]
-public sealed class KiboKamikazeCard() : KiboCard(CardType.Skill, TargetType.AllEnemies)
+public sealed class KiboKamikazeCard() : KiboCard(1, CardType.Skill, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

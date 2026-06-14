@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.ArmoredPangolin)]
-public sealed class KiboInertiaRollCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboInertiaRollCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

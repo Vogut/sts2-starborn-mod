@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Downybrinny)]
-public sealed class KiboDownyBombCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboDownyBombCard() : KiboCard(2, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.SwiftWolf, true)]
-public sealed class KiboPincerCard() : KiboCard(CardType.Attack, TargetType.AnyEnemy)
+public sealed class KiboPincerCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

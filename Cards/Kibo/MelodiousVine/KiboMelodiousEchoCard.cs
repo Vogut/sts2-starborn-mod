@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.MelodiousVine)]
-public sealed class KiboMelodiousEchoCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboMelodiousEchoCard() : KiboCard(2, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

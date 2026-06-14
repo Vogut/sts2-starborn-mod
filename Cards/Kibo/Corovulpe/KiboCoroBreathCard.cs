@@ -16,7 +16,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Corovulpe, true)]
-public sealed class KiboCoroBreathCard() : KiboCard(CardType.Attack, TargetType.AllEnemies)
+public sealed class KiboCoroBreathCard() : KiboCard(1, CardType.Attack, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

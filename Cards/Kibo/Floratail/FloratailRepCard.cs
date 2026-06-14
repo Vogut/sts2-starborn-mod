@@ -8,7 +8,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [RegisterKibo(KiboTypeId.Floratail, EvolvesTo = KiboTypeId.Corovulpe, Element = SealElementType.Wood)]
-public sealed class FloratailRepCard() : KiboCard(CardType.Power, TargetType.Self)
+public sealed class FloratailRepCard() : KiboCard(-1, CardType.Power, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

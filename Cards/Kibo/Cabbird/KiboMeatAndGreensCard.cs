@@ -11,7 +11,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Cabbird)]
-public sealed class KiboMeatAndGreensCard() : KiboCard(CardType.Skill, TargetType.Self)
+public sealed class KiboMeatAndGreensCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

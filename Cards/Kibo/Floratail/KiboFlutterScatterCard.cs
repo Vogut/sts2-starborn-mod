@@ -10,7 +10,7 @@ namespace STS2_Starborn.Cards.Kibo;
 
 [RegisterCard(typeof(KiboCardPool))]
 [KiboAbilityOf(KiboTypeId.Floratail)]
-public sealed class KiboFlutterScatterCard() : KiboCard(CardType.Attack, TargetType.RandomEnemy)
+public sealed class KiboFlutterScatterCard() : KiboCard(1, CardType.Attack, TargetType.RandomEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
