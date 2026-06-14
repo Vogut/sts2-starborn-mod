@@ -56,6 +56,7 @@ public class Entry
         patcher.RegisterPatch<KiboLoadPatch>();
         patcher.RegisterPatch<CompactCardGridHoverTipPatch>();
         patcher.RegisterPatch<BurnPowerBloodBarPatch>();
+        patcher.RegisterPatch<KiboAncientVisualPatch>();
 #if DEBUG
         patcher.RegisterPatch<StarbornDebugPanelPatch>();
 #endif

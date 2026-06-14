@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -18,6 +18,7 @@ using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Cards.Kibo;
+using STS2_Starborn.Cards.Event;
 using STS2_Starborn.Cards.Pile;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
@@ -67,26 +68,23 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
         if (!ShouldOverrideForKiboEvent()) return currentEvent;
         return ModelDb.Event<KiboStarterEvent>();
     }
-    public override async Task BeforeCombatStart()
+    public override async Task BeforeHandDraw(
+        Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
+        if (player != base.Owner || base.Owner.PlayerCombatState?.TurnNumber != 1)
+            return;
+
         var data = KiboRunData.Get(base.Owner);
         if (data?.ActiveKiboTypeId == null) return;
         if (!KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) return;
 
-        var activePile = KiboPileManager.GetActivePile(base.Owner);
-        if (activePile != null && activePile.Cards.Count > 0) return;
+        // 直接召唤：InitializeForCombat 已执行，combat storage 已就绪，不会重复创建
+        await KiboCmd.Summon(choiceContext, base.Owner, typeId);
 
-        // 1. 保留原有的直接召唤逻辑
-        await KiboCmd.Summon(new BlockingPlayerChoiceContext(), base.Owner, typeId);
-
-        // 2. 添加召唤卡到手牌
-        var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId<Cards.Event.SummonStarterKiboCard>());
-        var combatState = base.Owner.Creature.CombatState;
-        if (combatState != null)
-        {
-            var summonCard = combatState.CreateCard(canonical, base.Owner);
-            await CardPileCmd.AddGeneratedCardToCombat(summonCard, PileType.Hand, base.Owner);
-        }
+        // 添加召唤牌到手牌（参考 RadiantPearl 模式）
+        var summonCard = combatState.CreateCard<SummonStarterKiboCard>(base.Owner);
+        await CardPileCmd.AddGeneratedCardsToCombat(
+            new List<CardModel> { summonCard }, PileType.Hand, base.Owner);
     }
 
     // IAutoTriggerListener 实现

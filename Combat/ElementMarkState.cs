@@ -1,5 +1,6 @@
 using System;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
 using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Combat;
@@ -11,8 +12,7 @@ public static class ElementMarkState
     public const int MaxSealStacks = ElementMarkManager.MaxSealStacks;
     public const int ThresholdStacks = ElementMarkManager.ThresholdStacks;
 
-    private static ElementMarkManager? _manager;
-    internal static ElementMarkManager Manager => _manager ??= new ElementMarkManager();
+    internal static ElementMarkManager Manager => ModelDb.Singleton<ElementMarkManager>();
 
     public static event Action? MarksChanged;
     public static void NotifyMarksChanged() => MarksChanged?.Invoke();

@@ -22,7 +22,7 @@ public sealed class ConvergeCard() : StarbornCard(
         new CalculationBaseVar(9m),
         new ExtraDamageVar(2m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((_, _) =>
-            ElementMarkManager.GetTuningTotalCount() + ElementMarkManager.GetOverloadTotalCount()),
+            ElementMarkManager.GetTuningTotalCount(Owner) + ElementMarkManager.GetOverloadTotalCount(Owner)),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
