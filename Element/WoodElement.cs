@@ -22,7 +22,7 @@ public sealed class WoodElement : StarbornElement
     public override async Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null)
     {
         await CreatureCmd.GainBlock(owner.Creature, new BlockVar(stacks * 2, default), null);
-        if (ElementMarkManager.IsFirstOverload(SealElementType.Wood))
+        if (ElementMarkManager.IsFirstOverload(owner, SealElementType.Wood))
             await CreatureCmd.Heal(owner.Creature, stacks);
     }
 }

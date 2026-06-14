@@ -21,107 +21,117 @@ public sealed class ElementMarkManager : HookedSingletonModel
 
     private static readonly MarkSlot[] Slots = [MarkSlot.Primary, MarkSlot.Secondary];
 
-    private int _primaryStacks;
-    private string? _primaryElementType;
-    private int _secondaryStacks;
-    private string? _secondaryElementType;
+    public ElementMarkManager() : base(HookType.Combat) { }
 
-    private int _tuningTotalCount;
-    private int _overloadTotalCount;
+    // ── Marks data (per-combat via ElementMarkDataStore) ──
 
-    private bool _triggeredThisTurnStart;
-
-    private readonly Dictionary<ulong, int> _switchCounts = [];
-    private readonly Dictionary<ulong, HashSet<SealElementType>> _switchedTypes = [];
-    private readonly HashSet<SealElementType> _firstOverloaded = [];
-
-    public ElementMarkManager() : base(HookType.Combat)
+    public int GetStacks(Player player, MarkSlot slot)
     {
-        _instance = this;
+        var data = ElementMarkDataStore.Get(player);
+        return slot == MarkSlot.Primary ? data.PrimaryStacks : data.SecondaryStacks;
     }
 
-    // ── Singleton ──
-
-    private static ElementMarkManager _instance = null!;
-    internal static ElementMarkManager Instance => _instance;
-
-    // ── Marks data (instance, combat-scoped) ──
-
-    public int GetStacks(MarkSlot slot) =>
-        slot == MarkSlot.Primary ? _primaryStacks : _secondaryStacks;
-
-    public void SetStacks(MarkSlot slot, int stacks)
+    public void SetStacks(Player player, MarkSlot slot, int stacks)
     {
+        var data = ElementMarkDataStore.Get(player);
         stacks = Math.Clamp(stacks, 0, MaxSealStacks);
         if (slot == MarkSlot.Primary)
-            _primaryStacks = stacks;
+            data.PrimaryStacks = stacks;
         else
-            _secondaryStacks = stacks;
+            data.SecondaryStacks = stacks;
         ElementMarkState.NotifyMarksChanged();
     }
 
-    public SealElementType GetElementType(MarkSlot slot)
+    public SealElementType GetElementType(Player player, MarkSlot slot)
     {
-        var raw = slot == MarkSlot.Primary ? _primaryElementType : _secondaryElementType;
+        var data = ElementMarkDataStore.Get(player);
+        var raw = slot == MarkSlot.Primary ? data.PrimaryElementType : data.SecondaryElementType;
         return raw != null && System.Enum.TryParse<SealElementType>(raw, out var t) ? t : SealElementType.None;
     }
 
-    public void SetElementType(MarkSlot slot, SealElementType elementType)
+    public void SetElementType(Player player, MarkSlot slot, SealElementType elementType)
     {
+        var data = ElementMarkDataStore.Get(player);
         var raw = elementType.ToString();
         if (slot == MarkSlot.Primary)
-            _primaryElementType = raw;
+            data.PrimaryElementType = raw;
         else
-            _secondaryElementType = raw;
+            data.SecondaryElementType = raw;
         ElementMarkState.NotifyMarksChanged();
     }
 
     // ── Switch tracking ──
 
-    public static int GetSwitchCount(Player player) =>
-        Instance._switchCounts.GetValueOrDefault(player.NetId);
+    public static int GetSwitchCount(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.SwitchCounts.GetValueOrDefault(player.NetId);
+    }
 
-    public static int GetSwitchedTypeCount(Player player) =>
-        Instance._switchedTypes.GetValueOrDefault(player.NetId)?.Count ?? 0;
+    public static int GetSwitchedTypeCount(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.SwitchedTypes.GetValueOrDefault(player.NetId)?.Count ?? 0;
+    }
 
     public static void RecordSwitch(Player player, SealElementType to)
     {
+        var data = ElementMarkDataStore.Get(player);
         var id = player.NetId;
-        Instance._switchCounts[id] = Instance._switchCounts.GetValueOrDefault(id) + 1;
-        if (!Instance._switchedTypes.ContainsKey(id))
-            Instance._switchedTypes[id] = [];
-        Instance._switchedTypes[id].Add(to);
+        data.SwitchCounts[id] = data.SwitchCounts.GetValueOrDefault(id) + 1;
+        if (!data.SwitchedTypes.ContainsKey(id))
+            data.SwitchedTypes[id] = [];
+        data.SwitchedTypes[id].Add(to);
     }
 
-    private void ResetSwitchTracking(Player player)
+    private static void ResetSwitchTracking(Player player)
     {
-        _switchCounts.Remove(player.NetId);
-        _switchedTypes.Remove(player.NetId);
+        var data = ElementMarkDataStore.Get(player);
+        data.SwitchCounts.Remove(player.NetId);
+        data.SwitchedTypes.Remove(player.NetId);
     }
 
     // ── Tuning/Overload total count tracking ──
 
-    public static int GetTuningTotalCount() =>
-        Instance._tuningTotalCount;
+    public static int GetTuningTotalCount(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.TuningTotalCount;
+    }
 
-    public static int GetOverloadTotalCount() =>
-        Instance._overloadTotalCount;
+    public static int GetOverloadTotalCount(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.OverloadTotalCount;
+    }
 
-    public static void RecordTuning() =>
-        Instance._tuningTotalCount++;
+    public static void RecordTuning(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        data.TuningTotalCount++;
+    }
 
-    public static void RecordOverload() =>
-        Instance._overloadTotalCount++;
+    public static void RecordOverload(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        data.OverloadTotalCount++;
+    }
 
     // ── Turn start trigger tracking ──
 
-    public static bool TriggeredThisTurnStart() =>
-        Instance._triggeredThisTurnStart;
+    public static bool TriggeredThisTurnStart(Player player)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.TriggeredThisTurnStart;
+    }
 
     // ── First overload tracking ──
 
-    public static bool IsFirstOverload(SealElementType element) =>
-        Instance._firstOverloaded.Add(element);
+    public static bool IsFirstOverload(Player player, SealElementType element)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return data.FirstOverloaded.Add(element);
+    }
 
     // ── Hook ──
 
@@ -132,27 +142,28 @@ public sealed class ElementMarkManager : HookedSingletonModel
         if (player == null) return;
 
         await ProcessAutoTrigger(player, combatState);
-        Instance.ResetSwitchTracking(player);
+        ResetSwitchTracking(player);
     }
 
-    private async Task ProcessAutoTrigger(Player player, ICombatState combatState)
+    private static async Task ProcessAutoTrigger(Player player, ICombatState combatState)
     {
         var ctx = new ThrowingPlayerChoiceContext();
 
         // Before 钩子：开始自动触发流程
         await SealElementMarkHooks.BeforeAutoTrigger(combatState, ctx);
 
-        _triggeredThisTurnStart = false;
+        var data = ElementMarkDataStore.Get(player);
+        data.TriggeredThisTurnStart = false;
         foreach (var slot in Slots)
         {
             var triggered = await TryTriggerAutoTuning(player, slot, combatState);
-            if (triggered) _triggeredThisTurnStart = true;
+            if (triggered) data.TriggeredThisTurnStart = true;
             if (!triggered)
                 await ResetElementToNone(player, slot);
         }
 
         // After 钩子：完成自动触发流程
-        await SealElementMarkHooks.AfterAutoTrigger(combatState, ctx, _triggeredThisTurnStart);
+        await SealElementMarkHooks.AfterAutoTrigger(combatState, ctx, data.TriggeredThisTurnStart);
     }
 
     private static async Task<bool> TryTriggerAutoTuning(Player player, MarkSlot slot, ICombatState combatState)
