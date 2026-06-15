@@ -141,5 +141,11 @@
     "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.smartDescription": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、50金币，精英和Boss战额外获得遗物）。",
 
     "STS2_STARBORN_POWER_CRITICAL_POWER.title": "临界",
-    "STS2_STARBORN_POWER_CRITICAL_POWER.description": "印记消耗减少至0。回合结束时清空所有印记。"
+    "STS2_STARBORN_POWER_CRITICAL_POWER.description": "印记消耗减少至0。回合结束时清空所有印记。",
+
+    "STS2_STARBORN_POWER_TAILWIND_POWER.title": "顺风",
+    "STS2_STARBORN_POWER_TAILWIND_POWER.description": "回合开始时调谐0风。",
+
+    "STS2_STARBORN_POWER_GORGEOUS_BODY_POWER.title": "华美身躯",
+    "STS2_STARBORN_POWER_GORGEOUS_BODY_POWER.description": "本回合内敌人不会失去[gold]暴晒[/gold]。回合结束时清空所有敌人的[gold]暴晒[/gold]。"
 }

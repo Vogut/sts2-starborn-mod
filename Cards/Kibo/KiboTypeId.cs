@@ -51,6 +51,7 @@ public static class KiboTypeId
     public const string Cabbird = "cabbird";
     public const string Staray = "staray";
     public const string Gururu = "gururu";
+    public const string Phantomfly = "phantomfly";
 
     /// <summary>All known local stems, in definition order.</summary>
     public static readonly string[] All =
@@ -72,6 +73,7 @@ public static class KiboTypeId
         Cabbird,
         Staray,
         Gururu,
+        Phantomfly,
     ];
 
     private const string CategoryStem = "KIBOTYPE";

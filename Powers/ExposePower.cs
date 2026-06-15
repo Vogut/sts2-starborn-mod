@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -33,7 +36,14 @@ public class ExposePower : StarbornPower
 
         Flash();
         var stacks = Amount;
-        await PowerCmd.Remove(this);
+
+        // With GorgeousBody: Expose triggers but is NOT consumed on attack
+        var hasRetain = Owner.CombatState?.Players
+            .Any(p => p.Creature.GetPower<GorgeousBodyPower>() != null) ?? false;
+
+        if (!hasRetain)
+            await PowerCmd.Remove(this);
+
         await CreatureCmd.Damage(choiceContext, target, stacks,
             ValueProp.Unpowered | ValueProp.SkipHurtAnim, Owner, null);
     }
