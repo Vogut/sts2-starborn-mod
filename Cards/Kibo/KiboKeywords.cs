@@ -25,6 +25,7 @@ namespace STS2_Starborn.Cards.Kibo;
 [RegisterOwnedCardKeyword("kibo_type_bruda", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_cabbird", IncludeInCardHoverTip = false)]
 [RegisterOwnedCardKeyword("kibo_type_staray", IncludeInCardHoverTip = false)]
+[RegisterOwnedCardKeyword("kibo_type_gururu", IncludeInCardHoverTip = false)]
 public class KiboKeywords
 {
     public static readonly string KiboKeywordId =

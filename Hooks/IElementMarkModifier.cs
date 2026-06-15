@@ -11,6 +11,10 @@ public interface IElementMarkModifier
     int ModifyTuningConsumeAdditive(MarkSlot slot, int consume) => 0;
     int ModifyOverloadConsumeAdditive(MarkSlot slot, int consume) => 0;
 
+    // ── Removal prevention ──
+
+    bool ShouldPreventMarkRemoval(MarkSlot slot) => false;
+
     // ── Effective stacks ──
 
     int ModifyEffectiveStacks(MarkSlot slot, int stacks) => stacks;

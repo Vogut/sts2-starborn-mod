@@ -185,6 +185,19 @@ public static class SealElementMarkHooks
         return Math.Max(0, consume);
     }
 
+    // ── Removal prevention ──
+
+    public static bool AnyListenerPreventsMarkRemoval(ICombatState combatState, MarkSlot slot)
+    {
+        foreach (var model in combatState.IterateHookListeners())
+        {
+            if (model is IElementMarkModifier modifier
+                && modifier.ShouldPreventMarkRemoval(slot))
+                return true;
+        }
+        return false;
+    }
+
     // ── Effective stacks modifier ──
 
     public static int ModifyEffectiveStacks(ICombatState combatState, MarkSlot slot, int stacks)

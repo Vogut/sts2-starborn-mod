@@ -73,6 +73,9 @@ public static class SealElementMarkCmd
         int stacks)
     {
         if (stacks <= 0) return;
+        var combatState = player.Creature.CombatState;
+        if (combatState != null && SealElementMarkHooks.AnyListenerPreventsMarkRemoval(combatState, slot))
+            return;
         var current = ElementMarkState.GetStacks(player, slot);
         ElementMarkState.SetStacks(player, slot, current - stacks);
     }
