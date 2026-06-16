@@ -16,6 +16,8 @@ public sealed class SturdyPlankCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Token, TargetType.Self
 )
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
 

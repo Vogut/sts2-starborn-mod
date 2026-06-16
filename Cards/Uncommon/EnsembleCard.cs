@@ -21,6 +21,8 @@ public sealed class EnsembleCard() : StarbornCard(
 {
     public override string? KiboSummonType => KiboTypeId.MelodiousVine;
 
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.KiboKeywordId.GetModCardKeyword(),

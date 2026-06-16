@@ -15,6 +15,8 @@ namespace STS2_Starborn.Cards.Kibo;
 [KiboAbilityOf(KiboTypeId.Floratail)]
 public sealed class KiboLuxuriantFloraCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.NormalKeywordId.GetModCardKeyword(),

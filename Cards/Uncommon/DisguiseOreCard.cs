@@ -19,6 +19,8 @@ public sealed class DisguiseOreCard() : StarbornCard(
 {
     public override string? KiboSummonType => KiboTypeId.FlameCrystalArmor;
 
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.KiboKeywordId.GetModCardKeyword(),

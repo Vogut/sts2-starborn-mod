@@ -15,6 +15,8 @@ namespace STS2_Starborn.Cards.Kibo;
 [KiboAbilityOf(KiboTypeId.Moklido, true)]
 public sealed class KiboMoklidoBloomCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.UltimateKeyword,

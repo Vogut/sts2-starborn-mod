@@ -13,6 +13,8 @@ namespace STS2_Starborn.Cards.Kibo;
 [KiboAbilityOf(KiboTypeId.Cabbird)]
 public sealed class KiboMeatAndGreensCard() : KiboCard(1, CardType.Skill, TargetType.Self)
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.NormalKeyword,

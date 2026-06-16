@@ -13,6 +13,8 @@ namespace STS2_Starborn.Cards.Kibo;
 [KiboAbilityOf(KiboTypeId.MelodiousVine)]
 public sealed class KiboMelodiousEchoCard() : KiboCard(2, CardType.Skill, TargetType.Self)
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.NormalKeyword,

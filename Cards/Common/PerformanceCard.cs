@@ -20,6 +20,8 @@ public sealed class PerformanceCard() : StarbornCard(
 {
     public override string? KiboSummonType => KiboTypeId.Moklido;
 
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.KiboKeywordId.GetModCardKeyword(),

@@ -23,6 +23,8 @@ public sealed class GuardBehindCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Uncommon, TargetType.Self
 )
 {
+    public override bool GainsBlock => true;
+
     private const int TuningConsume = 1;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

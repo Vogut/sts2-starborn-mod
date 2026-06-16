@@ -12,6 +12,8 @@ namespace STS2_Starborn.Cards.Kibo;
 [KiboAbilityOf(KiboTypeId.Gururu)]
 public sealed class KiboWobblingCard() : KiboCard(1, CardType.Attack, TargetType.AnyEnemy)
 {
+    public override bool GainsBlock => true;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
         KiboKeywords.NormalKeyword,
