@@ -158,8 +158,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
         {
             var triggered = await TryTriggerAutoTuning(player, slot, combatState);
             if (triggered) data.TriggeredThisTurnStart = true;
-            if (!triggered)
-                await ResetElementToNone(player, slot);
+            await ResetElementToNone(player, slot);
         }
 
         // After 钩子：完成自动触发流程

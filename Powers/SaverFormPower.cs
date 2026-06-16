@@ -16,7 +16,7 @@ namespace STS2_Starborn.Powers;
 public class SaverFormPower : StarbornPower, IElementMarkModifier, ISealElementMarkListener
 {
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.None;
     public override bool AllowNegative => false;
     public override PowerAssetProfile AssetProfile => new(
         IconPath: Const.Paths.PowerIcon(GetType()),

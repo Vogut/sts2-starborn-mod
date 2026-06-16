@@ -20,9 +20,6 @@
 
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.title": "救世形态",
     "STS2_STARBORN_CARD_SAVER_FORM_CARD.description": "[bold]调谐[/bold]和[bold]超限[/bold]的印记消耗减少[red]1[/red]。回合开始时印记属性不再重置。",
-    
-    "STS2_STARBORN_CARD_ANY_TUNING_CARD.title": "测试·任意调谐",
-    "STS2_STARBORN_CARD_ANY_TUNING_CARD.description": "{IfCanOverload:show:[gold]超限{Overload:elementIcon(single)}[/gold]|[gold]调谐{Tuning:elementIcon(single)}[/gold]}。",
 
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.title": "对轴",
     "STS2_STARBORN_CARD_ALIGNMENT_CARD.description": "将主/副属性印记中较低一方的层数提升至与较高一方相同。",
@@ -91,7 +88,7 @@
     "STS2_STARBORN_CARD_NEED_MORE_BIGGER_CARD.description": "造成{CalculatedDamage:diff()}点伤害。\n施加1层[gold]变大[/gold]。敌人每有一层[gold]变大[/gold]，造成额外{ExtraDamage:diff()}点伤害。",
     
     "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.title":"慈爱的惩罚",
-    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.description":"{IfCanOverload:show:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。对所有敌人造成{Damage:diff()}点伤害。",
+    "STS2_STARBORN_CARD_SWEET_PUNISHMENT_CARD.description":"对所有敌人造成{Damage:diff()}点伤害。{IfCanOverload:show:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
     
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.title": "不够小！",
     "STS2_STARBORN_CARD_NO_BIGGER_CARD.description": "获得{Block:diff()}点格挡。\n施加{Shrink:diff()}层[gold]变小[/gold]。",
@@ -468,5 +465,17 @@
     "STS2_STARBORN_CARD_KIBO_GORGEOUS_BODY_CARD.description": "给予所有敌人{Expose:diff()}层[gold]暴晒[/gold]。暴晒在这个回合不会消失。",
 
     "STS2_STARBORN_CARD_KIBO_PHANTOMFLY_DIVE_CARD.title": "幻蝶俯冲",
-    "STS2_STARBORN_CARD_KIBO_PHANTOMFLY_DIVE_CARD.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。"
+    "STS2_STARBORN_CARD_KIBO_PHANTOMFLY_DIVE_CARD.description": "对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。",
+
+    "STS2_STARBORN_CARD_WIELD_AXE_CARD.title": "挥舞巨斧",
+    "STS2_STARBORN_CARD_WIELD_AXE_CARD.description": "对所有敌人造成{Damage:diff()}点伤害。{IfCanOverload:show:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}[blue]{Repeat}[/blue]次。",
+
+    "STS2_STARBORN_CARD_SPINNING_LIGHT_CARD.title": "旋光",
+    "STS2_STARBORN_CARD_SPINNING_LIGHT_CARD.description": "{IfCanOverload:show:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。使所有敌人的[gold]暴晒[/gold]层数翻倍。",
+
+    "STS2_STARBORN_CARD_CARRY_CARD.title": "带躺",
+    "STS2_STARBORN_CARD_CARRY_CARD.description": "获得{Strength:diff()}点[gold]力量[/gold]。获得{Empower:diff()}层[gold]奇波强化[/gold]。",
+
+    "STS2_STARBORN_CARD_PROTEAN_CARD.title": "变换自在",
+    "STS2_STARBORN_CARD_PROTEAN_CARD.description": "每当你切换属性时，获得{Block:diff()}点[gold]格挡[/gold]。"
 }
