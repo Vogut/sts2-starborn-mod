@@ -65,21 +65,14 @@ public static class KiboPileManager
         registry.RegisterOwned(StorageCombatStem, new ModCardPileSpec
         {
             Scope = ModCardPileScope.CombatOnly,
-            //Style = ModCardPileUiStyle.Headless,
-
-            Style = ModCardPileUiStyle.BottomRight,
-            Anchor = new ModCardPileAnchor(ModCardPileAnchorKind.BottomRightPrimary,
-                Offset: new Vector2(0, -80f)),
-            IconPath = Const.Paths.KiboPileIcon,
+            Style = ModCardPileUiStyle.Headless,
         });
 
         registry.RegisterOwned(PileStem, new ModCardPileSpec
         {
             Scope = ModCardPileScope.CombatOnly,
-            Style = ModCardPileUiStyle.BottomLeft,
-            Anchor = new ModCardPileAnchor(ModCardPileAnchorKind.BottomLeftPrimary,
-                Offset: new Vector2(0, -80f)),
-            IconPath = Const.Paths.KiboPileIcon,
+            Style = ModCardPileUiStyle.Headless,
+            OnOpen = ctx => ctx.ShowDefaultPileScreen(),
         });
     }
 

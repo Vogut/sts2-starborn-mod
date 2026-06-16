@@ -1,5 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Nodes.Screens;
+using STS2RitsuLib.CardPiles;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
 
@@ -24,7 +26,7 @@ public partial class NKiboWidget : Control
 
     public NKiboWidget()
     {
-        MouseFilter = MouseFilterEnum.Ignore;
+        MouseFilter = MouseFilterEnum.Stop;
         BuildChildren();
     }
 
@@ -65,10 +67,6 @@ public partial class NKiboWidget : Control
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
-        _nameLabel.Text = def.LocKey;
-
-        var pile = KiboPileManager.GetActivePile(_player);
-        _pileCount.Text = pile?.Cards.Count.ToString() ?? "0";
     }
 
     public override void _Process(double delta)
@@ -88,8 +86,6 @@ public partial class NKiboWidget : Control
         var spriteW = FrameWidth * scale;
         var spriteH = FrameHeight * scale;
         var pedH = 64f * scale;
-        var infoX = spriteW + 12f;
-        var infoW = Size.X - infoX;
 
         _sprite.Position = Vector2.Zero;
         _sprite.Size = new Vector2(spriteW, spriteH);
@@ -97,11 +93,8 @@ public partial class NKiboWidget : Control
         _pedestal.Position = new Vector2(0, spriteH);
         _pedestal.Size = new Vector2(spriteW, pedH);
 
-        _nameLabel.Position = new Vector2(infoX, 8);
-        _nameLabel.Size = new Vector2(infoW, 28f);
-
-        _pileCount.Position = new Vector2(infoX, 64f);
-        _pileCount.Size = new Vector2(infoW, 24f);
+        _nameLabel.Visible = false;
+        _pileCount.Visible = false;
     }
 
     private void BuildChildren()
@@ -142,4 +135,24 @@ public partial class NKiboWidget : Control
     }
 
     private void OnActiveKiboChanged() => Refresh();
+
+    public override void _GuiInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false })
+        {
+            OpenPileScreen();
+            AcceptEvent();
+        }
+    }
+
+    private void OpenPileScreen()
+    {
+        if (_player == null) return;
+
+        var pile = KiboPileManager.GetActivePile(_player);
+        if (pile == null || pile.Cards.Count == 0) return;
+
+        var definition = ModCardPileRegistry.Get(KiboPileManager.QualifiedPileId);
+        NCardPileScreen.ShowScreen(pile, definition.Hotkeys ?? []);
+    }
 }
