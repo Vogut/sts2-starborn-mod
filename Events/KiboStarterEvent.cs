@@ -43,7 +43,9 @@ public sealed class KiboStarterEvent : ModEventTemplate
         KiboRunData.Modify(Owner!, d =>
         {
             d.ActiveKiboTypeId = typeId;
+            d.StarterKiboTypeId = typeId;
             d.OwnedKiboTypeIds.Add(typeId);
+            d.HasChosenStarterKibo = true;
         });
         await KiboPileManager.CreateMasterCards(Owner!, typeId);
         SetEventFinished(PageDescription("DONE"));

@@ -14,8 +14,8 @@ using STS2_Starborn.Cards.Kibo;
 namespace STS2_Starborn.Cards.Event;
 
 /// <summary>
-/// 召唤初始奇波的卡牌。在战斗开始时由 StarBoundCardRelic 添加到手牌。
-/// 动态读取 KiboRunData.ActiveKiboTypeId 来召唤对应的奇波，因此自动支持奇波进化。
+/// Summons the chosen starter Kibo, or its current evolution.
+/// Added to hand by StarBoundCardRelic at combat start.
 /// </summary>
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class SummonStarterKiboCard() : StarbornCard(
@@ -33,9 +33,8 @@ public sealed class SummonStarterKiboCard() : StarbornCard(
         {
             if (Owner == null) yield break;
 
-            var data = KiboRunData.Get(Owner);
-            if (data?.ActiveKiboTypeId == null) yield break;
-            if (!Kibo.KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) yield break;
+            var typeId = KiboRunData.GetStarterKiboTypeId(Owner);
+            if (typeId == null) yield break;
 
             var def = Kibo.KiboTypeRegistry.Get(typeId);
             var repCardModel = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));
@@ -45,9 +44,8 @@ public sealed class SummonStarterKiboCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var data = KiboRunData.Get(Owner);
-        if (data?.ActiveKiboTypeId == null) return;
-        if (!Kibo.KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) return;
+        var typeId = KiboRunData.GetStarterKiboTypeId(Owner);
+        if (typeId == null) return;
 
         await KiboCmd.Summon(choiceContext, Owner, typeId);
     }

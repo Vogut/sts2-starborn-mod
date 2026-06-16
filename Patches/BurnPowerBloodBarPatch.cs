@@ -8,30 +8,18 @@ using STS2RitsuLib.Patching.Models;
 
 namespace STS2_Starborn.Patches;
 
-public class BurnPowerBloodBarPatch : IPatchMethod
+public class BurnPowerBloodBarRefreshForegroundPatch : IPatchMethod
 {
-    public static string PatchId => "sts2_starborn_burn_blood_bar";
+    public static string PatchId => "sts2_starborn_burn_blood_bar_RefreshForeground";
     public static string Description => "Show burn damage prediction on creature health bars";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
     {
-        return
-        [
-            new(typeof(NHealthBar), "RefreshForeground", []),
-            new(typeof(NHealthBar), "RefreshText", []),
-        ];
+        return [new(typeof(NHealthBar), "RefreshForeground", [])];
     }
 
-    public void Apply(Harmony harmony)
-    {
-        var refreshFg = AccessTools.Method(typeof(NHealthBar), "RefreshForeground");
-        var refreshText = AccessTools.Method(typeof(NHealthBar), "RefreshText");
-        harmony.Patch(refreshFg, postfix: new HarmonyMethod(typeof(BurnPowerBloodBarPatch), nameof(RefreshForeground_Postfix)));
-        harmony.Patch(refreshText, postfix: new HarmonyMethod(typeof(BurnPowerBloodBarPatch), nameof(RefreshText_Postfix)));
-    }
-
-    private static void RefreshForeground_Postfix(NHealthBar __instance)
+    public static void Postfix(NHealthBar __instance)
     {
         var creature = Traverse.Create(__instance).Field("_creature").GetValue<Creature>();
         if (creature?.CurrentHp <= 0) return;
@@ -67,7 +55,27 @@ public class BurnPowerBloodBarPatch : IPatchMethod
         }
     }
 
-    private static void RefreshText_Postfix(NHealthBar __instance)
+    private static float GetFgWidth(NHealthBar instance, int amount, float maxFgWidth)
+    {
+        var creature = Traverse.Create(instance).Field("_creature").GetValue<Creature>();
+        if (creature!.MaxHp <= 0) return 0f;
+        float val = (float)amount / creature.MaxHp * maxFgWidth;
+        return Math.Max(val, creature.CurrentHp > 0 ? 12f : 0f);
+    }
+}
+
+public class BurnPowerBloodBarRefreshTextPatch : IPatchMethod
+{
+    public static string PatchId => "sts2_starborn_burn_blood_bar_RefreshText";
+    public static string Description => "Show burn damage prediction on creature health bars";
+    public static bool IsCritical => false;
+
+    public static ModPatchTarget[] GetTargets()
+    {
+        return [new(typeof(NHealthBar), "RefreshText", [])];
+    }
+
+    public static void Postfix(NHealthBar __instance)
     {
         var traverse = Traverse.Create(__instance);
         var creature = traverse.Field("_creature").GetValue<Creature>();
@@ -80,13 +88,5 @@ public class BurnPowerBloodBarPatch : IPatchMethod
         var hpLabel = traverse.Field("_hpLabel").GetValue<MegaCrit.Sts2.addons.mega_text.MegaLabel>();
         hpLabel.AddThemeColorOverride("font_color", new Color("#FF6347"));
         hpLabel.AddThemeColorOverride("font_outline_color", new Color("#8B0000"));
-    }
-
-    private static float GetFgWidth(NHealthBar instance, int amount, float maxFgWidth)
-    {
-        var creature = Traverse.Create(instance).Field("_creature").GetValue<Creature>();
-        if (creature!.MaxHp <= 0) return 0f;
-        float val = (float)amount / creature.MaxHp * maxFgWidth;
-        return Math.Max(val, creature.CurrentHp > 0 ? 12f : 0f);
     }
 }

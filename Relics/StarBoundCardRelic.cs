@@ -54,7 +54,7 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
     {
         if (base.Owner.RunState.CurrentActIndex != 0) return false;
         var data = KiboRunData.Get(base.Owner);
-        return data?.ActiveKiboTypeId == null;
+        return data == null || (!data.HasChosenStarterKibo && KiboRunData.ResolveStarterKiboTypeId(data) == null);
     }
 
     public override IReadOnlySet<RoomType> ModifyUnknownMapPointRoomTypes(IReadOnlySet<RoomType> roomTypes)
@@ -74,9 +74,8 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
         if (player != base.Owner || base.Owner.PlayerCombatState?.TurnNumber != 1)
             return;
 
-        var data = KiboRunData.Get(base.Owner);
-        if (data?.ActiveKiboTypeId == null) return;
-        if (!KiboTypeId.TryParse(data.ActiveKiboTypeId, out var typeId)) return;
+        var typeId = KiboRunData.GetStarterKiboTypeId(base.Owner);
+        if (typeId == null) return;
 
         // 直接召唤：InitializeForCombat 已执行，combat storage 已就绪，不会重复创建
         await KiboCmd.Summon(choiceContext, base.Owner, typeId);

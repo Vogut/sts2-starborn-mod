@@ -9,13 +9,13 @@ namespace STS2_Starborn.Localization.Formatters;
 
 /// <summary>
 /// SmartFormat formatter for conditionally rendering text based on <see cref="IfCanOverloadVar"/>.
-/// Usage: {IfCanOverload:show:超限效果|调谐效果}
+/// Usage: {IfCanOverload:showOverload:超限效果|调谐效果}
 /// When primary mark stacks > threshold (≥4), renders the first option; otherwise the second.
 /// </summary>
 [RegisterSmartFormatter]
 public class ShowIfCanOverloadFormatter : IFormatter
 {
-    public string Name { get => "show"; set => _ = value; }
+    public string Name { get => "showOverload"; set => _ = value; }
     public bool CanAutoDetect { get; set; }
 
     public bool TryEvaluateFormat(IFormattingInfo formattingInfo)

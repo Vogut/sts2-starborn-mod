@@ -54,6 +54,12 @@ public abstract class KiboCard(
 
         KiboRunData.Modify(Owner, d =>
         {
+            if (KiboRunData.ResolveStarterKiboTypeId(d) == currentTypeId)
+            {
+                d.StarterKiboTypeId = evolvedTypeId;
+                d.HasChosenStarterKibo = true;
+            }
+
             d.ActiveKiboTypeId = evolvedTypeId;
             d.OwnedKiboTypeIds.Remove(currentTypeId);
             d.OwnedKiboTypeIds.Add(evolvedTypeId);
