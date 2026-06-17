@@ -46,7 +46,7 @@ public partial class NKiboWidget : Control
     {
         _player = player;
         Refresh();
-        UpdateWidgetPosition();
+        UpdateFlightTargetPosition();
     }
 
     public void Refresh()
@@ -68,7 +68,7 @@ public partial class NKiboWidget : Control
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
-        UpdateWidgetPosition();
+        UpdateFlightTargetPosition();
     }
 
     public override void _Process(double delta)
@@ -147,7 +147,7 @@ public partial class NKiboWidget : Control
         }
     }
 
-    private void UpdateWidgetPosition()
+    public void UpdateFlightTargetPosition()
     {
         if (!IsInsideTree()) return;
 

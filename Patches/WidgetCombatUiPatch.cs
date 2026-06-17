@@ -67,6 +67,7 @@ public sealed class WidgetCombatUiActivatePatch : IPatchMethod
             widget.Position = new Vector2(
                 localPos.X + 100f,
                 localPos.Y - widget.Size.Y + 40f);
+            widget.UpdateFlightTargetPosition();
         }
 
         foreach (var widget in __instance.GetChildren().OfType<NElementMarkWidget>())

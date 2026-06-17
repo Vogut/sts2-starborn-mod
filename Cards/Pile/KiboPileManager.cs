@@ -76,11 +76,21 @@ public static class KiboPileManager
             Scope = ModCardPileScope.CombatOnly,
             Style = ModCardPileUiStyle.Headless,
             OnOpen = ctx => ctx.ShowDefaultPileScreen(),
-            FlightTargetPositionResolver = ctx => WidgetGlobalPosition != Vector2.Zero ? WidgetGlobalPosition : null,
+            FlightTargetPositionResolver = ResolveActivePileFlightTarget,
         });
     }
 
     // ── 牌堆访问器 ──────────────────────────────────────
+
+    private static Vector2? ResolveActivePileFlightTarget(ModCardPileFlightTargetContext ctx)
+    {
+        if (WidgetGlobalPosition == Vector2.Zero)
+            return null;
+
+        return ctx.CardNode != null
+            ? WidgetGlobalPosition - ctx.CardNode.Size * 0.5f
+            : WidgetGlobalPosition;
+    }
 
     private static PileType GetPileType(string qualifiedId) =>
         ModCardPileRegistry.GetPileType(qualifiedId);
