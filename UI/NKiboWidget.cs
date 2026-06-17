@@ -46,6 +46,7 @@ public partial class NKiboWidget : Control
     {
         _player = player;
         Refresh();
+        UpdateWidgetPosition();
     }
 
     public void Refresh()
@@ -67,6 +68,7 @@ public partial class NKiboWidget : Control
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
+        UpdateWidgetPosition();
     }
 
     public override void _Process(double delta)
@@ -143,6 +145,14 @@ public partial class NKiboWidget : Control
             OpenPileScreen();
             AcceptEvent();
         }
+    }
+
+    private void UpdateWidgetPosition()
+    {
+        if (!IsInsideTree()) return;
+
+        var spriteCenter = GlobalPosition + new Vector2(_sprite.Size.X / 2, _sprite.Size.Y / 2);
+        KiboPileManager.WidgetGlobalPosition = spriteCenter;
     }
 
     private void OpenPileScreen()

@@ -161,7 +161,7 @@ public partial class NElementMarkWidget : Control
         private void OnMouseEntered()
         {
             if (_hoverTips != null)
-                NHoverTipSet.CreateAndShow(this, _hoverTips);
+                NHoverTipSet.CreateAndShow(this, _hoverTips, HoverTipAlignment.Left);
         }
 
         private void OnMouseExited()

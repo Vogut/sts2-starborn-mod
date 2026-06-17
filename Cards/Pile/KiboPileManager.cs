@@ -40,6 +40,9 @@ public static class KiboPileManager
     /// <summary>活跃奇波切换时触发，供 UI 等订阅刷新。</summary>
     public static event Action? ActiveKiboChanged;
 
+    /// <summary>奇波 widget 的全局位置，用于卡牌飞行动画的目标点。</summary>
+    public static Vector2 WidgetGlobalPosition { get; set; } = Vector2.Zero;
+
     /// <summary>
     /// 显式跟踪当前活跃的奇波类型集合。此集合是 "奇波是否活跃" 的唯一真实来源，
     /// 不依赖活跃牌堆中实际有哪些牌。仅通过 MoveKiboToActive / MoveKiboToStorage /
@@ -73,6 +76,7 @@ public static class KiboPileManager
             Scope = ModCardPileScope.CombatOnly,
             Style = ModCardPileUiStyle.Headless,
             OnOpen = ctx => ctx.ShowDefaultPileScreen(),
+            FlightTargetPositionResolver = ctx => WidgetGlobalPosition != Vector2.Zero ? WidgetGlobalPosition : null,
         });
     }
 

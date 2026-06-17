@@ -24,7 +24,7 @@ public sealed class KiboHowlCard() : KiboCard(1, CardType.Skill, TargetType.Self
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(
+        await PowerCmd.Apply<FlexPotionPower>(
             choiceContext, Owner.Creature,
             DynamicVars["Strength"].IntValue,
             Owner.Creature, this);
