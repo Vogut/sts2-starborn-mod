@@ -34,7 +34,7 @@ namespace STS2_Starborn
                 $"{Root}/cards/{cardType.Name}.png";
 
             public static string RelicIcon(Type relicType) =>
-                $"{Root}/images/relics/{relicType.Name}.png";
+                $"{Root}/relics/{relicType.Name}.png";
 
             public static string PowerIcon(Type powerType) =>
                 $"{Root}/powers/{powerType.Name}.png";

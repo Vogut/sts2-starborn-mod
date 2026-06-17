@@ -21,12 +21,4 @@ public sealed class LeafoxRepCard() : KiboCard(-1, CardType.Power, TargetType.Se
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
     }
-
-    public override CardAssetProfile AssetProfile => new(
-        PortraitPath: Const.Paths.CardPortrait(GetType()),
-        FramePath: "res://STS2_Starborn/cards/WaterFrame.png", // 自定义卡框贴图
-        FrameMaterial: MaterialUtils.CreateUnmodulatedHsvShaderMaterial() // 保持原图颜色，不灰度化
-        // PortraitBorderPath: "", // 边框（状态牌感染使用的）
-        // BannerTexturePath: "" // 横幅（不同类型）
-    );
 }
