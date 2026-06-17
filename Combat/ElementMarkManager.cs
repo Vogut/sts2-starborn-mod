@@ -31,6 +31,16 @@ public sealed class ElementMarkManager : HookedSingletonModel
         return slot == MarkSlot.Primary ? data.PrimaryStacks : data.SecondaryStacks;
     }
 
+    public bool TryGetStacks(Player player, MarkSlot slot, out int stacks)
+    {
+        stacks = 0;
+        if (!ElementMarkDataStore.TryGet(player, out var data) || data == null)
+            return false;
+
+        stacks = slot == MarkSlot.Primary ? data.PrimaryStacks : data.SecondaryStacks;
+        return true;
+    }
+
     public void SetStacks(Player player, MarkSlot slot, int stacks)
     {
         var data = ElementMarkDataStore.Get(player);
@@ -47,6 +57,17 @@ public sealed class ElementMarkManager : HookedSingletonModel
         var data = ElementMarkDataStore.Get(player);
         var raw = slot == MarkSlot.Primary ? data.PrimaryElementType : data.SecondaryElementType;
         return raw != null && System.Enum.TryParse<SealElementType>(raw, out var t) ? t : SealElementType.None;
+    }
+
+    public bool TryGetElementType(Player player, MarkSlot slot, out SealElementType elementType)
+    {
+        elementType = SealElementType.None;
+        if (!ElementMarkDataStore.TryGet(player, out var data) || data == null)
+            return false;
+
+        var raw = slot == MarkSlot.Primary ? data.PrimaryElementType : data.SecondaryElementType;
+        elementType = raw != null && System.Enum.TryParse<SealElementType>(raw, out var t) ? t : SealElementType.None;
+        return true;
     }
 
     public void SetElementType(Player player, MarkSlot slot, SealElementType elementType)

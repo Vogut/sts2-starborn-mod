@@ -92,7 +92,7 @@ public class IfCanOverloadVar : DynamicVar
     {
         if (!card.IsCanonical && card.Owner != null)
         {
-            var stacks = ElementMarkState.GetStacks(card.Owner, MarkSlot.Primary);
+            ElementMarkState.TryGetStacks(card.Owner, MarkSlot.Primary, out var stacks);
             PreviewValue = stacks > ElementMarkState.ThresholdStacks ? 1 : 0;
         }
         else

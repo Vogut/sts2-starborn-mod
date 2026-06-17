@@ -28,14 +28,14 @@ public abstract class StarbornCard(
 ) : ModCardTemplate(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
 {
     internal int PrimaryStacks =>
-        !IsCanonical && Owner?.PlayerCombatState != null ? ElementMarkState.GetStacks(Owner, MarkSlot.Primary) : 0;
+        !IsCanonical && Owner?.Creature?.CombatState != null ? ElementMarkState.GetStacks(Owner, MarkSlot.Primary) : 0;
     internal SealElementType PrimaryElementType =>
-        !IsCanonical && Owner?.PlayerCombatState != null ? ElementMarkState.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
+        !IsCanonical && Owner?.Creature?.CombatState != null ? ElementMarkState.GetElementType(Owner, MarkSlot.Primary) : SealElementType.None;
 
     internal int SecondaryStacks =>
-        !IsCanonical && Owner?.PlayerCombatState != null ? ElementMarkState.GetStacks(Owner, MarkSlot.Secondary) : 0;
+        !IsCanonical && Owner?.Creature?.CombatState != null ? ElementMarkState.GetStacks(Owner, MarkSlot.Secondary) : 0;
     internal SealElementType SecondaryElementType =>
-        !IsCanonical && Owner?.PlayerCombatState != null ? ElementMarkState.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
+        !IsCanonical && Owner?.Creature?.CombatState != null ? ElementMarkState.GetElementType(Owner, MarkSlot.Secondary) : SealElementType.None;
 
     // ── Any element helpers ────────────────────────────────
     // 当 elementType == SealElementType.Any 时，创建动态解析当前主属性印记的 computed var
@@ -161,4 +161,3 @@ public abstract class StarbornCard(
         // BannerTexturePath: "" // 横幅（不同类型）
     );
 }
-

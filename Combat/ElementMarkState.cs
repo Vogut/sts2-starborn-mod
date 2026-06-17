@@ -20,8 +20,14 @@ public static class ElementMarkState
     public static int GetStacks(Player player, MarkSlot slot) =>
         Manager.GetStacks(player, slot);
 
+    public static bool TryGetStacks(Player player, MarkSlot slot, out int stacks) =>
+        Manager.TryGetStacks(player, slot, out stacks);
+
     public static SealElementType GetElementType(Player player, MarkSlot slot) =>
         Manager.GetElementType(player, slot);
+
+    public static bool TryGetElementType(Player player, MarkSlot slot, out SealElementType elementType) =>
+        Manager.TryGetElementType(player, slot, out elementType);
 
     public static void SetStacks(Player player, MarkSlot slot, int stacks) =>
         Manager.SetStacks(player, slot, stacks);
