@@ -1,4 +1,5 @@
 using System.Reflection;
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
@@ -21,6 +22,7 @@ public class KiboAncientVisualPatch : IPatchMethod
     public static string Description => "Make Kibo Rep cards display with Ancient visual style";
     public static bool IsCritical => false;
 
+    private const float KiboAncientTextBgAlpha = 0.45f;
     private static FieldInfo? _modelField;
 
     public static ModPatchTarget[] GetTargets()
@@ -67,19 +69,24 @@ public class KiboAncientVisualPatch : IPatchMethod
     /// </summary>
     public static void Postfix(NCard __instance, CardRarity? __state)
     {
-        if (__state == null || _modelField == null)
+        if (_modelField == null)
             return;
 
         var model = _modelField.GetValue(__instance) as CardModel;
         if (model == null)
             return;
 
-        // Restore original rarity
-        var rarityField = AccessTools.Field(typeof(CardModel), "<Rarity>k__BackingField");
-        if (rarityField != null)
+        if (__state != null)
         {
-            rarityField.SetValue(model, __state.Value);
+            // Restore original rarity
+            var rarityField = AccessTools.Field(typeof(CardModel), "<Rarity>k__BackingField");
+            if (rarityField != null)
+            {
+                rarityField.SetValue(model, __state.Value);
+            }
         }
+
+        ApplyAncientTextBgOpacity(__instance, __state != null);
     }
 
     /// <summary>
@@ -94,5 +101,16 @@ public class KiboAncientVisualPatch : IPatchMethod
         // Use KiboPileManager's method to check if it's a Rep card
         // Rep cards have the [RegisterKibo] attribute
         return KiboPileManager.IsRepCardType(model.GetType());
+    }
+
+    private static void ApplyAncientTextBgOpacity(NCard card, bool isKiboRepCard)
+    {
+        var textBg = card.GetNodeOrNull<CanvasItem>("%AncientTextBg");
+        if (textBg == null)
+            return;
+
+        textBg.SelfModulate = isKiboRepCard
+            ? new Color(1f, 1f, 1f, KiboAncientTextBgAlpha)
+            : Colors.White;
     }
 }

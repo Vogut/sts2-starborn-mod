@@ -98,9 +98,6 @@
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.title": "免费调谐",
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.description": "下一次调谐或超限的印记消耗为0。",
 
-    "STS2_STARBORN_POWER_CRITICAL_MODE_POWER.title": "临界模式",
-    "STS2_STARBORN_POWER_CRITICAL_MODE_POWER.description": "本回合内印记不会减少。回合结束时清空所有印记。",
-
     "STS2_STARBORN_POWER_EGG_STAKE_POWER.title": "孵蛋桩",
     "STS2_STARBORN_POWER_EGG_STAKE_POWER.description": "每回合开始时将一张随机[gold]奇波[/gold]牌加入你的手牌。",
 
@@ -108,8 +105,16 @@
     "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.description": "奇波无法出牌。回合开始时将随机[blue]1[/blue]张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
     "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.smartDescription": "奇波无法出牌。回合开始时将随机[blue]{Amount}[/blue]张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
 
-    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.title": "调谐强化",
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.title": "24s轴",
     "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
+
+    "STS2_STARBORN_POWER_TUNING_EMPOWERMENT_POWER.title": "谐调强化",
+    "STS2_STARBORN_POWER_TUNING_EMPOWERMENT_POWER.description": "谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
+
+    "STS2_STARBORN_POWER_TEMPORARY_TUNING_EMPOWERMENT_POWER.title": "临时谐调强化",
+    "STS2_STARBORN_POWER_TEMPORARY_TUNING_EMPOWERMENT_POWER.description": "在本回合结束前，谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
+
+
 
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.title": "随机上岗",
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "使用[gold]奇波牌[/gold]召唤奇波时，改为随机召唤[blue]1[/blue]只[gold]奇波[/gold]并使用其一张[gold]奇波战技[/gold]。",
@@ -133,7 +138,7 @@
     "STS2_STARBORN_POWER_SURGE_POWER.description": "奇波卡牌的伤害和格挡提升[blue]{Amount}0%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
     "STS2_STARBORN_POWER_SURGE_POWER.smartDescription": "奇波卡牌的伤害和格挡提升[blue]{Amount}0%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
 
-    "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.title": "水流保护",
+    "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.title": "节流",
     "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.description": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。",
     "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.smartDescription": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。",
 
@@ -142,7 +147,7 @@
     "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.smartDescription": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、50金币，精英和Boss战额外获得遗物）。",
 
     "STS2_STARBORN_POWER_CRITICAL_POWER.title": "临界",
-    "STS2_STARBORN_POWER_CRITICAL_POWER.description": "印记消耗减少至0。回合结束时清空所有印记。",
+    "STS2_STARBORN_POWER_CRITICAL_POWER.description": "本回合内印记不会减少。回合结束时清空所有印记。",
 
     "STS2_STARBORN_POWER_TAILWIND_POWER.title": "顺风",
     "STS2_STARBORN_POWER_TAILWIND_POWER.description": "回合开始时调谐0风。",
