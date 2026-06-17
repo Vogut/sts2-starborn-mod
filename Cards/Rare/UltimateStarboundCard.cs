@@ -47,7 +47,7 @@ public sealed class UltimateStarboundCard() : StarbornCard(
 
         // Let player choose a Kibo (select its RepCard)
         var prefs = new CardSelectorPrefs(
-            new LocString("gameplay_ui", "CHOOSE_CARD_TO_PLAY_HEADER"), 1)
+            new LocString("cards", "STS2_STARBORN_CARD_ULTIMATE_STARBOUND_CARD.choicePrompt"), 1)
         {
             Cancelable = true
         };

@@ -4,7 +4,7 @@
     "STS2_STARBORN_OVERLOAD.title": "超限",
     "STS2_STARBORN_OVERLOAD.description": "回合结束时，若印记层数达到满层（5层），触发属性的超限效果并消耗更多层数。",
 
-    "STS2_STARBORN_TUNING_FIRE.title": "调谐{element:Fire}",
+    "STS2_STARBORN_TUNING_FIRE.title": "调谐{Tuning:elementIcon(single)}",
     "STS2_STARBORN_TUNING_FIRE.description": "{Tuning:elementIcon()}对全体敌人施加等同于印记层数的[gold]灼烧[/gold]，消耗[blue]{Tuning}[/blue]层印记。",
     "STS2_STARBORN_OVERLOAD_FIRE.title": "超限",
     "STS2_STARBORN_OVERLOAD_FIRE.description": "{Overload:elementIcon()}对全体敌人施加等同于[blue]2倍[/blue]印记层数的[gold]灼烧[/gold]，消耗[blue]{Overload}[/blue]层印记。",

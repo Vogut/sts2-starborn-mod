@@ -189,6 +189,7 @@ public static class KiboPileManager
     public static async Task InitializeForCombat(Player player)
     {
         _activeKiboTypes.Clear();
+        ActiveKiboChanged?.Invoke();
 
         var data = KiboRunData.Get(player);
         if (data == null || data.OwnedKiboTypeIds.Count == 0) return;

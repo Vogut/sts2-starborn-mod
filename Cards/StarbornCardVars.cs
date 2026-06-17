@@ -15,11 +15,13 @@ namespace STS2_Starborn.Cards;
 
 public static class StarbornCardVars
 {
-    private const string ElementMarkKey = "STS2_STARBORN_ELEMENT_MARK";
-
-
     public static DynamicVar ElementMark(int stacks, SealElementType elementType = SealElementType.None, string name = "ElementMark") =>
-        new SealElementVar(name, stacks, elementType).WithSharedTooltip(ElementMarkKey, Const.Paths.ElementIcon(elementType));
+        new SealElementVar(name, stacks, elementType)
+            .WithTooltip(var =>
+            {
+                var sev = (SealElementVar)var;
+                return StarbornTipFactory.ElementMark(sev.ElementType, sev.IntValue);
+            });
 
     public static DynamicVar Tuning(int stacks, SealElementType elementType = SealElementType.None, string name = "Tuning") =>
         new SealElementVar(name, stacks, elementType)
@@ -30,7 +32,11 @@ public static class StarbornCardVars
                     ? SealElementMarkHooks.ModifyTuningConsume(combatState, MarkSlot.Primary, v)
                     : v;
             })
-            .WithSharedTooltip(StarbornTipFactory.TuningKey, Const.Paths.ElementIcon(elementType));
+            .WithTooltip(var =>
+            {
+                var sev = (SealElementVar)var;
+                return StarbornTipFactory.Tuning(sev.ElementType, sev.IntValue);
+            });
 
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None, string name = "Overload") =>
         new SealElementVar(name, stacks, elementType)
@@ -41,7 +47,11 @@ public static class StarbornCardVars
                     ? SealElementMarkHooks.ModifyOverloadConsume(combatState, MarkSlot.Primary, v)
                     : v;
             })
-            .WithSharedTooltip(StarbornTipFactory.OverloadKey, Const.Paths.ElementIcon(elementType));
+            .WithTooltip(var =>
+            {
+                var sev = (SealElementVar)var;
+                return StarbornTipFactory.Overload(sev.ElementType, sev.IntValue);
+            });
 
     internal static DynamicVar ComputedTuning(Func<int> value, Func<SealElementType> type, string name = "Tuning")
     {

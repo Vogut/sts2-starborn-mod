@@ -424,6 +424,7 @@
     "STS2_STARBORN_CARD_SERENDIPITY_CARD.title": "误打误撞",
     "STS2_STARBORN_CARD_SERENDIPITY_CARD.description": "[gold]奇波[/gold]：菇噜噜。选择一张手牌，将其费用随机变为0到3，然后打出它。",
     "STS2_STARBORN_CARD_SERENDIPITY_CARD.upgradeDescription": "[gold]奇波[/gold]：菇噜噜。选择一张手牌，将其费用随机变为0到3，然后打出它。获得[gold]保留[/gold]。",
+    "STS2_STARBORN_CARD_SERENDIPITY_CARD.choicePrompt": "选择一张手牌打出",
 
     "STS2_STARBORN_CARD_CRITICAL_CARD.title": "临界",
     "STS2_STARBORN_CARD_CRITICAL_CARD.description": "获得{PrimaryMark:elementIcon()}/{SecondaryMark:elementIcon()}当前属性印记。在本回合内印记不会减少并在回合结束时清空所有印记。",
@@ -439,6 +440,7 @@
 
     "STS2_STARBORN_CARD_ULTIMATE_STARBOUND_CARD.title": "极致的星结卡",
     "STS2_STARBORN_CARD_ULTIMATE_STARBOUND_CARD.description": "[bold]消耗[/bold]。选择一只奇波进行召唤并使用其[gold]奇波战技[/gold]与[gold]奇波特技[/gold]。",
+    "STS2_STARBORN_CARD_ULTIMATE_STARBOUND_CARD.choicePrompt": "选择一只奇波",
 
     "STS2_STARBORN_CARD_FIRST_TOP_UP_BONUS_CARD.title": "首充双倍",
     "STS2_STARBORN_CARD_FIRST_TOP_UP_BONUS_CARD.description": "失去{Gold}金币。战斗结束时额外获得一次战斗奖励。",

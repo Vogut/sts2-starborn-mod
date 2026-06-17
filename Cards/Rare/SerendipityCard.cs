@@ -47,7 +47,7 @@ public sealed class SerendipityCard() : StarbornCard(
     {
         // 选择一张手牌
         var selectPrefs = new CardSelectorPrefs(
-            new LocString("gameplay_ui", "CHOOSE_CARD_TO_PLAY_HEADER"), 1)
+            new LocString("cards", "STS2_STARBORN_CARD_SERENDIPITY_CARD.choicePrompt"), 1)
         {
             Cancelable = true
         };
