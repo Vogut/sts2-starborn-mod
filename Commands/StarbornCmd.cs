@@ -31,7 +31,6 @@ public static class StarbornCmd
     {
         var stacks = ElementMarkState.GetStacks(player, slot);
         var elementType = ElementMarkState.GetElementType(player, slot);
-        if (elementType == SealElementType.None) return false;
         var consume = Element.StarbornElement.For(elementType).OverloadConsume;
         if (player.Creature.CombatState != null)
             consume = SealElementMarkHooks.ModifyOverloadConsume(player.Creature.CombatState, slot, consume);

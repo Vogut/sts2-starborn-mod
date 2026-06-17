@@ -118,7 +118,13 @@ public static class KiboCmd
     {
         // 当前活跃的奇波类型
         var from = KiboPileManager.GetActiveKiboType(player);
-        if (from == typeId) return;
+        if (from == typeId)
+        {
+            var def = KiboTypeRegistry.Get(typeId);
+            var slot = ElementPoolRegistry.PrimaryPool.Contains(def.Element) ? MarkSlot.Primary : MarkSlot.Secondary;
+            await SealElementMarkCmd.SetElementType(ctx, slot, player, def.Element); 
+            return;
+        } 
 
         // 切换前：检查阻止 + 触发 Before hook
         var combatState = player.Creature.CombatState;

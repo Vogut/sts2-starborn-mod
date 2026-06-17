@@ -77,10 +77,6 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
         var typeId = KiboRunData.GetStarterKiboTypeId(base.Owner);
         if (typeId == null) return;
 
-        // 直接召唤：InitializeForCombat 已执行，combat storage 已就绪，不会重复创建
-        await KiboCmd.Summon(choiceContext, base.Owner, typeId);
-
-        // 添加召唤牌到手牌（参考 RadiantPearl 模式）
         var summonCard = combatState.CreateCard<SummonStarterKiboCard>(base.Owner);
         await CardPileCmd.AddGeneratedCardsToCombat(
             new List<CardModel> { summonCard }, PileType.Hand, base.Owner);
@@ -97,5 +93,13 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
             await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, base.Owner,
                 DynamicVars["SecondaryMark"].IntValue);
         }
+
+        if (base.Owner.PlayerCombatState?.TurnNumber != 1)
+            return;
+
+        var typeId = KiboRunData.GetStarterKiboTypeId(base.Owner);
+        if (typeId == null) return;
+
+        await KiboCmd.Summon(ctx, base.Owner, typeId);
     }
 }

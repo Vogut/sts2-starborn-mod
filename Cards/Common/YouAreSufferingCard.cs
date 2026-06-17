@@ -48,7 +48,7 @@ public sealed class YouAreSufferingCard() : StarbornCard(
     {
         // Gain wood marks immediately
         await SealElementMarkCmd.GainElementMarks(
-            choiceContext, MarkSlot.Primary, Owner,
+            choiceContext, MarkSlot.Secondary, Owner,
             DynamicVars["ElementMark"].IntValue, SealElementType.Wood);
 
         // Apply YouAreSufferingPower for next turn
