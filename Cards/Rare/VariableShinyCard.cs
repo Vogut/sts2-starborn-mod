@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -14,6 +15,11 @@ public sealed class VariableShinyCard : StarbornCard
     public VariableShinyCard() : base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
     }
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Exhaust,
+    ];
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

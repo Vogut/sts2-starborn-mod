@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
 
@@ -23,28 +22,36 @@ public sealed class LanceHurlCard() : StarbornCard(
         new DamageVar(19m, ValueProp.Move),
     ];
 
+    protected override bool ShouldGlowGoldInternal => PrimaryStacks >= 3 && SecondaryStacks >= 3;
+
+    public override bool TryModifyEnergyCostInCombat(
+        CardModel card, decimal originalCost, out decimal modifiedCost)
+    {
+        modifiedCost = originalCost;
+        if (card != this)
+            return false;
+        if (PrimaryStacks < 3 || SecondaryStacks < 3)
+            return false;
+
+        modifiedCost = 0m;
+        return true;
+    }
+
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
         await base.AfterCardEnteredCombat(card);
         if (card == this)
         {
-            ElementMarkState.MarksChanged += UpdateCost;
-            UpdateCost();
+            ElementMarkState.MarksChanged += InvokeEnergyCostChanged;
+            InvokeEnergyCostChanged();
         }
     }
 
     public override async Task BeforeCardRemoved(CardModel card)
     {
         if (card == this)
-            ElementMarkState.MarksChanged -= UpdateCost;
+            ElementMarkState.MarksChanged -= InvokeEnergyCostChanged;
         await base.BeforeCardRemoved(card);
-    }
-
-    private void UpdateCost()
-    {
-        EnergyCost.EndOfTurnCleanup();
-        if (PrimaryStacks >= 3 && SecondaryStacks >= 3)
-            EnergyCost.SetThisTurn(0);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

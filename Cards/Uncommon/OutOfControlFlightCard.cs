@@ -24,29 +24,36 @@ public sealed class OutOfControlFlightCard() : StarbornCard(
         new DamageVar(15m, ValueProp.Move)
     ];
 
+    protected override bool ShouldGlowGoldInternal => PrimaryElementType != SealElementType.None;
+
+    public override bool TryModifyEnergyCostInCombat(
+        CardModel card, decimal originalCost, out decimal modifiedCost)
+    {
+        modifiedCost = originalCost;
+        if (card != this)
+            return false;
+        if (PrimaryElementType == SealElementType.None)
+            return false;
+
+        modifiedCost = 0m;
+        return true;
+    }
+
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
         await base.AfterCardEnteredCombat(card);
         if (card == this)
         {
-            ElementMarkState.MarksChanged += UpdateCost;
-            UpdateCost();
+            ElementMarkState.MarksChanged += InvokeEnergyCostChanged;
+            InvokeEnergyCostChanged();
         }
     }
 
     public override async Task BeforeCardRemoved(CardModel card)
     {
         if (card == this)
-            ElementMarkState.MarksChanged -= UpdateCost;
+            ElementMarkState.MarksChanged -= InvokeEnergyCostChanged;
         await base.BeforeCardRemoved(card);
-    }
-
-    private void UpdateCost()
-    {
-        if (PrimaryElementType != SealElementType.None)
-            EnergyCost.SetThisCombat(0);
-        else
-            EnergyCost.SetThisCombat(2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

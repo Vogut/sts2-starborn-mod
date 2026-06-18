@@ -23,11 +23,25 @@ public sealed class DerivedStrikeCard() : StarbornCard(
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
+    protected override bool ShouldGlowGoldInternal => IsBonusActive;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(7m, ValueProp.Move),
         ElementMark(2, SealElementType.Any),
     ];
+
+    private bool IsBonusActive
+    {
+        get
+        {
+            var previousCard = CombatManager.Instance?.History?.CardPlaysStarted
+                .Select(e => e.CardPlay.Card)
+                .LastOrDefault(c => c != this);
+
+            return previousCard?.Type == CardType.Attack;
+        }
+    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -39,12 +53,7 @@ public sealed class DerivedStrikeCard() : StarbornCard(
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        // Check if the previous card played in combat was an attack
-        var previousCard = CombatManager.Instance?.History?.CardPlaysStarted
-            .Select(e => e.CardPlay.Card)
-            .LastOrDefault(c => c != this);
-
-        if (previousCard?.Type == CardType.Attack)
+        if (IsBonusActive)
         {
             // Second hit
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

@@ -12,6 +12,7 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Cards.Uncommon;
 
@@ -23,7 +24,26 @@ public sealed class ScorchingDanceCard() : StarbornCard(
     1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies
 )
 {
-    protected override bool IsPlayable => StarbornCmd.CanTuning(Owner, MarkSlot.Primary);
+    protected override bool IsPlayable
+    {
+        get
+        {
+            var stacks = PrimaryStacks;
+            var consume = stacks > ElementMarkState.ThresholdStacks
+                ? DynamicVars["Overload"].IntValue
+                : DynamicVars["Tuning"].IntValue;
+
+            if (CombatState != null)
+            {
+                consume = stacks > ElementMarkState.ThresholdStacks
+                    ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, MarkSlot.Primary, consume)
+                    : SealElementMarkHooks.ModifyTuningConsume(CombatState, MarkSlot.Primary, consume);
+            }
+
+            return consume >= 0 && stacks >= consume;
+        }
+    }
+
     private const int baseComuse = 2;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -37,9 +57,19 @@ public sealed class ScorchingDanceCard() : StarbornCard(
     {
         if (CombatState == null) return;
 
-        var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
-        await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
-            DynamicVars["Tuning"].IntValue, tuningElementType, this);
+        var canOverload = PrimaryStacks > ElementMarkState.ThresholdStacks;
+        if (canOverload)
+        {
+            var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
+            await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner,
+                DynamicVars["Overload"].IntValue, overloadElementType, this);
+        }
+        else
+        {
+            var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
+            await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
+                DynamicVars["Tuning"].IntValue, tuningElementType, this);
+        }
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)

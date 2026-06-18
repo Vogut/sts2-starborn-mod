@@ -34,6 +34,8 @@
 
     "STS2_STARBORN_POWER_RIDE_POWER.title": "乘骑",
     "STS2_STARBORN_POWER_RIDE_POWER.description": "本回合[gold]奇波[/gold]无法自动出牌。",
+    "STS2_STARBORN_POWER_NO_KIBO_PLAY_POWER.title": "乘骑",
+    "STS2_STARBORN_POWER_NO_KIBO_PLAY_POWER.description": "本回合[gold]奇波[/gold]无法自动出牌。",
 
     "STS2_STARBORN_POWER_DROWN_POWER.title": "淹没",
     "STS2_STARBORN_POWER_DROWN_POWER.description": "受到奇波牌造成的伤害增加[blue]{Amount}00%[/blue]。在敌人回合结束时减少1层。",

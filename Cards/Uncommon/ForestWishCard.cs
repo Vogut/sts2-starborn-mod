@@ -35,7 +35,7 @@ public sealed class ForestWishCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Primary, Owner, DynamicVars["ElementMark"].IntValue);
+        await SealElementMarkCmd.GainElementMarks(choiceContext, MarkSlot.Secondary, Owner, DynamicVars["ElementMark"].IntValue, SealElementType.Wood);
 
         var combatState = Owner.Creature.CombatState;
         if (combatState == null) return;

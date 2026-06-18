@@ -8,6 +8,7 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Element;
+using STS2_Starborn.Hooks;
 
 namespace STS2_Starborn.Cards.Token;
 
@@ -18,25 +19,50 @@ public sealed class SpiritWoodSeedCard() : StarbornCard(
 {
     private const int BaseConsume = 1;
 
-    protected override bool IsPlayable =>
-        StarbornCmd.CanTuning(Owner, MarkSlot.Primary);
+    protected override bool IsPlayable
+    {
+        get
+        {
+            var stacks = SecondaryStacks;
+            var consume = stacks > ElementMarkState.ThresholdStacks
+                ? DynamicVars["Overload"].IntValue
+                : DynamicVars["Tuning"].IntValue;
+
+            if (CombatState != null)
+            {
+                consume = stacks > ElementMarkState.ThresholdStacks
+                    ? SealElementMarkHooks.ModifyOverloadConsume(CombatState, MarkSlot.Secondary, consume)
+                    : SealElementMarkHooks.ModifyTuningConsume(CombatState, MarkSlot.Secondary, consume);
+            }
+
+            return consume >= 0 && stacks >= consume;
+        }
+    }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust, CardKeyword.Ethereal];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        StarbornCardVars.Tuning(BaseConsume, SealElementType.Wood),
-        StarbornCardVars.Overload(BaseConsume + 1, SealElementType.Wood),
-        StarbornCardVars.IfCanOverload()
+        Tuning(BaseConsume, SealElementType.Wood, "Tuning", MarkSlot.Secondary),
+        Overload(BaseConsume + 1, SealElementType.Wood, "Overload", MarkSlot.Secondary),
+        StarbornCardVars.IfCanOverload(MarkSlot.Secondary)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (StarbornCmd.CanOverload(Owner, MarkSlot.Primary))
-            await StarbornCmd.Overload(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Overload"].IntValue, SealElementType.Wood, this);
+        if (SecondaryStacks > ElementMarkState.ThresholdStacks)
+        {
+            var overloadElementType = ((SealElementVar)DynamicVars["Overload"]).ElementType;
+            await StarbornCmd.Overload(choiceContext, MarkSlot.Secondary, Owner,
+                DynamicVars["Overload"].IntValue, overloadElementType, this);
+        }
         else
-            await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue, SealElementType.Wood, this);
+        {
+            var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
+            await StarbornCmd.Tuning(choiceContext, MarkSlot.Secondary, Owner,
+                DynamicVars["Tuning"].IntValue, tuningElementType, this);
+        }
     }
 
     protected override void OnUpgrade()

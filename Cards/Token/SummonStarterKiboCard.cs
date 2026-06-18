@@ -80,6 +80,8 @@ public sealed class SummonStarterKiboCard() : StarbornCard(
 
     private KiboTypeDefinition? ResolveStarterKiboDefinition()
     {
+        if (IsCanonical)
+            return null;
         if (Owner == null)
             return null;
 

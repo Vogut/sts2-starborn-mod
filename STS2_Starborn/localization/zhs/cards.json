@@ -400,7 +400,7 @@
     "STS2_STARBORN_CARD_FLEE_CARD.description": "失去所有的印记。每失去一层印记，获得{BlockPerMark:diff()}点格挡。",
 
     "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.title": "失控飞行",
-    "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.description": "随机对敌人造成{Damage:diff()}点伤害。如果主属性为[red]火[/red]该牌耗能为0。",
+    "STS2_STARBORN_CARD_OUT_OF_CONTROL_FLIGHT_CARD.description": "随机对敌人造成{Damage:diff()}点伤害。如果主属性不为无，该牌耗能为0。重置主属性。",
 
     "STS2_STARBORN_CARD_DISGUISE_ORE_CARD.title": "伪装矿石",
     "STS2_STARBORN_CARD_DISGUISE_ORE_CARD.description": "[gold]奇波[/gold]：[blue]炎晶甲[/blue]。获得{Block:diff()}点格挡。",
