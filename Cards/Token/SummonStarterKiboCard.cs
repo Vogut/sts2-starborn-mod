@@ -12,6 +12,7 @@ using STS2_Starborn.Character;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Runs;
 using STS2_Starborn.Cards.Kibo;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace STS2_Starborn.Cards.Event;
 
@@ -19,7 +20,7 @@ namespace STS2_Starborn.Cards.Event;
 /// Summons the chosen starter Kibo, or its current evolution.
 /// Added to hand by StarBoundCardRelic at combat start.
 /// </summary>
-[RegisterCard(typeof(StarbornCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 [AncientVisual(TextBgAlpha = 0.45f, HideTypePlaque = true)]
 public sealed class SummonStarterKiboCard() : StarbornCard(
     0, CardType.Skill, CardRarity.Token, TargetType.Self, shouldShowInCardLibrary: false)

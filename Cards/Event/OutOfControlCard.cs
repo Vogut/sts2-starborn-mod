@@ -10,13 +10,14 @@ using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace STS2_Starborn.Cards.Event;
 
 /// <summary>
 /// 失控：无法打出，保留。在回合结束（手牌中）和战斗结束时各失去 1 点生命上限。
 /// </summary>
-[RegisterCard(typeof(StarbornCardPool))]
+[RegisterCard(typeof(CurseCardPool))]
 public sealed class OutOfControlCard() : StarbornCard(
     -1, CardType.Curse, CardRarity.Curse, TargetType.None
 )

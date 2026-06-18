@@ -8,10 +8,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace STS2_Starborn.Cards.Token;
 
-[RegisterCard(typeof(StarbornCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public sealed class SturdyPlankCard() : StarbornCard(
     1, CardType.Skill, CardRarity.Token, TargetType.Self
 )

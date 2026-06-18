@@ -9,10 +9,11 @@ using STS2_Starborn.Commands;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Element;
 using STS2_Starborn.Hooks;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace STS2_Starborn.Cards.Token;
 
-[RegisterCard(typeof(StarbornCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public sealed class SpiritWoodSeedCard() : StarbornCard(
     0, CardType.Skill, CardRarity.Token, TargetType.Self
 )

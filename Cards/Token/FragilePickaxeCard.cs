@@ -8,10 +8,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Character;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace STS2_Starborn.Cards.Token;
 
-[RegisterCard(typeof(StarbornCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public sealed class FragilePickaxeCard() : StarbornCard(
     1, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy
 )

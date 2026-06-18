@@ -7,6 +7,24 @@ namespace STS2_Starborn.Combat;
 
 public enum MarkSlot { Primary, Secondary }
 
+public enum MarkVisualChangeKind
+{
+    ElementChanged,
+    StacksGained,
+    StacksLost,
+    Tuned,
+    Overloaded,
+}
+
+public readonly record struct MarkVisualChange(
+    Player Player,
+    MarkSlot Slot,
+    SealElementType OldElementType,
+    SealElementType NewElementType,
+    int OldStacks,
+    int NewStacks,
+    MarkVisualChangeKind Kind);
+
 public static class ElementMarkState
 {
     public const int MaxSealStacks = ElementMarkManager.MaxSealStacks;
@@ -16,6 +34,9 @@ public static class ElementMarkState
 
     public static event Action? MarksChanged;
     public static void NotifyMarksChanged() => MarksChanged?.Invoke();
+
+    public static event Action<MarkVisualChange>? MarkVisualChanged;
+    public static void NotifyMarkVisualChanged(MarkVisualChange change) => MarkVisualChanged?.Invoke(change);
 
     public static int GetStacks(Player player, MarkSlot slot) =>
         Manager.GetStacks(player, slot);
