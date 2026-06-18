@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -110,6 +111,47 @@ public abstract class StarbornCard(
     }
 
     public virtual string? KiboSummonType => null;
+
+    public Color? ResolveTuningGlowColorOrNull()
+    {
+        if (IsCanonical || Owner?.Creature?.CombatState == null || !CanPlay())
+            return null;
+
+        var elementType = ResolveGlowElement("Overload") ?? ResolveGlowElement("Tuning");
+        return elementType == null ? null : GlowColorFor(elementType.Value);
+    }
+
+    private SealElementType? ResolveGlowElement(string varName)
+    {
+        if (!DynamicVars.TryGetValue(varName, out var dynamicVar) ||
+            dynamicVar is not SealElementVar elementVar)
+        {
+            return null;
+        }
+
+        var elementType = elementVar.ElementType;
+        if (elementType == SealElementType.Any)
+        {
+            elementType = elementVar.ResolveSlot == MarkSlot.Secondary
+                ? SecondaryElementType
+                : PrimaryElementType;
+        }
+
+        return elementType == SealElementType.None || elementType == SealElementType.Any
+            ? null
+            : elementType;
+    }
+
+    private static Color? GlowColorFor(SealElementType elementType) => elementType switch
+    {
+        SealElementType.Fire => new Color(1f, 0.22f, 0.12f),
+        SealElementType.Water => new Color(0.22f, 0.56f, 1f),
+        SealElementType.Wood => new Color(0.28f, 0.86f, 0.34f),
+        SealElementType.Ice => new Color(0.35f, 0.92f, 1f),
+        SealElementType.Wind => new Color(0.65f, 1f, 0.55f),
+        SealElementType.Light => new Color(1f, 0.88f, 0.32f),
+        _ => null,
+    };
 
     public override async Task AfterCardChangedPiles(
         CardModel card, PileType oldPileType, AbstractModel? clonedBy)

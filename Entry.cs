@@ -6,6 +6,7 @@ using STS2RitsuLib;
 using STS2RitsuLib.Content;
 using STS2RitsuLib.Interop;
 using STS2RitsuLib.Patching.Core;
+using STS2_Starborn.Cards;
 using STS2_Starborn.Cards.Common;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
@@ -34,17 +35,20 @@ public class Entry
         KiboPileManager.RegisterPiles();
 
         var starbornEntry = ModelDb.GetEntry(typeof(Starborn));
-        RitsuLibFramework.GetContentRegistry(Const.ModId)
-            .RegisterCardLibraryCompendiumSharedPoolFilter<KiboCardPool>(
-                "kibo",
-                Const.Paths.KiboPileIcon,
-                [
-                    new CardLibraryCompendiumPlacementRule
-                    {
-                        ModCharacterModelIdEntry = starbornEntry,
-                        Relation = CardLibraryCompendiumFilterInsertRelation.After,
-                    },
-                ]);
+        var contentRegistry = RitsuLibFramework.GetContentRegistry(Const.ModId);
+        contentRegistry.RegisterCardLibraryCompendiumSharedPoolFilter<KiboCardPool>(
+            "kibo",
+            Const.Paths.KiboPileIcon,
+            [
+                new CardLibraryCompendiumPlacementRule
+                {
+                    ModCharacterModelIdEntry = starbornEntry,
+                    Relation = CardLibraryCompendiumFilterInsertRelation.After,
+                },
+            ]);
+        contentRegistry.RegisterCardHandOutline<StarbornCard>(
+            card => card.ResolveTuningGlowColorOrNull(),
+            refreshEveryFrame: true);
 
         var patcher = RitsuLibFramework.CreatePatcher(Const.ModId, "main");
         patcher.RegisterPatch<KiboAutoSummonPatch>();
