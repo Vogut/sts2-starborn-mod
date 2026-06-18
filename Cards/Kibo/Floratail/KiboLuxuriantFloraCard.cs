@@ -24,7 +24,7 @@ public sealed class KiboLuxuriantFloraCard() : KiboCard(1, CardType.Skill, Targe
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(3, ValueProp.Move),
+        new BlockVar(4, ValueProp.Move),
         ElementMark(1, SealElementType.Wood),
     ];
 

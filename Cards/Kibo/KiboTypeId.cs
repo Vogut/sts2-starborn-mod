@@ -37,6 +37,12 @@ public static class KiboTypeId
     public const string Leafox = "leafox";
     public const string Floratail = "floratail";
     public const string Corovulpe = "corovulpe";
+    public const string Flamoo = "flamoo";
+    public const string Firebull = "firebull";
+    public const string Taurick = "taurick";
+    public const string Beaver = "beaver";
+    public const string Beaflow = "beaflow";
+    public const string MasterBeaver = "master_beaver";
     public const string SwiftWolf = "swift_wolf";
     public const string Moklido = "moklido";
     public const string ArmoredPangolin = "armored_pangolin";
@@ -59,6 +65,12 @@ public static class KiboTypeId
         Leafox,
         Floratail,
         Corovulpe,
+        Flamoo,
+        Firebull,
+        Taurick,
+        Beaver,
+        Beaflow,
+        MasterBeaver,
         SwiftWolf,
         Moklido,
         ArmoredPangolin,
