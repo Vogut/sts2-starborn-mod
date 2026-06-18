@@ -23,7 +23,7 @@ public sealed class WaterElement : StarbornElement
     public override async Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null)
     {
         await PowerCmd.Apply<SurgePower>(
-            ctx, owner.Creature, stacks * 2, owner.Creature, null);
+            ctx, owner.Creature, stacks, owner.Creature, null);
 
         var combatState = owner.Creature.CombatState;
         if (combatState != null)
@@ -33,7 +33,7 @@ public sealed class WaterElement : StarbornElement
     public override async Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null)
     {
         await PowerCmd.Apply<SurgePower>(
-            ctx, owner.Creature, stacks * 2, owner.Creature, null);
+            ctx, owner.Creature, stacks, owner.Creature, null);
         await PowerCmd.Apply<DrownPower>(
             ctx, owner.Creature.CombatState!.HittableEnemies, 1, owner.Creature, null);
 

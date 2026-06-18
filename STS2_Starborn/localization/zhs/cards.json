@@ -202,7 +202,7 @@
     "STS2_STARBORN_CARD_PURE_SEA_CARD.upgradeDescription": "[gold]保留[/gold]。死亡时，立刻回复所有血量，结束敌人的回合。抽满手牌，将此牌从卡组中移除。",
 
     "STS2_STARBORN_CARD_ADAPTABILITY_CARD.title": "随机应变",
-    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，{IfCanOverload:showOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。{IfUpgraded:show:如果抽到的是技能牌，[gold]调谐{TuningSecondary:elementIcon()}[/gold]。|}",
+    "STS2_STARBORN_CARD_ADAPTABILITY_CARD.description": "抽{Cards:diff()}张牌。如果抽到的牌是攻击牌，获得{Primary:elementIcon()}。如果抽到的是技能牌，获得{Secondary:elementIcon()}。",
 
     "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.title": "奇波产线",
     "STS2_STARBORN_CARD_KIBO_ASSEMBLY_LINE_CARD.description": "本场战斗[gold]奇波[/gold]无法出牌。回合开始时将随机{Count:diff()}张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
@@ -419,7 +419,8 @@
     "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.description": "失去{ElementMark}层主属性印记。造成{Damage:diff()}点伤害{Times}次。",
 
     "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.title": "御三家",
-    "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.description": "召唤你的初始奇波。",
+    "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.description": "召唤{KiboName}。",
+    "STS2_STARBORN_CARD_SUMMON_STARTER_KIBO_CARD.fallbackKiboName": "你的初始奇波",
 
     "STS2_STARBORN_CARD_SERENDIPITY_CARD.title": "误打误撞",
     "STS2_STARBORN_CARD_SERENDIPITY_CARD.description": "[gold]奇波[/gold]：菇噜噜。选择一张手牌，将其费用随机变为0到3，然后打出它。",
