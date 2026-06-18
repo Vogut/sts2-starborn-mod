@@ -24,7 +24,7 @@ public class DailyLoginBookRelic : StarbornRelic
     private static readonly SavedAttachedState<DailyLoginBookRelic, int> s_combatCount =
         new("CombatCount", () => 0);
 
-    public override RelicRarity Rarity => RelicRarity.Rare;
+    public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
