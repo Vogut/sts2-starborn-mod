@@ -9,11 +9,11 @@ using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
 
-namespace STS2_Starborn.Cards.Common;
+namespace STS2_Starborn.Cards.Uncommon;
 
 [RegisterCard(typeof(StarbornCardPool))]
 public sealed class LurukaSoupCard() : StarbornCard(
-    1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     private static readonly MarkSlot[] _slots =
     [
