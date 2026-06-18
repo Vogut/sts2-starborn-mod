@@ -27,7 +27,7 @@ public sealed class KiboFloraBreathCard() : KiboCard(1, CardType.Attack, TargetT
     [
         new DamageVar(2, ValueProp.Move),
         new RepeatVar(3),
-        ElementMark(1, SealElementType.Wood),
+        ElementMark(2, SealElementType.Wood),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

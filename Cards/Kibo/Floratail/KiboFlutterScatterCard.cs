@@ -3,6 +3,9 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2_Starborn.Combat;
+using STS2_Starborn.Commands;
+using STS2_Starborn.Element;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 
@@ -21,6 +24,7 @@ public sealed class KiboFlutterScatterCard() : KiboCard(1, CardType.Attack, Targ
     [
         new DamageVar(2, ValueProp.Move),
         new RepeatVar(3),
+        ElementMark(1, SealElementType.Wood)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -32,6 +36,10 @@ public sealed class KiboFlutterScatterCard() : KiboCard(1, CardType.Attack, Targ
             .FromCard(this)
             .TargetingRandomOpponents(CombatState)
             .Execute(choiceContext);
+        var elementType = ((SealElementVar)DynamicVars["ElementMark"]).ElementType;
+        await SealElementMarkCmd.GainElementMarks(
+            choiceContext, MarkSlot.Secondary, Owner, DynamicVars["ElementMark"].IntValue, elementType);
+
     }
 
     protected override void OnUpgrade()
