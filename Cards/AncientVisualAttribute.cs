@@ -6,4 +6,6 @@ namespace STS2_Starborn.Cards;
 public sealed class AncientVisualAttribute : Attribute
 {
     public float TextBgAlpha { get; set; } = 1f;
+
+    public bool HideTypePlaque { get; set; }
 }

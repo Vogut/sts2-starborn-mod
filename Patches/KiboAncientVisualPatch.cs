@@ -53,7 +53,7 @@ public class KiboAncientVisualPatch : IPatchMethod
         if (visual == null)
             return;
 
-        __state = new AncientVisualState(model.Rarity, visual.Value.TextBgAlpha);
+        __state = new AncientVisualState(model.Rarity, visual.Value.TextBgAlpha, visual.Value.HideTypePlaque);
         _rarityField.SetValue(model, CardRarity.Ancient);
     }
 
@@ -75,6 +75,7 @@ public class KiboAncientVisualPatch : IPatchMethod
         }
 
         ApplyAncientTextBgOpacity(__instance, __state?.TextBgAlpha);
+        ApplyTypePlaqueVisibility(__instance, __state?.HideTypePlaque == true);
     }
 
     private static AncientVisualConfig? GetAncientVisual(CardModel model)
@@ -82,10 +83,10 @@ public class KiboAncientVisualPatch : IPatchMethod
         var attr = Attribute.GetCustomAttribute(model.GetType(), typeof(AncientVisualAttribute), false)
             as AncientVisualAttribute;
         if (attr != null)
-            return new AncientVisualConfig(attr.TextBgAlpha);
+            return new AncientVisualConfig(attr.TextBgAlpha, attr.HideTypePlaque);
 
         return IsKiboRepCard(model)
-            ? new AncientVisualConfig(KiboAncientTextBgAlpha)
+            ? new AncientVisualConfig(KiboAncientTextBgAlpha, true)
             : null;
     }
 
@@ -108,7 +109,26 @@ public class KiboAncientVisualPatch : IPatchMethod
             : Colors.White;
     }
 
-    public readonly record struct AncientVisualState(CardRarity OriginalRarity, float TextBgAlpha);
+    private static void ApplyTypePlaqueVisibility(NCard card, bool hideTypePlaque)
+    {
+        var visible = !hideTypePlaque;
+        SetCanvasItemVisible(card, "%TypePlaque", visible);
+        SetCanvasItemVisible(card, "%TypeLabel", visible);
+    }
 
-    private readonly record struct AncientVisualConfig(float TextBgAlpha);
+    private static void SetCanvasItemVisible(NCard card, string nodePath, bool visible)
+    {
+        var node = card.GetNodeOrNull<CanvasItem>(nodePath);
+        if (node != null)
+        {
+            node.Visible = visible;
+        }
+    }
+
+    public readonly record struct AncientVisualState(
+        CardRarity OriginalRarity,
+        float TextBgAlpha,
+        bool HideTypePlaque);
+
+    private readonly record struct AncientVisualConfig(float TextBgAlpha, bool HideTypePlaque);
 }
