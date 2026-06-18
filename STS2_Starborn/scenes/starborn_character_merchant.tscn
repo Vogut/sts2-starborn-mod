@@ -1,8 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://pdy0teckf4i"]
+[gd_scene load_steps=17 format=3 uid="uid://pdy0teckf4i"]
 
-[ext_resource type="Texture2D" uid="uid://hn2nofekpwrp" path="res://icon.svg" id="1_diepv"]
+[ext_resource type="Texture2D" uid="uid://cgrtdcmoiufr7" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-0.png" id="2_3nhu8"]
+[ext_resource type="Texture2D" uid="uid://clr1g2bkolh1q" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-1.png" id="3_v60vt"]
+[ext_resource type="Texture2D" uid="uid://b6bndsy3symgx" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-2.png" id="4_hexgi"]
+[ext_resource type="Texture2D" uid="uid://br7lr4ir5wscw" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-3.png" id="5_13s4w"]
+[ext_resource type="Texture2D" uid="uid://dl4uxsmbljbf0" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-4.png" id="6_mrmfk"]
+[ext_resource type="Texture2D" uid="uid://drdrc72uptebk" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-5.png" id="7_ok4nm"]
+[ext_resource type="Texture2D" uid="uid://csnki8ptjj3by" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-6.png" id="8_qvnf0"]
+[ext_resource type="Texture2D" uid="uid://dya2qcossrc0r" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-7.png" id="9_4c418"]
+[ext_resource type="Texture2D" uid="uid://dmlhnrsj0fuom" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-8.png" id="10_vad78"]
+[ext_resource type="Texture2D" uid="uid://b0f41yxlqdlcx" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-9.png" id="11_10mv8"]
+[ext_resource type="Texture2D" uid="uid://bnywo6qrc50g0" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-10.png" id="12_qg7ld"]
+[ext_resource type="Texture2D" uid="uid://cpfiwa3hqd7vh" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-11.png" id="13_e4e3s"]
+[ext_resource type="Texture2D" uid="uid://byxs7w7bn1o63" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-12.png" id="14_x8jwe"]
+[ext_resource type="Texture2D" uid="uid://dtgjaopfatuwp" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-13.png" id="15_68tgo"]
+[ext_resource type="Texture2D" uid="uid://etfr15s4kp1g" path="res://STS2_Starborn/scenes/character/9b50453ff05b4228aab0feff4d9ad55bxc1AGPNpimHEnhGg-14.png" id="16_l8631"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3nhu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3nhu8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v60vt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hexgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_13s4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mrmfk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ok4nm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_qvnf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4c418")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vad78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_10mv8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qg7ld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_e4e3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_x8jwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_68tgo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_l8631")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
 
 [node name="IroncladMerchant" type="Node2D"]
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_diepv")
+[node name="Icon" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3nhu8")
+animation = &"idle"
+autoplay = "idle"
