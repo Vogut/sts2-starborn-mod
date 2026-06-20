@@ -52,6 +52,9 @@ public sealed class SummonStarterKiboCard() : StarbornCard(
         if (typeId == null) return;
 
         await KiboCmd.Summon(choiceContext, Owner, typeId);
+        var combatState = Owner!.Creature.CombatState;
+        if (combatState == null) return;
+        await KiboCmd.TryAutoPlayRandomNormalCard(Owner, combatState);
     }
 
     protected override void AddExtraArgsToDescription(LocString description)

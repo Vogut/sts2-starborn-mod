@@ -11,7 +11,7 @@ namespace STS2_Starborn.Patches;
 public sealed class KiboDamageModifierPatch : IPatchMethod
 {
     public static string PatchId => "sts2_starborn_kibo_damage_modifier";
-    public static string Description => "Block Strength/Dexterity/PenNib damage modifiers for Kibo cards";
+    public static string Description => "Block Strength/Dexterity/PenNib/Weak modifiers for Kibo cards";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
@@ -21,7 +21,7 @@ public sealed class KiboDamageModifierPatch : IPatchMethod
             new(typeof(StrengthPower), nameof(StrengthPower.ModifyDamageAdditive)),
             new(typeof(DexterityPower), nameof(DexterityPower.ModifyBlockAdditive)),
             new(typeof(PenNib), nameof(PenNib.ModifyDamageMultiplicative)),
-            new(typeof(WeakPower),nameof(WeakPower.ModifyDamageAdditive))
+            new(typeof(WeakPower), nameof(WeakPower.ModifyDamageMultiplicative)),
         ];
     }
 
@@ -39,7 +39,8 @@ public sealed class KiboDamageModifierPatch : IPatchMethod
         if (cardSource == null || !cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return;
 
-        if (__originalMethod.DeclaringType == typeof(PenNib))
+        if (__originalMethod.DeclaringType == typeof(PenNib) ||
+            __originalMethod.DeclaringType == typeof(WeakPower))
             __result = 1m;
     }
 

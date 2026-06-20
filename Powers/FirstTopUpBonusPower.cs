@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
@@ -16,7 +18,6 @@ namespace STS2_Starborn.Powers;
 public class FirstTopUpBonusPower : StarbornPower
 {
     private const int CardOptionCount = 3;
-    private const int GoldAmount = 50;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -38,11 +39,13 @@ public class FirstTopUpBonusPower : StarbornPower
         room.AddExtraReward(Owner.Player,
             new CardReward(CardCreationOptions.ForRoom(Owner.Player, room.RoomType), CardOptionCount, Owner.Player));
 
-        // Always add gold reward
-        room.AddExtraReward(Owner.Player,
-            new GoldReward(GoldAmount, Owner.Player));
+        var goldReward = CreateGoldReward(room, Owner.Player);
+        if (goldReward != null)
+        {
+            room.AddExtraReward(Owner.Player, goldReward);
+        }
 
-        // Add relic reward only for Elite and Boss rooms (like vanilla game)
+        // Add relic reward only for Elite rooms (like vanilla combat rewards).
         if (room.RoomType == RoomType.Elite)
         {
             room.AddExtraReward(Owner.Player,
@@ -50,5 +53,21 @@ public class FirstTopUpBonusPower : StarbornPower
         }
 
         await Task.CompletedTask;
+    }
+
+    private static GoldReward? CreateGoldReward(CombatRoom room, Player player)
+    {
+        return room.RoomType switch
+        {
+            RoomType.Monster when room.GoldProportion > 0f => new GoldReward(
+                (int)Math.Round(room.Encounter.MinGoldReward * room.GoldProportion),
+                (int)Math.Round(room.Encounter.MaxGoldReward * room.GoldProportion),
+                player),
+            RoomType.Elite or RoomType.Boss => new GoldReward(
+                room.Encounter.MinGoldReward,
+                room.Encounter.MaxGoldReward,
+                player),
+            _ => null,
+        };
     }
 }

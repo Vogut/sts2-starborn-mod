@@ -22,7 +22,8 @@ public class RubyIsTier0Card() : StarbornCard(
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        ModCardVars.Int("Limit", 4),
+        new IntVar("Limit", 2),
+        StarbornCardVars.ElementMark(1, SealElementType.Fire),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
@@ -42,6 +43,6 @@ public class RubyIsTier0Card() : StarbornCard(
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Limit"].UpgradeValueBy(6);
+        DynamicVars["Limit"].UpgradeValueBy(1);
     }
 }

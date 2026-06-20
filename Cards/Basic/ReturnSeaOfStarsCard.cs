@@ -21,9 +21,8 @@ public sealed class ReturnSeaOfStarsCard() : StarbornCard(
     [
         ElementMark(1, SealElementType.Any, "ElementMark", MarkSlot.Primary),
         ElementMark(1, SealElementType.Any, "ElementMarkSecondary", MarkSlot.Secondary),
-        Tuning(0, SealElementType.Any, "Tuning", MarkSlot.Primary),
-        Overload(2, SealElementType.Any, "Overload", MarkSlot.Primary),
-        StarbornCardVars.IfCanOverload(),
+        Tuning(1, SealElementType.Any, "Tuning", MarkSlot.Primary),
+        Tuning(1, SealElementType.Any, "TuningSecondary", MarkSlot.Secondary),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -36,10 +35,15 @@ public sealed class ReturnSeaOfStarsCard() : StarbornCard(
         var tuningElementType = ((SealElementVar)DynamicVars["Tuning"]).ElementType;
         await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
             DynamicVars["Tuning"].IntValue, tuningElementType, this);
+
+        var secondaryTuningElementType = ((SealElementVar)DynamicVars["TuningSecondary"]).ElementType;
+        await StarbornCmd.Tuning(choiceContext, MarkSlot.Secondary, Owner,
+            DynamicVars["TuningSecondary"].IntValue, secondaryTuningElementType, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["ElementMark"].UpgradeValueBy(1);
+        DynamicVars["Tuning"].UpgradeValueBy(-1);
+        DynamicVars["TuningSecondary"].UpgradeValueBy(-1);
     }
 }

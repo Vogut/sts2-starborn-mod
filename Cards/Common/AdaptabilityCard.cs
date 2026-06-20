@@ -27,24 +27,26 @@ public sealed class AdaptabilityCard() : StarbornCard(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var drawn = await CardPileCmd.Draw(choiceContext, Owner);
-        if (drawn == null) return;
+        var drawn = await CardPileCmd.Draw(choiceContext, DynamicVars["Cards"].IntValue, Owner);
 
-        if (drawn.Type == CardType.Attack)
+        foreach (var card in drawn)
         {
-            await SealElementMarkCmd.GainElementMarks(
-                choiceContext, MarkSlot.Primary, Owner, DynamicVars["Primary"].IntValue);
-        }
+            if (card.Type == CardType.Attack)
+            {
+                await SealElementMarkCmd.GainElementMarks(
+                    choiceContext, MarkSlot.Primary, Owner, DynamicVars["Primary"].IntValue);
+            }
 
-        if (drawn.Type == CardType.Skill)
-        {
-            await SealElementMarkCmd.GainElementMarks(
-                choiceContext, MarkSlot.Secondary, Owner, DynamicVars["Secondary"].IntValue);
+            if (card.Type == CardType.Skill)
+            {
+                await SealElementMarkCmd.GainElementMarks(
+                    choiceContext, MarkSlot.Secondary, Owner, DynamicVars["Secondary"].IntValue);
+            }
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1);
+        DynamicVars["Cards"].UpgradeValueBy(1);
     }
 }

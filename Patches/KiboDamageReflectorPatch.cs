@@ -10,7 +10,7 @@ namespace STS2_Starborn.Patches;
 public sealed class KiboDamageReflectorPatch : IPatchMethod
 {
     public static string PatchId => "sts2_starborn_kibo_damage_reflector";
-    public static string Description => "Block Thorns/Reflect/FlameBarrier reflection for Kibo cards";
+    public static string Description => "Block Thorns/Reflect/FlameBarrier/PersonalHive retaliation for Kibo cards";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
@@ -20,6 +20,7 @@ public sealed class KiboDamageReflectorPatch : IPatchMethod
             new(typeof(ThornsPower), nameof(ThornsPower.BeforeDamageReceived)),
             new(typeof(ReflectPower), nameof(ReflectPower.AfterDamageReceived)),
             new(typeof(FlameBarrierPower), nameof(FlameBarrierPower.AfterDamageReceived)),
+            new(typeof(PersonalHivePower), nameof(PersonalHivePower.AfterDamageReceived)),
         ];
     }
 

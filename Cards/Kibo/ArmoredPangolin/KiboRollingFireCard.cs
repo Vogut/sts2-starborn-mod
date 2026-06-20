@@ -25,6 +25,7 @@ public sealed class KiboRollingFireCard() : KiboCard(1, CardType.Attack, TargetT
     [
         new DamageVar(4m, ValueProp.Move),
         new DynamicVar("Bounce", 3m),
+        StarbornCardVars.ElementMark(1, SealElementType.Fire)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

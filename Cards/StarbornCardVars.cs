@@ -102,7 +102,7 @@ public class IfCanOverloadVar : DynamicVar
 
     public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
     {
-        if (!card.IsCanonical && card.Owner?.Creature?.CombatState != null)
+        if (!card.IsCanonical && runGlobalHooks && card.Owner?.Creature?.CombatState != null)
         {
             ElementMarkState.TryGetStacks(card.Owner, _slot, out var stacks);
             PreviewValue = stacks > ElementMarkState.ThresholdStacks ? 1 : 0;

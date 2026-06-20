@@ -22,7 +22,7 @@ public partial class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornR
 	public override Color MapDrawingColor => new(0.5f, 0.5f, 1f);
 
 	// 人物性别（男女中立）
-	public override CharacterGender Gender => CharacterGender.Masculine;
+	public override CharacterGender Gender => CharacterGender.Feminine;
 
 	// 初始血量和金币
 	public override int StartingHp => 80;
@@ -43,9 +43,9 @@ public partial class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornR
 			),
 			Ui: new(
 				// 人物头像路径。
-				IconTexturePath: "res://icon.svg",
+				IconTexturePath: "res://STS2_Starborn/starborn/character/icon.png",
 				// 人物头像2号。
-				// IconPath: "res://scenes/ui/character_icons/ironclad_icon.tscn",
+				IconPath: "res://STS2_Starborn/scenes/starborn_icon.tscn",
 				// 人物选择背景。
 				CharacterSelectBgPath: Const.Paths.CharacterSelectBg,
 				// 人物选择图标。

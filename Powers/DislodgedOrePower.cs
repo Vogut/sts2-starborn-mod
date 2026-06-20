@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -10,12 +9,18 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
-using STS2_Starborn.Patches;
+using STS2_Starborn.Combat;
+using STS2_Starborn.Commands;
+using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Powers;
 
+/// <summary>
+/// 抖落矿石能力：本回合内，每次受到攻击时触发谐调0火。
+/// 回合开始时自动移除。火焰屏障式反应型能力。
+/// </summary>
 [RegisterPower]
-public class IndomitableHeartPower : StarbornPower
+public class DislodgedOrePower : StarbornPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.None;
@@ -26,21 +31,24 @@ public class IndomitableHeartPower : StarbornPower
         BigIconPath: Const.Paths.PowerBigIcon(GetType())
     );
 
-    public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+    public override async Task AfterDamageReceived(
+        PlayerChoiceContext choiceContext, Creature target,
         DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner || dealer?.Monster == null) return;
-        if (!result.WasFullyBlocked) return;
-        if (!props.IsPoweredAttack()) return;
+        if (target != Owner) return;
+        if (!props.HasFlag(ValueProp.Move)) return;
+        if (Owner.Player == null) return;
 
         Flash();
-        await CreatureCmd.Stun(dealer);
-        IndomitableHeartAttackInterruptPatch.InterruptCurrentAttack(dealer);
+        await StarbornCmd.Tuning(
+            choiceContext, MarkSlot.Primary, Owner.Player,
+            0, SealElementType.Fire, source: null);
     }
 
     public override async Task AfterSideTurnStart(
         CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
+        if (side != CombatSide.Player) return;
         if (!participants.Contains(Owner)) return;
         await PowerCmd.Remove(this);
     }

@@ -66,6 +66,9 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
     {
         if (card.HasModKeyword(KiboKeywords.PileMemberKeyword))
         {
+            if (pileType != PileType.Discard)
+                return (pileType, position);
+
             var kiboType = KiboPileManager.GetKiboType(card);
             if (kiboType != null)
             {
@@ -88,6 +91,9 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
     /// </summary>
     public async Task AfterKiboCardAutoPlayed(CardModel card)
     {
+        if (card.Pile == null || card.Pile.Type == PileType.Exhaust || !card.Pile.Type.IsCombatPile())
+            return;
+
         var kiboType = KiboPileManager.GetKiboType(card);
         if (kiboType == null) return;
 

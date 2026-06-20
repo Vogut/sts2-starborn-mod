@@ -54,7 +54,7 @@ public sealed class RollingImpactCard() : StarbornCard(
         await StarbornCmd.Bounce(
             choiceContext, Owner, this,
             DynamicVars.Damage.BaseValue,
-            enemyCount);
+            enemyCount*2);
     }
 
     protected override void OnUpgrade()

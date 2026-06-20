@@ -20,7 +20,7 @@ public sealed class KiboStarterEvent : ModEventTemplate
 
     public override bool IsShared => true;
     public override EventAssetProfile AssetProfile => new(
-        InitialPortraitPath: "res://images/events/battleworn_dummy.png"
+        InitialPortraitPath: "res://STS2_Starborn/event/KiboStarterEvent.png"
     );
     protected override IReadOnlyList<EventOption> GenerateInitialOptions()
     {

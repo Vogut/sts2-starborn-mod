@@ -17,6 +17,8 @@ public sealed class JadeTwigLeaningRoyalFanCard() : StarbornCard(
     3, CardType.Attack, CardRarity.Rare, TargetType.Self
 )
 {
+    public const int ReplayCount = 2;
+
     protected override bool IsPlayable =>
         StarbornCmd.CanOverload(Owner, MarkSlot.Primary)
         && StarbornCmd.CanOverload(Owner, MarkSlot.Secondary);
@@ -41,7 +43,7 @@ public sealed class JadeTwigLeaningRoyalFanCard() : StarbornCard(
     protected override void AfterCloned()
     {
         base.AfterCloned();
-        BaseReplayCount = 2;
+        BaseReplayCount = ReplayCount;
     }
 
     protected override void OnUpgrade()

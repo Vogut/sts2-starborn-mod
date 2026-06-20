@@ -55,11 +55,14 @@ public class Entry
         patcher.RegisterPatch<KiboCardPlayHookFilterPatch>();
         patcher.RegisterPatch<KiboDamageModifierPatch>();
         patcher.RegisterPatch<KiboDamageReflectorPatch>();
+        patcher.RegisterPatch<IndomitableHeartAttackInterruptPatch>();
+        patcher.RegisterPatch<IndomitableHeartAttackTrackingPatch>();
         patcher.RegisterPatch<WidgetCombatUiReadyPatch>();
         patcher.RegisterPatch<WidgetCombatUiActivatePatch>();
         patcher.RegisterPatch<KiboLoadPatch>();
         patcher.RegisterPatch<CompactCardGridHoverTipPatch>();
         patcher.RegisterPatch<KiboAncientVisualPatch>();
+        patcher.RegisterPatch<JadeTwigLeaningRoyalFanCardLibraryPatch>();
 #if DEBUG
         patcher.RegisterPatch<StarbornDebugPanelPatch>();
 #endif

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Patching.Models;
 using STS2_Starborn.Cards.Kibo;
@@ -12,7 +13,7 @@ namespace STS2_Starborn.Patches;
 public sealed class KiboCardPlayHookFilterPatch : IPatchMethod
 {
     public static string PatchId => "sts2_starborn_kibo_card_play_hook_filter";
-    public static string Description => "Suppress Hook.BeforeCardPlayed and Hook.AfterCardPlayed for Kibo pile cards";
+    public static string Description => "Suppress card-play hooks that should ignore Kibo pile cards";
     public static bool IsCritical => false;
 
     public static ModPatchTarget[] GetTargets()
@@ -23,6 +24,7 @@ public sealed class KiboCardPlayHookFilterPatch : IPatchMethod
                 [typeof(ICombatState), typeof(CardPlay)]),
             new(typeof(Hook), nameof(Hook.AfterCardPlayed),
                 [typeof(ICombatState), typeof(PlayerChoiceContext), typeof(CardPlay)]),
+            new(typeof(WitheringPresencePower), nameof(WitheringPresencePower.AfterCardPlayed)),
         ];
     }
 

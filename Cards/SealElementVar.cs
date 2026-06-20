@@ -52,7 +52,7 @@ public class SealElementVar : DynamicVar
             num = _modifyPreview(card, (int)num);
         PreviewValue = num;
 
-        if (ResolveFromCurrentMark)
+        if (ResolveFromCurrentMark && runGlobalHooks)
         {
             if (!card.IsCanonical && card is StarbornCard sc)
                 _cachedType = ResolveSlot == MarkSlot.Secondary
@@ -60,6 +60,10 @@ public class SealElementVar : DynamicVar
                     : sc.PrimaryElementType;
             else
                 _cachedType = SealElementType.Any;
+        }
+        else if (ResolveFromCurrentMark)
+        {
+            _cachedType = SealElementType.Any;
         }
         else if (_computeType != null)
         {

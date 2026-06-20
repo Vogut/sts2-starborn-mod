@@ -9,10 +9,22 @@ namespace STS2_Starborn.UI;
 
 public partial class NKiboWidget : Control
 {
+    // 像素动画图集里的单帧尺寸。只有素材单帧大小变了才需要改。
     private const int FrameWidth = 96;
     private const int FrameHeight = 96;
     private const int FrameCount = 8;
+
+    // 动画播放速度。数值越小切帧越快，数值越大切帧越慢。
     private const float FrameDuration = 0.12f;
+
+    // 奇波和底座的整体缩放。数值越大，奇波和底座一起变大，锚点位置不变。
+    private const float DisplayScale = 1.35f;
+
+    // 底座素材缩放前的原始高度。只有底座素材尺寸变了才需要改。
+    private const float PedestalBaseHeight = 64f;
+
+    // 底座向上托进奇波区域的距离。数值越大，底座越靠近奇波；数值越小，间隙越大。
+    private const float PedestalOverlap = 36f;
 
     private AtlasTexture _atlas = null!;
     private TextureRect _sprite = null!;
@@ -84,16 +96,19 @@ public partial class NKiboWidget : Control
 
     private void ApplyLayout()
     {
-        var scale = 1.2f;
-        var spriteW = FrameWidth * scale;
-        var spriteH = FrameHeight * scale;
-        var pedH = 64f * scale;
+        var spriteW = FrameWidth * DisplayScale;
+        var spriteH = FrameHeight * DisplayScale;
+        var pedH = PedestalBaseHeight * DisplayScale;
+        var overlap = PedestalOverlap * DisplayScale;
 
         _sprite.Position = Vector2.Zero;
         _sprite.Size = new Vector2(spriteW, spriteH);
 
-        _pedestal.Position = new Vector2(0, spriteH);
+        _pedestal.Position = new Vector2(0, spriteH - overlap);
         _pedestal.Size = new Vector2(spriteW, pedH);
+
+        Size = new Vector2(spriteW, spriteH + pedH - overlap);
+        CustomMinimumSize = Size;
 
         _nameLabel.Visible = false;
         _pileCount.Visible = false;
@@ -106,14 +121,6 @@ public partial class NKiboWidget : Control
             Region = new Rect2(0, 0, FrameWidth, FrameHeight),
         };
 
-        _sprite = new TextureRect
-        {
-            Texture = _atlas,
-            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-        };
-        AddChild(_sprite);
-
         _pedestal = new TextureRect
         {
             Texture = GD.Load<Texture2D>(Const.Paths.KiboPedestal),
@@ -121,6 +128,14 @@ public partial class NKiboWidget : Control
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
         };
         AddChild(_pedestal);
+
+        _sprite = new TextureRect
+        {
+            Texture = _atlas,
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+        };
+        AddChild(_sprite);
 
         _nameLabel = new Label
         {

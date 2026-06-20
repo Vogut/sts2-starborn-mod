@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -33,12 +34,14 @@ public sealed class CrossWaterRingCard() : StarbornCard(
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         StarbornCardVars.Tuning(3, SealElementType.Water),
+        new IntVar("Drown", 2),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips
     {
         get
         {
+            yield return HoverTipFactory.FromPower<DrownPower>();
             yield return HoverTipFactory.FromCard(
                 ModelDb.GetById<CardModel>(ModelDb.GetId<KiboStarayRepCard>()));
             var def = KiboTypeRegistry.Get(KiboTypeId.Staray);
@@ -55,7 +58,14 @@ public sealed class CrossWaterRingCard() : StarbornCard(
         await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner,
             DynamicVars["Tuning"].IntValue, tuningElementType, this);
 
-        await PowerCmd.Apply<RetainSurgeAndDrownPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        var combatState = Owner.Creature.CombatState;
+        if (combatState == null) return;
+
+        foreach (var enemy in combatState.HittableEnemies.Where(enemy => enemy.IsAlive))
+        {
+            await PowerCmd.Apply<DrownPower>(
+                choiceContext, enemy, DynamicVars["Drown"].IntValue, Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()

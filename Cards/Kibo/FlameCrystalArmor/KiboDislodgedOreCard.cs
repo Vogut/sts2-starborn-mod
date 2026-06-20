@@ -1,15 +1,16 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
-using STS2_Starborn.Combat;
-using STS2_Starborn.Commands;
 using STS2_Starborn.Element;
+using STS2_Starborn.Powers;
 
 namespace STS2_Starborn.Cards.Kibo;
 
@@ -30,19 +31,16 @@ public sealed class KiboDislodgedOreCard() : KiboCard(2, CardType.Skill, TargetT
         new BlockVar(3m, ValueProp.Move),
     ];
 
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    [
+        HoverTipFactory.FromPower<DislodgedOrePower>(),
+    ];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-    }
-
-    public override async Task BeforeDamageReceived(
-        PlayerChoiceContext choiceContext, Creature target, decimal amount,
-        ValueProp props, Creature? dealer, CardModel? cardSource)
-    {
-        if (target != Owner.Creature || !props.HasFlag(ValueProp.Move))
-            return;
-
-        await StarbornCmd.Tuning(choiceContext, MarkSlot.Primary, Owner, DynamicVars["Tuning"].IntValue);
+        await PowerCmd.Apply<DislodgedOrePower>(
+            choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
@@ -50,5 +48,3 @@ public sealed class KiboDislodgedOreCard() : KiboCard(2, CardType.Skill, TargetT
         DynamicVars.Block.UpgradeValueBy(4m);
     }
 }
-
-

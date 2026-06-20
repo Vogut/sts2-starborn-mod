@@ -29,9 +29,6 @@ public sealed class PortableCraftingTableCard() : StarbornCard(
         typeof(FragilePickaxeCard),
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Exhaust];
-
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         TokenCardTypes.Select(t => HoverTipFactory.FromCard(
             ModelDb.GetById<CardModel>(ModelDb.GetId(t))));

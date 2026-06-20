@@ -29,6 +29,14 @@ public static class SealElementMarkCmd
             return;
 
         ElementMarkState.SetElementType(player, slot, dstElement);
+        ElementMarkState.NotifyMarkVisualChanged(new MarkVisualChange(
+            player,
+            slot,
+            oldElement,
+            dstElement,
+            ElementMarkState.GetStacks(player, slot),
+            ElementMarkState.GetStacks(player, slot),
+            MarkVisualChangeKind.ElementChanged));
         if (dstElement != SealElementType.None)
             ElementMarkManager.RecordSwitch(player, dstElement);
         await SealElementMarkHooks.AfterElementChanged(combatState, ctx, slot, oldElement, dstElement);
@@ -61,6 +69,16 @@ public static class SealElementMarkCmd
         if (stacks <= 0) return;
         var current = ElementMarkState.GetStacks(player, slot);
         ElementMarkState.SetStacks(player, slot, current + stacks);
+        var updated = ElementMarkState.GetStacks(player, slot);
+        if (updated != current)
+            ElementMarkState.NotifyMarkVisualChanged(new MarkVisualChange(
+                player,
+                slot,
+                ElementMarkState.GetElementType(player, slot),
+                ElementMarkState.GetElementType(player, slot),
+                current,
+                updated,
+                MarkVisualChangeKind.StacksGained));
     }
 
     /// <summary>
@@ -70,7 +88,8 @@ public static class SealElementMarkCmd
         PlayerChoiceContext ctx,
         MarkSlot slot,
         Player player,
-        int stacks)
+        int stacks,
+        MarkVisualChangeKind visualKind = MarkVisualChangeKind.StacksLost)
     {
         if (stacks <= 0) return;
         var combatState = player.Creature.CombatState;
@@ -78,5 +97,15 @@ public static class SealElementMarkCmd
             return;
         var current = ElementMarkState.GetStacks(player, slot);
         ElementMarkState.SetStacks(player, slot, current - stacks);
+        var updated = ElementMarkState.GetStacks(player, slot);
+        if (updated != current)
+            ElementMarkState.NotifyMarkVisualChanged(new MarkVisualChange(
+                player,
+                slot,
+                ElementMarkState.GetElementType(player, slot),
+                ElementMarkState.GetElementType(player, slot),
+                current,
+                updated,
+                visualKind));
     }
 }
