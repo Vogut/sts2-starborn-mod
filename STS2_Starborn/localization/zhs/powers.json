@@ -8,7 +8,7 @@
     "STS2_STARBORN_POWER_ENLARGE_POWER.title": "不够大！",
     "STS2_STARBORN_POWER_ENLARGE_POWER.description": "每层使目标体型放大[blue]10%[/blue]。",
     "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.title": "不够小！",
-    "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.description": "每层使目标体型缩小[blue]10%[/blue]，下限[blue]20%[/blue]。",
+    "STS2_STARBORN_POWER_SHRINK_BUFF_POWER.description": "每层使目标体型缩小[blue]10%[/blue]。",
     "STS2_STARBORN_POWER_SHRINK_DEBUFF_POWER.title": "变小",
     "STS2_STARBORN_POWER_SHRINK_DEBUFF_POWER.description": "造成的攻击伤害降低[blue]30%[/blue]。",
     "STS2_STARBORN_POWER_BURN_POWER.title": "灼烧",
@@ -53,7 +53,8 @@
     "STS2_STARBORN_POWER_KIBO_EMPOWERMENT_DOWN_POWER.description": "在你的回合结束时，失去[blue]{Amount}[/blue]层[gold]奇波强化[/gold]。",
 
     "STS2_STARBORN_POWER_KIBO_EMPOWERMENT_POWER.title": "奇波强化",
-    "STS2_STARBORN_POWER_KIBO_EMPOWERMENT_POWER.description": "奇波打出的牌造成的伤害和格挡增加[blue]{Amount}0%[/blue]。",
+    "STS2_STARBORN_POWER_KIBO_EMPOWERMENT_POWER.description": "[gold]奇波战技[/gold]和[gold]奇波特技[/gold]造成的伤害和格挡增加。",
+    "STS2_STARBORN_POWER_KIBO_EMPOWERMENT_POWER.smartDescription": "[gold]奇波战技[/gold]和[gold]奇波特技[/gold]造成的伤害和格挡增加[blue]{Amount}0%[/blue]。",
 
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.title": "1Q2Q3Q",
     "STS2_STARBORN_POWER_ONE_Q_TWO_Q_THREE_Q_POWER.description": "无法打出攻击牌。每次出技能牌释放一个随机[gold]奇波[/gold]能力牌。每[blue]4[/blue]次出牌额外释放一个终极牌。",
@@ -97,18 +98,25 @@
     "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.description": "每回合开始时获得[blue]3[/blue]层[gold]奇波强化[/gold]。",
     "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.smartDescription": "每回合开始时获得[blue]{Amount}[/blue]层[gold]奇波强化[/gold]。",
 
+    "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.title": "狼神图腾",
+    "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.description": "在接下来的[blue]2[/blue]个回合开始时，获得[blue]5[/blue]点[gold]格挡[/gold]和{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.smartDescription": "在接下来的[blue]{Amount}[/blue]个回合开始时，获得[blue]{Block}[/blue]点[gold]格挡[/gold]和{ElementMark:elementIcon()}。",
+
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.title": "免费调谐",
-    "STS2_STARBORN_POWER_FREE_TUNING_POWER.description": "下一次调谐或超限的印记消耗为0。",
+    "STS2_STARBORN_POWER_FREE_TUNING_POWER.description": "下[blue]1[/blue]次调谐或超限的印记消耗为0。",
+    "STS2_STARBORN_POWER_FREE_TUNING_POWER.smartDescription": "下[blue]{Amount}[/blue]次调谐或超限的印记消耗为0。",
 
     "STS2_STARBORN_POWER_EGG_STAKE_POWER.title": "孵蛋桩",
-    "STS2_STARBORN_POWER_EGG_STAKE_POWER.description": "每回合开始时将一张随机[gold]奇波[/gold]牌加入你的手牌。",
+    "STS2_STARBORN_POWER_EGG_STAKE_POWER.description": "每回合开始时将[blue]1[/blue]张随机[gold]奇波[/gold]牌加入你的手牌。",
+    "STS2_STARBORN_POWER_EGG_STAKE_POWER.smartDescription": "每回合开始时将[blue]{Amount}[/blue]张随机[gold]奇波[/gold]牌加入你的手牌。",
 
     "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.title": "奇波产线",
-    "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.description": "奇波无法出牌。回合开始时将随机[blue]1[/blue]张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
+    "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.description": "奇波无法出牌。回合开始时将随机升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
     "STS2_STARBORN_POWER_KIBO_ASSEMBLY_LINE_POWER.smartDescription": "奇波无法出牌。回合开始时将随机[blue]{Amount}[/blue]张升级后的[gold]时尚小垃圾[/gold]加入你的手牌。",
 
     "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.title": "24s轴",
-    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.description": "强化你的下一次谐调或超限。",
+    "STS2_STARBORN_POWER_NEXT_TUNING_EMPOWERMENT_POWER.smartDescription": "你的下一次谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
 
     "STS2_STARBORN_POWER_TUNING_EMPOWERMENT_POWER.title": "谐调强化",
     "STS2_STARBORN_POWER_TUNING_EMPOWERMENT_POWER.description": "谐调或超限的有效层数额外增加[blue]{Amount}[/blue]层。",
@@ -133,20 +141,20 @@
     "STS2_STARBORN_POWER_RHYTHM_POWER.smartDescription": "每次进行[gold]调谐[/gold]或[gold]超限[/bold]后，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
 
     "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.title": "你已疾苦",
-    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.description": "下回合开始时，多抽[blue]{Amount}[/blue]张牌。",
-    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.smartDescription": "下回合开始时，多抽[blue]{Amount}[/blue]张牌。",
+    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.description": "下回合开始时，抽[blue]2[/blue]张牌。",
+    "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.smartDescription": "下回合开始时，抽[blue]{Amount}[/blue]张牌。",
 
     "STS2_STARBORN_POWER_SURGE_POWER.title": "泉涌",
-    "STS2_STARBORN_POWER_SURGE_POWER.description": "奇波卡牌的伤害和格挡提升[blue]{Amount}0%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
-    "STS2_STARBORN_POWER_SURGE_POWER.smartDescription": "奇波卡牌的伤害和格挡提升[blue]{Amount}0%[/blue]。回合结束时移除，并反向施加相同层数的[gold]奇波强化[/gold]。",
+    "STS2_STARBORN_POWER_SURGE_POWER.description": "在本回合内，[gold]奇波战技[/gold]和[gold]奇波特技[/gold]的伤害和格挡提升。",
+    "STS2_STARBORN_POWER_SURGE_POWER.smartDescription": "在本回合内，[gold]奇波战技[/gold]和[gold]奇波特技[/gold]的伤害和格挡提升[blue]{Amount}0%[/blue]。",
 
     "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.title": "节流",
     "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.description": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。",
     "STS2_STARBORN_POWER_RETAIN_SURGE_AND_DROWN_POWER.smartDescription": "[gold]泉涌[/gold]和[gold]淹没[/gold]在回合结束时不会衰减。",
 
     "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.title": "首充双倍",
-    "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.description": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、50金币，精英和Boss战额外获得遗物）。",
-    "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.smartDescription": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、50金币，精英和Boss战额外获得遗物）。",
+    "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.description": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、对应战斗的金币，精英战额外获得遗物）。",
+    "STS2_STARBORN_POWER_FIRST_TOP_UP_BONUS_POWER.smartDescription": "战斗结束时额外获得一次战斗奖励（3张卡牌选项、对应战斗的金币，精英战额外获得遗物）。",
 
     "STS2_STARBORN_POWER_CRITICAL_POWER.title": "临界",
     "STS2_STARBORN_POWER_CRITICAL_POWER.description": "本回合内印记不会减少。回合结束时清空所有印记。",
@@ -155,5 +163,8 @@
     "STS2_STARBORN_POWER_TAILWIND_POWER.description": "回合开始时调谐0风。",
 
     "STS2_STARBORN_POWER_GORGEOUS_BODY_POWER.title": "华美身躯",
-    "STS2_STARBORN_POWER_GORGEOUS_BODY_POWER.description": "本回合内敌人不会失去[gold]暴晒[/gold]。回合结束时清空所有敌人的[gold]暴晒[/gold]。"
+    "STS2_STARBORN_POWER_GORGEOUS_BODY_POWER.description": "本回合内敌人不会失去[gold]暴晒[/gold]。回合结束时清空所有敌人的[gold]暴晒[/gold]。",
+
+    "STS2_STARBORN_POWER_DISLODGED_ORE_POWER.title": "抖落矿石",
+    "STS2_STARBORN_POWER_DISLODGED_ORE_POWER.description": "本回合内，每次受到攻击时调谐0火。"
 }
