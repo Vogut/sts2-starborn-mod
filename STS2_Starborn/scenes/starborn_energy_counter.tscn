@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cs3a5onikvhi4"]
 
-[ext_resource type="Texture2D" uid="uid://hn2nofekpwrp" path="res://icon.svg" id="1_85qf2"]
+[ext_resource type="Texture2D" uid="uid://hn2nofekpwrp" path="res://STS2_Starborn/starborn/energy/energy_starborn_big.png" id="1_85qf2"]
 
 [node name="TestEnergyCounter" type="Control"]
 layout_mode = 3
