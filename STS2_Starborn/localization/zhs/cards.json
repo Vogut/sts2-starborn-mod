@@ -452,13 +452,13 @@
     "STS2_STARBORN_CARD_KIBO_MAN_CARD.description": "如果你有[gold]你已疾苦[/gold]，抽{Cards:diff()}张牌并移除它。否则，获得{YouAreSufferingStacks:diff()}层[gold]你已疾苦[/gold]。",
 
     "STS2_STARBORN_CARD_CROSS_WATER_RING_CARD.title": "穿越水圈",
-    "STS2_STARBORN_CARD_CROSS_WATER_RING_CARD.description": "[gold]奇波[/gold]：星鳐。[gold]调谐{Tuning:elementIcon()}[/gold]。给予所有敌人{Drown:diff()}层[gold]淹没[/gold]。",
+    "STS2_STARBORN_CARD_CROSS_WATER_RING_CARD.description": "[gold]奇波[/gold]：星鳐。[gold]调谐{Tuning:elementIcon()}[/gold]。[gold]泉涌[/gold]和[gold]淹没[/gold]保留至下回合。",
 
     "STS2_STARBORN_CARD_KIBO_STARAY_REP_CARD.title": "星鳐",
     "STS2_STARBORN_CARD_KIBO_STARAY_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.title": "蓄水",
-    "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.description": "获得{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_CARD_KIBO_WATER_CHARGE_CARD.description": "获得{ElementMark:elementIcon()}。给予所有敌人{Drown:diff()}层[gold]淹没[/gold]。",
 
     "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.title": "水流激涌",
     "STS2_STARBORN_CARD_KIBO_WATER_RUSH_CARD.description": "失去{ElementMark}层主属性印记。造成{Damage:diff()}点伤害{Times}次。",
