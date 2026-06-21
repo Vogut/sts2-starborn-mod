@@ -99,11 +99,16 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
 
         // 奇波仍在活跃中（基于追踪器而非牌堆扫描）→ 无需修正
         if (KiboPileManager.IsKiboTypeActive(card.Owner, kiboType))
+        {
+            var activePile = KiboPileManager.GetActivePile(card.Owner);
+            if (activePile != null && card.Pile.Type != activePile.Type)
+                await CardPileCmd.Add(card, activePile);
             return;
+        }
 
         // 奇波在 OnPlay 期间被换下，牌却被路由回了活跃堆 → 搬到后备堆
         var combatStorage = KiboPileManager.GetStorageCombatPile(card.Owner);
-        if (combatStorage == null) return;
+        if (combatStorage == null || card.Pile.Type == combatStorage.Type) return;
 
         await CardPileCmd.Add(card, combatStorage);
     }

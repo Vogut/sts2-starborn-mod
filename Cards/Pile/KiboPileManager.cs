@@ -129,40 +129,57 @@ public static class KiboPileManager
         if (storage == null) return;
 
         var keyword = KiboKeywords.TypeKeywordValue(typeId);
-        if (storage.Cards.Any(c => c.HasModKeyword(keyword)))
-            return; // 已创建，幂等跳过
-
         var def = KiboTypeRegistry.Get(typeId);
+        var expectedCardTypes = GetMasterCardTypes(def)
+            .GroupBy(static type => type)
+            .ToList();
 
-        // 代表牌 RepCard —— 标识奇波类型，不参与战斗出牌
-        var repCanonical = ModelDb.GetById<CardModel>(ModelDb.GetId(def.RepCardType));
-        var repCard = player.RunState.CreateCard(repCanonical, player);
-        repCard.AddModKeyword(KiboKeywords.PileMemberKeyword);
-        repCard.AddModKeyword(keyword);
-        var repResult = await CardPileCmd.Add(repCard, storage);
-        CardCmd.PreviewCardPileAdd(repResult);
+        foreach (var group in expectedCardTypes)
+        {
+            var existingCards = storage.Cards
+                .Where(card => card.GetType() == group.Key)
+                .ToList();
 
-        // 能力牌（普通技能/攻击）
+            var expectedCount = group.Count();
+            foreach (var card in existingCards.Take(expectedCount))
+                EnsureMasterCardKeywords(card, keyword);
+
+            foreach (var duplicate in existingCards.Skip(expectedCount))
+                duplicate.RemoveFromState();
+
+            for (var i = existingCards.Count; i < expectedCount; i++)
+                await CreateMasterCard(player, storage, group.Key, keyword);
+        }
+    }
+
+    private static IEnumerable<Type> GetMasterCardTypes(KiboTypeDefinition def)
+    {
+        yield return def.RepCardType;
+
         foreach (var cardType in def.AbilityCardTypes)
-        {
-            var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
-            var card = player.RunState.CreateCard(canonical, player);
-            card.AddModKeyword(KiboKeywords.PileMemberKeyword);
-            card.AddModKeyword(keyword);
-            var abilityResult = await CardPileCmd.Add(card, storage);
-            CardCmd.PreviewCardPileAdd(abilityResult);
-        }
+            yield return cardType;
 
-        // 绝技牌（如有）
         if (def.UltimateCardType is { } ultimateType)
-        {
-            var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(ultimateType));
-            var card = player.RunState.CreateCard(canonical, player);
+            yield return ultimateType;
+    }
+
+    private static async Task CreateMasterCard(
+        Player player, CardPile storage, Type cardType, CardKeyword keyword)
+    {
+        var canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(cardType));
+        var card = player.RunState.CreateCard(canonical, player);
+        EnsureMasterCardKeywords(card, keyword);
+        var result = await CardPileCmd.Add(card, storage);
+        CardCmd.PreviewCardPileAdd(result);
+    }
+
+    private static void EnsureMasterCardKeywords(CardModel card, CardKeyword keyword)
+    {
+        if (!card.HasModKeyword(KiboKeywords.PileMemberKeyword))
             card.AddModKeyword(KiboKeywords.PileMemberKeyword);
+
+        if (!card.HasModKeyword(keyword))
             card.AddModKeyword(keyword);
-            var ultimateResult = await CardPileCmd.Add(card, storage);
-            CardCmd.PreviewCardPileAdd(ultimateResult);
-        }
     }
 
     // ── 母版牌移除 ──────────────────────────────────

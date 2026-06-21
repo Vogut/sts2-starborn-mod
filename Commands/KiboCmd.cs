@@ -181,6 +181,7 @@ public static class KiboCmd
 
         var cards = pile.Cards
             .Where(c => c.HasModKeyword(keyword))
+            .Where(c => CanResolveAutoPlayTarget(c, combatState))
             .ToList();
         if (cards.Count == 0) return false;
 
@@ -192,5 +193,17 @@ public static class KiboCmd
         await KiboHooks.AfterKiboRandomAutoPlay(combatState, card, keywordId);
 
         return true;
+    }
+
+    private static bool CanResolveAutoPlayTarget(CardModel card, ICombatState combatState)
+    {
+        return card.TargetType switch
+        {
+            TargetType.AnyEnemy or TargetType.RandomEnemy or TargetType.AllEnemies =>
+                combatState.HittableEnemies.Count > 0,
+            TargetType.AnyAlly =>
+                combatState.Allies.Any(c => c != null && c.IsAlive && c.IsPlayer && c != card.Owner.Creature),
+            _ => true,
+        };
     }
 }
