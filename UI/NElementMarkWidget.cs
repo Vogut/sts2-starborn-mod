@@ -45,6 +45,7 @@ public partial class NElementMarkWidget : Control
     {
         _player = player;
         Refresh();
+        StarbornCombatWidgetLayout.LayoutElementMark(this, _player);
     }
 
     public void Refresh()
@@ -80,6 +81,8 @@ public partial class NElementMarkWidget : Control
 
     public override void _Process(double delta)
     {
+        StarbornCombatWidgetLayout.LayoutElementMark(this, _player);
+
         _primary.Position = Vector2.Zero;
         _secondary.Position = new Vector2(0, IconSize + Spacing);
     }

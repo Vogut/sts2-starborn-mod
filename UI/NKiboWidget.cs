@@ -58,7 +58,7 @@ public partial class NKiboWidget : Control
     {
         _player = player;
         Refresh();
-        UpdateFlightTargetPosition();
+        StarbornCombatWidgetLayout.LayoutKibo(this, _player);
     }
 
     public void Refresh()
@@ -85,6 +85,8 @@ public partial class NKiboWidget : Control
 
     public override void _Process(double delta)
     {
+        StarbornCombatWidgetLayout.LayoutKibo(this, _player);
+
         _frameTimer += (float)delta;
         if (_frameTimer >= FrameDuration)
         {
