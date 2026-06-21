@@ -26,8 +26,8 @@
     "STS2_STARBORN_POWER_SIMULATION_POWER.smartDescription": "所有牌耗能减少[blue]{Amount}[/blue]点。",
 
     "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.title": "红宝石布什曲",
-    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。前4张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
-    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。前{Amount}张攻击牌额外触发调谐{elementPrefix:elementIcon(1)}/{elementPrefix:elementIcon(1)}并对目标造成等同于灼烧层数的伤害。",
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.description": "主/副属性固定为[red]火[/red]。前2张攻击牌额外触发调谐{element:Fire}/{element:Fire}并对目标造成等同于灼烧层数的伤害。",
+    "STS2_STARBORN_POWER_RUBY_IS_TIER0_POWER.smartDescription": "主/副属性固定为[red]火[/red]。前{Amount}张攻击牌额外触发调谐{element:Fire}/{element:Fire}并对目标造成等同于灼烧层数的伤害。",
 
     "STS2_STARBORN_POWER_INDOMITABLE_HEART_POWER.title": "不屈之心",
     "STS2_STARBORN_POWER_INDOMITABLE_HEART_POWER.description": "如果怪物的攻击被完全格挡，将其击晕。",
@@ -38,7 +38,8 @@
     "STS2_STARBORN_POWER_NO_KIBO_PLAY_POWER.description": "本回合[gold]奇波[/gold]无法自动出牌。",
 
     "STS2_STARBORN_POWER_DROWN_POWER.title": "淹没",
-    "STS2_STARBORN_POWER_DROWN_POWER.description": "受到奇波牌造成的伤害增加[blue]{Amount}00%[/blue]。在敌人回合结束时减少1层。",
+    "STS2_STARBORN_POWER_DROWN_POWER.description": "受到奇波牌造成的伤害增加。在敌人回合结束时减少1层。",
+    "STS2_STARBORN_POWER_DROWN_POWER.smartDescription": "受到奇波牌造成的伤害增加[blue]{Amount}00%[/blue]。在敌人回合结束时减少1层。",
 
     "STS2_STARBORN_POWER_FREEZE_POWER.title": "结冰",
     "STS2_STARBORN_POWER_FREEZE_POWER.description": "层数达到10层时，击晕目标并清除所有结冰层数。",
@@ -66,27 +67,6 @@
     "STS2_STARBORN_POWER_WOLF_PACK_POWER.title": "狼群",
     "STS2_STARBORN_POWER_WOLF_PACK_POWER.description": "迅狼在场时，回合结束时自动打出所有迅狼的奇波战技。",
 
-    "STS2_STARBORN_ELEMENT_NONE.title": "无属性",
-    "STS2_STARBORN_ELEMENT_FIRE.title": "火属性",
-    "STS2_STARBORN_ELEMENT_FIRE.description": "施加灼烧效果。",
-    "STS2_STARBORN_ELEMENT_WATER.title": "水属性",
-    "STS2_STARBORN_ELEMENT_WOOD.title": "木属性",
-    "STS2_STARBORN_ELEMENT_NONE.description": "不触发效果，也不消耗印记层数。",
-    "STS2_STARBORN_ELEMENT_FIRE.smartDescription": "回合开始时：[gold]调谐{element:Fire}[/gold]给予随机敌人[blue]{Stacks}x2[/blue]层[gold]灼烧[/gold]；[gold]超限{element:Fire}{element:Fire}[/gold]给予随机敌人[blue]{Stacks}x2[/blue]层[gold]灼烧[/gold]。",
-    "STS2_STARBORN_ELEMENT_WATER.description": "调谐：获得当前层数的[gold]泉涌[/gold]。释放当前奇波的奇波战技。\n超限：获得当前层数的[gold]泉涌[/gold]，使所有敌人获得1层[gold]淹没[/gold]。释放当前奇波的奇波战技。",
-    "STS2_STARBORN_ELEMENT_WATER.smartDescription": "回合开始时：[gold]调谐{element:Water}[/gold]获得[blue]{Stacks}[/blue]点[gold]泉涌[/gold]，释放当前奇波的[gold]奇波战技[/gold]；[gold]超限{element:Water}{element:Water}[/gold]获得[blue]{Stacks}[/blue]点[gold]泉涌[/gold]，使所有敌人获得1层[gold]淹没[/gold]，释放当前奇波的[gold]奇波战技[/gold]。",
-    "STS2_STARBORN_ELEMENT_WOOD.description": "调谐：获得当前层数的格挡。\n超限：获得2倍当前层数的格挡，如果本场战斗第一次超限回复当前层数的生命。",
-    "STS2_STARBORN_ELEMENT_WOOD.smartDescription": "回合开始时：[gold]调谐{element:Wood}[/gold]获得[blue]{Stacks}[/blue]点格挡；[gold]超限{element:Wood}{element:Wood}[/gold]获得[blue]{Stacks}x2[/blue]点格挡，如果本场战斗第一次超限回复[blue]{Stacks}[/blue]点生命。",
-    "STS2_STARBORN_ELEMENT_ICE.title": "冰属性",
-    "STS2_STARBORN_ELEMENT_ICE.description": "调谐：使所有敌人获得当前层数的结冰。\n超限：使所有敌人获得2倍当前层数的结冰。",
-    "STS2_STARBORN_ELEMENT_ICE.smartDescription": "回合开始时：[gold]调谐{element:Ice}[/gold]使所有敌人获得[blue]{Stacks}[/blue]层结冰；[gold]超限3{element:Ice}[/gold]使所有敌人获得[blue]{Stacks}x2[/blue]层结冰。",
-    "STS2_STARBORN_ELEMENT_WIND.title": "风属性",
-    "STS2_STARBORN_ELEMENT_WIND.description": "调谐：抽1张牌。\n超限：抽1张牌。获得1点能量。",
-    "STS2_STARBORN_ELEMENT_WIND.smartDescription": "回合开始时：[gold]调谐{element:Wind}[/gold]抽1张牌；[gold]超限{element:Wind}{element:Wind}[/gold]抽1张牌并获得1点能量。",
-    "STS2_STARBORN_ELEMENT_LIGHT.title": "光属性",
-    "STS2_STARBORN_ELEMENT_LIGHT.description": "调谐：使所有敌人获得2倍当前层数的暴晒。\n超限：使所有敌人获得2倍当前层数的暴晒。造成5点攻击伤害。",
-    "STS2_STARBORN_ELEMENT_LIGHT.smartDescription": "回合开始时：[gold]调谐{element:Light}[/gold]使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒；[gold]超限{element:Light}{element:Light}[/gold]使所有敌人获得[blue]{Stacks}x2[/blue]层暴晒并造成5点攻击伤害。",
-
     "STS2_STARBORN_POWER_FAVORITE_POWER.title": "本命",
     "STS2_STARBORN_POWER_FAVORITE_POWER.description": "无法再切换[gold]奇波[/gold]。",
 
@@ -99,7 +79,7 @@
     "STS2_STARBORN_POWER_TIME_TO_FARM_POWER.smartDescription": "每回合开始时获得[blue]{Amount}[/blue]层[gold]奇波强化[/gold]。",
 
     "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.title": "狼神图腾",
-    "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.description": "在接下来的[blue]2[/blue]个回合开始时，获得[blue]5[/blue]点[gold]格挡[/gold]和{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.description": "在接下来的[blue]2[/blue]个回合开始时，获得[blue]5[/blue]点[gold]格挡[/gold]和{element:Water}{element:Water}。",
     "STS2_STARBORN_POWER_WOLF_TOTEM_POWER.smartDescription": "在接下来的[blue]{Amount}[/blue]个回合开始时，获得[blue]{Block}[/blue]点[gold]格挡[/gold]和{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_POWER_FREE_TUNING_POWER.title": "免费调谐",
@@ -130,15 +110,12 @@
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.description": "使用[gold]奇波牌[/gold]召唤奇波时，改为随机召唤[blue]1[/blue]只[gold]奇波[/gold]并使用其一张[gold]奇波战技[/gold]。",
     "STS2_STARBORN_POWER_RANDOM_DUTY_POWER.smartdescription": "使用[gold]奇波牌[/gold]召唤奇波时，改为随机召唤[blue]{Amount}[/blue]只[gold]奇波[/gold]并使用其一张[gold]奇波战技[/gold]。",
 
-    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.title": "狩猎姿态",
-    "STS2_STARBORN_POWER_HUNTER_STANCE_POWER.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。",
-
     "STS2_STARBORN_POWER_PROTEAN_POWER.title": "变换自在",
     "STS2_STARBORN_POWER_PROTEAN_POWER.description": "每当你切换属性时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。",
 
-    "STS2_STARBORN_POWER_RHYTHM_POWER.title": "律动",
-    "STS2_STARBORN_POWER_RHYTHM_POWER.description": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成[blue]3[/blue]点伤害。",
-    "STS2_STARBORN_POWER_RHYTHM_POWER.smartDescription": "每次进行[gold]调谐[/gold]或[gold]超限[/bold]后，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
+    "STS2_STARBORN_POWER_TANA_FLAME_RITUAL_POWER.title": "塔娜火祀",
+    "STS2_STARBORN_POWER_TANA_FLAME_RITUAL_POWER.description": "回合结束时，获得{ElementMarkSecondary:elementIcon()}。",
+    "STS2_STARBORN_POWER_TANA_FLAME_RITUAL_POWER.smartDescription": "在接下来的[blue]{Amount}[/blue]个回合结束时，获得{ElementMarkSecondary:elementIcon()}。",
 
     "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.title": "你已疾苦",
     "STS2_STARBORN_POWER_YOU_ARE_SUFFERING_POWER.description": "下回合开始时，抽[blue]2[/blue]张牌。",

@@ -46,20 +46,23 @@
     "STS2_STARBORN_CARD_BECAUSE_I_LOVE_EVERYONE_CARD.title": "因为我喜欢大家",
     "STS2_STARBORN_CARD_BECAUSE_I_LOVE_EVERYONE_CARD.description": "给予所有敌人X{IfUpgraded:show:+1}层[gold]易伤[/gold]、X{IfUpgraded:show:+1}层[gold]虚弱[/gold]、[gold]中毒[/gold]、[gold]灾祸[/gold]、[gold]消亡[/gold]、[gold]紧勒[/gold]。",
 
+    "STS2_STARBORN_CARD_TRUE_SWIPE_CARD.title": "手下无情",
+    "STS2_STARBORN_CARD_TRUE_SWIPE_CARD.description": "造成{Damage:diff()}点伤害。如果敌人生命值小于等于[blue]{Threshold:diff()}[/blue]点，将其生命值变为0。",
+
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.title": "耕种之时",
     "STS2_STARBORN_CARD_TIME_TO_FARM_CARD.description": "每回合开始时，获得{Empower:diff()}层[gold]奇波强化[/gold]。",
 
     "STS2_STARBORN_CARD_INDOMITABLE_HEART_CARD.title": "不屈之心",
     "STS2_STARBORN_CARD_INDOMITABLE_HEART_CARD.description": "如果这张牌在本场战斗首次打出，获得[blue]1[/blue]层[gold]缓冲[/gold]。\n获得{Block:diff()}点[gold]格挡[/gold]。如果怪物的攻击被完全格挡，将其[gold]击晕[/gold]。",
 
-    "STS2_STARBORN_CARD_HUNTER_STANCE_CARD.title": "狩猎姿态",
-    "STS2_STARBORN_CARD_HUNTER_STANCE_CARD.description": "本回合你每打出一张攻击牌，获得1层当前主属性印记。",
-
     "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.title": "氪金",
     "STS2_STARBORN_CARD_PAY_TO_WIN_CARD.description": "失去{Gold}金币。获得{Empower:diff()}层[gold]谐调强化[/gold]。",
 
     "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.title": "要我一直喷吗？",
     "STS2_STARBORN_CARD_SHOULD_I_KEEP_SPRAYING_CARD.description": "[gold]奇波[/gold]：[blue]碧羽灵龙[/blue]。给予所有敌人1层[gold]淹没[/gold]。对一名敌人造成{Damage:diff()}点伤害。对所有敌人造成{Dam2:diff()}点伤害。",
+
+    "STS2_STARBORN_CARD_TANA_FLAME_RITUAL_CARD.title": "塔娜火祀",
+    "STS2_STARBORN_CARD_TANA_FLAME_RITUAL_CARD.description": "在接下来的[blue]{Turns}[/blue]个回合结束时，获得{ElementMarkSecondary:elementIcon()}。",
 
     "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.title": "蓝白碗",
     "STS2_STARBORN_CARD_BLUE_WHITE_BOWL_CARD.description": "抽{Cards:diff()}张牌。\n{IfCanOverload:showOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
@@ -305,9 +308,6 @@
 
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.title": "滚动撞击",
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有一个敌人弹跳一次。",
-
-    "STS2_STARBORN_CARD_RHYTHM_CARD.title": "律动",
-    "STS2_STARBORN_CARD_RHYTHM_CARD.description": "每次进行[gold]调谐[/gold]或[gold]超限[/gold]后，对随机一名敌人造成{RhythmPower:diff()}点伤害。",
 
     "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.title": "覆甲犰",
     "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.description": "",
