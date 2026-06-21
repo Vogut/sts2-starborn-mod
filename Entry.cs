@@ -63,6 +63,7 @@ public class Entry
         patcher.RegisterPatch<CompactCardGridHoverTipPatch>();
         patcher.RegisterPatch<KiboAncientVisualPatch>();
         patcher.RegisterPatch<JadeTwigLeaningRoyalFanCardLibraryPatch>();
+        patcher.RegisterPatch<StarbornElementMarkHoverTipPatch>();
 #if DEBUG
         patcher.RegisterPatch<StarbornDebugPanelPatch>();
 #endif

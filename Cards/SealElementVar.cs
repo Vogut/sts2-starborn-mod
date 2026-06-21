@@ -7,6 +7,14 @@ using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Cards;
 
+internal enum SealElementVarKind
+{
+    Other,
+    ElementMark,
+    Tuning,
+    Overload,
+}
+
 public class SealElementVar : DynamicVar
 {
     private readonly Func<int>? _computeValue;
@@ -37,6 +45,13 @@ public class SealElementVar : DynamicVar
     }
 
     public SealElementType ElementType => _cachedType;
+    internal SealElementVarKind Kind { get; private set; } = SealElementVarKind.Other;
+
+    internal SealElementVar WithKind(SealElementVarKind kind)
+    {
+        Kind = kind;
+        return this;
+    }
 
     /// <summary>注入 Modify 预览函数，对标原版 <c>DamageVar.UpdateCardPreview</c> 调用 <c>Hook.ModifyDamage</c>。</summary>
     public SealElementVar WithModifyPreview(Func<CardModel, int, int> modifyPreview)

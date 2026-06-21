@@ -1,7 +1,6 @@
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using STS2_Starborn.Cards;
 using STS2_Starborn.Combat;
@@ -213,12 +212,9 @@ public partial class NElementMarkWidget : Control
         private void BuildHoverTips(Player player, MarkSlot slot, SealElementType elementType)
         {
             var elementPower = Element.StarbornElement.For(elementType);
+            var stacks = ElementMarkState.GetStacks(player, slot);
 
-            var title = new LocString("powers",
-                $"STS2_STARBORN_ELEMENT_{elementType.ToString().ToUpperInvariant()}.title");
-            var desc = elementPower.ElementDescription;
-
-            _hoverTips = new List<IHoverTip> { new HoverTip(title, desc, _icon.Texture) };
+            _hoverTips = new List<IHoverTip> { StarbornTipFactory.ElementMark(elementType, stacks) };
 
             var combatState = player.Creature.CombatState;
             if (combatState != null)

@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Hooks;
@@ -15,7 +14,6 @@ namespace STS2_Starborn.Powers;
 /// <summary>
 /// 律动：每次进行调谐或超限后，对随机一名敌人造成伤害。
 /// </summary>
-[RegisterPower]
 public class RhythmPower : StarbornPower, ITuningOverloadListener
 {
     public override PowerType Type => PowerType.Buff;

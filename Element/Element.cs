@@ -21,10 +21,11 @@ public abstract class StarbornElement
     };
 
     public abstract SealElementType Attribute { get; }
-    public abstract LocString ElementDescription { get; }
+    public virtual LocString ElementDescription => SealElementLocalization.Description(Attribute);
     public virtual int TuningConsume => 1;
     public virtual int OverloadConsume => 2;
     public virtual IEnumerable<PowerModel> AssociatedPowers => [];
+    public virtual IEnumerable<PowerModel> ElementEffectPowers => AssociatedPowers;
     public abstract Task OnThreshold(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null);
     public abstract Task OnEnhanced(PlayerChoiceContext ctx, Player owner, int stacks, CardModel? source = null, IReadOnlyList<Creature>? targets = null);
 

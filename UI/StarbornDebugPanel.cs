@@ -10,7 +10,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Ui.Shell;
@@ -475,8 +474,10 @@ public partial class StarbornDebugPanel : Control
     /// </summary>
     private static string ElementDisplayName(SealElementType et)
     {
-        var key = $"STS2_STARBORN_ELEMENT_{et.ToString().ToUpper()}.title";
-        var loc = new LocString("powers", key);
+        if (et == SealElementType.Any)
+            return et.ToString();
+
+        var loc = SealElementLocalization.Title(et);
         return loc.Exists() ? loc.GetFormattedText() : et.ToString();
     }
 

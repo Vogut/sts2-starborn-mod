@@ -51,7 +51,7 @@ public abstract class StarbornCard(
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,
-        };
+        }.WithKind(SealElementVarKind.Tuning);
         v.WithModifyPreview((card, value) =>
         {
             var cs = card.Owner?.Creature?.CombatState;
@@ -76,7 +76,7 @@ public abstract class StarbornCard(
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,
-        };
+        }.WithKind(SealElementVarKind.Overload);
         v.WithModifyPreview((card, value) =>
         {
             var cs = card.Owner?.Creature?.CombatState;
@@ -101,7 +101,7 @@ public abstract class StarbornCard(
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,
-        };
+        }.WithKind(SealElementVarKind.ElementMark);
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;

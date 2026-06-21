@@ -7,14 +7,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 using STS2_Starborn.Combat;
 using STS2_Starborn.Commands;
 
 namespace STS2_Starborn.Powers;
 
-[RegisterPower]
 public class HunterStancePower : StarbornPower
 {
     public override PowerType Type => PowerType.Buff;

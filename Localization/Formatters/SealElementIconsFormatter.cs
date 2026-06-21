@@ -6,6 +6,41 @@ using STS2_Starborn.Element;
 
 namespace STS2_Starborn.Localization.Formatters;
 
+[RegisterSmartFormatSource]
+public class SealElementLiteralSource : ISource
+{
+    public bool TryEvaluateSelector(ISelectorInfo selectorInfo)
+    {
+        if (!string.Equals(selectorInfo.SelectorText, "element", StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        selectorInfo.Result = SealElementLiteralValue.Instance;
+        return true;
+    }
+}
+
+internal sealed class SealElementLiteralValue : IFormattable
+{
+    internal static readonly SealElementLiteralValue Instance = new();
+
+    private SealElementLiteralValue()
+    {
+    }
+
+    public string ToString(string? format, IFormatProvider? formatProvider)
+    {
+        if (!Enum.TryParse<SealElementType>(format, ignoreCase: true, out var elementType))
+            return string.Empty;
+
+        return $"[img=center]{Const.Paths.ElementIcon(elementType)}[/img]";
+    }
+
+    public override string ToString()
+    {
+        return string.Empty;
+    }
+}
+
 [RegisterSmartFormatter]
 public class SealElementIconsFormatter : IFormatter
 {

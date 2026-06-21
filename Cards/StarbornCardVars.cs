@@ -17,6 +17,7 @@ public static class StarbornCardVars
 {
     public static DynamicVar ElementMark(int stacks, SealElementType elementType = SealElementType.None, string name = "ElementMark") =>
         new SealElementVar(name, stacks, elementType)
+            .WithKind(SealElementVarKind.ElementMark)
             .WithTooltip(var =>
             {
                 var sev = (SealElementVar)var;
@@ -25,6 +26,7 @@ public static class StarbornCardVars
 
     public static DynamicVar Tuning(int stacks, SealElementType elementType = SealElementType.None, string name = "Tuning") =>
         new SealElementVar(name, stacks, elementType)
+            .WithKind(SealElementVarKind.Tuning)
             .WithModifyPreview((card, v) =>
             {
                 var combatState = card.Owner.Creature.CombatState;
@@ -40,6 +42,7 @@ public static class StarbornCardVars
 
     public static DynamicVar Overload(int stacks, SealElementType elementType = SealElementType.None, string name = "Overload") =>
         new SealElementVar(name, stacks, elementType)
+            .WithKind(SealElementVarKind.Overload)
             .WithModifyPreview((card, v) =>
             {
                 var combatState = card.Owner.Creature.CombatState;
@@ -55,7 +58,8 @@ public static class StarbornCardVars
 
     internal static DynamicVar ComputedTuning(Func<int> value, Func<SealElementType> type, string name = "Tuning")
     {
-        var v = new SealElementVar(name, value, type);
+        var v = new SealElementVar(name, value, type)
+            .WithKind(SealElementVarKind.Tuning);
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
@@ -66,7 +70,8 @@ public static class StarbornCardVars
 
     internal static DynamicVar ComputedOverload(Func<int> value, Func<SealElementType> type, string name = "Overload")
     {
-        var v = new SealElementVar(name, value, type);
+        var v = new SealElementVar(name, value, type)
+            .WithKind(SealElementVarKind.Overload);
         v.WithTooltip(var =>
         {
             var sev = (SealElementVar)var;
