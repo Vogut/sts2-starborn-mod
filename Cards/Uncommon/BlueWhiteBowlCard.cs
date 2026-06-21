@@ -21,18 +21,34 @@ public sealed class BlueWhiteBowlCard() : StarbornCard(
         new CardsVar(2),
         StarbornCardVars.Tuning(1, SealElementType.Wind),
         StarbornCardVars.Overload(2, SealElementType.Wind),
-        StarbornCardVars.IfCanOverload(),
+        StarbornCardVars.IfCanOverload(MarkSlot.Secondary),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         await CardPileCmd.Draw(
             choiceContext, DynamicVars.Cards.IntValue, Owner);
-        await StarbornCmd.Tuning(
-            choiceContext, MarkSlot.Secondary, Owner,
-            DynamicVars["Tuning"].IntValue,
-            SealElementType.Wind, this);
+
+        var canOverload = StarbornCmd.CanOverload(Owner, MarkSlot.Secondary);
+        var elementType = canOverload
+            ? ((SealElementVar)DynamicVars["Overload"]).ElementType
+            : ((SealElementVar)DynamicVars["Tuning"]).ElementType;
+        var consume = canOverload
+            ? DynamicVars["Overload"].IntValue
+            : DynamicVars["Tuning"].IntValue;
+
+        if (canOverload)
+        {
+            await StarbornCmd.Overload(
+                choiceContext, MarkSlot.Secondary, Owner,
+                consume, elementType, this);
+        }
+        else
+        {
+            await StarbornCmd.Tuning(
+                choiceContext, MarkSlot.Secondary, Owner,
+                consume, elementType, this);
+        }
     }
 
     protected override void OnUpgrade()

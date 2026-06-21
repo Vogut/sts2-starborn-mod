@@ -44,18 +44,18 @@ public partial class Starborn : ModCharacterTemplate<StarbornCardPool, StarbornR
 			Ui: new(
 				// 人物头像路径。
 				IconTexturePath: "res://STS2_Starborn/starborn/character/icon.png",
-				// 人物头像2号。
+				// 游戏左上角头像、角色统计页头像、每日挑战角色头像。这个是场景而不是图片。参考下方附赠资源搭建。
 				IconPath: "res://STS2_Starborn/scenes/starborn_icon.tscn",
 				// 人物选择背景。
 				CharacterSelectBgPath: Const.Paths.CharacterSelectBg,
 				// 人物选择图标。
 				CharacterSelectIconPath: Const.Paths.CharacterSelectIcon,
 				// 人物选择图标-锁定状态。
-				CharacterSelectLockedIconPath: Const.Paths.CharacterSelectLockedIcon
+				CharacterSelectLockedIconPath: Const.Paths.CharacterSelectLockedIcon,
 				// 人物选择过渡动画。
 				// CharacterSelectTransitionPath: "res://materials/transitions/ironclad_transition_mat.tres",
 				// 地图上的角色标记图标、表情轮盘上的角色头像
-				// MapMarkerPath: null
+				MapMarkerPath: "res://STS2_Starborn/starborn/character/icon.png"
 			),
 			Vfx: new(
 				// 卡牌拖尾场景。
