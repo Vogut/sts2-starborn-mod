@@ -1,6 +1,6 @@
 {
     "STS2_STARBORN_RELIC_STAR_BOUND_CARD_RELIC.title": "星结卡",
-    "STS2_STARBORN_RELIC_STAR_BOUND_CARD_RELIC.description": "战斗开始时获得{PrimaryMark:elementIcon()}/{SecondaryMark:elementIcon()}。",
+    "STS2_STARBORN_RELIC_STAR_BOUND_CARD_RELIC.description": "每打出[blue]{Cards}[/blue]张技能牌，获得{PrimaryMark:elementIcon()}。每打出[blue]{Cards}[/blue]张攻击牌，获得{SecondaryMark:elementIcon()}。",
     "STS2_STARBORN_RELIC_STAR_BOUND_CARD_RELIC.flavor": "卡牌抓的奇波，一定要用卡牌来玩。",
 
     "STS2_STARBORN_RELIC_WISDOM_CUBE.title": "心智魔方",
@@ -31,6 +31,6 @@
     "STS2_STARBORN_RELIC_CHICK_DOLL_RELIC.description": "每回合第一次召唤奇波时，使用其[gold]奇波战技[/gold]。",
     "STS2_STARBORN_RELIC_CHICK_DOLL_RELIC.flavor": "荤素搭配",
     "STS2_STARBORN_RELIC_WANDERING_STARLINES_RELIC.title": "游离的星轨",
-    "STS2_STARBORN_RELIC_WANDERING_STARLINES_RELIC.description": "回合开始时若你未触发[gold]调谐[/gold]/[gold]超限[/gold]，获得{PrimaryMark:elementIcon()}/{SecondaryMark:elementIcon()}当前属性印记。\n每回合第一次[gold]调谐[/gold]/[gold]超限[/gold]时，获得{Energy:energyIcons()}。",
+    "STS2_STARBORN_RELIC_WANDERING_STARLINES_RELIC.description": "每打出[blue]{Cards}[/blue]张技能牌，获得{PrimaryMark:elementIcon()}。每打出[blue]{Cards}[/blue]张攻击牌，获得{SecondaryMark:elementIcon()}。\n每回合第一次[gold]调谐[/gold]/[gold]超限[/gold]时，获得{Energy:energyIcons()}。",
     "STS2_STARBORN_RELIC_WANDERING_STARLINES_RELIC.flavor": "神秘小道具"
 }

@@ -18,6 +18,7 @@ public sealed class ElementMarkManager : HookedSingletonModel
 {
     public const int MaxSealStacks = 5;
     public const int ThresholdStacks = 3;
+    public const int MarkProgressThreshold = 2;
 
     private static readonly MarkSlot[] Slots = [MarkSlot.Primary, MarkSlot.Secondary];
 
@@ -79,6 +80,47 @@ public sealed class ElementMarkManager : HookedSingletonModel
         else
             data.SecondaryElementType = raw;
         ElementMarkState.NotifyMarksChanged();
+    }
+
+    public int GetProgress(Player player, MarkSlot slot)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        return slot == MarkSlot.Primary ? data.PrimaryProgress : data.SecondaryProgress;
+    }
+
+    public bool TryGetProgress(Player player, MarkSlot slot, out int progress)
+    {
+        progress = 0;
+        if (!ElementMarkDataStore.TryGet(player, out var data) || data == null)
+            return false;
+
+        progress = slot == MarkSlot.Primary ? data.PrimaryProgress : data.SecondaryProgress;
+        return true;
+    }
+
+    public void SetProgress(Player player, MarkSlot slot, int progress)
+    {
+        var data = ElementMarkDataStore.Get(player);
+        progress = Math.Clamp(progress, 0, MarkProgressThreshold - 1);
+        var current = slot == MarkSlot.Primary ? data.PrimaryProgress : data.SecondaryProgress;
+        if (current == progress) return;
+
+        if (slot == MarkSlot.Primary)
+            data.PrimaryProgress = progress;
+        else
+            data.SecondaryProgress = progress;
+
+        ElementMarkState.NotifyMarkProgressChanged(new MarkProgressChange(
+            player, slot, current, progress, MarkProgressThreshold));
+    }
+
+    public void ResetProgress(Player player)
+    {
+        if (!ElementMarkDataStore.TryGet(player, out var data) || data == null)
+            return;
+
+        SetProgress(player, MarkSlot.Primary, 0);
+        SetProgress(player, MarkSlot.Secondary, 0);
     }
 
     // ── Switch tracking ──

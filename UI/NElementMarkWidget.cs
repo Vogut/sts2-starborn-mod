@@ -31,6 +31,7 @@ public partial class NElementMarkWidget : Control
     {
         ElementMarkState.MarksChanged += Refresh;
         ElementMarkState.MarkVisualChanged += OnMarkVisualChanged;
+        ElementMarkState.MarkProgressChanged += OnMarkProgressChanged;
         Refresh();
     }
 
@@ -38,6 +39,7 @@ public partial class NElementMarkWidget : Control
     {
         ElementMarkState.MarksChanged -= Refresh;
         ElementMarkState.MarkVisualChanged -= OnMarkVisualChanged;
+        ElementMarkState.MarkProgressChanged -= OnMarkProgressChanged;
     }
 
     public void Initialize(Player player)
@@ -59,9 +61,12 @@ public partial class NElementMarkWidget : Control
         var secondaryType = ElementMarkState.GetElementType(_player, MarkSlot.Secondary);
         var primaryStacks = ElementMarkState.GetStacks(_player, MarkSlot.Primary);
         var secondaryStacks = ElementMarkState.GetStacks(_player, MarkSlot.Secondary);
+        var primaryProgress = ElementMarkState.GetProgress(_player, MarkSlot.Primary);
+        var secondaryProgress = ElementMarkState.GetProgress(_player, MarkSlot.Secondary);
 
         Visible = primaryType != SealElementType.None || secondaryType != SealElementType.None
-            || primaryStacks > 0 || secondaryStacks > 0;
+            || primaryStacks > 0 || secondaryStacks > 0
+            || primaryProgress > 0 || secondaryProgress > 0;
 
         _primary.UpdateDisplay(_player, MarkSlot.Primary);
         _secondary.UpdateDisplay(_player, MarkSlot.Secondary);
@@ -76,6 +81,14 @@ public partial class NElementMarkWidget : Control
         var slotIcon = change.Slot == MarkSlot.Primary ? _primary : _secondary;
         slotIcon.Visible = true;
         slotIcon.PlayFeedback(change, Refresh);
+    }
+
+    private void OnMarkProgressChanged(MarkProgressChange change)
+    {
+        if (_player == null || _player.NetId != change.Player.NetId)
+            return;
+
+        Refresh();
     }
 
     public override void _Process(double delta)
@@ -98,6 +111,8 @@ public partial class NElementMarkWidget : Control
     private partial class MarkSlotIcon : Control
     {
         private TextureRect _icon = null!;
+        private Control _progressClip = null!;
+        private TextureRect _progressIcon = null!;
         private Label _label = null!;
         private List<IHoverTip>? _hoverTips;
         private Tween? _feedbackTween;
@@ -121,6 +136,26 @@ public partial class NElementMarkWidget : Control
                 CustomMinimumSize = new Vector2(IconSize, IconSize),
             };
             AddChild(_icon);
+
+            _progressClip = new Control
+            {
+                Size = new Vector2(IconSize, IconSize),
+                CustomMinimumSize = new Vector2(IconSize, IconSize),
+                ClipContents = true,
+                MouseFilter = MouseFilterEnum.Ignore,
+                Visible = false,
+            };
+            AddChild(_progressClip);
+
+            _progressIcon = new TextureRect
+            {
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                Size = new Vector2(IconSize, IconSize),
+                CustomMinimumSize = new Vector2(IconSize, IconSize),
+                MouseFilter = MouseFilterEnum.Ignore,
+            };
+            _progressClip.AddChild(_progressIcon);
 
             _label = new Label
             {
@@ -149,16 +184,35 @@ public partial class NElementMarkWidget : Control
 
             var elementType = ElementMarkState.GetElementType(player, slot);
             var stacks = ElementMarkState.GetStacks(player, slot);
+            var progress = ElementMarkState.GetProgress(player, slot);
 
             var iconPath = Const.Paths.ElementIcon(elementType);
-            if (ResourceLoader.Exists(iconPath))
-                _icon.Texture = ResourceLoader.Load<Texture2D>(iconPath);
+            var texture = ResourceLoader.Exists(iconPath)
+                ? ResourceLoader.Load<Texture2D>(iconPath)
+                : null;
+            _icon.Texture = texture;
+            _progressIcon.Texture = texture;
+            UpdateProgressVisual(progress, ElementMarkState.MarkProgressThreshold);
 
             _label.Text = stacks.ToString();
 
             BuildHoverTips(player, slot, elementType);
 
             Visible = true;
+        }
+
+        private void UpdateProgressVisual(int progress, int threshold)
+        {
+            var hasProgress = threshold > 0 && progress > 0;
+            _progressClip.Visible = hasProgress;
+            _icon.Modulate = hasProgress ? new Color(0.34f, 0.34f, 0.34f, 0.72f) : Colors.White;
+            if (!hasProgress) return;
+
+            var fill = IconSize * Math.Clamp(progress / (float)threshold, 0f, 1f);
+            _progressClip.Size = new Vector2(IconSize, fill);
+            _progressClip.Position = new Vector2(0f, IconSize - fill);
+            _progressIcon.Size = new Vector2(IconSize, IconSize);
+            _progressIcon.Position = new Vector2(0f, -_progressClip.Position.Y);
         }
 
         public void PlayFeedback(MarkVisualChange change, Action? finished = null)

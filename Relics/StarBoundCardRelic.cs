@@ -39,6 +39,7 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
+        new CardsVar(ElementMarkState.MarkProgressThreshold),
         StarbornCardVars.ElementMark(1, SealElementType.Any, "PrimaryMark"),
         StarbornCardVars.ElementMark(1, SealElementType.Any, "SecondaryMark")
     ];
@@ -82,18 +83,52 @@ public class StarBoundCardRelic : StarbornRelic, IAutoTriggerListener
             new List<CardModel> { summonCard }, PileType.Hand, base.Owner);
     }
 
+    public override Task BeforeCombatStart()
+    {
+        ElementMarkState.ResetProgress(base.Owner);
+        return Task.CompletedTask;
+    }
+
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (base.Owner.PlayerCombatState == null ||
+            cardPlay.Card.Owner != base.Owner ||
+            cardPlay.IsAutoPlay)
+            return;
+
+        if (cardPlay.Card.Type == CardType.Skill)
+            await AdvanceProgress(choiceContext, MarkSlot.Primary);
+        else if (cardPlay.Card.Type == CardType.Attack)
+            await AdvanceProgress(choiceContext, MarkSlot.Secondary);
+    }
+
+    private async Task AdvanceProgress(PlayerChoiceContext ctx, MarkSlot slot)
+    {
+        var progress = ElementMarkState.GetProgress(base.Owner, slot) + 1;
+        if (progress < DynamicVars.Cards.IntValue)
+        {
+            ElementMarkState.SetProgress(base.Owner, slot, progress);
+            return;
+        }
+
+        ElementMarkState.SetProgress(base.Owner, slot, 0);
+        Flash();
+        await SealElementMarkCmd.GainElementMarks(
+            ctx,
+            slot,
+            base.Owner,
+            DynamicVars[slot == MarkSlot.Primary ? "PrimaryMark" : "SecondaryMark"].IntValue);
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        ElementMarkState.ResetProgress(base.Owner);
+        return Task.CompletedTask;
+    }
+
     // IAutoTriggerListener 实现
     public async Task AfterAutoTrigger(PlayerChoiceContext ctx, bool anyTriggered)
     {
-        // 若本回合开始时未触发调谐/超限，给主副属性各+1层（包括 None）
-        if (!anyTriggered)
-        {
-            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Primary, base.Owner,
-                DynamicVars["PrimaryMark"].IntValue);
-            await SealElementMarkCmd.GainElementMarks(ctx, MarkSlot.Secondary, base.Owner,
-                DynamicVars["SecondaryMark"].IntValue);
-        }
-
         if (base.Owner.PlayerCombatState?.TurnNumber != 1)
             return;
 

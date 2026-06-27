@@ -16,6 +16,8 @@ public sealed class ElementMarkData
     public string? PrimaryElementType;
     public int SecondaryStacks;
     public string? SecondaryElementType;
+    public int PrimaryProgress;
+    public int SecondaryProgress;
 
     // 计数器
     public int TuningTotalCount;

@@ -25,10 +25,18 @@ public readonly record struct MarkVisualChange(
     int NewStacks,
     MarkVisualChangeKind Kind);
 
+public readonly record struct MarkProgressChange(
+    Player Player,
+    MarkSlot Slot,
+    int OldProgress,
+    int NewProgress,
+    int Threshold);
+
 public static class ElementMarkState
 {
     public const int MaxSealStacks = ElementMarkManager.MaxSealStacks;
     public const int ThresholdStacks = ElementMarkManager.ThresholdStacks;
+    public const int MarkProgressThreshold = ElementMarkManager.MarkProgressThreshold;
 
     internal static ElementMarkManager Manager => ModelDb.Singleton<ElementMarkManager>();
 
@@ -37,6 +45,9 @@ public static class ElementMarkState
 
     public static event Action<MarkVisualChange>? MarkVisualChanged;
     public static void NotifyMarkVisualChanged(MarkVisualChange change) => MarkVisualChanged?.Invoke(change);
+
+    public static event Action<MarkProgressChange>? MarkProgressChanged;
+    public static void NotifyMarkProgressChanged(MarkProgressChange change) => MarkProgressChanged?.Invoke(change);
 
     public static int GetStacks(Player player, MarkSlot slot) =>
         Manager.GetStacks(player, slot);
@@ -55,4 +66,16 @@ public static class ElementMarkState
 
     public static void SetElementType(Player player, MarkSlot slot, SealElementType elementType) =>
         Manager.SetElementType(player, slot, elementType);
+
+    public static int GetProgress(Player player, MarkSlot slot) =>
+        Manager.GetProgress(player, slot);
+
+    public static bool TryGetProgress(Player player, MarkSlot slot, out int progress) =>
+        Manager.TryGetProgress(player, slot, out progress);
+
+    public static void SetProgress(Player player, MarkSlot slot, int progress) =>
+        Manager.SetProgress(player, slot, progress);
+
+    public static void ResetProgress(Player player) =>
+        Manager.ResetProgress(player);
 }
