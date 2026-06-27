@@ -35,6 +35,18 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
             await KiboPileManager.InitializeForCombat(player);
     }
 
+    public override Task BeforeSideTurnStart(
+        PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    {
+        if (side != CombatSide.Player)
+            return Task.CompletedTask;
+
+        foreach (var player in combatState.Players)
+            KiboUltimateCooldownState.ReduceCooldowns(player);
+
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 玩家回合结束时，从活跃牌堆中随机自动打出一张普通战技牌。
     /// </summary>
@@ -53,6 +65,15 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
             return;
 
         await KiboCmd.TryAutoPlayRandomNormalCard(player, combatState);
+    }
+
+    public bool ShouldPreventKiboAutoPlay(CardModel card)
+    {
+        if (!card.HasModKeyword(KiboKeywords.UltimateKeyword))
+            return false;
+
+        var kiboType = KiboPileManager.GetKiboType(card);
+        return kiboType != null && KiboUltimateCooldownState.IsCoolingDown(card.Owner, kiboType);
     }
 
     /// <summary>
@@ -91,11 +112,14 @@ public sealed class KiboCombatManager : HookedSingletonModel, IKiboCardPlayListe
     /// </summary>
     public async Task AfterKiboCardAutoPlayed(CardModel card)
     {
-        if (card.Pile == null || card.Pile.Type == PileType.Exhaust || !card.Pile.Type.IsCombatPile())
-            return;
-
         var kiboType = KiboPileManager.GetKiboType(card);
         if (kiboType == null) return;
+
+        if (card.HasModKeyword(KiboKeywords.UltimateKeyword))
+            KiboUltimateCooldownState.StartCooldown(card.Owner, kiboType);
+
+        if (card.Pile == null || card.Pile.Type == PileType.Exhaust || !card.Pile.Type.IsCombatPile())
+            return;
 
         // 奇波仍在活跃中（基于追踪器而非牌堆扫描）→ 无需修正
         if (KiboPileManager.IsKiboTypeActive(card.Owner, kiboType))

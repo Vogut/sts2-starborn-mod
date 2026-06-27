@@ -4,7 +4,7 @@
     "STS2_STARBORN_KEYWORD_KIBO_NORMAL.title": "奇波战技",
     "STS2_STARBORN_KEYWORD_KIBO_NORMAL.description": "奇波的一般技能，回合结束时会从目前的所有战技中随机挑选一张自动使用。",
     "STS2_STARBORN_KEYWORD_KIBO_ULTIMATE.title": "奇波特技",
-    "STS2_STARBORN_KEYWORD_KIBO_ULTIMATE.description": "更强大的奇波战技，不会自动使用。",
+    "STS2_STARBORN_KEYWORD_KIBO_ULTIMATE.description": "更强大的奇波战技，不会自动使用。每只奇波每回合只能使用一次奇波特技。",
     "STS2_STARBORN_KEYWORD_BOUNCE.title": "弹跳",
     "STS2_STARBORN_KEYWORD_BOUNCE.description": "造成多次伤害，每次伤害的目标与上次不同。若只有一名敌人，有效次数-2。",
     "STS2_STARBORN_KEYWORD_KIBO_PILE_MEMBER.title": "",

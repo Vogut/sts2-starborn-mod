@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 using STS2RitsuLib.CardPiles;
 using STS2_Starborn.Cards.Kibo;
 using STS2_Starborn.Cards.Pile;
+using STS2_Starborn.Combat;
 
 namespace STS2_Starborn.UI;
 
@@ -29,6 +30,8 @@ public partial class NKiboWidget : Control
     private AtlasTexture _atlas = null!;
     private TextureRect _sprite = null!;
     private TextureRect _pedestal = null!;
+    private ColorRect _cooldownOverlay = null!;
+    private Label _cooldownLabel = null!;
     private Label _nameLabel = null!;
     private Label _pileCount = null!;
     private Player? _player;
@@ -45,6 +48,7 @@ public partial class NKiboWidget : Control
     public override void _Ready()
     {
         KiboPileManager.ActiveKiboChanged += OnActiveKiboChanged;
+        KiboUltimateCooldownState.CooldownsChanged += OnKiboCooldownsChanged;
         ApplyLayout();
         Refresh();
     }
@@ -52,6 +56,7 @@ public partial class NKiboWidget : Control
     public override void _ExitTree()
     {
         KiboPileManager.ActiveKiboChanged -= OnActiveKiboChanged;
+        KiboUltimateCooldownState.CooldownsChanged -= OnKiboCooldownsChanged;
     }
 
     public void Initialize(Player player)
@@ -66,6 +71,7 @@ public partial class NKiboWidget : Control
         if (_player == null)
         {
             Visible = false;
+            UpdateCooldownDisplay(null);
             return;
         }
 
@@ -73,6 +79,7 @@ public partial class NKiboWidget : Control
         if (typeId == null)
         {
             Visible = false;
+            UpdateCooldownDisplay(null);
             return;
         }
 
@@ -80,6 +87,7 @@ public partial class NKiboWidget : Control
         Visible = true;
 
         _atlas.Atlas = GD.Load<Texture2D>(def.PixelAnimationPath);
+        UpdateCooldownDisplay(typeId);
         UpdateFlightTargetPosition();
     }
 
@@ -105,6 +113,10 @@ public partial class NKiboWidget : Control
 
         _sprite.Position = Vector2.Zero;
         _sprite.Size = new Vector2(spriteW, spriteH);
+        _cooldownOverlay.Position = Vector2.Zero;
+        _cooldownOverlay.Size = new Vector2(spriteW, spriteH);
+        _cooldownLabel.Position = Vector2.Zero;
+        _cooldownLabel.Size = new Vector2(spriteW, spriteH);
 
         _pedestal.Position = new Vector2(0, spriteH - overlap);
         _pedestal.Size = new Vector2(spriteW, pedH);
@@ -139,6 +151,28 @@ public partial class NKiboWidget : Control
         };
         AddChild(_sprite);
 
+        _cooldownOverlay = new ColorRect
+        {
+            Color = new Color(0f, 0f, 0f, 0.45f),
+            MouseFilter = MouseFilterEnum.Ignore,
+            Visible = false,
+        };
+        AddChild(_cooldownOverlay);
+
+        _cooldownLabel = new Label
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            MouseFilter = MouseFilterEnum.Ignore,
+            Visible = false,
+        };
+        _cooldownLabel.AddThemeColorOverride("font_color", Colors.White);
+        _cooldownLabel.AddThemeColorOverride("font_shadow_color", Colors.Black);
+        _cooldownLabel.AddThemeConstantOverride("shadow_offset_x", 2);
+        _cooldownLabel.AddThemeConstantOverride("shadow_offset_y", 2);
+        _cooldownLabel.AddThemeFontSizeOverride("font_size", 42);
+        AddChild(_cooldownLabel);
+
         _nameLabel = new Label
         {
             VerticalAlignment = VerticalAlignment.Center,
@@ -154,6 +188,19 @@ public partial class NKiboWidget : Control
     }
 
     private void OnActiveKiboChanged() => Refresh();
+    private void OnKiboCooldownsChanged() => Refresh();
+
+    private void UpdateCooldownDisplay(string? typeId)
+    {
+        var remainingTurns = _player != null && typeId != null
+            ? KiboUltimateCooldownState.GetRemainingTurns(_player, typeId)
+            : 0;
+
+        var visible = remainingTurns > 0;
+        _cooldownOverlay.Visible = visible;
+        _cooldownLabel.Visible = visible;
+        _cooldownLabel.Text = visible ? remainingTurns.ToString() : string.Empty;
+    }
 
     public override void _GuiInput(InputEvent @event)
     {

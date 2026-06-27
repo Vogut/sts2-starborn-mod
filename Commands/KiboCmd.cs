@@ -181,6 +181,7 @@ public static class KiboCmd
 
         var cards = pile.Cards
             .Where(c => c.HasModKeyword(keyword))
+            .Where(c => !IsKiboUltimateCoolingDown(c, keyword))
             .Where(c => CanResolveAutoPlayTarget(c, combatState))
             .ToList();
         if (cards.Count == 0) return false;
@@ -193,6 +194,15 @@ public static class KiboCmd
         await KiboHooks.AfterKiboRandomAutoPlay(combatState, card, keywordId);
 
         return true;
+    }
+
+    private static bool IsKiboUltimateCoolingDown(CardModel card, CardKeyword keyword)
+    {
+        if (keyword != KiboKeywords.UltimateKeyword)
+            return false;
+
+        var kiboType = KiboPileManager.GetKiboType(card);
+        return kiboType != null && KiboUltimateCooldownState.IsCoolingDown(card.Owner, kiboType);
     }
 
     private static bool CanResolveAutoPlayTarget(CardModel card, ICombatState combatState)
