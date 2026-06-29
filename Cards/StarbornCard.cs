@@ -47,7 +47,7 @@ public abstract class StarbornCard(
         if (elementType != SealElementType.Any)
             return StarbornCardVars.Tuning(stacks, elementType, name);
 
-        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, stacks, SealElementType.Any)
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,
@@ -72,7 +72,7 @@ public abstract class StarbornCard(
         if (elementType != SealElementType.Any)
             return StarbornCardVars.Overload(stacks, elementType, name);
 
-        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, stacks, SealElementType.Any)
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,
@@ -97,7 +97,7 @@ public abstract class StarbornCard(
         if (elementType != SealElementType.Any)
             return StarbornCardVars.ElementMark(stacks, elementType, name);
 
-        var v = new SealElementVar(name, () => stacks, () => SealElementType.Any)
+        var v = new SealElementVar(name, stacks, SealElementType.Any)
         {
             ResolveFromCurrentMark = true,
             ResolveSlot = resolveSlot,

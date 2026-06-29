@@ -307,16 +307,16 @@
     "STS2_STARBORN_CARD_WIND_ARROW_CARD.description": "造成{Damage:diff()}点伤害。{IfCanOverload:showOverload:[gold]超限{Overload:elementIcon()}[/gold]|[gold]调谐{Tuning:elementIcon()}[/gold]}。",
 
     "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.title": "滚动撞击",
-    "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有一个敌人弹跳一次。",
+    "STS2_STARBORN_CARD_ROLLING_IMPACT_CARD.description": "[gold]奇波[/gold]：[blue]覆甲犰[/blue]。造成{Damage:diff()}点伤害，每有1个敌人[gold]弹跳[/gold]2次。",
 
     "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.title": "覆甲犰",
     "STS2_STARBORN_CARD_KIBO_ARMORED_PANGOLIN_REP_CARD.description": "",
 
     "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.title": "惯性滚动",
-    "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce:diff()}次。",
+    "STS2_STARBORN_CARD_KIBO_INERTIA_ROLL_CARD.description": "造成{Damage:diff()}点伤害，[gold]弹跳[/gold]{Bounce:diff()}次。",
 
     "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.title": "滚动火球",
-    "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.description": "造成{Damage:diff()}点伤害，弹跳{Bounce:diff()}次。每次造成伤害获得{ElementMark:elementIcon()}。",
+    "STS2_STARBORN_CARD_KIBO_ROLLING_FIRE_CARD.description": "造成{Damage:diff()}点伤害，[gold]弹跳[/gold]Bounce:diff()}次。每次造成伤害获得{ElementMark:elementIcon()}。",
 
     "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_REP_CARD.title": "绒心布里尼",
     "STS2_STARBORN_CARD_KIBO_DOWNYBRINNY_REP_CARD.description": "",
@@ -500,7 +500,7 @@
     "STS2_STARBORN_CARD_GALE_FEATHER_THROW_CARD.description": "造成{Damage:diff()}点伤害。获得{ElementMark:elementIcon()}。\n每当你打出攻击牌，将此牌从[gold]弃牌堆[/gold]放回你的[gold]手牌[/gold]。",
 
     "STS2_STARBORN_CARD_THUNDER_ASSAULT_CARD.title": "雷电强袭",
-    "STS2_STARBORN_CARD_THUNDER_ASSAULT_CARD.description": "失去2层主属性印记。造成{Damage:diff()}点伤害弹跳{Repeat:diff()}次。",
+    "STS2_STARBORN_CARD_THUNDER_ASSAULT_CARD.description": "失去2层主属性印记。造成{Damage:diff()}点伤害[gold]弹跳[/gold]{Repeat:diff()}次。",
 
     "STS2_STARBORN_CARD_TAILWIND_CARD.title": "顺风",
     "STS2_STARBORN_CARD_TAILWIND_CARD.description": "[gold]奇波[/gold]：森彩灵蝶。\n回合开始时[gold]调谐{Tuning:elementIcon()}[/gold]。",
