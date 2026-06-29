@@ -36,7 +36,7 @@ public class DrownPower : StarbornPower
             return 1m;
         if (!cardSource.HasModKeyword(KiboKeywords.PileMemberKeyword))
             return 1m;
-        return 1m + Amount;
+        return 1.5m;
     }
 
     public override Task AfterModifyingDamageAmount(CardModel? cardSource)
